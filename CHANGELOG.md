@@ -5,6 +5,7 @@ CHANGELOG
 ---------
 * Blog
 	* Replaced the scheduled agent that periodically fecthed GitHub repo data with a <xe:restJsonService/> data source
+	* Added SyntaxHighligher
 * Java/JRuby
 	* Ruby "Script Libraries" are now compiled and stored in the application scope on first request. That compiled form is then used on all subsequent requests, which should theoretically provide a performance boost
 

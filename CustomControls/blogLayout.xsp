@@ -28,6 +28,13 @@
 		
 		<xp:dojoModule name="dojo.behavior"/>
 		<xp:script src="/behavior.js" type="text/javascript" clientSide="true"/>
+		
+		<xp:script src="/shCore.js" type="text/javascript" clientSide="true"/>
+		<xp:script src="/shBrushJScript.js" type="text/javascript" clientSide="true"/>
+		<xp:script src="/shBrushJava.js" type="text/javascript" clientSide="true"/>
+		<xp:script src="/shBrushRuby.js" type="text/javascript" clientSide="true"/>
+		<xp:script src="/shBrushVb.js" type="text/javascript" clientSide="true"/>
+		<xp:styleSheet href="/shCoreEclipse.css"/>
 	</xp:this.resources>
 
 	<xc:googleAnalytics loaded="${gaAccountID != ''}" accountId="${gaAccountID}" />
@@ -126,4 +133,6 @@
 			</p>
 		</footer>
 	</div>
-</xp:view>
+	<xp:eventHandler event="onClientLoad" submit="false">
+		<xp:this.script><![CDATA[SyntaxHighlighter.all()]]></xp:this.script>
+	</xp:eventHandler></xp:view>

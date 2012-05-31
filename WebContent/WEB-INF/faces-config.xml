@@ -10,18 +10,16 @@
     <managed-bean-class>frostillicus.Akismet</managed-bean-class>
     <managed-bean-scope>request</managed-bean-scope>
   </managed-bean>
-  
   <!-- GitHub REST API -->
   <managed-bean>
-  	<managed-bean-name>GitHub</managed-bean-name>
-  	<managed-bean-class>com.ibm.xsp.extlib.sbt.services.client.endpoints.BasicEndpointBean</managed-bean-class>
-  	<managed-bean-scope>application</managed-bean-scope>
-  	<managed-property>
-  		<property-name>url</property-name>
-  		<value>https://github.com/</value>
-  	</managed-property>
+    <managed-bean-name>GitHub</managed-bean-name>
+    <managed-bean-class>com.ibm.xsp.extlib.sbt.services.client.endpoints.BasicEndpointBean</managed-bean-class>
+    <managed-bean-scope>application</managed-bean-scope>
+    <managed-property>
+      <property-name>url</property-name>
+      <value>https://github.com/</value>
+    </managed-property>
   </managed-bean>
-  
   <!--	<managed-bean>-->
   <!--		<managed-bean-name>NSFStore</managed-bean-name>-->
   <!--		<managed-bean-class>com.ibm.xsp.extlib.sbt.security.oauth_10a.store.OAuthNSFTokenStore</managed-bean-class>-->

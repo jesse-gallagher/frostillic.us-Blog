@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?><note class="form" maintenanceversion="3.0" replicaid="852579D80035E543" version="8.5" xmlns="http://www.lotus.com/dxl">
+<noteinfo noteid="59b2" sequence="2" unid="9D846DC3B6BFCD8285257A0F005996A8">
+<created><datetime dst="true">20120531T121832,72-04</datetime></created>
+<modified><datetime dst="true">20120531T121832,77-04</datetime></modified>
+<revised><datetime dst="true">20120531T121832,76-04</datetime></revised>
+<lastaccessed><datetime dst="true">20120531T121832,76-04</datetime></lastaccessed>
+<addedtofile><datetime dst="true">20120531T121832,75-04</datetime></addedtofile></noteinfo>
+<updatedby><name>CN=Jesse Gallagher/O=MTC</name></updatedby>
+<wassignedby><name>CN=Jesse Gallagher/O=MTC</name></wassignedby>
+<item name="$Flags"><text>345CgQ</text></item>
+<item name="$TITLE"><text>shBrushJava.js</text></item>
+<item name="$DesignerVersion"><text>8.5.3</text></item>
+
+
+<item name="$FileNames" sign="true"><text>shBrushJava.js</text></item></note>
