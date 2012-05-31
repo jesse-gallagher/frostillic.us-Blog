@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xp:view xmlns:xp="http://www.ibm.com/xsp/core" xmlns:xc="http://www.ibm.com/xsp/custom" pageTitle="Search">
+	
+	<xc:blogLayout>
+	
+		<xp:viewPanel rows="3000" id="viewPanel1" viewStyle="width: 100%">
+			<xp:this.facets>
+<!--				<xp:pager partialRefresh="true" layout="Previous Group Next" xp:key="headerPager" id="pager1"/>-->
+<!--				<xp:pager partialRefresh="true" layout="Previous Group Next" xp:key="footerPager" id="pager2"/>-->
+			</xp:this.facets>
+			<xp:this.data>
+				<xp:dominoView var="posts" ignoreRequestParams="true" viewName="Posts" sortColumn="Posted" sortOrder="descending"
+					search="${param.q}"/>
+			</xp:this.data>
+			
+			<xp:viewColumn columnName="$$Creator" id="viewColumn2">
+				<xp:viewColumnHeader value="Author" id="viewColumnHeader2" />
+				<xp:this.converter>
+					<xp:customConverter getAsObject="#{javascript:value}">
+					<xp:this.getAsString><![CDATA[#{javascript:
+						@Name("[CN]", value)
+					}]]></xp:this.getAsString>
+<!--					<xp:this.getAsString><![CDATA[#{ruby:-->
+<!--						name = session.createName(value)-->
+<!--						cn = name.common-->
+<!--						name.recycle-->
+<!--						cn-->
+<!--					}]]></xp:this.getAsString>-->
+					</xp:customConverter>
+				</xp:this.converter>
+			</xp:viewColumn>
+			<xp:viewColumn columnName="Posted" id="viewColumn3">
+				<xp:viewColumnHeader value="Posted" id="viewColumnHeader3"></xp:viewColumnHeader>
+			</xp:viewColumn>
+			<xp:viewColumn columnName="$$Title" id="viewColumn4"
+				displayAs="link">
+				<xp:viewColumnHeader value="Title"
+					id="viewColumnHeader4">
+				</xp:viewColumnHeader>
+			</xp:viewColumn>
+			<xp:viewColumn columnName="Tags" id="viewColumn5">
+				<xp:viewColumnHeader value="Tags" id="viewColumnHeader5"></xp:viewColumnHeader>
+			</xp:viewColumn>
+		</xp:viewPanel>
+		
+	</xc:blogLayout>
+	
+</xp:view>

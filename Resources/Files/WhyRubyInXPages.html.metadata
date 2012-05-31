@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?><note class="form" maintenanceversion="3.0" replicaid="852579D80035E543" version="8.5" xmlns="http://www.lotus.com/dxl">
+<noteinfo noteid="5612" sequence="21" unid="E2D10AD3DBEC590C852579EB006C9DB7">
+<created><datetime dst="true">20120425T154622,63-04</datetime></created>
+<modified><datetime dst="true">20120531T085655,07-04</datetime></modified>
+<revised><datetime dst="true">20120506T150009,59-04</datetime></revised>
+<lastaccessed><datetime dst="true">20120531T085655,06-04</datetime></lastaccessed>
+<addedtofile><datetime dst="true">20120531T085655,06-04</datetime></addedtofile></noteinfo>
+<updatedby><name>CN=Jesse Gallagher/O=MTC</name></updatedby>
+<wassignedby><name>CN=Jesse Gallagher/O=MTC</name></wassignedby>
+<item name="$MimeType"><text>text/html</text></item>
+<item name="$Flags"><text>345Cg&gt;Q</text></item>
+<item name="$MimeCharSet"><text>UTF-8</text></item>
+<item name="$TITLE" sign="true"><text>WhyRubyInXPages.html</text></item>
+<item name="$DesignerVersion"><text>8.5.3</text></item>
+
+
+<item name="$FileNames" sign="true"><text>WhyRubyInXPages.html</text></item></note>

@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xp:view xmlns:xp="http://www.ibm.com/xsp/core"
+	xmlns:xc="http://www.ibm.com/xsp/custom" pageTitle="Home">
+	<xp:this.beforePageLoad><![CDATA[#{ruby:
+		if param["p"]
+			facesContext.external_context.redirect facesContext.externalContext.requestContextPath + "/posts/" + param[:p]
+		elsif param[:category_name]
+			facesContext.external_context.redirect facesContext.externalContext.requestContextPath + "/Tag.xsp?tag=" + Java::java.net.URLEncoder.encode(param[:category_name], "UTF-8")
+		elsif param[:feed]
+			facesContext.external_context.response.setStatus(301)
+			#facesContext.external_context.redirect facesContext.externalContext.requestContextPath + "/feed.xml"
+			facesContext.external_context.response.setHeader("Location", facesContext.externalContext.requestContextPath + "/feed.xml")
+			facesContext.response_complete
+		end
+	}]]></xp:this.beforePageLoad>
+
+	<xp:this.data>
+		<xp:dominoView var="posts" ignoreRequestParams="true" viewName="Posts" sortColumn="Posted" sortOrder="descending" />
+	</xp:this.data>
+
+	<xc:blogLayout>
+	
+		<xp:repeat id="postList" var="postEntry" value="#{posts}"
+			rows="15">
+			<xp:panel id="logBlock" styleClass="log">
+				<xp:this.data>
+					<xp:dominoDocument var="post"
+						ignoreRequestParams="true" action="openDocument"
+						documentId="#{ruby:postEntry.universal_id.to_s}" />
+				</xp:this.data>
+
+				<xc:postBlock value="#{post}" />
+			</xp:panel>
+		</xp:repeat>
+
+	</xc:blogLayout>
+
+</xp:view>

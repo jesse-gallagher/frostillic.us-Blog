@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xp:view xmlns:xp="http://www.ibm.com/xsp/core" xmlns:xc="http://www.ibm.com/xsp/custom" xmlns:xe="http://www.ibm.com/xsp/coreex">
+
+	<xp:this.data>
+		<xp:dominoView var="linksView" ignoreRequestParams="true" viewName="Links" />
+		<xp:dominoView var="repos" ignoreRequestParams="true" viewName="GitHub Repositories" />
+	</xp:this.data>
+
+	<xp:this.dataContexts>
+		<xp:dataContext var="archiveMonths">
+			<xp:this.value><![CDATA[${ruby:
+				database.get_view("Posts by Month").get_column_values(0).map(&:to_java_date)
+			}]]></xp:this.value>
+		</xp:dataContext>
+		<xp:dataContext var="gaAccountID">
+			<xp:this.value><![CDATA[${ruby:
+				database.get_view("Configuration").get_document_by_key("Google Analytics")["GoogleAnalyticsAccountID"][0]
+			}]]></xp:this.value>
+		</xp:dataContext>
+	</xp:this.dataContexts>
+
+	<xp:this.resources>
+	
+		<xp:script src="/domino.rb" type="text/ruby" clientSide="false"/>
+		<xp:linkResource rel="alternate" type="application/rss+xml"
+			title="${database.title} &gt; Feed"
+			href="${facesContext.externalContext.requestContextPath}/feed.xml">
+		</xp:linkResource>
+		<xp:metaData name="base"
+			content="${facesContext.externalContext.requestContextPath}/" />
+		<xp:metaData name="search"
+			content="${facesContext.externalContext.requestContextPath}/Search.xsp" />
+
+		<xp:script src="/domino.rb" type="text/ruby" clientSide="false" />
+	</xp:this.resources>
+
+	<xc:googleAnalytics loaded="${gaAccountID != ''}" accountId="${gaAccountID}"/>
+
+	<div id="entirety">
+		<header>
+			<h1><xp:link value="/" text="${database.title}" /></h1>
+		</header>
+
+		<div id="linksbar">
+
+			<div title="search">
+				<xp:inputText type="search" id="searchBlog" defaultValue="${param.q}">
+					<xp:this.onkeypress><![CDATA[
+						if(event.keyCode == 13) {
+							var query = dojo.byId("#{id:searchBlog}").value
+							var queryString = dojo.objectToQuery({ q: query })
+							location.href = dojo.query("meta[name=search]")[0].content + "?" + queryString
+							return false
+						}
+					]]></xp:this.onkeypress>
+				</xp:inputText>
+			</div>
+
+			<xp:repeat var="link" value="#{linksView}">
+				<xp:this.facets>
+					<xp:text xp:key="header" escape="false"
+						disableTheme="true" value="&lt;ul title='My Profiles'&gt;" />
+					<xp:text xp:key="footer" escape="false"
+						disableTheme="true" value="&lt;/ul&gt;" />
+				</xp:this.facets>
+
+				<li><xp:link value="#{link.link_url}" text="#{link.link_name}" /> </li>
+			</xp:repeat>
+
+			<xp:repeat var="repo" value="#{repos}">
+				<xp:this.facets>
+					<xp:text xp:key="header" escape="false"
+						disableTheme="true" value="&lt;ul title='GitHub Repos'&gt;" />
+					<xp:text xp:key="footer" escape="false"
+						disableTheme="true" value="&lt;/ul&gt;" />
+				</xp:this.facets>
+
+				<li>
+					<xp:link value="#{repo.url}" text="#{repo.name}" />
+					<!--					<br /><xp:text value="#{repo.pushed_at}">-->
+					<!--						<xp:this.converter>-->
+					<!--							<xp:convertDateTime type="both"-->
+					<!--								dateStyle="short" timeStyle="short">-->
+					<!--							</xp:convertDateTime>-->
+					<!--						</xp:this.converter>-->
+					<!--					</xp:text>-->
+				</li>
+			</xp:repeat>
+
+			<xp:repeat var="month" value="${archiveMonths}">
+				<xp:this.facets>
+					<xp:text xp:key="header" escape="false"
+						disableTheme="true" value="&lt;ul title='Archives'&gt;" />
+					<xp:text xp:key="footer" escape="false"
+						disableTheme="true" value="&lt;/ul&gt;" />
+				</xp:this.facets>
+
+				<li>
+					<xp:link
+						value="/Month.xsp?month=#{1900+month.year}-#{month.month+1}">
+						<xp:text value="#{month}">
+							<xp:this.converter>
+								<xp:convertDateTime
+									pattern="MMMM yyyy">
+								</xp:convertDateTime>
+							</xp:this.converter>
+						</xp:text>
+					</xp:link>
+				</li>
+			</xp:repeat>
+
+		</div>
+
+		<div id="content">
+			<xp:callback id="MainContent" />
+		</div>
+
+		<footer>
+			<p><xp:text escape="false" value="&amp;copy; ${ruby:Time.now.year}" /></p>
+		</footer>
+	</div>
+</xp:view>

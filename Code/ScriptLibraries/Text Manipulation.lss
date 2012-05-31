@@ -1,0 +1,45 @@
+'++LotusScript Development Environment:2:5:(Options):0:74
+%REM
+	Library Text Manipulation
+	Created Apr 7, 2012 by Jesse Gallagher/MTC
+	Description: Comments for Library
+%END REM
+Option Public
+Option Declare
+
+
+'++LotusScript Development Environment:2:5:(Forward):0:1
+Declare Function XMLEncode(Text As String) As String
+
+'++LotusScript Development Environment:2:5:(Declarations):0:2
+
+'++LotusScript Development Environment:2:1:XMLEncode:1:8
+Function XMLEncode(Text As String) As String
+	On Error GoTo xmlErrorHandler
+	
+	Dim session As New NotesSession, result As NotesStream
+	Set result = session.CreateStream
+	
+	Dim prefix As String, suffix As String
+	prefix = "&#"
+	suffix = ";"
+	Dim i, char
+	For i = 1 To Len(Text)
+		char = Mid(Text, i, 1)
+		If Not (_
+		Uni(char) >= Uni("a") And Uni(char) <= Uni("z") Or _
+		Uni(char) >= Uni("A") And Uni(char) <= Uni("Z")) Then
+			Call result.WriteText(prefix & Uni(Mid(Text, i, 1)) & suffix)
+		Else
+			Call result.WriteText(char)
+		End If
+	Next
+	
+	result.Position = 0
+	XMLEncode = result.ReadText
+	
+	Exit Function
+xmlErrorHandler:
+	Print Erl & ": " & Error
+	End
+End Function

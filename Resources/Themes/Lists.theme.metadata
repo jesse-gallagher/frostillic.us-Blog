@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?><note class="form" maintenanceversion="3.0" replicaid="852579D80035E543" version="8.5" xmlns="http://www.lotus.com/dxl">
+<noteinfo noteid="236" sequence="23" unid="65C40A240379AD97852577EF006BD2EF">
+<created><datetime>20101204T143743,51-05</datetime></created>
+<modified><datetime dst="true">20120531T085300,20-04</datetime></modified>
+<revised><datetime>20120307T175950,45-05</datetime></revised>
+<lastaccessed><datetime dst="true">20120531T085300,19-04</datetime></lastaccessed>
+<addedtofile><datetime dst="true">20120531T085300,19-04</datetime></addedtofile></noteinfo>
+<updatedby><name>CN=Jesse Gallagher/O=MTC</name></updatedby>
+<wassignedby><name>CN=Jesse Gallagher/O=MTC</name></wassignedby>
+<item name="$TITLE"><text>Lists.theme</text></item>
+<item name="$Flags"><text>34567Cg~`</text></item>
+<item name="$DesignerVersion"><text>8.5.3</text></item>
+
+
+<item name="$FileNames" sign="true"><text>Lists.theme</text></item>
+<item name="$CSSFiles"><textlist><text>oneuiFixes.css</text><text>notesView.css</text><text>/.ibmxspres/dojoroot/dijit/themes/claro/claro.css</text></textlist></item></note>

@@ -1,0 +1,51 @@
+<!--
+	The default theme contents use theme inheritance.
+
+	Application themes can extend an existing global theme using the
+	extends attribute.  Existing themes include the following options:
+
+	1. webstandard 2. oneui 3. notes
+-->
+<theme extends="" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="platform:/plugin/com.ibm.designer.domino.stylekits/schema/stylekit.xsd">
+	<resource>
+		<content-type>text/css</content-type>
+		<href>style.css</href>
+	</resource>
+	<resource>
+		<content-type>text/css</content-type>
+		<href>posts.css</href>
+	</resource>
+	<resource>
+		<content-type>text/css</content-type>
+		<href>code.css</href>
+	</resource>
+	<resource>
+		<content-type>text/css</content-type>
+		<href>comments.css</href>
+	</resource>
+	
+	<resources>
+<!--		<script target="xsp" clientSide="false" type="text/x-ruby" src="/testlib.rb"/>-->
+<!--		<script target="xsp" clientSide="false" type="text/javascript" src="/testscript.jss"/>-->
+	</resources>
+	
+	<resource dojoTheme="true">
+		<content-type>text/css</content-type>
+		<href>/.ibmxspres/dojoroot/dijit/themes/claro/claro.css</href>
+	</resource>
+	<control>
+		<name>ViewRoot</name>
+		<property mode="concat">
+			<name>styleClass</name>
+			<value> claro</value>
+		</property>
+		<property mode="concat">
+			<name>pageTitle</name>
+			<value> :: frostillic.us</value>
+		</property>
+		<property>
+			<name>pageIcon</name>
+			<value>/$Icon</value>
+		</property>
+	</control>
+</theme>

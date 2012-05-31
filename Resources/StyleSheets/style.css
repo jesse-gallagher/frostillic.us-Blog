@@ -1,0 +1,122 @@
+body, html {
+	text-align: center;
+	background-color: rgb(56, 83, 136);
+}
+
+#entirety {
+	width: 80%;
+	margin: 8px auto;
+
+	border: 1px solid black;
+
+	font-family:
+		"Lucida Grande",
+		"Lucida Sans",
+		"Lucida Sans Unicode",
+		"Luxi Sans",
+		"Trebuchet MS",
+		sans-serif;
+	font-size: 12px;
+	text-align: left;
+	color: black;
+
+	background-color: rgb(238, 238, 221);
+	
+	-webkit-box-shadow: 0px 0px 20px #333;
+	-moz-box-shadow: 0px 0px 20px #333;
+	box-shadow: 0px 0px 20px #333;
+}
+
+header {
+	background-color: rgb(187, 204, 187);
+}
+header h1 {
+	/*width: 78%;*/
+	margin: 0;
+	margin-right: 200px;
+	padding: 2%;
+	
+	font-size: 2.5em;
+	font-family: "Didot", serif;
+	font-style: italic;
+
+	background-color: rgb(204, 221, 204);
+}
+header a {
+	text-decoration: none;
+	font-weight: normal;
+	color: black;
+
+	background-color: transparent;
+}
+
+#linksbar {
+	display: block;
+	width: 200px;
+	float: right;
+	
+	font-size: 0.95em;
+	line-height: 1.7em;
+	
+	color: rgb(101, 101, 84);
+	background-color: transparent;
+}
+#linksbar ul + ul {
+	margin-top: 2em;
+}
+#linksbar li {
+	display: inline;
+}
+#linksbar ul[title]:before, #linksbar div[title]:before {
+	content: attr(title);
+	display: block;
+	width: 100%;
+	border-bottom: 1px dotted rgb(101, 101, 84); 
+}
+#linksbar div[title] {
+	margin-left: 40px;
+}
+
+#linksbar a {
+	display: list-item;
+	list-style-type: square;
+	color: rgb(51, 85, 136);
+	background-color: transparent;
+}
+
+#content {
+	/*width: 78%;*/
+	margin-right: 200px;
+	min-height: 30em;
+	
+	padding: 2%;
+	
+	line-height: 1.5em;
+	
+	color: black;
+	background-color: white;
+}
+
+#content h1 {
+	font-family: "Cochin", serif;
+}
+
+footer {
+	clear: both;
+	background-color: rgb(105, 140, 182);
+}
+footer p {
+	/*width: 80%;*/
+	margin: 0;
+	margin-right: 200px;
+	padding: 1%;
+
+	text-align: center;
+	color: rgb(56, 75, 97);
+
+	background-color: rgb(111, 149, 208);
+}
+footer a {
+	color: rgb(56, 75, 97);
+	background-color: transparent;
+}

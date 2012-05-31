@@ -1,0 +1,61 @@
+<?xml version='1.0' encoding='utf-8'?>
+<!DOCTYPE note SYSTEM 'xmlschemas/domino_8_5_3.dtd'>
+<note class='filter' xmlns='http://www.lotus.com/dxl' version='8.5' maintenanceversion='3.0'
+ replicaid='852579D80035E543'>
+<noteinfo noteid='2f2' unid='FF24784F4F374ECB852579D90080CA53' sequence='1'>
+<created><datetime dst='true'>20120407T192644,03-04</datetime></created>
+<modified><datetime dst='true'>20120531T085303,52-04</datetime></modified>
+<revised><datetime dst='true'>20120407T192644,90-04</datetime></revised>
+<lastaccessed><datetime dst='true'>20120531T085303,51-04</datetime></lastaccessed>
+<addedtofile><datetime dst='true'>20120531T085303,51-04</datetime></addedtofile></noteinfo>
+<updatedby><name>CN=Jesse Gallagher/O=MTC</name></updatedby>
+<wassignedby><name>CN=Jesse Gallagher/O=MTC</name></wassignedby>
+<item name='$POID'><datetime>20080129T154949,92-05</datetime></item>
+<item name='$TITLE' sign='true'><text>JConfiguration</text></item>
+<item name='$Flags'><text>sj34Q</text></item>
+<item name='$PublicAccess' sign='true'><text>1</text></item>
+<item name='$AssistAction' sign='true'>
+<rawitemdata type='10'>
+k/9YABQAEwAfAAAAAAAAAAAASkNvbmZpZ3VyYXRpb24uY2xhc3NDOlxsb3R1c1xub3Rlc1xkYXRh
+JSVzb3VyY2UlJS5qYXIAJSVvYmplY3QlJS5qYXIAAA==
+</rawitemdata></item>
+<item name='$FILE' summary='true' sign='true' seal='true'><object><file hosttype='msdos'
+ compression='none' flags='sign' encoding='none' name='%%source%%.jar' size='616'>
+<created><datetime dst='true'>20070729T140812,24-04</datetime></created>
+<modified><datetime>20090112T110048,80-05</datetime></modified><filedata>
+UEsDBBQACAAIABhYLDoAAAAAAAAAAAAAAAATAAAASkNvbmZpZ3VyYXRpb24uamF2YaVTu27cMBCs
+WegfGFVUCiH9wVUcA0mRxoF7ilydmVCkQC79QHD/bq6opwMYhgMc7o7DfcwMd80w+oDcekyx1X4w
+zrefT5Up8G/5INuExrZ3oNCHU1WNqbNGcWVljPzHV+96c05BovGO/63YtUTZyQhcd6eK3Rl45GqK
+ob8Zqdhc4Jgq1jznEaLuGirGMDxPv0x3/Gq5OhGwFc0XumvPgHQQ9aFs3VDwhSuJ6l58e1IwTkSh
+lGfQjsE4vEWp/vwKUoEoCRV9VqpFO6cW0opbzCln3huw+hXLGx8GHkdQpjeKDhPVa6/SAA5nI/Jx
+gjvvLUjHe5+czoUTEEw3G5K19dJG2EnO6Rnd5JPyGxMiLm2KBPZ4byyILedT9i9ZOwtne5arg3QQ
+s8BmTaWb7wjDxEjUFFQ3BIovTenFTC/2BQun7E8UTZvroDQuiuLYQoDNrgbAFFyuvar6p2VJLJ02
+F9oA6llZerKD5zu8ZJQOW6MCX6bv9W18OFq7vNIbrv+Ep830NWzuOtd7J8mJTLWZEjFNA5+nuyBz
+HOGt1FrUZbIXbYR/aNL/uyFtyrooD95ovio77kYekbzE2xTSyO3Mucwxu73exe6Mf5Xzsd3OnF8A
+UEsHCKZwiMvQAQAA+QQAAFBLAQIUABQACAAIABhYLDqmcIjL0AEAAPkEAAATAAAAAAAAAAAAAAAA
+AAAAAABKQ29uZmlndXJhdGlvbi5qYXZhUEsFBgAAAAABAAEAQQAAABECAAAAAA==
+</filedata></file></object></item>
+<item name='$FILE' summary='true' sign='true' seal='true'><object><file hosttype='msdos'
+ compression='none' flags='sign' encoding='none' name='%%object%%.jar' size='1019'>
+<created><datetime>20090112T110048,80-05</datetime></created>
+<modified><datetime>20090112T110048,80-05</datetime></modified><filedata>
+UEsDBBQACAAIABhYLDoAAAAAAAAAAAAAAAAUAAAASkNvbmZpZ3VyYXRpb24uY2xhc3ONVNtPE1kc
+/k5LO6U93FEouiqrQi+UegWlrKuCrGgpu8DWdRNjptORDLYzZjr18mLUBx992xif98FXTVZMNTE+
++eAf5e53pqBQMNkmPafnd/2+7/xOP3959wHAOP6IYgjJdsSRiiAdwxgy6jCuIRtFGMdiOI4TEZyM
+4RROR9GHCQ2TKuxMDGcxpSw55ZtWx2kV/ZOGc8qcjOBntZ9X0b5nWsMFDRcFAuWSwEC+4nj1Wrbs
+VC3byc7qnl7Sa2ZOIGo49i1rtWiZ9wT6tocpI0PC05ZteecEhhLfKZMsCrTNOGVToCtv2WahXi2Z
+7opeqtASXjW9ol4RGEnk1/S7erai26vZZc+17NVcsmmqe1YlWzQNz3HZUHNN44GhcoMJVTq67NRd
+w5yzlKnvyoyPuO7qnuXY4ypf4iBGJPZhv0DHNreGGYlZXJL4AQeY/A3ApfuGeUeFSMxhRMMvEpcx
+Tx5zjlvVcEXiKo5I5LEg0N2KW6KARQ2/SvyGJYllrEgcVRB+R3EzfAsnAUhcw4pA53b020ovltYY
+LbBnV5EpixLSv6fRXZXc7e667tDpLXu6cXvF1Q1W6dkRRhCsPGe5NW/WMepV0yaIeKKl4KYrtwPg
+1xzJMvOeWeVt19Xl8cjgxHwy30oy12SjpP5fbFRgrhV7M7vdx25WyjWB/sSu8xThjHu6ZdcUmp1Y
+kn9SJ1YpmPe3CHCsddg3+X9fl6BeLmOYL3qIzz3ALwcS6sPZ4xqE4Jwe4jrM03Weg9yHU28hUuk3
+CKRS/yDQG2ygLYA3CL1EZGFsHdprJrRhkMXC/PUjUw5A4xqhNYp2xOjrpFeyWQfLdzHqMI4024gY
+m4QZ/Tw40cb6oQYiAoXMJ9xU3TK97Q1EAwiuI/YRsoGOABbGGugUSK+j6wX2ZdJ+wFQo00C3AH09
+HI7Qq8xUSJWjtTeAQjy0xfvy37/fo+/6W/RPheKh3j3r2HuNGT6ZDUch0zRnXvk6FfCYIBfxyN+b
+JJfQz3WA8AdJK44eqpoizUnSPE9F85RhkXSXSPMGM9ZIuspHeBcjeIhRVkrgCZJ4yqxnSOMv/jMK
+9Ug39L/BXfVOKh0+QaqtgQEBRat5JqlB0kEkn964B7Dh4a8Qh3xlT6AbJ2mfoOcUdT/NxpOMGPWH
+IPEfUEsHCLfZrzZhAwAA/gUAAFBLAQIUABQACAAIABhYLDq32a82YQMAAP4FAAAUAAAAAAAAAAAA
+AAAAAAAAAABKQ29uZmlndXJhdGlvbi5jbGFzc1BLBQYAAAAAAQABAEIAAACjAwAAAAA=
+</filedata></file></object></item></note>
+

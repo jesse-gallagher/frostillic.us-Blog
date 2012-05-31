@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xp:view xmlns:xp="http://www.ibm.com/xsp/core"
+	xmlns:xc="http://www.ibm.com/xsp/custom">
+	<xp:this.beforePageLoad><![CDATA[#{ruby:
+		view.page_title = post["$$Title"][0]
+	}]]></xp:this.beforePageLoad>
+
+	<xp:this.data>
+		<xp:dominoDocument var="post" documentId="${param.documentId}" formName="Post" computeWithForm="both" />
+	</xp:this.data>
+
+	<xp:this.resources>
+		<xp:script src="/domino.rb" type="text/ruby" clientSide="false" />
+	</xp:this.resources>
+	
+	<xc:blogLayout>
+		<xc:actionBar>
+			<xp:button styleClass="lotusBtn" id="editPost" rendered="${ruby:!post.editable? &amp;&amp; post.document.user_editable?}" value="Edit Post">
+				<xp:eventHandler event="onclick" submit="true" refreshMode="complete" disableValidators="true">
+					<xp:this.action>
+						<xp:changeDocumentMode mode="edit" var="post"/>
+					</xp:this.action>
+				</xp:eventHandler>
+			</xp:button>
+			<xp:button styleClass="lotusBtn" id="savePost" rendered="#{javascript:post.isEditable()}" value="Save Post">
+				<xp:eventHandler event="onclick" submit="true" refreshMode="complete">
+					<xp:this.action>
+						<xp:actionGroup>
+							<xp:saveDocument var="post"/>
+							<xp:changeDocumentMode mode="readOnly" var="post"/>
+						</xp:actionGroup>
+					</xp:this.action>
+				</xp:eventHandler>
+			</xp:button>
+		</xc:actionBar>
+
+		<div class="log">
+			<xc:postBlock value="#{post}" />
+		</div>
+
+		<div id="comments">
+			<xc:comments postId="${post.PostID}" rendered="#{javascript:!post.isEditable()}"/>
+		</div>
+
+	</xc:blogLayout>
+
+</xp:view>

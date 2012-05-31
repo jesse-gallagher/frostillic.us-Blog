@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xp:view xmlns:xp="http://www.ibm.com/xsp/core" xmlns:xc="http://www.ibm.com/xsp/custom">
+	<xp:this.data>
+		<xp:dominoView var="commentsView" ignoreRequestParams="true" viewName="Comments" categoryFilter="#{compositeData.value.PostID}" />
+	</xp:this.data>
+	<xp:this.dataContexts>
+		<xp:dataContext var="commentCount"><xp:this.value><![CDATA[#{ruby:
+			commentsView.create_view_nav_from_category(compositeData["value"]["PostID"][0]).count
+		}]]></xp:this.value></xp:dataContext>
+	</xp:this.dataContexts>
+
+	<h2><xp:link styleClass="permalink" title="link to this entry" value="/posts/#{compositeData.value.PostID}">
+		<xp:text value="#{compositeData.value.Posted}">
+			<xp:this.converter>
+				<xp:convertDateTime pattern="EEEE, MMMM d, yyyy HH:mm z"/>
+			</xp:this.converter>
+		</xp:text>
+	</xp:link></h2>
+	
+	<p class="title"><xp:inputText value="#{compositeData.value.$$Title}"/></p>
+	
+	<div class="logtext"><xp:inputRichText value="#{compositeData.value.Body}"/></div>
+			
+	<xp:panel styleClass="thread" loaded="${post.Thread != '' &amp;&amp; post.Thread != null}">
+		<xp:this.data>
+			<xp:dominoView var="postThread" viewName="Posts" sortColumn="Posted" sortOrder="descending" search="[Thread]=#{post.Thread}"/>
+		</xp:this.data>
+		
+		<h3>Thread</h3>
+		
+		<xp:repeat value="#{postThread}" var="threadPost" rows="10000">
+			<xp:this.facets>
+				<xp:text xp:key="header" escape="false" disableTheme="true" value="&lt;ol&gt;"/>
+				<xp:text xp:key="footer" escape="false" disableTheme="true" value="&lt;/ol&gt;"/>
+			</xp:this.facets>
+			
+			<li><xp:link value="/posts/#{threadPost.PostID}"><xc:dateTime value="#{threadPost.Posted}"/>&#160;-&#160;<xp:text value="#{threadPost.$$Title}"/></xp:link></li>
+		</xp:repeat>
+	</xp:panel>
+	
+	<xp:panel styleClass="tags" tagName="p" rendered="#{javascript:compositeData.value.getItemValue('Tags') != null &amp;&amp; !compositeData.value.isEditable()}">Tags:&#160;<xp:text escape="false"><xp:this.value><![CDATA[#{ruby:
+		base = facesContext.externalContext.requestContextPath
+		compositeData["value"]["Tags"].map { |tag| "<a href='" + base + "/Tag.xsp?tag=" + tag + "'>" + tag + "</a>" }.join ", "
+	}]]></xp:this.value></xp:text></xp:panel>
+	<xp:table styleClass="lotusVertTable" rendered="#{javascript:compositeData.value.isEditable()}">
+		<tr>
+			<th scope="row">Tags:</th>
+			<td>
+				<xp:inputText value="#{compositeData.value.Tags}" multipleSeparator="," multipleTrim="true" >
+					<xp:typeAhead mode="partial" minChars="1" ignoreCase="true" valueListSeparator="," tokens=",">
+						<xp:this.valueList><![CDATA[#{javascript:@Unique(@DbColumn("", "Tags", 1))}]]></xp:this.valueList>
+					</xp:typeAhead>
+				</xp:inputText>
+			</td>
+		</tr>
+		<tr>
+			<th scope="row">Status:</th>
+			<td>
+				<xp:radioGroup value="#{compositeData.value.Status}" defaultValue="Draft">
+					<xp:selectItem itemLabel="Draft"/>
+					<xp:selectItem itemLabel="Posted"/>
+				</xp:radioGroup>
+			</td>
+		</tr>
+	</xp:table>
+	
+	<xp:panel styleClass="comments" tagName="p" rendered="#{javascript:!compositeData.value.isEditable()}">
+		<xp:link value="/posts/#{compositeData.value.PostID}#comments"><xp:this.text><![CDATA[#{ruby:
+			commentCount == 1 ? "1 comment" : (commentCount.to_s + " comments")
+		}]]></xp:this.text></xp:link>
+	</xp:panel>
+</xp:view>
