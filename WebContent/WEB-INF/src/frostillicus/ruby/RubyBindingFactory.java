@@ -18,8 +18,7 @@ package frostillicus.ruby;
 
 import java.io.IOException;
 import java.io.InputStream;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.*;
 
 import javax.faces.application.Application;
 import javax.faces.context.FacesContext;
@@ -58,14 +57,19 @@ public class RubyBindingFactory implements BindingFactory {
 	public static ScriptingContainer getScriptEngine(FacesContext facesContext) throws ScriptException, IOException {
 		// Check to see if there's an engine in the current request; if so, use that, and otherwise generate a new one
 		//ScriptingContainer engine = (ScriptingContainer)facesContext.getExternalContext().getRequestMap().get("_RubyScriptEngine");
-		ScriptingContainer engine = (ScriptingContainer)facesContext.getExternalContext().getApplicationMap().get("_RubyScriptEngine");
+		Map<Object, Object> applicationScope = facesContext.getExternalContext().getApplicationMap();
+		ScriptingContainer engine = (ScriptingContainer)applicationScope.get("_RubyScriptEngine");
 		if(engine == null) {
 			engine = new ScriptingContainer(LocalContextScope.SINGLETHREAD);
 			engine.setClassLoader(facesContext.getContextClassLoader());
 			
 			
 			//facesContext.getExternalContext().getRequestMap().put("_RubyScriptEngine", engine);
-			facesContext.getExternalContext().getApplicationMap().put("_RubyScriptEngine", engine);
+			applicationScope.put("_RubyScriptEngine", engine);
+			if(applicationScope.containsKey("_RubyCompiledLibraries")) {
+				applicationScope.remove("_RubyCompiledLibraries");
+			}
+			applicationScope.put("_RubyCompiledLibraries", new HashMap<String, EmbedEvalUnit>());
 		}
 		engine.runScriptlet("require \"java\"\n" +
 				"def method_missing(name, *args)\n" +
@@ -94,6 +98,8 @@ public class RubyBindingFactory implements BindingFactory {
 			context.getExternalContext().getRequestMap().put("_RubyIncludedLibraries", includedLibraries);
 		}
 		
+		Map<String, EmbedEvalUnit> compiledLibraries = (Map<String, EmbedEvalUnit>)context.getExternalContext().getApplicationMap().get("_RubyCompiledLibraries");
+		
 		// Now look through the view's resources for appropriate scripts and load them
 		UIViewRootEx2 view = (UIViewRootEx2)context.getViewRoot();
 		if(view != null) {
@@ -105,14 +111,19 @@ public class RubyBindingFactory implements BindingFactory {
 						
 						String properName = (script.getSrc().charAt(0) == '/' ? "" : "/") + script.getSrc();
 						if(!includedLibraries.contains(properName)) {
-							InputStream is = FacesContextEx.getCurrentInstance().getExternalContext().getResourceAsStream("/WEB-INF/ruby" + properName);
-							if(is == null) {
-								// The SSJS interpreter throws an exception when the library can't be loaded, so match that behavior
-								throw new ScriptException("Couldn't load library: " + properName);
-							} else {
-								engine.runScriptlet(is, properName);
-								try { is.close(); } catch(IOException ioe) { }
+							// If we haven't compiled the library before, do so now
+							if(!compiledLibraries.containsKey(properName)) {
+								InputStream is = FacesContextEx.getCurrentInstance().getExternalContext().getResourceAsStream("/WEB-INF/ruby" + properName);
+								if(is == null) {
+									// The SSJS interpreter throws an exception when the library can't be loaded, so match that behavior
+									throw new ScriptException("Couldn't load library: " + properName);
+								} else {
+									//engine.runScriptlet(is, properName);
+									compiledLibraries.put(properName, engine.parse(is, properName));
+									try { is.close(); } catch(IOException ioe) { }
+								}
 							}
+							compiledLibraries.get(properName).run();
 							
 							includedLibraries.add(properName);
 						}

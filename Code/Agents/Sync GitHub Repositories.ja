@@ -2,11 +2,11 @@
 <!DOCTYPE note SYSTEM 'xmlschemas/domino_8_5_3.dtd'>
 <note class='filter' xmlns='http://www.lotus.com/dxl' version='8.5' maintenanceversion='3.0'
  replicaid='852579D80035E543'>
-<noteinfo noteid='64e' unid='DECA84FE39700624852579DB0009C0E5' sequence='16'>
+<noteinfo noteid='64e' unid='DECA84FE39700624852579DB0009C0E5' sequence='17'>
 <created><datetime dst='true'>20120408T214632,05-04</datetime></created>
-<modified><datetime dst='true'>20120531T085316,85-04</datetime></modified>
-<revised><datetime dst='true'>20120410T223850,17-04</datetime></revised>
-<lastaccessed><datetime dst='true'>20120531T085316,84-04</datetime></lastaccessed>
+<modified><datetime dst='true'>20120531T104213,94-04</datetime></modified>
+<revised><datetime dst='true'>20120531T104213,92-04</datetime></revised>
+<lastaccessed><datetime dst='true'>20120531T104213,92-04</datetime></lastaccessed>
 <addedtofile><datetime dst='true'>20120531T085316,84-04</datetime></addedtofile></noteinfo>
 <updatedby><name>CN=Jesse Gallagher/O=MTC</name></updatedby>
 <wassignedby><name>CN=Jesse Gallagher/O=MTC</name></wassignedby>
@@ -110,7 +110,7 @@ AAAAAAAAAAA=
 </rawitemdata></item>
 <item name='$AssistDocCount' sign='true'><number>0</number></item>
 <item name='$FlagsExt' sign='true'><text>D</text></item>
-<item name='$AssistFlags' sign='true'><text>Es</text></item>
+<item name='$AssistFlags' sign='true'><text>s</text></item>
 <item name='$MachineName' sign='true'><text>CN=Arcturus/O=Frost</text></item>
 <item name='$AssistTrigger'><text>1</text></item>
 <item name='$AssistInfo' sign='true'>
@@ -137,12 +137,12 @@ gQI=
 <item name='$DesignerVersion'><text>8.5.3</text></item>
 <item name='$AssistRunInfo' summary='true'>
 <rawitemdata type='3'>
-BgAAAgAACABKBgAAAAAAAAUAAAAwAAAAAAAAAAAAAAAAAAAA2AAAAAAAAAAAAAAAAAAAABAAAAAA
-AAAA1YUbAA96JYUAAAAAbtASAN15JYUoTH8A2XklhQAAAAAAAAAAAAAAAAAAAAAAAAAAU3RhcnRl
-ZCBydW5uaW5nIGFnZW50ICdTeW5jIEdpdEh1YiBSZXBvc2l0b3JpZXMnIG9uIDA1LzMxLzIwMTIg
-MDE6MDA6MDcNCkZvdW5kIDAgZG9jdW1lbnQocykgdGhhdCBtYXRjaCBzZWFyY2ggY3JpdGVyaWEN
-ClJhbiBKYXZhIEFnZW50IENsYXNzDQpEb25lIHJ1bm5pbmcgYWdlbnQgJ1N5bmMgR2l0SHViIFJl
-cG9zaXRvcmllcycgb24gMDUvMzEvMjAxMiAwMTowMDozNw0KAA0K+Z8qhWU9WL530RIA3Xklhaqq
+BgABAAAACABiWQAAAAAAAAUAAAAwAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAA4M5QAA96JYXnwkYAD3olhQAAAAAAAAAAAAAAAAAAAAAAAAAAqqqqqqqq
+qqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqq
+qqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqq
+qqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqq
+qqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqq
 qqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqq
 qqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqq
 qqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqq

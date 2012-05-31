@@ -1,6 +1,13 @@
 CHANGELOG
 =========
 
+2012/5/31
+---------
+* Blog
+	* Replaced the scheduled agent that periodically fecthed GitHub repo data with a <xe:restJsonService/> data source
+* Java/JRuby
+	* Ruby "Script Libraries" are now compiled and stored in the application scope on first request. That compiled form is then used on all subsequent requests, which should theoretically provide a performance boost
+
 2012/5/28
 ---------
 * Blog

@@ -76,6 +76,10 @@ header a {
 #linksbar div[title] {
 	margin-left: 40px;
 }
+#linksbar .dijitContentPane {
+	padding: 0;
+	overflow: static;
+}
 
 #linksbar a {
 	display: list-item;

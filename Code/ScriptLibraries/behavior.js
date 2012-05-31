@@ -8,6 +8,11 @@ MCLBehavior = {
 			if(rightCol) { dojo.addClass(div, "hasRightCol") }
 			if(leftCol && rightCol) { dojo.addClass(div, "hasBothCols") }
 		}
+	},
+	"#linksbar div.dijitContentPane": {
+		found: function(div) {
+			if(div.title == "") div.title = null
+		}
 	}
 }
 
