@@ -1,7 +1,0 @@
-<project name="RubyClasses" default="dist" basedir=".">
-	<description>Builder for Ruby classes destined for Java-ification</description>
-		
-	<target name="dist">
-		<java classname="frostillicus.ruby.RubyBuilder" classpath="c:/RubyBuilder.jar" />
-	</target>
-</project>
