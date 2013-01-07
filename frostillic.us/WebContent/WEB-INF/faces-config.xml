@@ -79,7 +79,6 @@
   <!--		</managed-property>-->
   <!--	</managed-bean>-->
   <application>
-    <view-handler>frostillicus.ScriptingViewHandler</view-handler>
     <view-handler>frostillicus.controller.ControllingViewHandler</view-handler>
   </application>
   <lifecycle>
