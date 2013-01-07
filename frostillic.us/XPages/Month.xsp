@@ -5,32 +5,15 @@
 	<xc:layout>
 		<xp:panel>
 			<xp:this.data>
-				<xp:dominoView var="posts" ignoreRequestParams="true" viewName="Posts by Month" databaseName="#{config.databaseName}">
-					<xp:this.keys><![CDATA[${ruby:
-						session.createDateTime(param["month"] + "-15")
-					}]]></xp:this.keys>
-				</xp:dominoView>
+				<xp:dominoView var="posts" ignoreRequestParams="true" viewName="Posts by Month"
+					keys="#{pageController.searchKeys}"/>
 			</xp:this.data>
 			<xp:repeat id="postList" var="postEntry" value="#{posts}" rows="15">
 				<xp:panel styleClass="log">
 					<xp:this.data>
 						<xp:dominoDocument var="post" ignoreRequestParams="true" action="openDocument"
-							documentId="#{ruby:postEntry.universal_id}" databaseName="#{config.databaseName}"/>
+							documentId="#{javascript:postEntry.getUniversalID()}"/>
 					</xp:this.data>
-					
-	<!--				<h2><xp:link styleClass="permalink" title="link to this entry" value="/posts/#{postEntry.PostID}">-->
-	<!--					<xp:text value="#{postEntry.Posted}">-->
-	<!--						<xp:this.converter>-->
-	<!--							<xp:convertDateTime-->
-	<!--								pattern="EEEE, MMMM d, yyyy HH:mm z">-->
-	<!--							</xp:convertDateTime>-->
-	<!--						</xp:this.converter>-->
-	<!--					</xp:text>-->
-	<!--				</xp:link></h2>-->
-	<!--				-->
-	<!--				<p class="title"><xp:text value="#{postEntry.$$Title}"/></p>-->
-	<!--			-->
-	<!--				<div class="logtext"><xp:text value="#{post.Body}" escape="false"/></div>-->
 					<xc:postBlock value="#{post}"/>
 				</xp:panel>
 			</xp:repeat>

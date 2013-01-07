@@ -39,31 +39,36 @@ public class BasicXPageController implements XPageController {
 
 		return result;
 	}
+
+	private Map<String, List<Map<String, String>>> linksData;
 	@SuppressWarnings("unchecked")
 	public Map<String, List<Map<String, String>>> getLinksData() throws NotesException {
-		Map<String, List<Map<String, String>>> result = new TreeMap<String, List<Map<String, String>>>();
-		Database database = ExtLibUtil.getCurrentDatabase();
-		View links = database.getView("Links");
-		ViewNavigator nav = links.createViewNav();
-		ViewEntry entry = nav.getFirst();
-		while(entry != null) {
-			entry.setPreferJavaDates(true);
-			List<Object> columnValues = entry.getColumnValues();
-			String category = String.valueOf(columnValues.get(0));
+		if(this.linksData == null) {
+			Map<String, List<Map<String, String>>> result = new TreeMap<String, List<Map<String, String>>>();
+			Database database = ExtLibUtil.getCurrentDatabase();
+			View links = database.getView("Links");
+			ViewNavigator nav = links.createViewNav();
+			ViewEntry entry = nav.getFirst();
+			while(entry != null) {
+				entry.setPreferJavaDates(true);
+				List<Object> columnValues = entry.getColumnValues();
+				String category = String.valueOf(columnValues.get(0));
 
-			if(entry.isCategory()) {
-				result.put(category, new ArrayList<Map<String, String>>());
-			} else {
-				Map<String, String> thisLink = new HashMap<String, String>();
-				thisLink.put("name", String.valueOf(columnValues.get(1)));
-				thisLink.put("link", String.valueOf(columnValues.get(2)));
-				result.get(category).add(thisLink);
+				if(entry.isCategory()) {
+					result.put(category, new ArrayList<Map<String, String>>());
+				} else {
+					Map<String, String> thisLink = new HashMap<String, String>();
+					thisLink.put("name", String.valueOf(columnValues.get(1)));
+					thisLink.put("link", String.valueOf(columnValues.get(2)));
+					result.get(category).add(thisLink);
+				}
+
+				ViewEntry tempEntry = entry;
+				entry = nav.getNext();
+				tempEntry.recycle();
 			}
-
-			ViewEntry tempEntry = entry;
-			entry = nav.getNext();
-			tempEntry.recycle();
+			this.linksData = result;
 		}
-		return result;
+		return this.linksData;
 	}
 }

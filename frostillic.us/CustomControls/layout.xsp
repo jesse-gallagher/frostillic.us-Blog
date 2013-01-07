@@ -27,7 +27,7 @@
 				</div>
 
 				<xp:repeat var="linkCategory" value="#{pageController.linksData}" disableTheme="true">
-					<xp:repeat var="link" value="#{linksData[linkCategory]}">
+					<xp:repeat var="link" value="#{pageController.linksData[linkCategory]}">
 						<xp:this.facets>
 							<xp:text xp:key="header" escape="false" disableTheme="true" value="&lt;ul title='#{linkCategory}'&gt;" />
 							<xp:text xp:key="footer" escape="false" disableTheme="true" value="&lt;/ul&gt;" />
@@ -103,7 +103,7 @@
 
 		<footer class="row-fluid">
 			<p class="span10">
-				<xp:text escape="false" value="&amp;copy; ${ruby:Time.now.year}" />
+				<xp:text escape="false" value="&amp;copy; ${javascript: @Year(@Now()).toFixed()}" />
 			</p>
 		</footer>
 	</div>

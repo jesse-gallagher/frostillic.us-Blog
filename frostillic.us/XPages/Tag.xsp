@@ -5,7 +5,7 @@
 		<xp:panel>
 			<xp:this.data>
 				<xp:dominoView var="posts" ignoreRequestParams="true" viewName="Posts" sortColumn="Posted" sortOrder="descending"
-					search="[Tags]=#{param.tag}" databaseName="#{config.databaseName}"/>
+					search="[Tags]=#{param.tag}"/>
 			</xp:this.data>
 			
 			<h1><xp:text value="Posts for tag “#{param.tag}”"/></h1>
@@ -14,7 +14,7 @@
 				<xp:panel styleClass="log">
 					<xp:this.data>
 						<xp:dominoDocument var="post" ignoreRequestParams="true" action="openDocument"
-							documentId="#{ruby:postEntry.universal_id.to_s}" databaseName="#{config.databaseName}"/>
+							documentId="#{javascript:postEntry.getUniversalID()}"/>
 					</xp:this.data>
 					
 					<xc:postBlock value="#{post}"/>

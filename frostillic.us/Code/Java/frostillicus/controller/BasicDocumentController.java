@@ -6,7 +6,7 @@ import javax.faces.context.FacesContext;
 import lotus.domino.*;
 import com.ibm.xsp.extlib.util.ExtLibUtil;
 import com.ibm.xsp.model.domino.wrapped.DominoDocument;
-import java.util.Map;
+import java.util.*;
 
 public class BasicDocumentController extends BasicXPageController implements DocumentController {
 	private static final long serialVersionUID = 1L;
@@ -60,6 +60,14 @@ public class BasicDocumentController extends BasicXPageController implements Doc
 	}
 
 	public boolean isEditable() { return this.getDoc().isEditable(); }
+
+	public boolean isEditableBy(String userName) throws NotesException {
+		Document doc = this.getDoc().getDocument();
+		return JSFUtil.isDocEditableBy(doc, userName);
+	}
+	public boolean isUserEditable() throws NotesException {
+		return this.isEditableBy(ExtLibUtil.getCurrentSession().getEffectiveUserName());
+	}
 
 	protected DominoDocument getDoc() {
 		return (DominoDocument)ExtLibUtil.resolveVariable(FacesContext.getCurrentInstance(), "doc");

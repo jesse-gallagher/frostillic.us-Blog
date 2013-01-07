@@ -1,5 +1,5 @@
 /*
- * © Copyright Jesse Gallagher 2012
+ * ï¿½ Copyright Jesse Gallagher 2012
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"); 
  * you may not use this file except in compliance with the License. 
@@ -28,44 +28,44 @@ import java.util.Map;
 
 public class Akismet {
 	public static final String USER_AGENT = "frostillic.us/1.0 Akismet/1.0";
-	public static final String REQUEST_PROTOCOL = "https";
+	public static final String REQUEST_PROTOCOL = "http";
 	public static final String VERIFY_KEY_URL = "rest.akismet.com/1.1/verify-key";
 	public static final String COMMENT_CHECK_URL = "rest.akismet.com/1.1/comment-check";
-	
+
 	private String apiKey;
 	private String blog;
-	
-	
+
+
 	// Blank constructor for bean use
 	public Akismet() {}
-	
+
 	public Akismet(String apiKey, String blog) {
 		this.apiKey = apiKey;
 		this.blog = blog;
 	}
-	
+
 	public void setApiKey(String apiKey) { this.apiKey = apiKey; }
 	public String getApiKey() { return this.apiKey; }
 	public void setBlog(String blog) { this.blog = blog; }
 	public String getBlog() { return this.blog; }
-	
+
 	public boolean verifyKey() throws Exception {
 		if(apiKey == null) { throw new IllegalArgumentException("apiKey is null"); }
 		if(blog == null) { throw new IllegalArgumentException("blog is null"); }
-		
+
 		Map<String, String> params = new HashMap<String, String>();
 		params.put("key", this.apiKey);
 		params.put("blog", this.blog);
-		
+
 		String response = doPost(REQUEST_PROTOCOL + "://" + VERIFY_KEY_URL, params);
-		
+
 		return response.equals("valid");
 	}
-	
+
 	public boolean checkComment(String remoteAddress, String userAgent, String referrer, String permalink, String commentType, String author, String authorEmail, String authorURL, String content) throws Exception {
 		if(apiKey == null) { throw new IllegalArgumentException("apiKey is null"); }
 		if(blog == null) { throw new IllegalArgumentException("blog is null"); }
-		
+
 		Map<String, String> params = new HashMap<String, String>();
 		params.put("blog", this.blog);
 		params.put("user_ip", remoteAddress);
@@ -77,12 +77,12 @@ public class Akismet {
 		params.put("comment_author_email", authorEmail);
 		params.put("comment_author_url", authorURL);
 		params.put("comment_content", content);
-		
+
 		String response = doPost(REQUEST_PROTOCOL + "://" + this.apiKey + "." + COMMENT_CHECK_URL, params);
-		
+
 		return response.equals("true");
 	}
-	
+
 	private String doPost(String url, Map<String, String> content) throws Exception {
 		// Create a new POST request
 		URL urlObj = new URL(url);
@@ -93,7 +93,7 @@ public class Akismet {
 		conn.setUseCaches(false);
 		conn.setDoInput(true);
 		conn.setDoOutput(true);
-		
+
 		// Generate the content from the parameter map
 		StringBuilder requestContent = new StringBuilder();
 		for(String key : content.keySet()) {
@@ -105,7 +105,7 @@ public class Akismet {
 			requestContent.append('=');
 			requestContent.append(URLEncoder.encode(content.get(key), "UTF-8"));
 		}
-		
+
 		// Generate the content and write it into the request
 		String requestString = requestContent.toString();
 		conn.setRequestProperty("Content-Length", Integer.toString(requestString.getBytes().length));
@@ -113,7 +113,7 @@ public class Akismet {
 		wr.writeBytes(requestString);
 		wr.flush();
 		wr.close();
-		
+
 		InputStream is = conn.getInputStream();
 		BufferedReader reader = new BufferedReader(new InputStreamReader(is));
 		StringBuilder response = new StringBuilder();
@@ -121,7 +121,7 @@ public class Akismet {
 			response.append((char)reader.read());
 		}
 		reader.close();
-		
+
 		return response.toString();
 	}
 }

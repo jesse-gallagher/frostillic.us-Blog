@@ -5,7 +5,7 @@
 		<xp:panel>
 			<xp:this.data>
 				<xp:dominoView var="posts" ignoreRequestParams="true" viewName="${'Posts'}" sortColumn="Posted" sortOrder="descending"
-					search="${param.q}" databaseName="#{config.databaseName}"/>
+					search="${param.q}"/>
 			</xp:this.data>
 			
 			<xp:dataTable rows="30" id="viewPanel1" value="#{posts}" var="viewEntry">

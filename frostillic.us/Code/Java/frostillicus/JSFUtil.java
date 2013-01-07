@@ -4,21 +4,22 @@ package frostillicus;
 import javax.faces.application.Application;
 import javax.faces.context.FacesContext;
 import javax.faces.el.ValueBinding;
-
 import sun.misc.BASE64Decoder;
-
 import com.ibm.xsp.component.UIViewRootEx2;
-
+import com.ibm.xsp.extlib.util.ExtLibUtil;
 import com.ibm.xsp.extlib.util.JdbcUtil;
+
 import java.sql.Connection;
 import java.sql.SQLException;
-
 import lotus.domino.*;
+import lotus.notes.addins.DominoServer;
 
 import java.io.*;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.*;
+
+import javax.servlet.http.Cookie;
 
 public class JSFUtil {
 
@@ -553,5 +554,50 @@ public class JSFUtil {
 	@SuppressWarnings("unchecked")
 	public static Map<String, String> getParam() {
 		return (Map<String, String>)getVariableValue("param");
+	}
+
+	@SuppressWarnings("unchecked")
+	public static Map<String, Cookie> getCookie() {
+		return (Map<String, Cookie>)getVariableValue("cookie");
+	}
+
+	@SuppressWarnings("unchecked")
+	public static boolean isDocEditableBy(Document doc, String userName) throws NotesException {
+		Database database = ExtLibUtil.getCurrentDatabase();
+
+		// Easy check first
+		int level = database.queryAccess(userName);
+		if(level >= ACL.LEVEL_EDITOR) {
+			return true;
+		} else if(level < ACL.LEVEL_AUTHOR) {
+			return false;
+		}
+
+		// Gather the effective user names and roles
+		DominoServer server = new DominoServer(database.getServer());
+		Collection<String> rawNames = (Collection<String>)server.getNamesList(userName);
+		Set<String> lowerNames = new HashSet<String>();
+		for(String name : rawNames) { lowerNames.add(name.toLowerCase()); }
+		for(String role : (List<String>)database.queryAccessRoles(userName)) { lowerNames.add(role.toLowerCase()); }
+
+		// Now look through all the items in the doc to see if they're an Authors field
+		// If so, check to see if any of the names or roles are in them
+		for(Item item : (List<Item>)doc.getItems()) {
+			if(item.getType() == Item.AUTHORS) {
+				Set<String> itemLowerNames = new HashSet<String>();
+				for(String name : (List<String>)item.getValues()) { itemLowerNames.add(name.toLowerCase()); }
+				itemLowerNames.retainAll(lowerNames);
+				if(itemLowerNames.size() > 0) {
+					// Then at least one name is common between them
+					item.recycle();
+					return true;
+				}
+			}
+
+			item.recycle();
+		}
+		doc.recycle();
+
+		return false;
 	}
 }

@@ -1,13 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <xp:view xmlns:xp="http://www.ibm.com/xsp/core" xmlns:xc="http://www.ibm.com/xsp/custom">
 	<xp:this.data>
-		<xp:dominoView var="commentsView" ignoreRequestParams="true" viewName="Comments" categoryFilter="#{compositeData.value.PostID}"
-			databaseName="#{config.databaseName}" />
+		<xp:dominoView var="commentsView" ignoreRequestParams="true" viewName="Comments" categoryFilter="#{compositeData.value.PostID}"/>
 	</xp:this.data>
 	<xp:this.dataContexts>
-		<xp:dataContext var="commentCount"><xp:this.value><![CDATA[#{ruby:
-			commentsView.create_view_nav_from_category(compositeData["value"]["PostID"][0]).count
-		}]]></xp:this.value></xp:dataContext>
+		<xp:dataContext var="postBlockHelper" value="#{javascript: new helper.PostBlockHelper(compositeData.value)}"/>
 	</xp:this.dataContexts>
 
 	<h2><xp:link styleClass="permalink" title="link to this entry" value="/posts/#{compositeData.value.name}">
@@ -20,7 +17,7 @@
 	
 	<p class="title">
 		<xp:inputText value="#{compositeData.value.$$Title}"/>
-		<xp:text value=" (Draft)" rendered="#{ruby:!compositeData['value'].editable? and compositeData['value']['Status'][0] == 'Draft'}"/>
+		<xp:text value=" (Draft)" rendered="#{postBlockHelper.editable and postBlockHelper.draft}"/>
 	</p>
 	
 	<div class="logtext">
@@ -28,13 +25,13 @@
 			<xp:this.attrs>
 				<xp:attr name="toolbar"><xp:this.value><![CDATA[
 					[
-	["Format", "Font", "FontSize"],
-	["Bold", "Italic", "Underline", "Strike", "-", "TextColor", "BGColor", "-", "JustifyLeft", "JustifyCenter", "JustifyRight", "JustifyBlock", "NumberedList", "-", "BulletedList"],
-	["Indent", "Outdent"],
-	["Subscript", "Superscript"],
-	["RemoveFormat", "-", "MenuPaste", "-", "Undo", "Redo", "Find", "LotusSpellChecker", "-", "Image", "Table", "Link", "Flash", "-", "PageBreak", "HorizontalRule", "SpecialChar", "Blockquote", "Smiley", "ShowBlocks"],
-	["Maximize", "Source"]
-]
+						["Format", "Font", "FontSize"],
+						["Bold", "Italic", "Underline", "Strike", "-", "TextColor", "BGColor", "-", "JustifyLeft", "JustifyCenter", "JustifyRight", "JustifyBlock", "NumberedList", "-", "BulletedList"],
+						["Indent", "Outdent"],
+						["Subscript", "Superscript"],
+						["RemoveFormat", "-", "MenuPaste", "-", "Undo", "Redo", "Find", "LotusSpellChecker", "-", "Image", "Table", "Link", "Flash", "-", "PageBreak", "HorizontalRule", "SpecialChar", "Blockquote", "Smiley", "ShowBlocks"],
+						["Maximize", "Source"]
+					]
 				]]></xp:this.value></xp:attr>
 			</xp:this.attrs>
 		</xp:inputRichText>
@@ -97,7 +94,7 @@
 		</tr>
 	</xp:table>
 	
-	<xp:panel styleClass="comments" tagName="p" loaded="${context.user.name != 'anonymous'}" rendered="#{ruby:!compositeData['value'].editable?}">
+	<xp:panel styleClass="comments" tagName="p" loaded="${context.user.name != 'anonymous'}" rendered="#{postBlockHelper.editable}">
 		<xp:link themeId="Link.Post.Edit" text="Edit Post">
 			<xp:this.parameters>
 				<xp:parameter name="documentId" value="#{javascript:compositeData.value.getDocument().getUniversalID()}"/>
@@ -107,8 +104,6 @@
 	</xp:panel>
 	
 	<xp:panel styleClass="comments" tagName="p" rendered="#{javascript:!compositeData.value.isEditable()}">
-		<xp:link value="/posts/#{compositeData.value.name}#comments"><xp:this.text><![CDATA[#{ruby:
-			commentCount == 1 ? "1 comment" : (commentCount.to_s + " comments")
-		}]]></xp:this.text></xp:link>
+		<xp:link value="/posts/#{compositeData.value.name}#comments" text="#{postBlockHelper.commentsString}"/>
 	</xp:panel>
 </xp:view>
