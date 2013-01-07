@@ -23,6 +23,8 @@ public class BasicXPageController implements XPageController {
 		return ExtLibUtil.resolveVariable(FacesContext.getCurrentInstance(), varName);
 	}
 
+	public boolean isEditable() { return false; }
+
 
 	@SuppressWarnings("unchecked")
 	public List<Date> getArchiveMonths() throws NotesException {

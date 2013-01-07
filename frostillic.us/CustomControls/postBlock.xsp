@@ -17,7 +17,7 @@
 	
 	<p class="title">
 		<xp:inputText value="#{compositeData.value.$$Title}"/>
-		<xp:text value=" (Draft)" rendered="#{postBlockHelper.editable and postBlockHelper.draft}"/>
+		<xp:text value=" (Draft)" rendered="#{!pageController.editable and postBlockHelper.draft}"/>
 	</p>
 	
 	<div class="logtext">
@@ -66,35 +66,37 @@
 <!--			compositeData["value"]["Tags"].map { |tag| "<a href='" + base + "/Tag.xsp?tag=" + tag + "'>" + tag + "</a>" }.join ", "-->
 <!--		}]]></xp:this.value></xp:text>-->
 	</xp:panel>
-	<xp:table styleClass="lotusVertTable" rendered="#{javascript:compositeData.value.isEditable()}">
-		<tr>
-			<th scope="row">Tags:</th>
-			<td>
-				<xp:inputText value="#{compositeData.value.Tags}" multipleSeparator="," multipleTrim="true" >
+	<xp:div styleClass="form-horizontal editPost" rendered="#{pageController.editable}">
+		<div class="control-group">
+			<xp:label styleClass="control-label" for="Tags" value="Tags: "/>
+			<div class="controls">
+				<xp:inputText id="Tags" value="#{compositeData.value.Tags}" multipleSeparator="," multipleTrim="true" >
 					<xp:typeAhead mode="partial" minChars="1" ignoreCase="true" valueListSeparator="," tokens=",">
 						<xp:this.valueList><![CDATA[#{javascript:@Unique(@DbColumn("", "Tags", 1))}]]></xp:this.valueList>
 					</xp:typeAhead>
 				</xp:inputText>
-			</td>
-		</tr>
-		<tr>
-			<th scope="row">Thread:</th>
-			<td>
-				<xp:inputText value="#{compositeData.value.Thread}"/>
-			</td>
-		</tr>
-		<tr>
-			<th scope="row">Status:</th>
-			<td>
-				<xp:radioGroup value="#{compositeData.value.Status}" defaultValue="Draft">
-					<xp:selectItem itemLabel="Draft"/>
-					<xp:selectItem itemLabel="Posted"/>
-				</xp:radioGroup>
-			</td>
-		</tr>
-	</xp:table>
+			</div>
+		</div>
+		<div class="control-group">
+			<xp:label styleClass="control-label" for="Thread" value="Thread: "/>
+			<div class="controls">
+				<xp:inputText id="Thread" value="#{compositeData.value.Thread}"/>
+			</div>
+		</div>
+		<div class="control-group">
+			<xp:label styleClass="control-label" for="Status" value="Status: "/>
+			<div class="controls">
+				<xp:label for="StatusDraft" styleClass="radio">
+					<xp:radio id="StatusDraft" value="#{compositeData.value.Status}" groupName="Status" selectedValue="Draft" text="Draft"/>
+				</xp:label>
+				<xp:label for="StatusPosted" styleClass="radio">
+					<xp:radio id="StatusPosted" value="#{compositeData.value.Status}" groupName="Status" selectedValue="Posted" text="Posted"/>
+				</xp:label>
+			</div>
+		</div>
+	</xp:div>
 	
-	<xp:panel styleClass="comments" tagName="p" loaded="${context.user.name != 'anonymous'}" rendered="#{postBlockHelper.editable}">
+	<xp:panel styleClass="comments" tagName="p" loaded="${context.user.name != 'anonymous'}" rendered="#{!pageController.editable}">
 		<xp:link themeId="Link.Post.Edit" text="Edit Post">
 			<xp:this.parameters>
 				<xp:parameter name="documentId" value="#{javascript:compositeData.value.getDocument().getUniversalID()}"/>
@@ -103,7 +105,7 @@
 		</xp:link>
 	</xp:panel>
 	
-	<xp:panel styleClass="comments" tagName="p" rendered="#{javascript:!compositeData.value.isEditable()}">
+	<xp:panel styleClass="comments" tagName="p" rendered="#{!pageController.editable}">
 		<xp:link value="/posts/#{compositeData.value.name}#comments" text="#{postBlockHelper.commentsString}"/>
 	</xp:panel>
 </xp:view>

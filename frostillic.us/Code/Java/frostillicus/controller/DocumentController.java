@@ -9,5 +9,4 @@ public interface DocumentController extends XPageController {
 	public void postSaveDocument() throws Exception;
 
 	public String getDocumentId();
-	public boolean isEditable();
 }

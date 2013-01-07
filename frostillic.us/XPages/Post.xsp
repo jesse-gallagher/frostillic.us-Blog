@@ -7,7 +7,10 @@
 	</xp:this.navigationRules>
 
 	<xp:this.data>
-		<xp:dominoDocument var="doc" documentId="${param.documentId}" formName="Post" computeWithForm="both" action="openDocument"/>
+		<xp:dominoDocument var="doc" documentId="${param.documentId}" formName="Post" computeWithForm="both" action="openDocument"
+			queryNewDocument="#{pageController.queryNewDocument}" postNewDocument="#{pageController.postNewDocument}"
+			queryOpenDocument="#{pageController.queryOpenDocument}" postOpenDocument="#{pageController.postOpenDocument}"
+			querySaveDocument="#{pageController.querySaveDocument}" postSaveDocument="#{pageController.postSaveDocument}"/>
 		<xp:dominoView var="commentsView" ignoreRequestParams="true" viewName="Comments" categoryFilter="#{doc.PostID}"/>
 	</xp:this.data>
 
@@ -17,17 +20,17 @@
 	
 	<xc:layout>
 		<xc:actionBar>
-			<xp:button styleClass="lotusBtn" id="editPost" rendered="${!pageController.editable and pageController.userEditable}" value="Edit Post">
+			<xp:button id="editPost" rendered="${!pageController.editable and pageController.userEditable}" value="Edit Post">
 				<xp:eventHandler event="onclick" submit="true" refreshMode="complete" disableValidators="true">
 					<xp:this.action>
 						<xp:changeDocumentMode mode="edit" var="doc"/>
 					</xp:this.action>
 				</xp:eventHandler>
 			</xp:button>
-			<xp:button styleClass="lotusBtn" id="savePost" rendered="#{pageController.editable}" value="Save Post">
+			<xp:button id="savePost" rendered="#{pageController.editable}" value="Save Post">
 				<xp:eventHandler event="onclick" submit="true" refreshMode="complete" action="#{pageController.save}"/>
 			</xp:button>
-			<xp:button styleClass="lotusBtn" id="deletePost" rendered="#{pageController.userEditable}" value="Delete Post">
+			<xp:button id="deletePost" rendered="#{pageController.userEditable}" value="Delete Post">
 				<xp:eventHandler event="onclick" submit="true" refreshMode="true" disableValidators="true"
 					action="#{pageController.deletePost}">
 					<xp:this.script><![CDATA[
@@ -64,42 +67,46 @@
 				</xp:repeat>
 			
 				<xp:panel id="newCommentPanel">
-					<table class="lotusVertTable newComment">
-						<tr>
-							<th scope="row"><xp:label for="newCommentName" value="Name: "/></th>
-							<td>
+					<div class="form-horizontal newComment">
+						<div class="control-group">
+							<xp:label styleClass="control-label" for="newCommentName" value="Name: "/>
+							<div class="controls">
 								<xp:inputText id="newCommentName" required="true" value="#{pageController.newCommentData.name}">
 									<xp:this.validators>
 										<xp:validateRequired message="Name is required"/>
 									</xp:this.validators>
 								</xp:inputText>
-							</td>
-						</tr>
-						<tr>
-							<th scope="row"><xp:label for="newCommentEmail" value="Email: "/></th>
-							<td>
+							</div>
+						</div>
+						<div class="control-group">
+							<xp:label styleClass="control-label" for="newCommentEmail" value="Email: "/>
+							<div class="controls">
 								<xp:inputText id="newCommentEmail" value="#{pageController.newCommentData.email}"/>
-							</td>
-						</tr>
-						<tr>
-							<th scope="row"><xp:label for="newCommentURL" value="URL: "/></th>
-							<td><xp:inputText id="newCommentURL" value="#{pageController.newCommentData.url}"/></td>
-						</tr>
-						<tr>
-							<th scope="row"></th>
-							<td>
-								<xp:checkBox id="newCommentRememberMe" text="Remember my information on this computer" value="#{pageController.newCommentData.rememberMe}" checkedValue="yes"
-									defaultChecked="${cookie.AuthorName != null}"/>
-							</td>
-						</tr>
-						<tr>
-							<th scope="row"><xp:label for="newCommentBody" value="Body: "/></th>
-							<td>
-								<xp:inputRichText id="newCommentBody" htmlFilterIn="acf" value="#{pageController.newCommentData.body}"/></td>
-						</tr>
-						<tr>
-							<th scope="row"></th>
-							<td>
+							</div>
+						</div>
+						<div class="control-group">
+							<xp:label styleClass="control-label" for="newCommentURL" value="URL: "/>
+							<div class="controls">
+								<xp:inputText id="newCommentURL" value="#{pageController.newCommentData.url}"/>
+							</div>
+						</div>
+						<div class="control-group">
+							<div class="controls">
+								<xp:label for="newCommentRememberMe" styleClass="checkbox">
+									<xp:checkBox id="newCommentRememberMe" value="#{pageController.newCommentData.rememberMe}" checkedValue="yes"
+										defaultChecked="${cookie.AuthorName != null}"/>
+									&#160;Remember my information on this computer
+								</xp:label>
+							</div>
+						</div>
+						<div class="control-group">
+							<xp:label styleClass="control-label" for="newCommentBody" value="Body: "/>
+							<div class="controls">
+								<xp:inputRichText id="newCommentBody" htmlFilterIn="acf" value="#{pageController.newCommentData.body}"/>
+							</div>
+						</div>
+						<div class="control-group">
+							<div class="controls">
 								<xp:button id="submitComment" value="Submit Comment">
 									<xp:eventHandler event="onclick" submit="true" refreshMode="complete"
 										action="#{pageController.submitComment}">
@@ -112,9 +119,9 @@
 										]]></xp:this.script>
 									</xp:eventHandler>
 								</xp:button>
-							</td>
-						</tr>
-					</table>
+							</div>
+						</div>
+					</div>
 				</xp:panel>
 			</div>
 		</xp:div>

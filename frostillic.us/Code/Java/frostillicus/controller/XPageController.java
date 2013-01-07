@@ -11,4 +11,6 @@ public interface XPageController extends Serializable {
 
 	public void beforeRenderResponse(PhaseEvent event) throws Exception;
 	public void afterRenderResponse(PhaseEvent event) throws Exception;
+
+	public boolean isEditable();
 }

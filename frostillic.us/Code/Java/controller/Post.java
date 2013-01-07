@@ -2,6 +2,8 @@ package controller;
 
 import javax.faces.context.FacesContext;
 import lotus.domino.*;
+
+import com.ibm.commons.util.StringUtil;
 import com.ibm.xsp.component.UIViewRootEx2;
 import com.ibm.xsp.extlib.util.ExtLibUtil;
 import com.ibm.xsp.http.MimeMultipart;
@@ -23,6 +25,7 @@ public class Post extends BasicDocumentController {
 	private static final long serialVersionUID = 1L;
 
 	@Getter private Map<String, Object> newCommentData = new HashMap<String, Object>();
+	private String startingStatus;
 
 	@Override
 	public void beforePageLoad() throws UnsupportedEncodingException {
@@ -37,12 +40,28 @@ public class Post extends BasicDocumentController {
 		if(cookie.containsKey("AuthorEmail")) { newCommentData.put("AuthorEmail", URLDecoder.decode(cookie.get("AuthorName").getValue(), "UTF-8")); }
 		if(cookie.containsKey("AuthorURL")) { newCommentData.put("AuthorURL", URLDecoder.decode(cookie.get("AuthorName").getValue(), "UTF-8")); }
 	}
+	@Override
+	public void postOpenDocument() throws Exception {
+		this.startingStatus = (String)this.getDoc().getValue("Status");
+	}
 
 	public String deletePost() throws NotesException {
 		Document doc = this.getDoc().getDocument();
 		doc.replaceItemValue("Form", "Deleted Post");
 		doc.save();
 		return "xsp-success";
+	}
+
+	@Override
+	public String save() throws Exception {
+		String endingStatus = (String)this.getDoc().getValue("Status");
+		if(!StringUtil.equals(startingStatus, endingStatus)) {
+			if(endingStatus.equals("Posted")) {
+				this.getDoc().setValue("Posted", new Date());
+			}
+		}
+
+		return super.save();
 	}
 
 	public String submitComment() throws Exception {
