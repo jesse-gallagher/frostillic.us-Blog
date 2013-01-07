@@ -1,0 +1,52 @@
+body, html {
+	overflow: hidden
+}
+
+div.lotusFrame {
+	position: absolute;
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 0;
+}
+div.lotusMain {
+	position: absolute;
+	/*top: 73px;*/
+	top: 98px;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	overflow: hidden;
+}
+
+div.lotusContent {
+	position: absolute;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	top: 0;
+	overflow: auto;
+	z-index: 2;
+}
+div.hasLeftCol div.lotusContent { left: 220px; }
+div.hasRightCol div.lotusContent { right: 220px; }
+
+div.lotusColLeft {
+	position: absolute;
+	top: 0;
+	left: 0;
+	bottom: 0;
+	overflow: auto;
+	z-index: 3;
+}
+div.lotusColRight {
+	position: absolute;
+	top: 0;
+	right: 0;
+	bottom: 0;
+	overflow: auto;
+}
+div.lotusColLeft, div.lotusColRight {
+	overflow-y: auto;
+	overflow-x: hidden;
+}

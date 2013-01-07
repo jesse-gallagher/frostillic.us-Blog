@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xp:view xmlns:xp="http://www.ibm.com/xsp/core">
+	<xp:scriptBlock>
+		<xp:this.value><![CDATA[
+			var _gaq = _gaq || [];
+			_gaq.push(['_setAccount', "#{compositeData.accountId}"]);
+			_gaq.push(['_trackPageview']);
+
+			(function() {
+				var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+				ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+				var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+			})();
+		]]></xp:this.value>
+	</xp:scriptBlock>
+</xp:view>

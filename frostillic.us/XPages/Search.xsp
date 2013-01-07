@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xp:view xmlns:xp="http://www.ibm.com/xsp/core" xmlns:xc="http://www.ibm.com/xsp/custom" pageTitle="Search">
+	
+	<xc:layout>
+		<xp:panel>
+			<xp:this.data>
+				<xp:dominoView var="posts" ignoreRequestParams="true" viewName="${'Posts'}" sortColumn="Posted" sortOrder="descending"
+					search="${param.q}" databaseName="#{config.databaseName}"/>
+			</xp:this.data>
+			
+			<xp:dataTable rows="30" id="viewPanel1" value="#{posts}" var="viewEntry">
+				<xp:this.facets>
+<!--					<xc:pager xp:key="header" id="pager1" for="viewPanel1" baseURL="/Search.xsp${context.url.queryString}"/>-->
+					<xp:pager partialRefresh="true" layout="Previous Group Next" xp:key="header" id="pager1"/>
+					<xp:pager partialRefresh="true" layout="Previous Group Next" xp:key="footer" id="pager2"/>
+				</xp:this.facets>
+				
+	<!--			<xp:column>-->
+	<!--				<xp:this.facets><xp:text xp:key="header" value="Author"/></xp:this.facets>-->
+	<!--				<xc:commonName value="#{viewEntry.$$Creator}"/>-->
+	<!--			</xp:column>-->
+				<xp:column>
+					<xp:this.facets><xp:text xp:key="header" value="Posted"/></xp:this.facets>
+					<xc:date value="#{viewEntry.Posted}"/>
+				</xp:column>
+				<xp:column>
+					<xp:this.facets><xp:text xp:key="header" value="Title"/></xp:this.facets>
+					<xp:link value="/posts/#{viewEntry.$Key}" text="#{viewEntry.$$Title}"/>
+				</xp:column>
+				<xp:column>
+					<xp:this.facets><xp:text xp:key="header" value="Tags"/></xp:this.facets>
+					<xp:text value="#{viewEntry.Tags}"/>
+				</xp:column>
+			</xp:dataTable>
+		</xp:panel>
+	</xc:layout>
+	
+</xp:view>

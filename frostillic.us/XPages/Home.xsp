@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xp:view xmlns:xp="http://www.ibm.com/xsp/core" xmlns:xe="http://www.ibm.com/xsp/coreex" xmlns:xc="http://www.ibm.com/xsp/custom"
+	beforePageLoad="#{pageController.beforePageLoad}" afterPageLoad="#{pageController.afterPageLoad}"
+	pageTitle="Home">
+
+	<xc:layout>
+	
+		<xp:panel>
+			<xp:this.data>
+				<xp:dominoView var="posts" ignoreRequestParams="true" viewName="Posts" sortColumn="Posted" sortOrder="descending"
+					databaseName="#{config.databaseName}" />
+			</xp:this.data>
+			
+			<xp:repeat id="postList" var="postEntry" value="#{posts}"
+				rows="15">
+				<xp:panel id="logBlock" styleClass="log">
+					<xp:this.data>
+						<xp:dominoDocument var="post" databaseName="#{config.databaseName}"
+							ignoreRequestParams="true" action="openDocument"
+							documentId="#{javascript:postEntry.getUniversalID()}" />
+					</xp:this.data>
+	
+					<xc:postBlock value="#{post}" />
+				</xp:panel>
+			</xp:repeat>
+		</xp:panel>
+
+	</xc:layout>
+
+</xp:view>
