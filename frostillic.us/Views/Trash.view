@@ -1,24 +1,24 @@
 <?xml version='1.0' encoding='utf-8'?>
 <note class='view' xmlns='http://www.lotus.com/dxl' version='9.0' replicaid='85257AEC00467093'>
-<noteinfo noteid='1fa' unid='F8DEDCC9918063B6852577EF0069F83A' sequence='7'>
+<noteinfo noteid='1fa' unid='F8DEDCC9918063B6852577EF0069F83A' sequence='8'>
 <created><datetime>20101204T141728,26-05</datetime></created>
-<modified><datetime>20130107T074929,34-05</datetime></modified>
-<revised><datetime>20121214T102522,87-05</datetime></revised>
-<lastaccessed><datetime>20130107T074929,33-05</datetime></lastaccessed>
+<modified><datetime>20130107T193433,55-05</datetime></modified>
+<revised><datetime>20130107T193433,54-05</datetime></revised>
+<lastaccessed><datetime>20130107T193433,54-05</datetime></lastaccessed>
 <addedtofile><datetime>20130107T074929,33-05</datetime></addedtofile></noteinfo>
-<updatedby><name>CN=Jesse Gallagher/O=MTC</name><name>CN=Jesse Gallagher/O=Frost</name></updatedby>
+<updatedby><name>CN=Jesse Gallagher/O=Frost</name></updatedby>
 <wassignedby><name>CN=Jesse Gallagher/O=Frost</name></wassignedby>
 <item name='$FormatNote' summary='true'>
 <rawitemdata type='4'>
 AQCU7G6FoWlsP/FjaADvdyWF
 </rawitemdata></item>
+<item name='$FormulaClass' sign='true'><text>1</text></item>
 <item name='$TITLE' sign='true'><text>Trash</text></item>
 <item name='$Index' sign='true'><text/></item>
 <item name='$Formula' summary='true' sign='true'><formula compiled='true'>
 SgAFACAAGwADAAQACQAEAEZvcm0kQ29uZmxpY3QkUkVGAAQABAAAABgAvwBYAQAAAAAAAADAY0AP
 AgQAAwAHAAwABQAJNVM2UwA=
 </formula></item>
-<item name='$FormulaClass' sign='true'><text>1</text></item>
 <item name='$Collation' summary='true'>
 <rawitemdata type='2'>
 BgAAAABE
@@ -33,14 +33,14 @@ AAAAAAAAAEIAEQAAAAEA////AAEA7+/vAAEA////AAAAAAAAAAAAAQD///8AAQD///8AAAABAAAA
 AAABAAAAAAABAAAAAAAAAAgAAAAAAAEA
 </rawitemdata></item>
 <item name='$Comment' sign='true'><text/></item>
-<item name='$DesignerVersion'><text>8.5.2</text></item>
-<item name='$ViewInheritedFrom'><text>All</text></item>
+<item name='$Flags'><text>Yl</text></item>
+<item name='$DesignerVersion'><text>8.5.3</text></item>
 <item name='$V5ACTIONS' sign='true'>
 <rawitemdata type='1'>
 vRwjAAAAAQABAAAAAQAAAAAAAAAAAAAACAACAHn/bAABANTQyAABAAAAAAAJAAAAAAABANTQyAAA
 AB8AAAAAAAAAAAADAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
 AAAAAAAAAAAAAAAAAAAAAAAAAAAAAPz/OgAAAAAAAQAAAAAAAQAAAAAAAAAAAAAAAAAAAAAAAAAA
-AAAAAAAAAAEAAAAAAAAAAAAAAAAAAAA=
-</rawitemdata></item>
-<item name='$Flags'><text>Yl</text></item></note>
+AAAAAAAAAAEAAAAAAAAAAAAAAAAAAAC+/z4AAAABAAAAnwEAAAcAAAAAAAAAUmVzdG9yZQogAAAA
+EgACACYcAAAAAAAA7QEDAAcADAAFAAkwUzBFAA==
+</rawitemdata></item></note>
 
