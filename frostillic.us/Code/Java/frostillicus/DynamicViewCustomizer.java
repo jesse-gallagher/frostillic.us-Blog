@@ -1,5 +1,5 @@
 /*
- * © Copyright Jesse Gallagher 2012
+ * ï¿½ Copyright Jesse Gallagher 2012
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"); 
  * you may not use this file except in compliance with the License. 
@@ -36,14 +36,16 @@ import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.el.ValueBinding;
 
-import lotus.domino.*;
+import org.openntf.domino.*;
+import org.openntf.domino.utils.XSPUtil;
 
 import com.raidomatic.xml.*;
 
 
 public class DynamicViewCustomizer extends DominoViewCustomizer {
 	UIDynamicViewPanel panel;
-	
+
+	@Override
 	public ViewFactory getViewFactory() {
 		return new DynamicViewFactory();
 	}
@@ -51,7 +53,7 @@ public class DynamicViewCustomizer extends DominoViewCustomizer {
 	public class DynamicViewFactory extends DefaultViewFactory {
 		private static final long serialVersionUID = 123034173761337005L;
 		private SystemCache views = new SystemCache("View Definition", 16, "xsp.extlib.viewdefsize");
-		
+
 		public ViewDef getViewDef(View view) {
 			if(view == null) return null; 
 			try {
@@ -62,7 +64,7 @@ public class DynamicViewCustomizer extends DominoViewCustomizer {
 					viewDef = new DefaultViewDef();
 					if(view.isHierarchical()) viewDef.flags |= DefaultViewDef.FLAG_HIERARCHICAL;
 					if(view.isCategorized()) viewDef.flags |= DefaultViewDef.FLAG_CATEGORIZED;
-					
+
 					viewDef.columns.addAll(this.getViewColumnInformation(view));
 				}
 				return viewDef;
@@ -70,11 +72,11 @@ public class DynamicViewCustomizer extends DominoViewCustomizer {
 				throw new FacesExceptionEx(ex, "Error while accessing view {0}", view.toString());
 			}
 		}
-		
+
 		@SuppressWarnings("unchecked")
 		private List<ColumnDef> getViewColumnInformation(View view) throws Exception {
 			Database database = view.getParent();
-			
+
 			/* Generate the DXL */
 			Document viewDoc = database.getDocumentByUNID(view.getUniversalID());
 			String dxl = viewDoc.generateXML();
@@ -82,24 +84,24 @@ public class DynamicViewCustomizer extends DominoViewCustomizer {
 			XMLDocument dxlDoc = new XMLDocument();
 			dxlDoc.loadInputStream(is);
 			viewDoc.recycle();
-			
+
 			/* Fetch both types of column information since some properties are much easier to deal
 			 * with via the standard API */
 			List<ViewColumn> viewColumns = view.getColumns();
 			List<XMLNode> dxlColumns = dxlDoc.selectNodes("//column");
-			
+
 			// Figure out if we're going to extend the last column
 			boolean extendLastColumn = dxlDoc.selectSingleNode("//view").getAttribute("extendlastcolumn").equals("true");
-			
+
 			Document contextDoc = database.createDocument();
 			List<ColumnDef> columns = new Vector<ColumnDef>();
 			String activeColorColumn = "";
 			for(int i = 0; i < dxlColumns.size(); i++) {
 				XMLNode columnNode = dxlColumns.get(i);
 				ViewColumn viewColumn = viewColumns.get(i);
-				
+
 				ExtendedColumnDef column = new ExtendedColumnDef();
-				
+
 				if(columnNode.getAttribute("hidden").equals("true")) {
 					column.flags |= DefaultColumnDef.FLAG_HIDDEN;
 				} else {
@@ -117,21 +119,21 @@ public class DynamicViewCustomizer extends DominoViewCustomizer {
 						}
 					}
 				}
-				
-				
+
+
 				column.name = columnNode.getAttribute("itemname");
-				
+
 				if(columnNode.getAttribute("showascolor").equals("true")) {
 					activeColorColumn = column.name;
 				}
 				column.colorColumn = activeColorColumn;
-				
+
 				// Get the header information
 				XMLNode header = columnNode.selectSingleNode("columnheader");
 				column.title = columnNode.selectSingleNode("columnheader").getAttribute("title");
 				if(header.getAttribute("align").equals("center")) column.flags |= DefaultColumnDef.FLAG_HALIGNCENTER;
 				else if(header.getAttribute("align").equals("right")) column.flags |= DefaultColumnDef.FLAG_HALIGNRIGHT;
-				
+
 				column.width = new Float(columnNode.getAttribute("width")).intValue();
 
 				if(columnNode.getAttribute("responsesonly").equals(true)) column.flags |= DefaultColumnDef.FLAG_RESPONSE;
@@ -142,7 +144,7 @@ public class DynamicViewCustomizer extends DominoViewCustomizer {
 				//if(columnNode.getAttribute("align").equals("center")) column.flags |= DefaultColumnDef.FLAG_ALIGNCENTER;
 				//else if(columnNode.getAttribute("align").equals("right")) column.flags |= DefaultColumnDef.FLAG_ALIGNRIGHT;
 				if(columnNode.getAttribute("showaslinks").equals("true")) column.flags |= DefaultColumnDef.FLAG_LINK | DefaultColumnDef.FLAG_ONCLICK | DefaultColumnDef.FLAG_CHECKBOX;
-				
+
 				column.numberFmt = viewColumn.getNumberFormat();
 				column.numberDigits = viewColumn.getNumberDigits();
 				column.numberAttrib = viewColumn.getNumberAttrib();
@@ -157,7 +159,7 @@ public class DynamicViewCustomizer extends DominoViewCustomizer {
 
 				if(columnNode.getAttribute("showasicons").equals("true")) column.flags |= DefaultColumnDef.FLAG_ICON;
 				if(columnNode.getAttribute("twisties").equals("true")) column.flags |= DefaultColumnDef.FLAG_INDENTRESP;
-				
+
 				// Find any twistie image
 				XMLNode twistieImage = columnNode.selectSingleNode("twistieimage/imageref");
 				if(twistieImage != null) {
@@ -166,11 +168,11 @@ public class DynamicViewCustomizer extends DominoViewCustomizer {
 					} else {
 						column.twistieReplicaId = twistieImage.getAttribute("database");
 					}
-					
+
 					// Make sure that the referenced database is available on the current server
 					boolean setTwistie = true;
 					if(!column.twistieReplicaId.equalsIgnoreCase(database.getReplicaID())) {
-						Database twistieDB = JSFUtil.getSession().getDatabase("", "");
+						Database twistieDB = XSPUtil.getCurrentSession().getDatabase("", "");
 						twistieDB.openByReplicaID("", column.twistieReplicaId);
 						if(!twistieDB.isOpen()) {
 							setTwistie = false;
@@ -178,9 +180,9 @@ public class DynamicViewCustomizer extends DominoViewCustomizer {
 						twistieDB.recycle();
 					}
 					if(setTwistie) column.twistieImage = twistieImage.getAttribute("name");
-					
+
 				}
-				
+
 				// Support extending the column width to the full window.
 				// In the client, "extend last column" takes priority
 				if(extendLastColumn && i == dxlColumns.size()-1) {
@@ -188,18 +190,18 @@ public class DynamicViewCustomizer extends DominoViewCustomizer {
 				} else if(!extendLastColumn && columnNode.getAttribute("extwindowwidth").equals("true")) {
 					column.extendColumn = true;
 				}
-				
+
 				columns.add(column);
-				
+
 				viewColumn.recycle();
 			}
 			contextDoc.recycle();
-			
+
 			database.recycle();
-			
+
 			return columns;
 		}
-		
+
 		public class ExtendedColumnDef extends DefaultColumnDef {
 			public String colorColumn;
 			public String twistieImage = "";
@@ -207,31 +209,33 @@ public class DynamicViewCustomizer extends DominoViewCustomizer {
 			public boolean extendColumn = false;
 		}
 	}
-	
+
+	@Override
 	public boolean createColumns(FacesContext context, UIDynamicViewPanel panel, ViewFactory f) {
 		// All I care about here is getting the panel for later
 		this.panel = panel;
 		return false;
 	}
-	
+
+	@Override
 	public void afterCreateColumn(FacesContext context, int index, ColumnDef colDef, IControl column) {
 		// Patch in a converter to handle special text
 		UIDynamicViewPanel.DynamicColumn col = (UIDynamicViewPanel.DynamicColumn)column.getComponent();
 		col.setConverter(new ExtendedViewColumnConverter(null, colDef, panel));
-		
+
 		// We'll handle escaping the HTML manually, to support [<b>Notes-style</b>] pass-through-HTML
 		col.setContentType("html");
-		
+
 		// Deal with any twistie images and color columns
 		if(colDef instanceof DynamicViewFactory.ExtendedColumnDef) {
 			DynamicViewFactory.ExtendedColumnDef extColDef = (DynamicViewFactory.ExtendedColumnDef)colDef;
-			
+
 			if(extColDef.twistieImage.length() > 0) {
 				// Assume that it's a multi-image well for now
 				col.setCollapsedImage("/.ibmxspres/domino/__" + extColDef.twistieReplicaId + ".nsf/" + extColDef.twistieImage.replaceAll("\\\\", "/") + "?Open&ImgIndex=2");
 				col.setExpandedImage("/.ibmxspres/domino/__" + extColDef.twistieReplicaId + ".nsf/" + extColDef.twistieImage.replaceAll("\\\\", "/") + "?Open&ImgIndex=1");
 			}
-			
+
 			// The style applies to the contents of the column as well as the column itself, which messes with icon columns
 			// For now, don't apply it at all to those columns
 			String widthStyle = "";
@@ -240,7 +244,7 @@ public class DynamicViewCustomizer extends DominoViewCustomizer {
 			} else if(extColDef.extendColumn && !extColDef.isCategorized()) {
 				widthStyle = "width: auto";
 			}
-			
+
 			if(extColDef.colorColumn.length() > 0) {
 				String styleFormula = "#{javascript:'" + widthStyle + ";' + " + getClass().getName() + ".colorColumnToStyle(" + panel.getVar() + ".getColumnValue('" + extColDef.colorColumn + "'))}";
 				ValueBinding style = context.getApplication().createValueBinding(styleFormula);
@@ -249,24 +253,24 @@ public class DynamicViewCustomizer extends DominoViewCustomizer {
 				col.setStyle(widthStyle);
 			}
 		}
-      }
+	}
 	public class ExtendedViewColumnConverter extends ViewColumnConverter {
 		ColumnDef colDef;
 		UIDynamicViewPanel panel;
-		
+
 		public ExtendedViewColumnConverter(ViewDef viewDef, ColumnDef colDef, UIDynamicViewPanel panel) {
 			super(viewDef, colDef);
 			this.colDef = colDef;
 			this.panel = panel;
 		}
-		
+
 		@Override
 		public String getValueAsString(FacesContext context, UIComponent component, Object value) {
 			// First, apply any color-color info needed
 			DominoViewEntry entry = resolveViewEntry(context, panel.getVar());
 			try {
-				if(value instanceof DateTime) {
-					return getValueDateTimeAsString(context, component, ((DateTime)value).toJavaDate());
+				if(value instanceof lotus.domino.DateTime) {
+					return getValueDateTimeAsString(context, component, ((lotus.domino.DateTime)value).toJavaDate());
 				}
 				if(value instanceof Date) {
 					return getValueDateTimeAsString(context, component, (Date)value);
@@ -274,28 +278,26 @@ public class DynamicViewCustomizer extends DominoViewCustomizer {
 				if(value instanceof Number) {
 					return getValueNumberAsString(context, component, (Number)value);
 				}
-			} catch(NotesException ex) { }
-			
+			} catch(lotus.domino.NotesException ex) { }
+
 			String stringValue = value.toString();
-			
-			
-			try {
-				stringValue = JSFUtil.specialTextDecode(stringValue, entry);
-			} catch(NotesException ne) { }
-			
+
+
+			stringValue = JSFUtil.specialTextDecode(stringValue, XSPUtil.wrap(entry));
+
 			// Process the entry as Notes-style pass-through-HTML
 			stringValue = handlePassThroughHTML(stringValue);
-			
-			
+
+
 			// Add in some text for empty categories
 			if(entry.isCategory() && stringValue.length() == 0) {
 				stringValue = "(Not Categorized)";
 			}
-			
+
 			// Include a &nbsp; to avoid weird styling problems when the content itself is empty or not visible
 			return stringValue;
 		}
-		
+
 		private String handlePassThroughHTML(String cellData) {
 			if(cellData.contains("[<") && cellData.contains(">]")) {
 				String[] cellChunks = cellData.split("\\[\\<", -2);
@@ -311,12 +313,12 @@ public class DynamicViewCustomizer extends DominoViewCustomizer {
 			}
 			return cellData;
 		}
-		
+
 		private DominoViewEntry resolveViewEntry(FacesContext context, String var) {
 			return (DominoViewEntry)context.getApplication().getVariableResolver().resolveVariable(context, var);
 		}
 	}
-	
+
 	@SuppressWarnings("unchecked")
 	public static String colorColumnToStyle(Object colorValuesObj) {
 		String cellStyle = "";

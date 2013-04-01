@@ -3,7 +3,8 @@ package frostillicus.controller;
 import frostillicus.JSFUtil;
 
 import javax.faces.context.FacesContext;
-import lotus.domino.*;
+import org.openntf.domino.*;
+import org.openntf.domino.utils.XSPUtil;
 import com.ibm.xsp.extlib.util.ExtLibUtil;
 import com.ibm.xsp.model.domino.wrapped.DominoDocument;
 import java.util.*;
@@ -30,7 +31,7 @@ public class BasicDocumentController extends BasicXPageController implements Doc
 
 		boolean isNewNote = doc.isNewNote();
 		if(doc.save()) {
-			Database database = doc.getParentDatabase();
+			Database database = XSPUtil.wrap(doc.getDocument()).getParentDatabase();
 			if(database.isFTIndexed()) {
 				database.updateFTIndex(false);
 			}
@@ -59,14 +60,15 @@ public class BasicDocumentController extends BasicXPageController implements Doc
 		} catch(Exception e) { return ""; }
 	}
 
-	public boolean isEditable() { return this.getDoc().isEditable(); }
+	@Override
+      public boolean isEditable() { return this.getDoc().isEditable(); }
 
-	public boolean isEditableBy(String userName) throws NotesException {
-		Document doc = this.getDoc().getDocument();
+	public boolean isEditableBy(String userName) throws lotus.domino.NotesException {
+		Document doc = XSPUtil.wrap(this.getDoc().getDocument());
 		return JSFUtil.isDocEditableBy(doc, userName);
 	}
-	public boolean isUserEditable() throws NotesException {
-		return this.isEditableBy(ExtLibUtil.getCurrentSession().getEffectiveUserName());
+	public boolean isUserEditable() throws lotus.domino.NotesException {
+		return this.isEditableBy(XSPUtil.getCurrentSession().getEffectiveUserName());
 	}
 
 	protected DominoDocument getDoc() {
@@ -74,13 +76,11 @@ public class BasicDocumentController extends BasicXPageController implements Doc
 	}
 
 
-	public int getNoteCount() throws NotesException {
-		Database database = ExtLibUtil.getCurrentDatabase();
+	public int getNoteCount() {
+		Database database = XSPUtil.getCurrentDatabase();
 		View notes = database.getView("Notes by Parent");
 		ViewNavigator nav = notes.createViewNavFromCategory(this.getDocumentId());
 		int count = nav.getCount();
-		nav.recycle();
-		notes.recycle();
 		return count;
 	}
 }

@@ -1,7 +1,8 @@
 package controller;
 
 import javax.faces.context.FacesContext;
-import lotus.domino.*;
+import org.openntf.domino.*;
+import org.openntf.domino.utils.XSPUtil;
 
 import com.ibm.commons.util.StringUtil;
 import com.ibm.xsp.component.UIViewRootEx2;
@@ -45,8 +46,8 @@ public class Post extends BasicDocumentController {
 		this.startingStatus = (String)this.getDoc().getValue("Status");
 	}
 
-	public String deletePost() throws NotesException {
-		Document doc = this.getDoc().getDocument();
+	public String deletePost() {
+		Document doc = XSPUtil.wrap(this.getDoc().getDocument());
 		doc.replaceItemValue("Form", "Deleted Post");
 		doc.save();
 		return "xsp-success";
@@ -73,7 +74,7 @@ public class Post extends BasicDocumentController {
 		String referrer = request.getHeader("Referer");
 
 		// Set up the Akismet requester and see if it's spam
-		Database database = ExtLibUtil.getCurrentDatabase();
+		Database database = XSPUtil.getCurrentDatabase();
 		View config = database.getView("Configuration");
 		Document akismetConfig = config.getDocumentByKey("Akismet", true);
 		Akismet akismet = (Akismet)resolveVariable("akismet");

@@ -12,18 +12,6 @@ public class Home extends BasicXPageController {
 
 	@Override
 	public void beforePageLoad() throws Exception {
-		/*
-		 * if param["p"]
-			facesContext.external_context.redirect facesContext.externalContext.requestContextPath + "/posts/" + param[:p]
-		elsif param[:category_name]
-			facesContext.external_context.redirect facesContext.externalContext.requestContextPath + "/Tag.xsp?tag=" + Java::java.net.URLEncoder.encode(param[:category_name], "UTF-8")
-		elsif param[:feed]
-			facesContext.external_context.response.setStatus(301)
-			#facesContext.external_context.redirect facesContext.externalContext.requestContextPath + "/feed.xml"
-			facesContext.external_context.response.setHeader("Location", facesContext.externalContext.requestContextPath + "/feed.xml")
-			facesContext.response_complete
-		end
-		 */
 
 		FacesContext facesContext = FacesContext.getCurrentInstance();
 		Map<String, String> param = JSFUtil.getParam();

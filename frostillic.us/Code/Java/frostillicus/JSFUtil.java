@@ -11,7 +11,9 @@ import com.ibm.xsp.extlib.util.JdbcUtil;
 
 import java.sql.Connection;
 import java.sql.SQLException;
-import lotus.domino.*;
+import org.openntf.domino.*;
+import org.openntf.domino.utils.XSPUtil;
+import org.openntf.domino.utils.Factory;
 import lotus.notes.addins.DominoServer;
 
 import java.io.*;
@@ -46,13 +48,13 @@ public class JSFUtil {
 		return (String)getBindingValue("#{context.user.name}");
 	}
 	public static Session getSession() {
-		return (Session)getVariableValue("session");
+		return XSPUtil.getCurrentSession();
 	}
 	public static Session getSessionAsSigner() {
-		return (Session)getVariableValue("sessionAsSigner");
+		return XSPUtil.getCurrentSessionAsSigner();
 	}
 	public static Database getDatabase() {
-		return (Database)getVariableValue("database");
+		return XSPUtil.getCurrentDatabase();
 	}
 	public static UIViewRootEx2 getViewRoot() {
 		return (UIViewRootEx2)getVariableValue("view");
@@ -60,73 +62,6 @@ public class JSFUtil {
 
 	public static Connection getConnection(String connectionName) throws SQLException {
 		return JdbcUtil.getConnection(FacesContext.getCurrentInstance(), connectionName);
-	}
-
-	public static Database findProjectDatabase(String projectDocumentUNID) throws NotesException {
-		Document projectDoc = JSFUtil.getDatabase().getDocumentByUNID(projectDocumentUNID);
-		Database projectDatabase = findProjectDatabase(projectDoc);
-		projectDoc.recycle();
-		return projectDatabase;
-	}
-	public static Database findProjectDatabase(Document projectDoc) throws NotesException {
-		Database db;
-		Session session = JSFUtil.getSession();
-		Session sessionAsSigner = JSFUtil.getSessionAsSigner();
-
-		// If there's already DB info int he doc, use that
-		String dbReplicaID = projectDoc.getItemValueString("DBReplicaID"); 
-		if(dbReplicaID.length() > 0) {
-			db = session.getDatabase("", dbReplicaID);
-			if(!db.isOpen()) {
-				db = session.getDatabase(projectDoc.getItemValueString("ServerHint"), dbReplicaID);
-			}
-			if(db.isOpen()) {
-				return db;
-			}
-		}
-
-		Database bigMax = sessionAsSigner.getDatabase("", "MTC\\Events-Database.nsf");
-		if(!bigMax.isOpen()) {
-			bigMax.recycle();
-			return null;
-		}
-
-		Document bmProject = bigMax.getDocumentByUNID(projectDoc.getItemValueString("ProjectUNID"));
-
-		// Find the project database by the DB link
-		RichTextItem rtitem = (RichTextItem)bmProject.getFirstItem("DatabaseLink");
-		RichTextNavigator rtnav = rtitem.createNavigator();
-		RichTextDoclink doclink = (RichTextDoclink)rtnav.getFirstElement(RichTextItem.RTELEM_TYPE_DOCLINK);
-
-		// If the doclink isn't there, try to find it by its default path
-		if(doclink == null) {
-			Document bmClient = bigMax.getDocumentByUNID(bmProject.getParentDocumentUNID());
-			db = session.getDatabase("Herc/MTC", bmClient.getItemValueString("ClientShortName") + "\\" + projectDoc.getItemValueString("ProjectNoteID"));
-			bmClient.recycle();
-		} else {
-			db = session.getDatabase("", "");
-
-			// Check for a local replica first
-			db.openByReplicaID("", doclink.getDBReplicaID());
-
-			// Failing that, use the canonical version
-			if(!db.isOpen()) {
-				db.openByReplicaID(doclink.getServerHint(), doclink.getDBReplicaID());
-			}
-
-			doclink.recycle();
-		}
-		rtnav.recycle();
-		rtitem.recycle();
-
-		bmProject.recycle();
-		bigMax.recycle();
-
-		if(db.isOpen()) {
-			return db;
-		}
-
-		return null;
 	}
 
 	public static String pluralize(String input) {
@@ -166,15 +101,7 @@ public class JSFUtil {
 
 	}
 
-	public static Document getReportDocument(String reportName) throws NotesException {
-		View templates = JSFUtil.getDatabase().getView("Export Templates");
-		templates.setAutoUpdate(false);
-
-		Document template = templates.getDocumentByKey(reportName);
-		templates.recycle();
-		return template;
-	}
-	public static byte[] getFileResourceData(Document fileResource) throws NotesException, IOException {
+	public static byte[] getFileResourceData(Document fileResource) throws IOException {
 		String dxl = fileResource.generateXML();
 		int fileDataPos = dxl.indexOf("<filedata>");
 		int fileDataEnd = dxl.indexOf("</filedata>");
@@ -267,7 +194,13 @@ public class JSFUtil {
 		}
 		return result;
 	}
-	public static Date toDate(Object columnValue) throws NotesException {
+	public static Date toDate(Object columnValue) {
+		DateTime dt;
+		if(columnValue instanceof org.openntf.domino.DateTime) {
+			dt = (DateTime)columnValue;
+		} else {
+			dt = Factory.fromLotus((lotus.domino.DateTime)columnValue, DateTime.class, XSPUtil.getCurrentSession());
+		}
 		return ((DateTime)columnValue).toJavaDate();
 	}
 
@@ -286,7 +219,7 @@ public class JSFUtil {
 	public static boolean isSpecialText(String specialText) {
 		return specialText.contains("");
 	}
-	public static String specialTextDecode(String specialText, ViewEntry viewEntry) throws NotesException {
+	public static String specialTextDecode(String specialText, ViewEntry viewEntry) {
 		String result = specialText;
 		//if(true) return result;
 
@@ -562,8 +495,8 @@ public class JSFUtil {
 	}
 
 	@SuppressWarnings("unchecked")
-	public static boolean isDocEditableBy(Document doc, String userName) throws NotesException {
-		Database database = ExtLibUtil.getCurrentDatabase();
+	public static boolean isDocEditableBy(Document doc, String userName) throws lotus.domino.NotesException {
+		Database database = XSPUtil.getCurrentDatabase();
 
 		// Easy check first
 		int level = database.queryAccess(userName);
@@ -585,18 +518,14 @@ public class JSFUtil {
 		for(Item item : (List<Item>)doc.getItems()) {
 			if(item.getType() == Item.AUTHORS) {
 				Set<String> itemLowerNames = new HashSet<String>();
-				for(String name : (List<String>)item.getValues()) { itemLowerNames.add(name.toLowerCase()); }
+				for(Object name : (List<Object>)item.getValues()) { itemLowerNames.add(name.toString().toLowerCase()); }
 				itemLowerNames.retainAll(lowerNames);
 				if(itemLowerNames.size() > 0) {
 					// Then at least one name is common between them
-					item.recycle();
 					return true;
 				}
 			}
-
-			item.recycle();
 		}
-		doc.recycle();
 
 		return false;
 	}
