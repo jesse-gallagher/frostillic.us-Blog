@@ -12,12 +12,15 @@ import lotus.domino.*;
 
 @ToString
 public class Messenger implements XPagesEventListener, Serializable {
-	private static final long serialVersionUID = -9103610361157404676L;
+	private static final long serialVersionUID = 1L;
 
-	@SneakyThrows
-	public void receiveEvent(XPagesEvent event) {
+	public void receiveEvent(final XPagesEvent event) {
 		if(event.getEventName().equals("comment posted")) {
-			new MessengerThread(event, JSFUtil.getDatabase().getFilePath()).start();
+			try {
+				new MessengerThread(event, JSFUtil.getDatabase().getFilePath()).start();
+			} catch(NotesException ne) {
+				throw new RuntimeException(ne);
+			}
 		}
 	}
 
@@ -26,14 +29,14 @@ public class Messenger implements XPagesEventListener, Serializable {
 		private final String databaseFilePath;
 		private ThreadSessionExecutor<IStatus> executor;
 
-		public MessengerThread(XPagesEvent eventParam, String filePathParam) {
+		public MessengerThread(final XPagesEvent eventParam, final String filePathParam) {
 			this.event = eventParam;
 			this.databaseFilePath = filePathParam;
 
 			this.executor = new ThreadSessionExecutor<IStatus>() {
 
 				@Override
-				protected IStatus run(Session session) throws Exception {
+				protected IStatus run(final Session session) throws Exception {
 					try {
 						Database database = session.getDatabase("", databaseFilePath);
 
