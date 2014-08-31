@@ -1,12 +1,12 @@
-<?xml version="1.0" encoding="UTF-8"?><note class="form" replicaid="85257AEC00467093" version="9.0" xmlns="http://www.lotus.com/dxl">
-<noteinfo noteid="246" sequence="7" unid="7DE7463F37348167852579BA007D9571">
-<created><datetime>20120307T175142,57-05</datetime></created>
-<modified><datetime>20130107T074931,06-05</datetime></modified>
-<revised><datetime>20121214T102524,53-05</datetime></revised>
-<lastaccessed><datetime>20130107T074931,05-05</datetime></lastaccessed>
-<addedtofile><datetime>20130107T074931,05-05</datetime></addedtofile></noteinfo>
-<updatedby><name>CN=Jesse Gallagher/O=MTC</name><name>CN=Jesse Gallagher/O=Frost</name></updatedby>
-<wassignedby><name>CN=Jesse Gallagher/O=Frost</name></wassignedby>
+<?xml version="1.0" encoding="UTF-8"?><note class="form" maintenanceversion="1.2" replicaid="85257D45007FCC93" version="9.0" xmlns="http://www.lotus.com/dxl">
+<noteinfo noteid="1a2" sequence="17" unid="DA57B1AC95FD464D85257C85007FF2FA">
+<created><datetime>20140220T181732,74-05</datetime></created>
+<modified><datetime dst="true">20140831T191556,02-04</datetime></modified>
+<revised><datetime dst="true">20140609T165901,95-04</datetime></revised>
+<lastaccessed><datetime dst="true">20140831T191556,01-04</datetime></lastaccessed>
+<addedtofile><datetime dst="true">20140831T191556,01-04</datetime></addedtofile></noteinfo>
+<updatedby><name>CN=Jesse Gallagher/O=IKSG</name></updatedby>
+<wassignedby><name>CN=Jesse Gallagher/O=IKSG</name></wassignedby>
 <item name="$TITLE"><text>viewIcon.xsp</text></item>
 <item name="$Flags"><text>gC~4;</text></item>
 

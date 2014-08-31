@@ -1,14 +1,14 @@
 <?xml version='1.0' encoding='utf-8'?>
 <note default='true' class='form' xmlns='http://www.lotus.com/dxl' version='9.0'
- replicaid='85257AEC00467093'>
-<noteinfo noteid='2d6' unid='FF632D3A224996378525781F0076CB9D' sequence='4'>
-<created><datetime>20110121T163733,73-05</datetime></created>
-<modified><datetime>20130107T074934,48-05</datetime></modified>
-<revised><datetime>20121214T102452,80-05</datetime></revised>
-<lastaccessed><datetime>20130107T074934,47-05</datetime></lastaccessed>
-<addedtofile><datetime>20130107T074934,47-05</datetime></addedtofile></noteinfo>
-<updatedby><name>CN=Jesse Gallagher/O=MTC</name><name>CN=Jesse Gallagher/O=Frost</name></updatedby>
-<wassignedby><name>CN=Jesse Gallagher/O=Frost</name></wassignedby>
+ maintenanceversion='1.2' replicaid='85257D45007FCC93'>
+<noteinfo noteid='192' unid='A4060F1EA84A1C9D85257C85007FF2BF' sequence='5'>
+<created><datetime>20140220T181732,15-05</datetime></created>
+<modified><datetime dst='true'>20140831T191555,86-04</datetime></modified>
+<revised><datetime dst='true'>20140609T165856,99-04</datetime></revised>
+<lastaccessed><datetime dst='true'>20140831T191555,85-04</datetime></lastaccessed>
+<addedtofile><datetime dst='true'>20140831T191555,85-04</datetime></addedtofile></noteinfo>
+<updatedby><name>CN=Jesse Gallagher/O=IKSG</name></updatedby>
+<wassignedby><name>CN=Jesse Gallagher/O=IKSG</name></wassignedby>
 <item name='OriginalModTime'><datetime dst='true'>20070722T175045,51-04</datetime></item>
 <item name='$HTMLCode' sign='true'>
 <rawitemdata type='1'>

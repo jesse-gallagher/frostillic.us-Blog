@@ -1,15 +1,14 @@
 <?xml version='1.0' encoding='utf-8'?>
 <note default='true' class='icon' xmlns='http://www.lotus.com/dxl' version='9.0'
- replicaid='85257AEC00467093'>
-<noteinfo noteid='11a' unid='B83B02AEE0186948852577EF006863FB' sequence='8'>
-<created><datetime>20101204T140013,39-05</datetime></created>
-<modified><datetime>20130107T075019,62-05</datetime></modified>
-<revised><datetime>20130107T075019,61-05</datetime></revised>
-<lastaccessed><datetime>20130107T075019,61-05</datetime></lastaccessed>
-<addedtofile><datetime>20130107T074924,81-05</datetime></addedtofile></noteinfo>
-<updatedby><name>CN=Jesse Gallagher/O=MTC</name><name>CN=Arcturus/O=Frost</name><name
->CN=Jesse Gallagher/O=MTC</name><name>CN=Invidia/O=MTC</name><name>CN=Jesse Gallagher/O=MTC</name><name
->CN=Ceres/O=Frost</name><name>CN=Jesse Gallagher/O=MTC</name><name>CN=Jesse Gallagher/O=Frost</name></updatedby>
+ maintenanceversion='1.2' replicaid='85257D45007FCC93'>
+<noteinfo noteid='11e' unid='D06476774269B9CF85257C85007FEF23' sequence='17'>
+<created><datetime>20140220T181722,91-05</datetime></created>
+<modified><datetime dst='true'>20140831T191557,28-04</datetime></modified>
+<revised><datetime dst='true'>20140831T191557,27-04</datetime></revised>
+<lastaccessed><datetime dst='true'>20140831T191557,27-04</datetime></lastaccessed>
+<addedtofile><datetime dst='true'>20140831T191554,68-04</datetime></addedtofile></noteinfo>
+<updatedby><name>CN=Jesse Gallagher/O=IKSG</name></updatedby>
+<wassignedby><name>CN=Jesse Gallagher/O=IKSG</name></wassignedby>
 <item name='IconBitmap' summary='true'>
 <rawitemdata type='6'>
 AiAgAQAA///////wD///gAH//gAAf/wAAD/4AAAf8AAAD+AAAAfgAAAHwAAAA8AAAAPAAAADgAAA
@@ -26,16 +25,12 @@ L2ZvgAAACMZmZmZmZmZmZmZmbIAAAACMZmZmZmZmZmZmZsgAAAAACMZmZmZmZmZmZmyAAAAAAACM
 AAAAUEECICABAAD/////+A4DgA==
 </rawitemdata></item>
 <item name='$DefaultFrameset'><text>Outer Frame</text></item>
-<item name='$DefaultXPage'><text>Home.xsp</text></item>
-<item name='$FlagsNoRefresh'><text/></item>
+<item name='$DefaultXPage'><text>home.xsp</text></item>
+<item name='$LaunchXPageRunOnServer'><text>0</text></item>
+<item name='$FlagsNoRefresh'><text>rv</text></item>
 <item name='$AllowPost8HTML'><text>1</text></item>
 <item name='$AllowRESTDbAPI'><number>1</number></item>
-<item name='$Flags'><text>J7FKzNZ4q!</text></item>
-<item name='$TemplateModTime'><datetime>20121126T180845,63-05</datetime></item>
-<item name='$TemplateServerName'><text>CN=Jesse Gallagher/O=MTC</text></item>
-<item name='$TemplateFileName'><text>\\psf\Home\Library\Application Support\Lotus Notes Data (Windows)\f-b.ntf</text></item>
-<item name='$PIRCRefreshModTime'><datetime>20121126T181449,84-05</datetime></item>
-<item name='$DBTheme'><text>frostillic.us-production.theme</text></item>
-<item name='$Daos'><text>1</text></item>
-<item name='$TITLE'><text>frostillic.us</text></item></note>
+<item name='$Flags'><text>Jz47qNZFK!</text></item>
+<item name='$Daos'><text>0</text></item>
+<item name='$TITLE'><text>frostillic.us (Dev)</text></item></note>
 

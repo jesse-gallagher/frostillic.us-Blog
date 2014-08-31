@@ -1,13 +1,14 @@
 <?xml version='1.0' encoding='utf-8'?>
-<note class='view' xmlns='http://www.lotus.com/dxl' version='9.0' replicaid='85257AEC00467093'>
-<noteinfo noteid='1fa' unid='F8DEDCC9918063B6852577EF0069F83A' sequence='8'>
-<created><datetime>20101204T141728,26-05</datetime></created>
-<modified><datetime>20130107T193433,55-05</datetime></modified>
-<revised><datetime>20130107T193433,54-05</datetime></revised>
-<lastaccessed><datetime>20130107T193433,54-05</datetime></lastaccessed>
-<addedtofile><datetime>20130107T074929,33-05</datetime></addedtofile></noteinfo>
-<updatedby><name>CN=Jesse Gallagher/O=Frost</name></updatedby>
-<wassignedby><name>CN=Jesse Gallagher/O=Frost</name></wassignedby>
+<note class='view' xmlns='http://www.lotus.com/dxl' version='9.0' maintenanceversion='1.2'
+ replicaid='85257D45007FCC93'>
+<noteinfo noteid='14a' unid='AC2EC7649C3CABEF85257C85007FF193' sequence='6'>
+<created><datetime>20140220T181729,15-05</datetime></created>
+<modified><datetime dst='true'>20140831T191555,13-04</datetime></modified>
+<revised><datetime dst='true'>20140609T165859,65-04</datetime></revised>
+<lastaccessed><datetime dst='true'>20140831T191555,12-04</datetime></lastaccessed>
+<addedtofile><datetime dst='true'>20140831T191555,12-04</datetime></addedtofile></noteinfo>
+<updatedby><name>CN=Jesse Gallagher/O=IKSG</name></updatedby>
+<wassignedby><name>CN=Jesse Gallagher/O=IKSG</name></wassignedby>
 <item name='$FormatNote' summary='true'>
 <rawitemdata type='4'>
 AQCU7G6FoWlsP/FjaADvdyWF
@@ -33,14 +34,14 @@ AAAAAAAAAEIAEQAAAAEA////AAEA7+/vAAEA////AAAAAAAAAAAAAQD///8AAQD///8AAAABAAAA
 AAABAAAAAAABAAAAAAAAAAgAAAAAAAEA
 </rawitemdata></item>
 <item name='$Comment' sign='true'><text/></item>
-<item name='$Flags'><text>Yl</text></item>
+<item name='$Flags'><text>PYl</text></item>
 <item name='$DesignerVersion'><text>8.5.3</text></item>
 <item name='$V5ACTIONS' sign='true'>
 <rawitemdata type='1'>
 vRwjAAAAAQABAAAAAQAAAAAAAAAAAAAACAACAHn/bAABANTQyAABAAAAAAAJAAAAAAABANTQyAAA
 AB8AAAAAAAAAAAADAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
 AAAAAAAAAAAAAAAAAAAAAAAAAAAAAPz/OgAAAAAAAQAAAAAAAQAAAAAAAAAAAAAAAAAAAAAAAAAA
-AAAAAAAAAAEAAAAAAAAAAAAAAAAAAAC+/z4AAAABAAAAnwEAAAcAAAAAAAAAUmVzdG9yZQogAAAA
+AAAAAAAAAAEAAAAAAAAAAAAAAAAAAAC+/z4AAAABAAAAnwEAAAcAAAAAAAAAUmVzdG9yZQcgAAAA
 EgACACYcAAAAAAAA7QEDAAcADAAFAAkwUzBFAA==
 </rawitemdata></item></note>
 

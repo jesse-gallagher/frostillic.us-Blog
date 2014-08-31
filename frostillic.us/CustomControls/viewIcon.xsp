@@ -2,7 +2,7 @@
 <xp:view xmlns:xp="http://www.ibm.com/xsp/core">
 	<xp:this.dataContexts>
 		<xp:dataContext var="icons"><xp:this.value><![CDATA[#{javascript:
-			if(compositeData.value.getClass().getName() == "java.util.Vector") { return compositeData.value; }
+			if(compositeData.value instanceof java.util.Vector) { return compositeData.value; }
 			return [compositeData.value];
 		}]]></xp:this.value></xp:dataContext>
 	</xp:this.dataContexts>

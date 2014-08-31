@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?><note class="form" maintenanceversion="1.2" replicaid="85257D45007EF868" version="9.0" xmlns="http://www.lotus.com/dxl">
+<noteinfo noteid="652" sequence="9" unid="C7E2EBFDA728FEC885257AEC00484CFA">
+<created><datetime>20130107T080942,98-05</datetime></created>
+<modified><datetime dst="true">20140831T190708,02-04</datetime></modified>
+<revised><datetime>20130107T081006,77-05</datetime></revised>
+<lastaccessed><datetime dst="true">20140831T190708,01-04</datetime></lastaccessed>
+<addedtofile><datetime dst="true">20140831T190708,01-04</datetime></addedtofile></noteinfo>
+<updatedby><name>CN=Jesse Gallagher/O=Frost</name></updatedby>
+<wassignedby><name>CN=Jesse Gallagher/O=Frost</name></wassignedby>
+<item name="$Flags"><text>34567Cg~[</text></item>
+<item name="$TITLE"><text>frostillicus/Messenger.java</text></item>
+<item name="$DesignerVersion"><text>8.5.3</text></item>
+
+
+<item name="$FileNames" sign="true"><text>frostillicus/Messenger.java</text></item>
+
+
+
+
+
+
+</note>
