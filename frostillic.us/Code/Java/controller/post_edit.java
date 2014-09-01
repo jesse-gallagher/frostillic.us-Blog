@@ -1,5 +1,6 @@
 package controller;
 
+import java.io.IOException;
 import java.util.Map;
 
 import javax.faces.context.FacesContext;
@@ -10,6 +11,8 @@ import org.openntf.domino.utils.DominoUtils;
 
 import com.ibm.commons.util.StringUtil;
 import com.ibm.xsp.model.TabularDataModel;
+
+import config.Translation;
 
 import frostillicus.xsp.controller.BasicXPageController;
 import frostillicus.xsp.model.AbstractModelList;
@@ -46,5 +49,15 @@ public class post_edit extends BasicXPageController {
 		}
 
 		return "new";
+	}
+
+	@Override
+	public String save() throws IOException {
+		if(FrameworkUtils.getViewRoot().save()) {
+			FrameworkUtils.flashMessage("confirmation", Translation.get().getValue("postSaveConfirmation"));
+
+			return "xsp-success";
+		}
+		return "xsp-failure";
 	}
 }

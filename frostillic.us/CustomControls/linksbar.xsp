@@ -14,13 +14,6 @@
 					</xe:repeatTreeNode>
 				</xe:this.children>
 			</xe:basicContainerNode>
-
-			<xe:basicContainerNode transparent="true" loaded="${userInfo.admin}">
-				<xe:this.children>
-					<xe:separatorTreeNode/>
-					<xe:pageTreeNode page="appconfig" label="${translation.config}"/>
-				</xe:this.children>
-			</xe:basicContainerNode>
 		</xe:this.treeNodes>
 	</xe:navigator>
 </xp:view>

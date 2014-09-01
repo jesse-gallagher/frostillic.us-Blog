@@ -4,12 +4,15 @@ import java.util.Map;
 
 import javax.faces.context.FacesContext;
 
+import model.Comment;
 import model.Post;
 
 import org.openntf.domino.utils.DominoUtils;
 
 import com.ibm.commons.util.StringUtil;
 import com.ibm.xsp.model.TabularDataModel;
+
+import config.Translation;
 
 import frostillicus.xsp.controller.BasicXPageController;
 import frostillicus.xsp.model.AbstractModelList;
@@ -46,5 +49,15 @@ public class post extends BasicXPageController {
 		}
 
 		return "new";
+	}
+
+	public String postComment() {
+		Comment comment = (Comment)FrameworkUtils.resolveVariable("comment");
+		if(comment.save()) {
+			FrameworkUtils.flashMessage("confirmation", Translation.get().getValue("commentPostConfirmation"));
+
+			return "xsp-success";
+		}
+		return "xsp-failure";
 	}
 }

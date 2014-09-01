@@ -6,6 +6,10 @@
 		<ff:modelObjectData var="post" managerName="Posts" key="${controller.postId}" />
 	</xp:this.data>
 	
+	<xp:this.navigationRules>
+		<xp:navigationRule outcome="xsp-success" viewId="/post.xsp?id=#{post.id}"/>
+	</xp:this.navigationRules>
+	
 	<xc:layout navigationPath="/Posts/Post/${controller.postId}">
 		<xp:text tagName="h1" value="#{post.$$Title}"/>
 		
@@ -33,5 +37,31 @@
 				</xe:forumPost>
 			</xe:this.facets>
 		</xe:forumView>
+		
+		<xp:panel>
+			<xp:this.data>
+				<ff:modelObjectData var="comment" managerName="Comments" key="new"/>
+			</xp:this.data>
+			
+			<xe:formTable formTitle="${translation.commentNew}">
+				<xe:this.facets>
+					<xc:actionBar xp:key="footer">
+						<xp:button id="save" value="${translation.commentPost}">
+							<xp:eventHandler event="onclick" submit="true" action="#{controller.postComment}"/>
+						</xp:button>
+					</xc:actionBar>
+				</xe:this.facets>
+			
+				<xe:formRow binding="#{controller.components[comment].authorName}"/>
+				<xe:formRow binding="#{controller.components[comment].authorEmailAddress}"/>
+				<xe:formRow binding="#{controller.components[comment].authorURL}"/>
+				<xe:formRow>
+					<xp:checkBox value="#{viewScope.rememberInfo}" text="${translation.commentRememberInfo}"/>
+				</xe:formRow>
+				<xe:formRow label="${translation.commentBody}">
+					<xp:inputRichText value="#{comment.body}" htmlFilter="acf" htmlFilterIn="acf"/>
+				</xe:formRow>
+			</xe:formTable>
+		</xp:panel>
 	</xc:layout>
 </xp:view>

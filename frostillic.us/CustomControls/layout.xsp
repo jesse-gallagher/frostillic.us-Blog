@@ -15,6 +15,14 @@
 				<xe:this.bannerUtilityLinks>
 					<xe:userTreeNode />
 					<xe:loginTreeNode />
+
+					<xe:basicContainerNode loaded="${userInfo.admin}" label="${translation.admin}">
+						<xe:this.children>
+							<xe:pageTreeNode page="post_edit" label="${translation.postNew}"/>
+							<xe:pageTreeNode page="post_edit" queryString="id=${controller.postId}" label="${translation.postEdit}" loaded="${view.pageName == '/post.xsp'}"/>
+							<xe:pageTreeNode page="appconfig" label="${translation.config}"/>
+						</xe:this.children>
+					</xe:basicContainerNode>
 				</xe:this.bannerUtilityLinks>
 				<xe:this.bannerApplicationLinks>
 					<xe:basicLeafNode label="${appConfig.blogTitle}" href="/" />
@@ -36,6 +44,26 @@
 						<xp:image url="${userInfo.profileImages[appConfig.blogOwnerEmail][128]}" />
 					</xp:div>
 					<p><xp:text themeId="Name" value="${appConfig.blogOwnerName}"/></p>
+					<xp:div themeId="Meta"><xp:link value="${appConfig.blogOwnerCompanyURL}" text="${appConfig.blogOwnerCompany}"/></xp:div>
+					<xp:table themeId="Table.Vertical">
+						<tr>
+							<th><xp:text value="${translation.gitHub}"/></th>
+							<td><xp:link value="https://github.com/${appConfig.blogOwnerGitHub}" text="${appConfig.blogOwnerGitHub}"/></td>
+						</tr>
+						<tr>
+							<th><xp:text value="${translation.twitter}"/></th>
+							<td><xp:link value="https://twitter.com/${appConfig.blogOwnerTwitter}" text="${appConfig.blogOwnerTwitter}"/></td>
+						</tr>
+						<tr>
+							<th><xp:text value="${translation.facebook}"/></th>
+							<td><xp:link value="https://facebook.com/${appConfig.blogOwnerFacebook}" text="${appConfig.blogOwnerFacebook}"/></td>
+						</tr>
+						<tr>
+							<th><xp:text value="${translation.linkedIn}"/></th>
+							<td><xp:link value="http://www.linkedin.com/profile/view?id=${appConfig.blogOwnerLinkedIn}" text="${appConfig.blogOwnerLinkedIn}"/></td>
+						</tr>
+					</xp:table>
+					
 				</xe:widgetContainer>
 				<xc:linksbar navigationPath="${compositeData.navigationPath}"/>
 			</xp:div>

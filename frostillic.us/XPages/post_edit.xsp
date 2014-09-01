@@ -5,6 +5,10 @@
 	<xp:this.data>
 		<ff:modelObjectData var="post" managerName="Posts" key="${controller.postId}" />
 	</xp:this.data>
+	
+	<xp:this.navigationRules>
+		<xp:navigationRule outcome="xsp-success" viewId="/post.xsp?id=#{post.id}"/>
+	</xp:this.navigationRules>
 
 	<xp:this.acl>
 		<xp:acl>
@@ -24,26 +28,40 @@
 					<xe:basicLeafNode label="${view.pageTitle}"/>
 				</xe:this.treeNodes>
 			</xe:breadCrumbs>
-			<xc:actionBar xp:key="ActionBar">
-				<xp:button id="save" value="${translation.save}">
-					<xp:eventHandler event="onclick" submit="true" action="#{controller.save}"/>
-				</xp:button>
-			</xc:actionBar>
 		</xp:this.facets>
 		<xe:formTable formTitle="${view.pageTitle}">
+			<xe:this.facets>
+				<xc:actionBar xp:key="footer">
+					<xp:button id="save" value="${translation.save}">
+						<xp:eventHandler event="onclick" submit="true" action="#{controller.save}"/>
+					</xp:button>
+				</xc:actionBar>
+			</xe:this.facets>
+			
 			<xe:formRow label="${translation.postTitle}">
 				<xe:djTextarea value="#{post.$$Title}"/>
 			</xe:formRow>
-			<xe:formRow label="${translation.postPosted}">
-				<xp:inputText value="#{post.Posted}">
-					<xp:this.converter>
-						<xp:convertDateTime type="both"/>
-					</xp:this.converter>
-					<xp:dateTimeHelper/>
+			<xe:formRow binding="#{controller.components[post].posted}"/>
+<!--			<xe:formRow label="${translation.postPosted}">-->
+<!--				<xp:inputText value="#{post.Posted}">-->
+<!--					<xp:this.converter>-->
+<!--						<xp:convertDateTime type="both"/>-->
+<!--					</xp:this.converter>-->
+<!--					<xp:dateTimeHelper/>-->
+<!--				</xp:inputText>-->
+<!--			</xe:formRow>-->
+			<xe:formRow label="${translation.postCreator}">
+				<xp:inputText value="#{post.$$Creator}"/>
+			</xe:formRow>
+			<xe:formRow binding="#{controller.components[post].tags}">
+				<xp:inputText id="inputText1" multipleSeparator="," multipleTrim="true">
+					<xp:typeAhead mode="partial" minChars="1" ignoreCase="true" valueListSeparator="," tokens="," valueList="${Posts.knownTags}"/>
 				</xp:inputText>
 			</xe:formRow>
-			<xe:formRow label="${translation.postCreator}">
-				<xe:djTextarea value="#{post.$$Creator}"/>
+			<xe:formRow binding="#{controller.components[post].thread}">
+				<xe:djTextarea/>
+			</xe:formRow>
+			<xe:formRow binding="#{controller.components[post].status}">
 			</xe:formRow>
 			<xe:formRow label="${translation.postBody}">
 				<xp:inputRichText value="#{post.body}"/>

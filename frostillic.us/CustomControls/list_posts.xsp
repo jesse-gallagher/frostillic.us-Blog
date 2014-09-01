@@ -15,11 +15,16 @@
 						<xp:text value="#{post.Posted}"/>
 					</xe:list>
 				</xp:div>
-				<xp:text contentType="HTML" value="#{post.body}"/>
+<!--				<xp:text contentType="HTML" value="#{post.body}"/>-->
+				<xe:forumPost>
+					<xe:this.facets>
+						<xp:text xp:key="postDetails" contentType="HTML" value="#{post.body}" />
+					</xe:this.facets>
+				</xe:forumPost>
 				
 				<xp:div themeId="Meta">
 					<xe:list themeId="List.Inline">
-						<xp:text value="#{post.commentCount} #{translation[post.commentCount == 1 ? 'commentCountSingle' : 'commentCountPlural']}"/>
+						<xp:link value="/post.xsp?id=#{post.id}" text="#{post.commentCount} #{translation[post.commentCount == 1 ? 'commentCountSingle' : 'commentCountPlural']}"/>
 					</xe:list>
 				</xp:div>
 			</xp:div>

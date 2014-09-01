@@ -40,6 +40,24 @@
 			<xe:formRow label="${translation.configBlogOwnerEmail}">
 				<xe:djTextarea value="#{appConfigData.blogOwnerEmail}"/>
 			</xe:formRow>
+			<xe:formRow label="${translation.configBlogOwnerCompany}">
+				<xe:djTextarea value="#{appConfigData.blogOwnerCompany}"/>
+			</xe:formRow>
+			<xe:formRow label="${translation.configBlogOwnerCompanyURL}">
+				<xe:djTextarea value="#{appConfigData.blogOwnerCompanyURL}"/>
+			</xe:formRow>
+			<xe:formRow label="${translation.configBlogOwnerGitHub}">
+				<xe:djTextarea value="#{appConfigData.blogOwnerGitHub}"/>
+			</xe:formRow>
+			<xe:formRow label="${translation.configBlogOwnerTwitter}">
+				<xe:djTextarea value="#{appConfigData.blogOwnerTwitter}"/>
+			</xe:formRow>
+			<xe:formRow label="${translation.configBlogOwnerFacebook}">
+				<xe:djTextarea value="#{appConfigData.blogOwnerFacebook}"/>
+			</xe:formRow>
+			<xe:formRow label="${translation.configBlogOwnerLinkedIn}">
+				<xe:djTextarea value="#{appConfigData.blogOwnerLinkedIn}"/>
+			</xe:formRow>
 		</xe:formTable>
 		
 		<xe:formTable formTitle="${translation.configData}">

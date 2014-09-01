@@ -1,5 +1,12 @@
 package model;
 
+import java.util.Date;
+
+import javax.faces.context.FacesContext;
+import javax.servlet.http.HttpServletRequest;
+
+import org.hibernate.validator.constraints.Email;
+import org.hibernate.validator.constraints.NotEmpty;
 import org.openntf.domino.Database;
 
 import config.AppConfig;
@@ -12,6 +19,35 @@ import frostillicus.xsp.util.FrameworkUtils;
 
 public class Comment extends AbstractDominoModel {
 	private static final long serialVersionUID = 1L;
+
+	@NotEmpty String authorName;
+	@NotEmpty @Email String authorEmailAddress;
+	String authorURL;
+
+	@Override
+	public void initFromDatabase(final Database database) {
+		super.initFromDatabase(database);
+
+		setValue("Form", "Comment");
+		Post post = (Post)FrameworkUtils.resolveVariable("post");
+		if(post != null) {
+			setValue("PostID", post.getValue("PostID"));
+		}
+	}
+
+	@Override
+	protected boolean querySave() {
+		if(isNew()) {
+			setValue("Posted", new Date());
+			setValue("CommentID", document().getUniversalID());
+
+			HttpServletRequest req = (HttpServletRequest)FacesContext.getCurrentInstance().getExternalContext().getRequest();
+			setValue("HTTP_Referer", req.getHeader("Referer"));
+			setValue("HTTP_User_Agent", req.getHeader("User-Agent"));
+			setValue("Remote_Addr", req.getRemoteAddr());
+		}
+		return super.querySave();
+	}
 
 	@ManagedBean(name="Comments")
 	@ApplicationScoped

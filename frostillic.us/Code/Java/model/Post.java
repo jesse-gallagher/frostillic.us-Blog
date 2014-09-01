@@ -5,6 +5,8 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.*;
 
+import javax.validation.constraints.NotNull;
+
 import org.openntf.domino.*;
 
 import config.AppConfig;
@@ -18,9 +20,25 @@ import frostillicus.xsp.util.FrameworkUtils;
 public class Post extends AbstractDominoModel {
 	private static final long serialVersionUID = 1L;
 
+	@NotNull Date posted;
+	@NotNull PostStatus status;
+	String thread;
+	List<String> tags;
+
+
+	@Override
+	public void initFromDatabase(final Database database) {
+		super.initFromDatabase(database);
+
+		setValue("Form", "Post");
+		setValue("Posted", new Date());
+		setValue("$$Creator", FrameworkUtils.getUserName());
+		setValue("Status", PostStatus.Draft);
+	}
+
 	public List<Comment> getComments() {
 		Comment.Manager comments = Comment.Manager.get();
-		return comments.getNamedCollection("By PostID", getId());
+		return comments.getNamedCollection("By PostID", String.valueOf(getValue("PostID")));
 	}
 
 	public int getCommentCount() {
@@ -50,7 +68,7 @@ public class Post extends AbstractDominoModel {
 			return existing == null ? new Manager() : existing;
 		}
 
-		@SuppressWarnings("deprecation")
+		@SuppressWarnings({"deprecation", "unchecked"})
 		@Override
 		public Object getValue(final Object keyObject) {
 			if("archiveMonths".equals(keyObject)) {
@@ -69,6 +87,15 @@ public class Post extends AbstractDominoModel {
 					}
 				}
 				return result;
+			} else if("knownTags".equals(keyObject)) {
+				View view = getDatabase().getView("Tags");
+				Set<String> uniques = new TreeSet<String>(String.CASE_INSENSITIVE_ORDER);
+
+
+				uniques.addAll((List<String>)(List<?>)view.getColumnValues(0));
+
+
+				return new ArrayList<String>(uniques);
 			}
 
 			return super.getValue(keyObject);
@@ -86,5 +113,9 @@ public class Post extends AbstractDominoModel {
 			String filePath = (String)appConfig.getValue("dataDatabaseFilePath");
 			return FrameworkUtils.getDatabase(server, filePath);
 		}
+	}
+
+	public static enum PostStatus {
+		Draft, Posted;
 	}
 }
