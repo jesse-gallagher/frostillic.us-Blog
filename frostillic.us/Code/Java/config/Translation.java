@@ -13,12 +13,12 @@ import com.ibm.xsp.application.ApplicationEx;
 import com.ibm.xsp.designer.context.XSPContext;
 import com.ibm.xsp.model.DataObject;
 
-import frostillicus.xsp.bean.ApplicationScoped;
+import frostillicus.xsp.bean.SessionScoped;
 import frostillicus.xsp.bean.ManagedBean;
 import frostillicus.xsp.util.FrameworkUtils;
 
 @ManagedBean(name="translation")
-@ApplicationScoped
+@SessionScoped
 public class Translation implements Serializable, DataObject {
 	private static final long serialVersionUID = 1L;
 

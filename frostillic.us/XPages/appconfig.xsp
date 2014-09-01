@@ -30,10 +30,19 @@
 			</xc:actionBar>
 		</xp:this.facets>
 		
-		<xe:formTable formTitle="${translation.config}">
+		<xe:formTable formTitle="${translation.configBlog}">
 			<xe:formRow label="${translation.configBlogTitle}">
 				<xe:djTextarea value="#{appConfigData.blogTitle}"/>
 			</xe:formRow>
+			<xe:formRow label="${translation.configBlogOwnerName}">
+				<xe:djTextarea value="#{appConfigData.blogOwnerName}"/>
+			</xe:formRow>
+			<xe:formRow label="${translation.configBlogOwnerEmail}">
+				<xe:djTextarea value="#{appConfigData.blogOwnerEmail}"/>
+			</xe:formRow>
+		</xe:formTable>
+		
+		<xe:formTable formTitle="${translation.configData}">
 			<xe:formRow label="${translation.configDataDatabaseServer}">
 				<xe:djTextarea value="#{appConfigData.dataDatabaseServer}"/>
 			</xe:formRow>

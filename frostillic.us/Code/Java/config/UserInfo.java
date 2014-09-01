@@ -79,12 +79,30 @@ public class UserInfo implements Serializable {
 	public static enum ProfileImages implements DataObject {
 		INSTANCE;
 
-		public Class<String> getType(final Object key) {
-			return String.class;
+
+		public Class<DataObject> getType(final Object key) {
+			return DataObject.class;
 		}
 
-		public String getValue(final Object key) {
-			return "https://secure.gravatar.com/avatar/" + MD5Util.md5Hex(String.valueOf(key)) + "?s=48";
+		public DataObject getValue(final Object key) {
+			return new DataObject() {
+
+				public Class<String> getType(final Object key2) {
+					return String.class;
+				}
+
+				public String getValue(final Object key2) {
+					return "https://secure.gravatar.com/avatar/" + MD5Util.md5Hex(String.valueOf(key)) + "?s=" + key2;
+				}
+
+				public boolean isReadOnly(final Object key2) {
+					return true;
+				}
+
+				public void setValue(final Object key2, final Object value2) {
+					throw new UnsupportedOperationException();
+				}
+			};
 		}
 
 		public boolean isReadOnly(final Object key) {

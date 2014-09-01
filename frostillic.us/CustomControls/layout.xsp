@@ -30,7 +30,15 @@
 			<xp:callback xp:key="BreadCrumbs" facetName="BreadCrumbs"/>
 <!--			<xp:callback xp:key="SearchBar" facetName="SearchBar" />-->
 			
-			<xc:linksbar xp:key="RightColumn" navigationPath="${compositeData.navigationPath}"/>
+			<xp:div xp:key="RightColumn">
+				<xe:widgetContainer type="sidebar" titleBar="false">
+					<xp:div themeId="Photo">
+						<xp:image url="${userInfo.profileImages[appConfig.blogOwnerEmail][128]}" />
+					</xp:div>
+					<p><xp:text themeId="Name" value="${appConfig.blogOwnerName}"/></p>
+				</xe:widgetContainer>
+				<xc:linksbar navigationPath="${compositeData.navigationPath}"/>
+			</xp:div>
 		</xe:this.facets>
 		
 		<xc:messages/>

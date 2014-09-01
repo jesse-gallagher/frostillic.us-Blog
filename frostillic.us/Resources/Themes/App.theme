@@ -82,6 +82,13 @@
 			<value>lotusMeta</value>
 		</property>
 	</control>
+	<control>
+		<name>Name</name>
+		<property>
+			<name>styleClass</name>
+			<value>lotusName</value>
+		</property>
+	</control>
 	
 	<!-- Lists -->
 	<control>
@@ -93,6 +100,15 @@
 		<property>
 			<name>firstItemStyleClass</name>
 			<value>lotusFirst</value>
+		</property>
+	</control>
+	
+	<!-- Containers -->
+	<control>
+		<name>Photo</name>
+		<property>
+			<name>styleClass</name>
+			<value>lotusPhoto</value>
 		</property>
 	</control>
 </theme>

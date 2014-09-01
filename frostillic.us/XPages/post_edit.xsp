@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xp:view xmlns:xp="http://www.ibm.com/xsp/core" xmlns:xe="http://www.ibm.com/xsp/coreex" xmlns:xc="http://www.ibm.com/xsp/custom" xmlns:ff="http://frostillic.us/framework"
+	beforePageLoad="#{controller.beforePageLoad}" afterPageLoad="#{controller.afterPageLoad}" pageTitle="${translation[controller.postId == 'new' ? 'postNew' : 'postEdit']}">
+
+	<xp:this.data>
+		<ff:modelObjectData var="post" managerName="Posts" key="${controller.postId}" />
+	</xp:this.data>
+
+	<xp:this.acl>
+		<xp:acl>
+			<xp:this.entries>
+				<xp:aclEntry type="ROLE" name="[Admin]" right="EDITOR"/>
+				<xp:aclEntry type="ROLE" name="[Admin]" right="READER"/>
+			</xp:this.entries>
+		</xp:acl>
+	</xp:this.acl>
+	
+	<xc:layout navigationPath="/Posts/Edit">
+		<xp:this.facets>
+			<xe:breadCrumbs xp:key="BreadCrumbs">
+				<xe:this.treeNodes>
+					<xe:basicLeafNode href="/" imageAlt="icon-home home-icon" label="${translation.home}"/>
+					<xe:basicLeafNode label="${translation.posts}"/>
+					<xe:basicLeafNode label="${view.pageTitle}"/>
+				</xe:this.treeNodes>
+			</xe:breadCrumbs>
+			<xc:actionBar xp:key="ActionBar">
+				<xp:button id="save" value="${translation.save}">
+					<xp:eventHandler event="onclick" submit="true" action="#{controller.save}"/>
+				</xp:button>
+			</xc:actionBar>
+		</xp:this.facets>
+		<xe:formTable formTitle="${view.pageTitle}">
+			<xe:formRow label="${translation.postTitle}">
+				<xe:djTextarea value="#{post.$$Title}"/>
+			</xe:formRow>
+			<xe:formRow label="${translation.postPosted}">
+				<xp:inputText value="#{post.Posted}">
+					<xp:this.converter>
+						<xp:convertDateTime type="both"/>
+					</xp:this.converter>
+					<xp:dateTimeHelper/>
+				</xp:inputText>
+			</xe:formRow>
+			<xe:formRow label="${translation.postCreator}">
+				<xe:djTextarea value="#{post.$$Creator}"/>
+			</xe:formRow>
+			<xe:formRow label="${translation.postBody}">
+				<xp:inputRichText value="#{post.body}"/>
+			</xe:formRow>
+		</xe:formTable>
+
+	</xc:layout>
+</xp:view>

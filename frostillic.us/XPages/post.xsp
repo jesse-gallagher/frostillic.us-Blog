@@ -5,17 +5,8 @@
 	<xp:this.data>
 		<ff:modelObjectData var="post" managerName="Posts" key="${controller.postId}" />
 	</xp:this.data>
-
-	<xp:this.acl>
-		<xp:acl>
-			<xp:this.entries>
-				<xp:aclEntry type="ROLE" name="[Admin]" right="EDITOR"/>
-				<xp:aclEntry type="DEFAULT" right="READER"/>
-			</xp:this.entries>
-		</xp:acl>
-	</xp:this.acl>
 	
-	<xc:layout navigationPath="/Home">
+	<xc:layout navigationPath="/Posts/Post/${controller.postId}">
 		<xp:text tagName="h1" value="#{post.$$Title}"/>
 		
 		<xp:div themeId="Meta">
@@ -32,7 +23,7 @@
 			<xe:this.facets>
 				<xe:forumPost xp:key="detail">
 					<xe:this.facets>
-						<xp:image xp:key="authorAvatar" url="#{userInfo.profileImages[comment.AuthorEmailAddress]}"/>
+						<xp:image xp:key="authorAvatar" url="#{userInfo.profileImages[comment.AuthorEmailAddress][48]}"/>
 						<xp:text xp:key="authorName" styleClass="lotusAuthor" value="#{comment.AuthorName}"/>
 						<xe:list xp:key="postMeta" themeId="List.Inline">
 							<xp:text value="#{comment.Posted}" />
