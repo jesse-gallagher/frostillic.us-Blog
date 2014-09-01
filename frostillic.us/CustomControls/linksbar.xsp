@@ -2,7 +2,25 @@
 <xp:view xmlns:xp="http://www.ibm.com/xsp/core" xmlns:xc="http://www.ibm.com/xsp/custom" xmlns:xe="http://www.ibm.com/xsp/coreex">
 	<xe:navigator>
 		<xe:this.treeNodes>
-			<xe:pageTreeNode page="home" label="Home"/>
+			<xe:pageTreeNode page="home" label="${translation.home}" />
+
+			<xe:basicContainerNode label="${translation.archives}" selected="#{javascript:/$\/Posts\/Month/.test(compositeData.navigationPath)}">
+				<xe:this.children>
+
+					<xe:repeatTreeNode value="${Posts.archiveMonths}" var="month">
+						<xe:this.children>
+							<xe:basicLeafNode href="/month.xsp?month=#{month.queryString}" label="#{month.label}" selected="#{javascript:new RegExp('$/Posts/Month/' + month.queryString).test(compositeData.navigationPath)}"/>
+						</xe:this.children>
+					</xe:repeatTreeNode>
+				</xe:this.children>
+			</xe:basicContainerNode>
+
+			<xe:basicContainerNode transparent="true" loaded="${userInfo.admin}">
+				<xe:this.children>
+					<xe:separatorTreeNode/>
+					<xe:pageTreeNode page="appconfig" label="${translation.config}"/>
+				</xe:this.children>
+			</xe:basicContainerNode>
 		</xe:this.treeNodes>
 	</xe:navigator>
 </xp:view>

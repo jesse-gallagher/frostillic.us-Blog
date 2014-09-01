@@ -21,6 +21,7 @@
     <import optional="true" plugin="com.ibm.xsp.extlib"/>
     <import optional="true" plugin="org.openntf.domino.xsp"/>
     <import optional="true" plugin="frostillicus.framework"/>
+    <import optional="true" plugin="org.openntf.xsp.debugtoolbar"/>
     <!--AUTOGEN-END-BUILDER: End of automatically generated section-->
   </requires>
 </plugin>

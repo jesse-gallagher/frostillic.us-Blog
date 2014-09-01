@@ -1,5 +1,7 @@
 Behavior = {
-	
+	"body": function() {
+		SyntaxHighlighter.all()
+	}
 }
 
 dojo.ready(function() {

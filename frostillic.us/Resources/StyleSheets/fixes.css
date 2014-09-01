@@ -1,0 +1,7 @@
+.syntaxhighlighter table td.code {
+	vertical-align: top !important;
+}
+.syntaxhighlighter {
+	line-height: inherit !important;
+	overflow-y: hidden !important;
+}

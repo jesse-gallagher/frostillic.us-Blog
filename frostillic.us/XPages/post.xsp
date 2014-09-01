@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xp:view xmlns:xp="http://www.ibm.com/xsp/core" xmlns:xe="http://www.ibm.com/xsp/coreex" xmlns:xc="http://www.ibm.com/xsp/custom" xmlns:ff="http://frostillic.us/framework"
+	beforePageLoad="#{controller.beforePageLoad}" afterPageLoad="#{controller.afterPageLoad}" pageTitle="#{post.$$Title}">
+
+	<xp:this.data>
+		<ff:modelObjectData var="post" managerName="Posts" key="${controller.postId}" />
+	</xp:this.data>
+
+	<xp:this.acl>
+		<xp:acl>
+			<xp:this.entries>
+				<xp:aclEntry type="ROLE" name="[Admin]" right="EDITOR"/>
+				<xp:aclEntry type="DEFAULT" right="READER"/>
+			</xp:this.entries>
+		</xp:acl>
+	</xp:this.acl>
+	
+	<xc:layout navigationPath="/Home">
+		<xp:text tagName="h1" value="#{post.$$Title}"/>
+		
+		<xp:div themeId="Meta">
+			<xe:list themeId="List.Inline">
+				<xp:text value="#{post.$$Creator}">
+					<xp:this.converter><ff:convertCommonName/></xp:this.converter>
+				</xp:text>
+				<xp:text value="#{post.Posted}"/>
+			</xe:list>
+		</xp:div>
+		<xp:text contentType="HTML" value="#{post.body}"/>
+		
+		<xe:forumView value="#{post.comments}" var="comment" rows="100000" expandedDetail="true">
+			<xe:this.facets>
+				<xe:forumPost xp:key="detail">
+					<xe:this.facets>
+						<xp:image xp:key="authorAvatar" url="#{userInfo.profileImages[comment.AuthorEmailAddress]}"/>
+						<xp:text xp:key="authorName" styleClass="lotusAuthor" value="#{comment.AuthorName}"/>
+						<xe:list xp:key="postMeta" themeId="List.Inline">
+							<xp:text value="#{comment.Posted}" />
+						</xe:list>
+						<xp:text xp:key="postDetails" contentType="HTML" value="#{comment.body}" />
+					</xe:this.facets>
+				</xe:forumPost>
+			</xe:this.facets>
+		</xe:forumView>
+	</xc:layout>
+</xp:view>

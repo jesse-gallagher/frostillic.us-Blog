@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<xp:view xmlns:xp="http://www.ibm.com/xsp/core" xmlns:xe="http://www.ibm.com/xsp/coreex" xmlns:xc="http://www.ibm.com/xsp/custom">
+<xp:view xmlns:xp="http://www.ibm.com/xsp/core" xmlns:xe="http://www.ibm.com/xsp/coreex" xmlns:xc="http://www.ibm.com/xsp/custom" xmlns:debug="http://www.openntf.org/xsp/debugtoolbar">
 
 	<xp:this.resources>
 		<xp:linkResource rel="base" href="${facesContext.externalContext.requestContextPath}/" />
@@ -10,26 +10,39 @@
 	
 	<xe:applicationLayout id="applicationLayout1">
 		<xe:this.configuration>
-			<xe:oneuiApplication legal="false" footer="false" titleBar="#{not empty compositeData.pageTitle}" titleBarName="#{compositeData.pageTitle}" productLogo="/$Icon"
+			<xe:oneuiApplication legal="false" footer="false" titleBar="true" titleBarName="#{empty compositeData.pageTitle ? view.pageTitle : compositeData.pageTitle}" productLogo="/$Icon"
 				productLogoAlt="${appConfig.appName}" productLogoHeight="24" productLogoWidth="24" placeBar="true">
 				<xe:this.bannerUtilityLinks>
-					<xe:userTreeNode/>
-					<xe:loginTreeNode/>
+					<xe:userTreeNode />
+					<xe:loginTreeNode />
 				</xe:this.bannerUtilityLinks>
+				<xe:this.bannerApplicationLinks>
+					<xe:basicLeafNode label="${appConfig.blogTitle}" href="/" />
+				</xe:this.bannerApplicationLinks>
+				<xe:this.searchBar>
+					<xe:appSearchBar inactiveText="${translation.searchPlaceholder}" pageName="search" queryParam="q"/>
+				</xe:this.searchBar>
 			</xe:oneuiApplication>
 		</xe:this.configuration>
 		
 		<xe:this.facets>
 			<xp:callback xp:key="LeftColumn" facetName="LeftColumn"/>
-			<xp:callback xp:key="RightColumn" facetName="RightColumn"/>
 			<xp:callback xp:key="BreadCrumbs" facetName="BreadCrumbs"/>
+<!--			<xp:callback xp:key="SearchBar" facetName="SearchBar" />-->
+			
+			<xc:linksbar xp:key="RightColumn" navigationPath="${compositeData.navigationPath}"/>
 		</xe:this.facets>
 		
 		<xc:messages/>
-						
-		<p><xp:callback facetName="ActionBar"/></p>
-	
+		
+		<xp:div styleClass="action-bar" rendered="#{javascript:!this.children.isEmpty()}">
+			<xp:callback id="ActionBar" facetName="ActionBar" />
+		</xp:div>
+		
 		<xp:callback/>
 		
 	</xe:applicationLayout>
+	
+
+	<debug:toolbar defaultCollapsed="false" collapseTo="left" loaded="${userInfo.debug}"/>
 </xp:view>

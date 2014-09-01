@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?><note class="form" maintenanceversion="1.2" replicaid="85257D45007FCC93" version="9.0" xmlns="http://www.lotus.com/dxl">
+<noteinfo noteid="2c6" sequence="1" unid="A71154B8B949E01985257D4600050638">
+<created><datetime dst="true">20140831T205452,72-04</datetime></created>
+<modified><datetime dst="true">20140831T205452,94-04</datetime></modified>
+<revised><datetime dst="true">20140831T205452,93-04</datetime></revised>
+<lastaccessed><datetime dst="true">20140831T205452,93-04</datetime></lastaccessed>
+<addedtofile><datetime dst="true">20140831T205452,93-04</datetime></addedtofile></noteinfo>
+<updatedby><name>CN=Jesse Gallagher/O=MTC</name><name>CN=Jesse Gallagher/O=Frost</name><name>CN=Jesse Gallagher/O=IKSG</name></updatedby>
+<wassignedby><name>CN=Jesse Gallagher/O=Frost</name></wassignedby>
+<item name="$Flags"><text>345CgQ</text></item>
+<item name="$TITLE"><text>shBrushPython.js</text></item>
+<item name="$DesignerVersion"><text>8.5.3</text></item>
+
+
+<item name="$FileNames" sign="true"><text>shBrushPython.js</text></item></note>
