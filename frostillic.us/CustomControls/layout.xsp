@@ -14,7 +14,7 @@
 				productLogoAlt="${appConfig.blogTitle}" productLogoHeight="24" productLogoWidth="24" placeBar="true">
 				<xe:this.bannerUtilityLinks>
 					<xe:userTreeNode loaded="${context.user.name != 'anonymous'}" />
-					<xe:loginTreeNode />
+					<xe:loginTreeNode loaded="${context.user.name != 'anonymous'}"/>
 
 					<xe:basicContainerNode loaded="${userInfo.admin}" label="${translation.admin}">
 						<xe:this.children>

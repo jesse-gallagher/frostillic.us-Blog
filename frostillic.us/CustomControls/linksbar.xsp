@@ -14,6 +14,7 @@
 					</xe:repeatTreeNode>
 				</xe:this.children>
 			</xe:basicContainerNode>
+			<xe:loginTreeNode loaded="${context.user.name == 'anonymous'}"/>
 		</xe:this.treeNodes>
 	</xe:navigator>
 </xp:view>
