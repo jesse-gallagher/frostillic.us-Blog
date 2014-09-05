@@ -65,7 +65,20 @@
 			<xe:formRow binding="#{controller.components[post].status}">
 			</xe:formRow>
 			<xe:formRow label="${translation.postBody}">
-				<xp:inputRichText value="#{post.body}"/>
+				<xp:inputRichText value="#{post.body}">
+					<xp:this.attrs>
+						<xp:attr name="toolbar"><xp:this.value><![CDATA[
+							[
+								["Format", "Font", "FontSize"],
+								["Bold", "Italic", "Underline", "Strike", "-", "TextColor", "BGColor", "-", "JustifyLeft", "JustifyCenter", "JustifyRight", "JustifyBlock", "NumberedList", "-", "BulletedList"],
+								["Indent", "Outdent"],
+								["Subscript", "Superscript"],
+								["RemoveFormat", "-", "MenuPaste", "-", "Undo", "Redo", "Find", "LotusSpellChecker", "-", "Image", "Table", "Link", "Flash", "-", "PageBreak", "HorizontalRule", "SpecialChar", "Blockquote", "Smiley", "ShowBlocks"],
+								["Maximize", "Source"]
+							]
+						]]></xp:this.value></xp:attr>
+					</xp:this.attrs>
+				</xp:inputRichText>
 			</xe:formRow>
 		</xe:formTable>
 
