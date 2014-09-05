@@ -7,6 +7,17 @@
 	</xp:this.data>
 
 	<xc:layout navigationPath="/Posts/Month/${param.month}">
+		<xp:this.facets>
+			<xe:breadCrumbs xp:key="BreadCrumbs">
+				<xe:this.treeNodes>
+					<xe:basicLeafNode href="/" imageAlt="icon-home home-icon" label="${translation.home}"/>
+					<xe:basicLeafNode label="${translation.posts}"/>
+					<xe:basicLeafNode label="${translation.archives}"/>
+					<xe:basicLeafNode label="${controller.displayMonth}"/>
+				</xe:this.treeNodes>
+			</xe:breadCrumbs>
+		</xp:this.facets>
+		
 		<xc:list_posts value="#{posts}" rows="100000"/>
 	</xc:layout>
 </xp:view>

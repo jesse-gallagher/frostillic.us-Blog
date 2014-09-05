@@ -23,7 +23,7 @@
     </managed-property>
   </managed-bean>
   <application>
-    <view-handler>util.CompatViewHandler</view-handler>
+    <view-handler>config.ConfigViewHandler</view-handler>
   </application>
   <!--  <render-kit>-->
   <!--  	<renderer>-->

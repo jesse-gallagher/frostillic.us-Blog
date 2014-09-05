@@ -21,12 +21,16 @@ public class month extends BasicXPageController {
 	}
 
 	public String getPageTitle() throws ParseException {
-		Map<String, String> param = FrameworkUtils.getParam();
-		String month = param.get("month");
-		Date monthDate = Post.Manager.MONTH_CONVERT_FORMAT.get().parse(month);
-		String displayMonth = Post.Manager.MONTH_LABEL_FORMAT.get().format(monthDate);
+		String displayMonth = getDisplayMonth();
 		Translation translation = Translation.get();
 		String pageTitle = translation.getValue("monthTitle");
 		return MessageFormat.format(pageTitle, displayMonth);
+	}
+
+	public String getDisplayMonth() throws ParseException {
+		Map<String, String> param = FrameworkUtils.getParam();
+		String month = param.get("month");
+		Date monthDate = Post.Manager.MONTH_CONVERT_FORMAT.get().parse(month);
+		return Post.Manager.MONTH_LABEL_FORMAT.get().format(monthDate);
 	}
 }

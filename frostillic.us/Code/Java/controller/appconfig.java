@@ -17,16 +17,16 @@ public class appconfig extends BasicXPageController {
 	public void beforePageLoad() throws Exception {
 		super.beforePageLoad();
 
-		Map<String, Object> configData = new HashMap<String, Object>();
+		Map<String, Object> configData = new TreeMap<String, Object>(String.CASE_INSENSITIVE_ORDER);
 		AppConfig appConfig = AppConfig.get();
 		for(String key : appConfig.keySet()) {
 			configData.put(key, appConfig.getValue(key));
 		}
 
-		if(!configData.containsKey("profileLinks")) {
+		if(!configData.containsKey("profileLinks") || "".equals(configData.get("profileLinks"))) {
 			configData.put("profileLinks", new ArrayList<Map<String, Object>>());
 		}
-		if(!configData.containsKey("aliases")) {
+		if(!configData.containsKey("aliases") || "".equals(configData.get("aliases"))) {
 			configData.put("aliases", new ArrayList<Map<String, Object>>());
 		}
 

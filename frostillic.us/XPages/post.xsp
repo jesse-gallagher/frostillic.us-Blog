@@ -11,14 +11,24 @@
 	</xp:this.navigationRules>
 	
 	<xc:layout navigationPath="/Posts/Post/${controller.postId}" pageTitle="#{view.pageTitle}">
+		<xp:this.facets>
+			<xe:breadCrumbs xp:key="BreadCrumbs">
+				<xe:this.treeNodes>
+					<xe:basicLeafNode href="/" imageAlt="icon-home home-icon" label="${translation.home}"/>
+					<xe:basicLeafNode label="${translation.posts}"/>
+					<xe:basicLeafNode label="#{view.pageTitle}"/>
+				</xe:this.treeNodes>
+			</xe:breadCrumbs>
+		</xp:this.facets>
 		
 		<xc:blogPost authorName="#{post.$$Creator}" posted="#{post.Posted}" commentCount="#{post.commentCount}">
 			<xp:text contentType="HTML" value="#{post.body}"/>
 		</xc:blogPost>
 		
-		<div id="comments"/>
+		<div id="div1"/>
 		
-		<xe:forumView value="#{post.comments}" var="comment" rows="100000" expandedDetail="true" id="comments">
+		<xe:forumView value="#{post.comments}" var="comment" rows="100000" expandedDetail="true" id="comments"
+			rendered="#{not empty post.comments}">
 			<xe:this.facets>
 				<xe:forumPost xp:key="detail" id="detail">
 					<xe:this.facets>

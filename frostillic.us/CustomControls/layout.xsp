@@ -13,7 +13,7 @@
 			<xe:oneuiApplication legal="false" footer="false" titleBar="#{not empty compositeData.pageTitle}" titleBarName="#{compositeData.pageTitle}" productLogo="/$Icon"
 				productLogoAlt="${appConfig.blogTitle}" productLogoHeight="24" productLogoWidth="24" placeBar="true">
 				<xe:this.bannerUtilityLinks>
-					<xe:userTreeNode />
+					<xe:userTreeNode loaded="${context.user.name != 'anonymous'}" />
 					<xe:loginTreeNode />
 
 					<xe:basicContainerNode loaded="${userInfo.admin}" label="${translation.admin}">
@@ -47,7 +47,7 @@
 						<p><xp:text themeId="Name" value="${appConfig.blogOwnerName}"/></p>
 						<xp:div themeId="Meta"><xp:link value="${appConfig.blogOwnerCompanyURL}" text="${appConfig.blogOwnerCompany}"/></xp:div>
 
-						<xe:linksList themeId="Profile.UserInfo">
+						<xe:linksList themeId="Profile.UserInfo" loaded="${not empty appConfig.profileLinks}">
 							<xe:this.treeNodes>
 								<xe:repeatTreeNode value="${appConfig.profileLinks}" var="link">
 									<xe:this.children>

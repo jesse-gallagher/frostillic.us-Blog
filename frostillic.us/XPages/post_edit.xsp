@@ -29,6 +29,7 @@
 				</xe:this.treeNodes>
 			</xe:breadCrumbs>
 		</xp:this.facets>
+		
 		<xe:formTable formTitle="${view.pageTitle}">
 			<xe:this.facets>
 				<xc:actionBar xp:key="footer">

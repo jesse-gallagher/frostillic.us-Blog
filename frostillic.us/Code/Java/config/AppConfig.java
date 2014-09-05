@@ -17,7 +17,7 @@ public class AppConfig implements Serializable, DataObject {
 	private static final long serialVersionUID = 1L;
 
 	private static final String[] EXPECTED_FIELDS = {
-
+		"dataDatabaseFilePath"
 	};
 
 	private Boolean complete_ = null;
@@ -39,7 +39,18 @@ public class AppConfig implements Serializable, DataObject {
 		Document config = getConfig();
 		if(config.containsKey(keyObject)) {
 			List<Object> val = config.getItemValue((String)keyObject);
-			return val.isEmpty() ? "" : val.size() == 1 ? val.get(0) : val;
+			if(val.size() == 1) {
+				if(val.get(0) instanceof Number || val.get(0) instanceof Date || val.get(0) instanceof DateTime || val.get(0) instanceof String) {
+					return val.get(0);
+				} else {
+					return val;
+				}
+			} else if(val.isEmpty()) {
+				return "";
+			} else {
+				return val;
+			}
+
 		}
 		return "";
 	}

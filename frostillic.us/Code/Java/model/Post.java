@@ -79,22 +79,30 @@ public class Post extends AbstractDominoModel {
 		@SuppressWarnings({"deprecation", "unchecked"})
 		@Override
 		public Object getValue(final Object keyObject) {
+			if(!AppConfig.get().isComplete()) {
+				return Collections.emptyList();
+			}
+
 			if("archiveMonths".equals(keyObject)) {
 				View view = getDatabase().getView("Posts\\By Month");
-				List<Object> months = view.getColumnValues(0);
-				List<Map<String, Object>> result = new ArrayList<Map<String, Object>>(months.size());
-				for(Object month : months) {
-					try {
-						Date monthDate = MONTH_CONVERT_FORMAT.get().parse(String.valueOf(month));
-						Map<String, Object> node = new HashMap<String, Object>();
-						node.put("label", MONTH_LABEL_FORMAT.get().format(monthDate));
-						node.put("queryString", month);
-						result.add(node);
-					} catch (ParseException e) {
-						throw new RuntimeException(e);
+				if(view != null) {
+					List<Object> months = view.getColumnValues(0);
+					List<Map<String, Object>> result = new ArrayList<Map<String, Object>>(months.size());
+					for(Object month : months) {
+						try {
+							Date monthDate = MONTH_CONVERT_FORMAT.get().parse(String.valueOf(month));
+							Map<String, Object> node = new HashMap<String, Object>();
+							node.put("label", MONTH_LABEL_FORMAT.get().format(monthDate));
+							node.put("queryString", month);
+							result.add(node);
+						} catch (ParseException e) {
+							throw new RuntimeException(e);
+						}
 					}
+					return result;
+				} else {
+					return Collections.emptyList();
 				}
-				return result;
 			} else if("knownTags".equals(keyObject)) {
 				View view = getDatabase().getView("Tags");
 				Set<String> uniques = new TreeSet<String>(String.CASE_INSENSITIVE_ORDER);

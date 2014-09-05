@@ -74,8 +74,13 @@ public class ConfigRequestCustomizerFactory extends RequestCustomizerFactory {
 				if(aliases == null || aliases instanceof String) {
 					aliases_ = Collections.emptyList();
 				} else {
-					aliases_ = (List<Map<String, Object>>)aliases;
+					aliases_ = new ArrayList<Map<String, Object>>();
+					for(Map<String, Object> alias : (List<Map<String, Object>>)aliases) {
+						aliases_.add(new HashMap<String, Object>(alias));
+					}
 				}
+
+
 
 				// Compile the patterns
 				String contextPath = Pattern.quote(FacesContext.getCurrentInstance().getExternalContext().getRequestContextPath());

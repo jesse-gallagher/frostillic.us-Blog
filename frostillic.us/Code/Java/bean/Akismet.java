@@ -1,16 +1,16 @@
 /*
  * ? Copyright Jesse Gallagher 2012
  * 
- * Licensed under the Apache License, Version 2.0 (the "License"); 
- * you may not use this file except in compliance with the License. 
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at:
  * 
- * http://www.apache.org/licenses/LICENSE-2.0 
+ * http://www.apache.org/licenses/LICENSE-2.0
  * 
- * Unless required by applicable law or agreed to in writing, software 
- * distributed under the License is distributed on an "AS IS" BASIS, 
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or 
- * implied. See the License for the specific language governing 
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or
+ * implied. See the License for the specific language governing
  * permissions and limitations under the License.
  */
 
@@ -18,6 +18,7 @@ package bean;
 
 import java.io.BufferedReader;
 import java.io.DataOutputStream;
+import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
@@ -26,6 +27,12 @@ import java.net.URLEncoder;
 import java.util.HashMap;
 import java.util.Map;
 
+import frostillicus.xsp.bean.ManagedBean;
+import frostillicus.xsp.bean.RequestScoped;
+import frostillicus.xsp.util.FrameworkUtils;
+
+@ManagedBean(name="akismet")
+@RequestScoped
 public class Akismet {
 	public static final String USER_AGENT = "frostillic.us/1.0 Akismet/1.0";
 	public static final String REQUEST_PROTOCOL = "http";
@@ -35,18 +42,22 @@ public class Akismet {
 	private String apiKey;
 	private String blog;
 
+	public static Akismet get() {
+		Akismet existing = (Akismet)FrameworkUtils.resolveVariable(Akismet.class.getAnnotation(ManagedBean.class).name());
+		return existing == null ? new Akismet() : existing;
+	}
 
 	// Blank constructor for bean use
 	public Akismet() {}
 
-	public Akismet(String apiKey, String blog) {
+	public Akismet(final String apiKey, final String blog) {
 		this.apiKey = apiKey;
 		this.blog = blog;
 	}
 
-	public void setApiKey(String apiKey) { this.apiKey = apiKey; }
+	public void setApiKey(final String apiKey) { this.apiKey = apiKey; }
 	public String getApiKey() { return this.apiKey; }
-	public void setBlog(String blog) { this.blog = blog; }
+	public void setBlog(final String blog) { this.blog = blog; }
 	public String getBlog() { return this.blog; }
 
 	public boolean verifyKey() throws Exception {
@@ -62,7 +73,7 @@ public class Akismet {
 		return response.equals("valid");
 	}
 
-	public boolean checkComment(String remoteAddress, String userAgent, String referrer, String permalink, String commentType, String author, String authorEmail, String authorURL, String content) throws Exception {
+	public boolean checkComment(final String remoteAddress, final String userAgent, final String referrer, final String permalink, final String commentType, final String author, final String authorEmail, final String authorURL, final String content) throws IOException {
 		if(apiKey == null) { throw new IllegalArgumentException("apiKey is null"); }
 		if(blog == null) { throw new IllegalArgumentException("blog is null"); }
 
@@ -83,7 +94,7 @@ public class Akismet {
 		return response.equals("true");
 	}
 
-	private String doPost(String url, Map<String, String> content) throws Exception {
+	private String doPost(final String url, final Map<String, String> content) throws IOException {
 		// Create a new POST request
 		URL urlObj = new URL(url);
 		HttpURLConnection conn = (HttpURLConnection)urlObj.openConnection();
