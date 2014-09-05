@@ -25,7 +25,6 @@ public class ConfigRequestCustomizerFactory extends RequestCustomizerFactory {
 		private ConfigUrlProcessor() { }
 
 		public String processActionUrl(final String url) {
-			//			if(true) { return url; }
 			List<Map<String, Object>> aliases = getAliases();
 			String serverName = ((HttpServletRequest)FacesContext.getCurrentInstance().getExternalContext().getRequest()).getServerName();
 
@@ -48,7 +47,6 @@ public class ConfigRequestCustomizerFactory extends RequestCustomizerFactory {
 		}
 
 		public String processResourceUrl(final String url) {
-			//			if(true) { return url; }
 			List<Map<String, Object>> aliases = getAliases();
 			String serverName = ((HttpServletRequest)FacesContext.getCurrentInstance().getExternalContext().getRequest()).getServerName();
 
