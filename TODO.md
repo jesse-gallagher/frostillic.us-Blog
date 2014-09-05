@@ -15,3 +15,4 @@ TODO
 - Add pagination on home page and archives
 - Change the request customizer to check against names.nsf instead of the config document
 - Add auto-saving "draft" posts and edits
+- Add versioning
