@@ -23,9 +23,13 @@ public class appconfig extends BasicXPageController {
 			configData.put(key, appConfig.getValue(key));
 		}
 
+		if(!configData.containsKey("profileLinks")) {
+			configData.put("profileLinks", new ArrayList<Map<String, Object>>());
+		}
 		if(!configData.containsKey("aliases")) {
 			configData.put("aliases", new ArrayList<Map<String, Object>>());
 		}
+
 
 		FrameworkUtils.getViewScope().put("appConfigData", configData);
 	}
@@ -46,6 +50,39 @@ public class appconfig extends BasicXPageController {
 
 		return "xsp-success";
 	}
+
+	/* ******************************************************************************
+	 * Profile Links
+	 ********************************************************************************/
+	@SuppressWarnings("unchecked")
+	public List<Map<String, Object>> getProfileLinks() {
+		Map<String, Object> viewScope = FrameworkUtils.getViewScope();
+		Map<String, Object> appConfigData = (Map<String, Object>)viewScope.get("appConfigData");
+		return (List<Map<String, Object>>)appConfigData.get("profileLinks");
+	}
+
+	public void addLink() {
+		getProfileLinks().add(new HashMap<String, Object>());
+	}
+
+	public void removeLink() {
+		int index = (Integer)FrameworkUtils.resolveVariable("linkIndex");
+		getProfileLinks().remove(index);
+	}
+
+	public void moveLinkUp() {
+		int index = (Integer)FrameworkUtils.resolveVariable("linkIndex");
+		Collections.swap(getProfileLinks(), index, index-1);
+	}
+
+	public void moveLinkDown() {
+		int index = (Integer)FrameworkUtils.resolveVariable("linkIndex");
+		Collections.swap(getProfileLinks(), index, index+1);
+	}
+
+	/* ******************************************************************************
+	 * Aliases
+	 ********************************************************************************/
 
 	@SuppressWarnings("unchecked")
 	public List<Map<String, Object>> getAliases() {

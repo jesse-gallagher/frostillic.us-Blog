@@ -1,10 +1,8 @@
-<theme extends="wrapbootstrap-ace-1.3" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="platform:/plugin/com.ibm.designer.domino.stylekits/schema/stylekit.xsd" >
+<theme extends="wrapbootstrap-ace-1.3-skin1" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="platform:/plugin/com.ibm.designer.domino.stylekits/schema/stylekit.xsd" >
 	
 	<resources>
 		<styleSheet href="/style.css"/>
 		<styleSheet href="/compat/code.css"/>
-		
-		<linkResource rel="alternate" type="application/rss+xml" title="#{database.title} &gt; Feed" href="#{facesContext.externalContext.requestContextPath}/feed.xml"/>
 		
 		<metaData name="base" content="#{facesContext.externalContext.requestContextPath}/" />
 		<metaData name="search" content="#{facesContext.externalContext.requestContextPath}/Search.xsp" />
@@ -33,28 +31,46 @@
 		</property>
 		<property>
 			<name>pageTitle</name>
-			<value>#{javascript:database.getTitle()}</value>
-		</property>
-		<property>
-			<name>styleClass</name>
-			<value>no-skin</value>
+			<value>#{database.title}</value>
 		</property>
 	</control>
 	
-	<!-- Layout -->
+	<!-- Action Bar -->
 	<control>
 		<name>ActionBar</name>
 		<property>
 			<name>styleClass</name>
-			<value>action-bar</value>
+			<value>lotusActionBar</value>
 		</property>
 	</control>
 	
+	<!-- Messages -->
 	<control>
-		<name>Sidebar.Profile</name>
+		<name>Messages.Confirmation</name>
 		<property>
 			<name>styleClass</name>
-			<value>sidebar-shortcuts</value>
+			<value>lotusMessage lotusConfirm</value>
+		</property>
+	</control>
+	<control>
+		<name>Messages.Error</name>
+		<property>
+			<name>styleClass</name>
+			<value>lotusMessage</value>
+		</property>
+	</control>
+	<control>
+		<name>Messages.Information</name>
+		<property>
+			<name>styleClass</name>
+			<value>lotusMessage lotusInfo</value>
+		</property>
+	</control>
+	<control>
+		<name>Messages.Warning</name>
+		<property>
+			<name>styleClass</name>
+			<value>lotusMessage lotusWarning</value>
 		</property>
 	</control>
 	
@@ -63,7 +79,7 @@
 		<name>Meta</name>
 		<property>
 			<name>styleClass</name>
-			<value>text-muted</value>
+			<value>lotusMeta</value>
 		</property>
 	</control>
 	<control>
@@ -79,7 +95,11 @@
 		<name>List.Inline</name>
 		<property>
 			<name>styleClass</name>
-			<value>list-inline</value>
+			<value>lotusInlinelist</value>
+		</property>
+		<property>
+			<name>firstItemStyleClass</name>
+			<value>lotusFirst</value>
 		</property>
 	</control>
 	<control>
@@ -89,22 +109,6 @@
 			<value>lotusVertTable</value>
 		</property>
 	</control>
-	<control>
-		<name>Outline.LinksList</name>
-		<property>
-			<name>styleClass</name>
-			<value></value>
-		</property>
-	</control>
-	
-	<control>
-		<name>Profile.UserInfo</name>
-		<property>
-			<name>styleClass</name>
-			<value>profile-user-info</value>
-		</property>
-	</control>
-	
 	
 	<!-- Containers -->
 	<control>
@@ -112,26 +116,6 @@
 		<property>
 			<name>styleClass</name>
 			<value>lotusPhoto</value>
-		</property>
-	</control>
-	
-	<!-- Blog Stuff -->
-	<control>
-		<name>Blog.Post</name>
-		<property>
-			<name>styleClass</name>
-			<value>post</value>
-		</property>
-	</control>
-	<control>
-		<name>Blog.Post.Title</name>
-		<property>
-			<name>tagName</name>
-			<value>h4</value>
-		</property>
-		<property>
-			<name>styleClass</name>
-			<value>header</value>
 		</property>
 	</control>
 </theme>

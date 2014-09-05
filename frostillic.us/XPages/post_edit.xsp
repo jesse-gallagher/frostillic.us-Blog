@@ -55,7 +55,7 @@
 			</xe:formRow>
 			<xe:formRow binding="#{controller.components[post].tags}">
 				<xp:inputText id="inputText1" multipleSeparator="," multipleTrim="true">
-					<xp:typeAhead mode="partial" minChars="1" ignoreCase="true" valueListSeparator="," tokens="," valueList="${Posts.knownTags}"/>
+<!--					<xp:typeAhead mode="partial" minChars="1" ignoreCase="true" valueListSeparator="," tokens="," valueList="${Posts.knownTags}"/>-->
 				</xp:inputText>
 			</xe:formRow>
 			<xe:formRow binding="#{controller.components[post].thread}">

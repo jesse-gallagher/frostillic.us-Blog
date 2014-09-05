@@ -6,7 +6,15 @@
 		<ff:modelListData var="posts" managerName="Posts" key="all"/>
 	</xp:this.data>
 
-	<xc:layout navigationPath="/Home">
+	<xc:layout navigationPath="/Home" pageTitle="">
+		<xp:this.facets>
+			<xe:breadCrumbs xp:key="BreadCrumbs">
+				<xe:this.treeNodes>
+					<xe:basicLeafNode imageAlt="icon-home home-icon" label="${translation.home}"/>
+				</xe:this.treeNodes>
+			</xe:breadCrumbs>
+		</xp:this.facets>
+		
 		<xc:list_posts value="#{posts}" rows="15"/>
 	</xc:layout>
 </xp:view>

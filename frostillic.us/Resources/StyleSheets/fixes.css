@@ -5,3 +5,16 @@
 	line-height: inherit !important;
 	overflow-y: hidden !important;
 }
+
+/* For CKEditor. h/t Troy Reimer */
+.cke_inline_label{
+	height: 21px !important; 
+}
+
+.cke_text, .cke_combo_text {
+	height: 21px !important; 
+}
+
+.cke_openbutton{
+	width: 15px !important; 
+}

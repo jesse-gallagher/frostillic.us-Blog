@@ -46,17 +46,51 @@
 			<xe:formRow label="${translation.configBlogOwnerCompanyURL}">
 				<xe:djTextarea value="#{appConfigData.blogOwnerCompanyURL}"/>
 			</xe:formRow>
-			<xe:formRow label="${translation.configBlogOwnerGitHub}">
-				<xe:djTextarea value="#{appConfigData.blogOwnerGitHub}"/>
+			<xe:formRow label="${translation.configFooterContent}">
+				<xe:djTextarea value="#{appConfigData.footerContent}"/>
 			</xe:formRow>
-			<xe:formRow label="${translation.configBlogOwnerTwitter}">
-				<xe:djTextarea value="#{appConfigData.blogOwnerTwitter}"/>
-			</xe:formRow>
-			<xe:formRow label="${translation.configBlogOwnerFacebook}">
-				<xe:djTextarea value="#{appConfigData.blogOwnerFacebook}"/>
-			</xe:formRow>
-			<xe:formRow label="${translation.configBlogOwnerLinkedIn}">
-				<xe:djTextarea value="#{appConfigData.blogOwnerLinkedIn}"/>
+		</xe:formTable>
+		
+		<xe:formTable formTitle="${translation.configProfileLinks}">
+			<xe:formRow>
+				<xp:dataTable value="#{controller.profileLinks}" var="link" indexVar="linkIndex" rows="10000" id="profileLinks">
+					<xp:column>
+						<xp:this.facets><xp:text xp:key="header" value="${translation.configProfileLinkLabel}"/></xp:this.facets>
+						<xp:inputText value="#{link.label}"/>
+					</xp:column>
+					<xp:column>
+						<xp:this.facets><xp:text xp:key="header" value="${translation.configProfileLinkURL}"/></xp:this.facets>
+						<xp:inputText value="#{link.url}"/>
+					</xp:column>
+					<xp:column>
+						<xp:button id="button1" value="&#8595;" rendered="#{javascript: linkIndex &lt; this.parent.parent.value.length-1}">
+							<xp:eventHandler event="onclick" submit="true" disableValidators="true"
+									refreshMode="partial" refreshId="profileLinks"
+									action="#{controller.moveLinkDown}"/>
+						</xp:button>
+					</xp:column>
+					<xp:column>
+						<xp:button id="button2" value="&#8593;" rendered="#{linkIndex gt 0}">
+							<xp:eventHandler event="onclick" submit="true" disableValidators="true"
+									refreshMode="partial" refreshId="profileLinks"
+									action="#{controller.moveLinkUp}"/>
+						</xp:button>
+					</xp:column>
+					<xp:column>
+						<xp:this.facets>
+							<xp:button xp:key="footer" id="button3" value="+">
+								<xp:eventHandler event="onclick" submit="true" disableValidators="true"
+									refreshMode="partial" refreshId="profileLinks"
+									action="#{controller.addLink}"/>
+							</xp:button>
+						</xp:this.facets>
+						<xp:button id="button4" value="-">
+							<xp:eventHandler event="onclick" submit="true" disableValidators="true"
+								refreshMode="partial" refreshId="profileLinks"
+								action="#{controller.removeLink}"/>
+						</xp:button>
+					</xp:column>
+				</xp:dataTable>
 			</xe:formRow>
 		</xe:formTable>
 		
@@ -110,6 +144,15 @@
 						</xp:button>
 					</xp:column>
 				</xp:dataTable>
+			</xe:formRow>
+		</xe:formTable>
+		
+		<xe:formTable formTitle="${translation.configAkismet}">
+			<xe:formRow label="${translation.configAkismetAPIKey}">
+				<xp:inputText value="#{appConfigData.akismetAPIKey}"/>
+			</xe:formRow>
+			<xe:formRow label="${translation.configAkismetBlog}">
+				<xp:inputText value="#{appConfigData.akismetBlog}"/>
 			</xe:formRow>
 		</xe:formTable>
 	</xc:layout>

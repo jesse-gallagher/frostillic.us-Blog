@@ -1,5 +1,6 @@
 package model;
 
+import java.io.IOException;
 import java.util.Date;
 
 import javax.faces.context.FacesContext;
@@ -9,8 +10,11 @@ import org.hibernate.validator.constraints.Email;
 import org.hibernate.validator.constraints.NotEmpty;
 import org.openntf.domino.Database;
 
+import com.ibm.xsp.model.domino.wrapped.DominoRichTextItem;
+
 import config.AppConfig;
 
+import bean.Akismet;
 import frostillicus.xsp.bean.ApplicationScoped;
 import frostillicus.xsp.bean.ManagedBean;
 import frostillicus.xsp.model.domino.AbstractDominoManager;
@@ -42,10 +46,28 @@ public class Comment extends AbstractDominoModel {
 			setValue("CommentID", document().getUniversalID());
 
 			HttpServletRequest req = (HttpServletRequest)FacesContext.getCurrentInstance().getExternalContext().getRequest();
-			setValue("HTTP_Referer", req.getHeader("Referer"));
-			setValue("HTTP_User_Agent", req.getHeader("User-Agent"));
-			setValue("Remote_Addr", req.getRemoteAddr());
+			String remoteAddr = req.getRemoteAddr();
+			String userAgent = req.getHeader("User-Agent");
+			String referrer = req.getHeader("Referer");
+			setValue("HTTP_Referer", referrer);
+			setValue("HTTP_User_Agent", userAgent);
+			setValue("Remote_Addr", remoteAddr);
+
+			Akismet akismet = Akismet.get();
+			AppConfig appConfig = AppConfig.get();
+			akismet.setApiKey((String)appConfig.getValue("akismetAPIKey"));
+			akismet.setBlog((String)appConfig.getValue("akismetBlog"));
+
+			DominoRichTextItem body = (DominoRichTextItem)getValue("body");
+			try {
+				boolean spam = akismet.checkComment(remoteAddr, userAgent, referrer, "", "comment", (String)getValue("authorName"), (String)getValue("authorEmailAddress"), (String)getValue("authorURL"), body.getHTML());
+				setValue("AkismetSpam", spam ? 1 : 0);
+			} catch(IOException ioe) {
+				throw new RuntimeException(ioe);
+			}
+
 		}
+		setValue("FullName", getValue("authorName"));
 		return super.querySave();
 	}
 

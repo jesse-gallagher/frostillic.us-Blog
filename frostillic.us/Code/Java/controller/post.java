@@ -1,8 +1,10 @@
 package controller;
 
+import java.net.URLDecoder;
 import java.util.Map;
 
 import javax.faces.context.FacesContext;
+import javax.servlet.http.Cookie;
 
 import model.Comment;
 import model.Post;

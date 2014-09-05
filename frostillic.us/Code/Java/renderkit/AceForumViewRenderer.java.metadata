@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?><note class="form" maintenanceversion="1.2" replicaid="85257D45007FCC93" version="9.0" xmlns="http://www.lotus.com/dxl">
+<noteinfo noteid="3da" sequence="3" unid="91FF5959F3B363FD85257D4A004B19A7">
+<created><datetime dst="true">20140905T094017,67-04</datetime></created>
+<modified><datetime dst="true">20140905T094017,91-04</datetime></modified>
+<revised><datetime dst="true">20140905T094017,90-04</datetime></revised>
+<lastaccessed><datetime dst="true">20140905T094017,90-04</datetime></lastaccessed>
+<addedtofile><datetime dst="true">20140905T094017,67-04</datetime></addedtofile></noteinfo>
+<updatedby><name>CN=Jesse Gallagher/O=IKSG</name></updatedby>
+<wassignedby><name>CN=Jesse Gallagher/O=IKSG</name></wassignedby>
+<item name="$Flags"><text>34567Cg~[</text></item>
+<item name="$TITLE"><text>renderkit/AceForumViewRenderer.java</text></item>
+<item name="$DesignerVersion"><text>8.5.3</text></item>
+
+
+<item name="$FileNames" sign="true"><text>renderkit/AceForumViewRenderer.java</text></item></note>

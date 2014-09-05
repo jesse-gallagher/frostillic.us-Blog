@@ -10,8 +10,8 @@
 	
 	<xe:applicationLayout id="applicationLayout1">
 		<xe:this.configuration>
-			<xe:oneuiApplication legal="false" footer="false" titleBar="true" titleBarName="#{empty compositeData.pageTitle ? view.pageTitle : compositeData.pageTitle}" productLogo="/$Icon"
-				productLogoAlt="${appConfig.appName}" productLogoHeight="24" productLogoWidth="24" placeBar="true">
+			<xe:oneuiApplication legal="false" footer="false" titleBar="#{not empty compositeData.pageTitle}" titleBarName="#{compositeData.pageTitle}" productLogo="/$Icon"
+				productLogoAlt="${appConfig.blogTitle}" productLogoHeight="24" productLogoWidth="24" placeBar="true">
 				<xe:this.bannerUtilityLinks>
 					<xe:userTreeNode />
 					<xe:loginTreeNode />
@@ -34,44 +34,40 @@
 		</xe:this.configuration>
 		
 		<xe:this.facets>
-			<xp:callback xp:key="LeftColumn" facetName="LeftColumn"/>
+<!--			<xp:callback xp:key="LeftColumn" facetName="LeftColumn"/>-->
 			<xp:callback xp:key="BreadCrumbs" facetName="BreadCrumbs"/>
 <!--			<xp:callback xp:key="SearchBar" facetName="SearchBar" />-->
 			
-			<xp:div xp:key="RightColumn">
-				<xe:widgetContainer type="sidebar" titleBar="false">
-					<xp:div themeId="Photo">
-						<xp:image url="${userInfo.profileImages[appConfig.blogOwnerEmail][128]}" />
-					</xp:div>
-					<p><xp:text themeId="Name" value="${appConfig.blogOwnerName}"/></p>
-					<xp:div themeId="Meta"><xp:link value="${appConfig.blogOwnerCompanyURL}" text="${appConfig.blogOwnerCompany}"/></xp:div>
-					<xp:table themeId="Table.Vertical">
-						<tr>
-							<th><xp:text value="${translation.gitHub}"/></th>
-							<td><xp:link value="https://github.com/${appConfig.blogOwnerGitHub}" text="${appConfig.blogOwnerGitHub}"/></td>
-						</tr>
-						<tr>
-							<th><xp:text value="${translation.twitter}"/></th>
-							<td><xp:link value="https://twitter.com/${appConfig.blogOwnerTwitter}" text="${appConfig.blogOwnerTwitter}"/></td>
-						</tr>
-						<tr>
-							<th><xp:text value="${translation.facebook}"/></th>
-							<td><xp:link value="https://facebook.com/${appConfig.blogOwnerFacebook}" text="${appConfig.blogOwnerFacebook}"/></td>
-						</tr>
-						<tr>
-							<th><xp:text value="${translation.linkedIn}"/></th>
-							<td><xp:link value="http://www.linkedin.com/profile/view?id=${appConfig.blogOwnerLinkedIn}" text="${appConfig.blogOwnerLinkedIn}"/></td>
-						</tr>
-					</xp:table>
-					
-				</xe:widgetContainer>
+			<xp:div xp:key="LeftColumn">
+				<xp:div themeId="Sidebar.Profile">
+					<xe:widgetContainer type="sidebar" titleBar="false">
+						<xp:div themeId="Photo">
+							<xp:image url="${userInfo.profileImages[appConfig.blogOwnerEmail][128]}" />
+						</xp:div>
+						<p><xp:text themeId="Name" value="${appConfig.blogOwnerName}"/></p>
+						<xp:div themeId="Meta"><xp:link value="${appConfig.blogOwnerCompanyURL}" text="${appConfig.blogOwnerCompany}"/></xp:div>
+
+						<xe:linksList themeId="Profile.UserInfo">
+							<xe:this.treeNodes>
+								<xe:repeatTreeNode value="${appConfig.profileLinks}" var="link">
+									<xe:this.children>
+										<xe:basicLeafNode label="#{link.label}" href="#{link.url}"/>
+									</xe:this.children>
+								</xe:repeatTreeNode>
+							</xe:this.treeNodes>
+						</xe:linksList>
+					</xe:widgetContainer>
+				</xp:div>
 				<xc:linksbar navigationPath="${compositeData.navigationPath}"/>
+			</xp:div>
+			<xp:div xp:key="MastFooter">
+				<xp:text value="${appConfig.footerContent}" contentType="HTML"/>
 			</xp:div>
 		</xe:this.facets>
 		
 		<xc:messages/>
 		
-		<xp:div styleClass="action-bar" rendered="#{javascript:!this.children.isEmpty()}">
+		<xp:div themeId="ActionBar" rendered="#{javascript:!this.children.isEmpty()}">
 			<xp:callback id="ActionBar" facetName="ActionBar" />
 		</xp:div>
 		

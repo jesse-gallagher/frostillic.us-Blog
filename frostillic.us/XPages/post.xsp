@@ -10,28 +10,21 @@
 		<xp:navigationRule outcome="xsp-success" viewId="/post.xsp?id=#{post.id}"/>
 	</xp:this.navigationRules>
 	
-	<xc:layout navigationPath="/Posts/Post/${controller.postId}">
-		<xp:text tagName="h1" value="#{post.$$Title}"/>
+	<xc:layout navigationPath="/Posts/Post/${controller.postId}" pageTitle="#{view.pageTitle}">
 		
-		<xp:div themeId="Meta">
-			<xe:list themeId="List.Inline">
-				<xp:text value="#{post.$$Creator}">
-					<xp:this.converter><ff:convertCommonName/></xp:this.converter>
-				</xp:text>
-				<xp:text value="#{post.Posted}"/>
-			</xe:list>
-		</xp:div>
-		<xp:text contentType="HTML" value="#{post.body}"/>
+		<xc:blogPost authorName="#{post.$$Creator}" posted="#{post.Posted}" commentCount="#{post.commentCount}">
+			<xp:text contentType="HTML" value="#{post.body}"/>
+		</xc:blogPost>
 		
-		<xe:forumView value="#{post.comments}" var="comment" rows="100000" expandedDetail="true">
+		<div id="comments"/>
+		
+		<xe:forumView value="#{post.comments}" var="comment" rows="100000" expandedDetail="true" id="comments">
 			<xe:this.facets>
-				<xe:forumPost xp:key="detail">
+				<xe:forumPost xp:key="detail" id="detail">
 					<xe:this.facets>
 						<xp:image xp:key="authorAvatar" url="#{userInfo.profileImages[comment.AuthorEmailAddress][48]}"/>
 						<xp:text xp:key="authorName" styleClass="lotusAuthor" value="#{comment.AuthorName}"/>
-						<xe:list xp:key="postMeta" themeId="List.Inline">
-							<xp:text value="#{comment.Posted}" />
-						</xe:list>
+						<xp:text xp:key="postMeta" value="#{comment.Posted}" />
 						<xp:text xp:key="postDetails" contentType="HTML" value="#{comment.body}" />
 					</xe:this.facets>
 				</xe:forumPost>
@@ -55,9 +48,9 @@
 				<xe:formRow binding="#{controller.components[comment].authorName}"/>
 				<xe:formRow binding="#{controller.components[comment].authorEmailAddress}"/>
 				<xe:formRow binding="#{controller.components[comment].authorURL}"/>
-				<xe:formRow>
-					<xp:checkBox value="#{viewScope.rememberInfo}" text="${translation.commentRememberInfo}"/>
-				</xe:formRow>
+<!--				<xe:formRow>-->
+<!--					<xp:checkBox value="#{viewScope.rememberInfo}" text="${translation.commentRememberInfo}"/>-->
+<!--				</xe:formRow>-->
 				<xe:formRow label="${translation.commentBody}">
 					<xp:inputRichText value="#{comment.body}" htmlFilter="acf" htmlFilterIn="acf"/>
 				</xe:formRow>

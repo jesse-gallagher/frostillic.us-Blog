@@ -22,6 +22,7 @@
     <import optional="true" plugin="org.openntf.domino.xsp"/>
     <import optional="true" plugin="frostillicus.framework"/>
     <import optional="true" plugin="org.openntf.xsp.debugtoolbar"/>
+    <import optional="true" plugin="frostillicus.wrapbootstrap.ace_1.3"/>
     <!--AUTOGEN-END-BUILDER: End of automatically generated section-->
   </requires>
 </plugin>

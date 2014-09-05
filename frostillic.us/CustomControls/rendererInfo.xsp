@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xp:view xmlns:xp="http://www.ibm.com/xsp/core">
+	<dl>
+		<dt>Renderer Type</dt>
+		<dd><xp:text value="#{javascript:getComponent(compositeData['for']).getRendererType()}"/></dd>
+		
+		<dt>Renderer</dt>
+		<dd><xp:text value="#{javascript:getComponent(compositeData['for']).getRenderer(facesContext).getWrapped()}"/></dd>
+		
+		<dt>Component Family</dt>
+		<dd><xp:text value="#{javascript:getComponent(compositeData['for']).getFamily()}"/></dd>
+		
+		<dt>Theme ID</dt>
+		<dd><xp:text value="#{javascript:getComponent(compositeData['for']).getStyleKitFamily()}"/></dd>
+	</dl>
+</xp:view>

@@ -23,7 +23,7 @@ public class Post extends AbstractDominoModel {
 	@NotNull Date posted;
 	@NotNull PostStatus status;
 	String thread;
-	List<String> tags;
+	//	List<String> tags;
 
 
 	@Override
@@ -43,6 +43,14 @@ public class Post extends AbstractDominoModel {
 
 	public int getCommentCount() {
 		return getComments().size();
+	}
+
+	@Override
+	protected boolean querySave() {
+		if(isNew()) {
+			setValue("PostID", document().getUniversalID());
+		}
+		return super.querySave();
 	}
 
 	@ManagedBean(name="Posts")
