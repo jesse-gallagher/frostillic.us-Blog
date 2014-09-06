@@ -10,6 +10,7 @@ import javax.validation.constraints.NotNull;
 import org.openntf.domino.*;
 
 import config.AppConfig;
+import config.UserInfo;
 
 import frostillicus.xsp.bean.ApplicationScoped;
 import frostillicus.xsp.bean.ManagedBean;
@@ -47,6 +48,9 @@ public class Post extends AbstractDominoModel {
 
 	@Override
 	protected boolean querySave() {
+		if(!UserInfo.get().isAdmin()) {
+			return false;
+		}
 		if(isNew()) {
 			setValue("PostID", document().getUniversalID());
 		}

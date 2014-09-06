@@ -8,7 +8,10 @@ import javax.servlet.http.HttpServletRequest;
 
 import org.hibernate.validator.constraints.Email;
 import org.hibernate.validator.constraints.NotEmpty;
-import org.openntf.domino.Database;
+import org.openntf.domino.*;
+import org.openntf.domino.thread.DominoSessionType;
+import org.openntf.domino.xots.XotsBaseTasklet;
+import org.openntf.domino.xots.XotsDaemon;
 
 import com.ibm.xsp.model.domino.wrapped.DominoRichTextItem;
 
@@ -65,10 +68,49 @@ public class Comment extends AbstractDominoModel {
 			} catch(IOException ioe) {
 				throw new RuntimeException(ioe);
 			}
-
 		}
 		setValue("FullName", getValue("authorName"));
 		return super.querySave();
+	}
+
+	@Override
+	protected void postSave() {
+		XotsDaemon.addToQueue(new CommentEmailer(this));
+	}
+
+	public static class CommentEmailer extends XotsBaseTasklet {
+		private static final long serialVersionUID = 1L;
+
+		private final String databaseApiPath_;
+		private final String commentId_;
+
+		public CommentEmailer(final Comment comment) {
+			Document doc = comment.document();
+			databaseApiPath_ = doc.getAncestorDatabase().getApiPath();
+			commentId_ = doc.getUniversalID();
+		}
+
+		@Override
+		public DominoSessionType getSessionType() {
+			return DominoSessionType.NATIVE;
+		}
+		@Override
+		public void run() {
+			Session session = getSession();
+			Database database = session.getDatabase(databaseApiPath_);
+			Document comment = database.getDocumentByUNID(commentId_);
+
+			Document mailDoc = database.createDocument();
+			mailDoc.replaceItemValue("Form", "Memo");
+			// TODO move to config
+			mailDoc.replaceItemValue("SendTo", "Jesse Gallagher/Frost");
+			mailDoc.replaceItemValue("Subject", "New comment on " + database.getTitle());
+			// TODO make adapt to server setup
+			mailDoc.replaceItemValue("Body", "http://frostillic.us/f.nsf/posts/" + comment.getItemValueString("PostID"));
+			mailDoc.send();
+
+
+		}
 	}
 
 	@ManagedBean(name="Comments")
