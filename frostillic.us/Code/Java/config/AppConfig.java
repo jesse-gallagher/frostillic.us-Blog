@@ -67,6 +67,7 @@ public class AppConfig implements Serializable, DataObject {
 	}
 
 	public boolean save() {
+		resetComplete();
 		return getConfig().save();
 	}
 
@@ -87,6 +88,10 @@ public class AppConfig implements Serializable, DataObject {
 		}
 
 		return complete_;
+	}
+
+	public void resetComplete() {
+		complete_ = null;
 	}
 
 	private Document getConfig() {
