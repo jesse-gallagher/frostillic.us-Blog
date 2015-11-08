@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xp:view xmlns:xp="http://www.ibm.com/xsp/core">
+	<xp:text styleClass="username #{compositeData.styleClass}" value="#{compositeData.value}" escape="true">
+		<xp:this.converter>
+			<xp:customConverter getAsObject="#{javascript:value}">
+				<xp:this.getAsString><![CDATA[#{javascript:
+					var val = typeof value == "Array" ? value : [value]
+					var result = []
+					for(var i = 0; i < val.length; i++) { 
+						result.push(@Name("[CN]", val[i]))
+					}
+					result.join(", ")
+				}]]></xp:this.getAsString>
+			</xp:customConverter>
+		</xp:this.converter>
+	</xp:text>
+</xp:view>

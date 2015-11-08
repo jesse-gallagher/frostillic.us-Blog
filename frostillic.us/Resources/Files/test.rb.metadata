@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?><note class="form" maintenanceversion="1.4" replicaid="85257AEC00467093" version="9.0" xmlns="http://www.lotus.com/dxl">
+<noteinfo noteid="272" sequence="8" unid="110E189928455EA1852579DA007481D1">
+<created><datetime dst="true">20120408T171234,09-04</datetime></created>
+<modified><datetime>20151108T144938,06-05</datetime></modified>
+<revised><datetime>20130309T183820,52-05</datetime></revised>
+<lastaccessed><datetime>20151108T144938,05-05</datetime></lastaccessed>
+<addedtofile><datetime>20151108T144938,05-05</datetime></addedtofile></noteinfo>
+<updatedby><name>CN=Jesse Gallagher/O=Frost</name></updatedby>
+<wassignedby><name>CN=Jesse Gallagher/O=Frost</name></wassignedby>
+<item name="$TITLE"><text>test.rb</text></item>
+<item name="$Flags"><text>345CgQ</text></item>
+<item name="$MimeCharSet"><text>UTF-8</text></item>
+<item name="$DesignerVersion"><text>8.5.3</text></item>
+
+
+<item name="$FileNames" sign="true"><text>test.rb</text></item></note>

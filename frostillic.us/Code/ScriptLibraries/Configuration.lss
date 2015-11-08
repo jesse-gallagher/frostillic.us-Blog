@@ -1,0 +1,132 @@
+'++LotusScript Development Environment:2:5:(Options):0:74
+Option Public
+Option Explicit
+
+'++LotusScript Development Environment:2:5:(Forward):0:1
+Declare Class Configuration
+
+'++LotusScript Development Environment:2:5:(Declarations):0:10
+Dim TEMPLATE_DEBUG As Boolean
+
+Class Configuration
+	session As NotesSession
+	db As NotesDatabase
+	configView As NotesView
+	cache List As Variant
+	itemDocs List As NotesDocument
+	
+	Sub New
+		Set session = New NotesSession
+		Set db = session.CurrentDatabase
+		Set configView = db.GetView("Configuration")
+		configView.AutoUpdate = False
+		
+		If GetVal("DevelopmentMode")(0) = "Yes" And GetVal("DebugText")(0) = "Yes" Then TEMPLATE_DEBUG = True Else TEMPLATE_DEBUG = False
+	End Sub
+	
+	Function GetVal(field As String) As Variant
+		If Iselement(cache(field)) Then
+			GetVal = cache(field)
+		Else
+			Dim specificForm As NotesForm
+			Dim configDoc As NotesDocument
+			Dim foundValue As Boolean
+			
+			foundValue = False
+			Set configDoc = configView.GetFirstDocument
+			Do While Not foundValue And Not (configDoc Is Nothing)
+				Set specificForm = db.GetForm(configDoc.Form(0))
+				If Not Isnull(Arraygetindex(specificForm.Fields, field)) Then
+					foundValue = True
+					cache(field) = configDoc.GetItemValue(field)
+					GetVal = configDoc.GetItemValue(field)
+				End If
+				
+				Set configDoc = configView.GetNextDocument(configDoc)
+			Loop
+			
+			If Not foundValue Then GetVal = Split("")
+		End If
+	End Function
+	
+	Function GetItemValue(field As String) As Variant
+		GetItemValue = GetVal(field)
+	End Function
+	
+	Function GetFirstItem(fieldName As String) As NotesItem
+		Dim specificForm As NotesForm
+		Dim configDoc As NotesDocument
+		Dim foundValue As Boolean
+		
+		foundValue = False
+		Set configDoc = configView.GetFirstDocument
+		Do While Not foundValue And Not (configDoc Is Nothing)
+			Set specificForm = db.GetForm(configDoc.Form(0))
+			If Not IsNull(ArrayGetIndex(specificForm.Fields, fieldName)) Then
+				foundValue = True
+				Set itemDocs(fieldName) = configDoc
+				Set GetFirstItem = configDoc.GetFirstItem(fieldName)
+			End If
+			
+			Set configDoc = configView.GetNextDocument(configDoc)
+		Loop
+		
+		If Not foundValue Then Set GetFirstItem = Nothing
+	End Function
+	
+	Function OpenDatabaseLink(fieldName As String) As NotesDatabase
+		Dim rtitem As NotesRichTextItem
+		Set rtitem = GetFirstItem(fieldName)
+		If Not (rtitem Is Nothing) Then
+			Dim rtnav As NotesRichTextNavigator, doclink As NotesRichTextDocLink
+			Set rtnav = rtitem.CreateNavigator
+			Set doclink = rtnav.GetFirstElement(RTELEM_TYPE_DOCLINK)
+			
+			If Not (doclink Is Nothing) Then
+				Dim db As NotesDatabase
+				Set db = New NotesDatabase("", "")
+				Call db.OpenByReplicaID(doclink.ServerHint, doclink.DBReplicaID)
+				If db.IsOpen Then
+					Set OpenDatabaseLink = db
+				Else
+					Set OpenDatabaseLink = Nothing
+				End If
+			Else
+				Set OpenDatabaseLink = Nothing
+			End If
+		Else
+			Set OpenDatabaseLink = Nothing
+		End If
+	End Function
+	
+	Function SetVal(field As String, value As Variant) As Boolean
+		Dim specificForm As NotesForm
+		Dim configDoc As NotesDocument
+		Dim foundValue As Boolean
+		
+		Set configDoc = configView.GetFirstDocument
+		Do While Not (configDoc Is Nothing)
+			Set specificForm = db.GetForm(configDoc.Form(0))
+			If Not Isnull(Arraygetindex(specificForm.Fields, field)) Then
+				Exit Do
+			End If
+			
+			Set configDoc = configView.GetNextDocument(configDoc)
+		Loop
+		
+		If Not (configDoc Is Nothing) Then
+			Call configDoc.ReplaceItemValue(field, value)
+			Call configDoc.Save(True, True)
+			cache(field) = value
+			SetVal = True
+		Else
+			SetVal = False
+		End If
+		
+	End Function
+	
+	Function ReplaceItemValue(field As String, value As Variant) As Boolean
+		ReplaceItemValue = SetVal(field, value)
+	End Function
+	
+End Class

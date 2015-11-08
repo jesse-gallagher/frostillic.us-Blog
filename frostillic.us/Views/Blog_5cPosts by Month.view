@@ -1,0 +1,61 @@
+<?xml version='1.0' encoding='utf-8'?>
+<note class='view' xmlns='http://www.lotus.com/dxl' version='9.0' maintenanceversion='1.4'
+ replicaid='85257AEC00467093'>
+<noteinfo noteid='1ea' unid='120F4ADDD2B0DC69852579D8007960CF' sequence='23'>
+<created><datetime dst='true'>20120406T180546,39-04</datetime></created>
+<modified><datetime>20151108T144937,35-05</datetime></modified>
+<revised><datetime>20130309T183734,21-05</datetime></revised>
+<lastaccessed><datetime>20151108T144937,34-05</datetime></lastaccessed>
+<addedtofile><datetime>20151108T144937,34-05</datetime></addedtofile></noteinfo>
+<updatedby><name>CN=Jesse Gallagher/O=Frost</name></updatedby>
+<wassignedby><name>CN=Jesse Gallagher/O=Frost</name></wassignedby>
+<item name='$FormatNote' summary='true' sign='true'>
+<rawitemdata type='4'>
+AQCU7G6FoWlsP/FjaADvdyWF
+</rawitemdata></item>
+<item name='$FormulaClass' sign='true'><text>1</text></item>
+<item name='$Index' sign='true'><text/></item>
+<item name='$Formula' summary='true' sign='true'><formula compiled='true'>
+LgECAC4AAgAkOQUABgBQb3N0ZWROAQUABgBQb3N0ZWRPAQAAAAAAAAAALkBLAwMABQBQAEwACAAC
+AAYACQAGAAcADQAJAAQAJDlQb3N0SUQkJENyZWF0b3JQb3N0ZWQkJFRpdGxlcG9zdF9jYXRlZ29y
+eSRDb25mbGljdCRSRUYEAAQAAACIAAUABABGb3JtAQAEAFBvc3QKAgQABQAEAEZvcm0BAAYAU1FM
+Um93CgIFAAgAU1FMVGFibGUBAAgAd3BfcG9zdHMKAhwCBQAJAHBvc3RfdHlwZQABAAQAcG9zdAoC
+HAIFAAsAcG9zdF9zdGF0dXMAAQAHAHB1Ymxpc2gACgIcAgQAHQIDAAcAIgAcAAlMMVJUNlM3UlQx
+MVMxMlMxNVMxNlMxOVMyMFM=
+</formula></item>
+<item name='$Collation' summary='true'>
+<rawitemdata type='2'>
+HAACAABEiWYHAAACAIFmAAIABgAkOVBvc3RlZA==
+</rawitemdata></item>
+<item name='$ViewFormat' summary='true' sign='true'>
+<rawitemdata type='5'>
+AQAGAAsAiEAAAFZDhwQCAAAAPAAAAAgAAQEACgABAAAAAAAAAAICAAAAVkMAAAYABgAAAAAAUAAB
+AAAKAAAAAAAAAAAAAgIAAABWQwAACQAJAAAAAABQAAEAAAoAAAAAAAAAAAACAgAAAFZDBQAGAAYA
+AAAAAFAAAQAACgAAAAAAAAAAAAICAAAAVkMAAAcABwAAAAAAUAABAAAKAAAAAAAAAAAAAgIAAABW
+QwAADQANAAAAAABQAAEAAAoAAAAAAAAAAAACAgAAACQ5PAACAC4AAgAkOQUABgBQb3N0ZWROAQUA
+BgBQb3N0ZWRPAQAAAAAAAAAALkBLAwMABwAMAAYACTdTMTJTUG9zdElEUG9zdElEJCRDcmVhdG9y
+JCRDcmVhdG9yUG9zdGVkUG9zdGVkJCRUaXRsZSQkVGl0bGVwb3N0X2NhdGVnb3J5cG9zdF9jYXRl
+Z29yeSYAAQAAAAEBAAkBAAAKAQEOCgAAPwCtKwEAAQABAAAAAAAAAAAAV0MBAQAJAAAAAAAAAAAA
+AAAAAAAAAAAABAAAAAAA//8AAAAAAAAAAAAAAAAAAFdDAQEACQAAAAAAAAAAAAAAAAAAAAAAAAQA
+AAAAAP//AAAAAAAAAAAAAAAAAABXQwEBAAkAAAAAAAAAAAAAAAAAAAAAAAAEAAAAAAD//wAAAAAA
+AAAAAAAAAAAAV0MBAQAJAAAAAAAAAAAAAAAAAAAAAAAABAAAAAAA//8AAAAAAAAAAAAAAAAAAFdD
+AQEACQAAAAAAAAAAAAAAAAAAAAAAAAQAAAAAAP//AAAAAAAAAAAAAAAAAABXQwEBAAkAAAAAAAAA
+AAAAAAAAAAAAAAAEAAAAAAD//wAAAAAAAAAAAAAAAAAAQgARAAAAAQD///8AAQDv7+8AAQD///8A
+AAAAAAAAAAABAP///wABAP///wAAAAEAAAAAAAEAAAAAAAEAAAAAAAAACAAAAAAAAQA=
+</rawitemdata></item>
+<item name='$FormFormula' summary='true' sign='true'><formula>@If(
+	Form="SQLRow"; "Post";
+	Form
+)</formula></item>
+<item name='$Comment' sign='true'><text/></item>
+<item name='$V5ACTIONS' sign='true'>
+<rawitemdata type='1'>
+vRwjAAAAAQABAAAAAQAAAAAAAAAAAAAACAACAHn/bAABANTQyAABAAAAAAAJAAAAAAABANTQyAAA
+AB8AAAAAAAAAAAADAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAPz/OgAAAAAAAQAAAAAAAQAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAEAAAAAAAAAAAAAAAAAAAA=
+</rawitemdata></item>
+<item name='$TITLE' sign='true'><text>Blog\Posts by Month|Posts by Month</text></item>
+<item name='$DesignerVersion' sign='true'><text>8.5.3</text></item>
+<item name='$Flags'><text>Y</text></item></note>
+

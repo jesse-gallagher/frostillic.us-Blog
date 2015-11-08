@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?><note class="form" maintenanceversion="1.4" replicaid="85257AEC00467093" version="9.0" xmlns="http://www.lotus.com/dxl">
+<noteinfo noteid="58e" sequence="7" unid="CFC03D63FF6B4B8185257A0F0059B1CF">
+<created><datetime dst="true">20120531T121942,23-04</datetime></created>
+<modified><datetime>20151108T144941,72-05</datetime></modified>
+<revised><datetime>20130309T183757,04-05</datetime></revised>
+<lastaccessed><datetime>20151108T144941,71-05</datetime></lastaccessed>
+<addedtofile><datetime>20151108T144941,71-05</datetime></addedtofile></noteinfo>
+<updatedby><name>CN=Jesse Gallagher/O=Frost</name></updatedby>
+<wassignedby><name>CN=Jesse Gallagher/O=Frost</name></wassignedby>
+<item name="$Flags"><text>34C=Q</text></item>
+<item name="$TITLE"><text>shThemeMDUltra.css</text></item>
+<item name="$MimeType"><text>text/css</text></item>
+<item name="$MimeCharSet"><text>UTF-8</text></item>
+<item name="$DesignerVersion"><text>8.5.3</text></item>
+
+
+<item name="$FileNames" sign="true"><text>shThemeMDUltra.css</text></item></note>

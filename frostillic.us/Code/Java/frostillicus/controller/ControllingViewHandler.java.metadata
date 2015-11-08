@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?><note class="form" maintenanceversion="1.4" replicaid="85257AEC00467093" version="9.0" xmlns="http://www.lotus.com/dxl">
+<noteinfo noteid="6f6" sequence="10" unid="74E33E77178F9B9C85257AEC00487D01">
+<created><datetime>20130107T081145,93-05</datetime></created>
+<modified><datetime>20151108T144943,70-05</datetime></modified>
+<revised><datetime>20130309T183951,69-05</datetime></revised>
+<lastaccessed><datetime>20151108T144943,69-05</datetime></lastaccessed>
+<addedtofile><datetime>20151108T144943,69-05</datetime></addedtofile></noteinfo>
+<updatedby><name>CN=Jesse Gallagher/O=Frost</name></updatedby>
+<wassignedby><name>CN=Jesse Gallagher/O=Frost</name></wassignedby>
+<item name="$Flags"><text>34567Cg~[</text></item>
+<item name="$TITLE"><text>frostillicus/controller/ControllingViewHandler.java</text></item>
+<item name="$DesignerVersion"><text>8.5.3</text></item>
+
+
+<item name="$FileNames" sign="true"><text>frostillicus/controller/ControllingViewHandler.java</text></item>
+
+
+</note>

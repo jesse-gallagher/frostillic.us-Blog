@@ -1,0 +1,159 @@
+body, html {
+	background-color: rgb(56, 83, 136);
+	color: black;
+}
+a { text-decoration: underline }
+
+#entirety {
+	width: 80%;
+	margin: 8px auto;
+	padding: 0;
+	
+	border: 1px solid black;
+
+	font-family:
+		"Lucida Grande",
+		"Lucida Sans",
+		"Lucida Sans Unicode",
+		"Luxi Sans",
+		"Trebuchet MS",
+		sans-serif;
+	font-size: 12px;
+	
+	-webkit-box-shadow: 0px 0px 20px #333;
+	-moz-box-shadow: 0px 0px 20px #333;
+	box-shadow: 0px 0px 20px #333;
+}
+
+header {
+	background-color: rgb(187, 204, 187);
+}
+header h1 {
+	/*width: 78%;*/
+	margin: 0;
+	padding: 2%;
+	
+	font-size: 2.5em;
+	font-family: "Didot", serif;
+	font-style: italic;
+
+	background-color: rgb(204, 221, 204);
+}
+header a {
+	text-decoration: none;
+	font-weight: normal;
+	color: black;
+
+	background-color: transparent;
+}
+header a:hover {
+	color: black;
+	text-decoration: none;
+}
+
+#main-body {
+	background-color: rgb(238, 238, 221);
+}
+
+#content {
+	background-color: white;
+	margin: 0;
+	padding: 2%;
+	min-height: 100%;
+}
+#content .syntaxhighlighter {
+	line-height: inherit;
+	overflow-y: hidden !important;
+}
+#content h1 {
+	font-family: "Cochin", serif;
+}
+
+p.footnote {
+	font-size: 90%;
+	color: #333;
+	margin-top: 3em;
+	border-top: 1px solid #ccc;
+	padding-top: 1em;
+}
+p.footnote + p.footnote {
+	border-top: 0;
+	margin-top: 1em;
+}
+
+#linksbar {
+	background-color: rgb(238, 238, 221);
+	
+	font-size: 0.95em;
+	line-height: 1.7em;
+	
+	color: rgb(101, 101, 84);
+}
+#linksbar ul {
+	margin: 0;
+}
+
+#linksbar ul + ul, #linksbar div[title] + ul {
+	margin-top: 2em;
+}
+#linksbar li {
+	display: inline;
+}
+#linksbar ul[title]:before, #linksbar div[title]:before {
+	content: attr(title);
+	display: block;
+	width: 100%;
+	border-bottom: 1px dotted rgb(101, 101, 84); 
+}
+#linksbar .dijitContentPane {
+	padding: 0;
+	overflow: static;
+}
+#linksbar div[title=search] {
+	height: 4em;
+	width: 100%;
+	position: relative;
+}
+#linksbar input {
+	position: absolute;
+	top: 2.2em;
+	left: 0;
+	right: 10%;
+	width: auto;
+	/*max-width: 75%;
+	margin-top: 0.5em;*/
+	font-size: 1em;
+	height: 1em;
+}
+
+#linksbar a {
+	display: list-item;
+	list-style-type: square;
+	color: rgb(51, 85, 136);
+	background-color: transparent;
+	text-decoration: underline;
+}
+
+footer {
+	clear: both;
+	background-color: rgb(105, 140, 182);
+}
+footer p {
+	text-align: center;
+	padding: 1%;
+	color: rgb(56, 75, 97);
+	background-color: rgb(111, 149, 208);
+	margin: 0;
+}
+footer a {
+	color: rgb(56, 75, 97);
+	background-color: transparent;
+}
+
+.newComment.form-horizontal .control-label, .editPost.form-horizontal .control-label {
+	width: 100px;
+}
+.newComment.form-horizontal .controls, .editPost.form-horizontal .controls {
+	margin-left: 110px;
+}
+.editPost { margin-top: 2em }

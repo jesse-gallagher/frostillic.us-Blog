@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?><note class="form" maintenanceversion="1.4" replicaid="85257AEC00467093" version="9.0" xmlns="http://www.lotus.com/dxl">
+<noteinfo noteid="646" sequence="5" unid="E17832E82857514385257AD40053B336">
+<created><datetime>20121214T101413,66-05</datetime></created>
+<modified><datetime>20151108T144942,64-05</datetime></modified>
+<revised><datetime>20130309T183822,86-05</datetime></revised>
+<lastaccessed><datetime>20151108T144942,63-05</datetime></lastaccessed>
+<addedtofile><datetime>20151108T144942,63-05</datetime></addedtofile></noteinfo>
+<updatedby><name>CN=Jesse Gallagher/O=Frost</name></updatedby>
+<wassignedby><name>CN=Jesse Gallagher/O=Frost</name></wassignedby>
+<item name="$Flags"><text>345CgQ</text></item>
+<item name="$TITLE"><text>shBrushSql.js</text></item>
+<item name="$DesignerVersion"><text>8.5.3</text></item>
+
+
+<item name="$FileNames" sign="true"><text>shBrushSql.js</text></item></note>

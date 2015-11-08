@@ -1,0 +1,67 @@
+<?xml version='1.0' encoding='utf-8'?>
+<note class='view' xmlns='http://www.lotus.com/dxl' version='9.0' maintenanceversion='1.4'
+ replicaid='85257AEC00467093'>
+<noteinfo noteid='1fa' unid='EF716A03BEA4CADC852579D90003393A' sequence='30'>
+<created><datetime dst='true'>20120406T203512,58-04</datetime></created>
+<modified><datetime>20151108T144937,44-05</datetime></modified>
+<revised><datetime>20130309T183736,88-05</datetime></revised>
+<lastaccessed><datetime>20151108T144937,43-05</datetime></lastaccessed>
+<addedtofile><datetime>20151108T144937,43-05</datetime></addedtofile></noteinfo>
+<updatedby><name>CN=Jesse Gallagher/O=Frost</name></updatedby>
+<wassignedby><name>CN=Jesse Gallagher/O=Frost</name></wassignedby>
+<item name='$FormatNote' summary='true' sign='true'>
+<rawitemdata type='4'>
+AQCU7G6FoWlsP/FjaADvdyWF
+</rawitemdata></item>
+<item name='$FormulaClass' sign='true'><text>1</text></item>
+<item name='$Index' sign='true'><text/></item>
+<item name='$Formula' summary='true' sign='true'><formula compiled='true'>
+KgEFAGwAaAAJAAYACQAKABIACQALAAYACQAEAFBvc3RJRENvbW1lbnRJREF1dGhvck5hbWVBdXRo
+b3JFbWFpbEFkZHJlc3NBdXRob3JVUkxSZW1vdGVfQWRkclBvc3RlZCRDb25mbGljdCRSRUYEAAQA
+AACSAAUABABGb3JtAQAHAENvbW1lbnQACgIFAAsAQWtpc21ldFNwYW0AAAAAAAAAAADwPwsCHAIE
+AAUABABGb3JtAQAGAFNRTFJvdwoCBQAIAFNRTFRhYmxlAQALAHdwX2NvbW1lbnRzAAoCHAIFABAA
+Y29tbWVudF9hcHByb3ZlZAEAAQAxAAoCHAIEAB0CAwAHACYAHwAJTDFTNVM2UzdTOFMxMFMxMVJU
+MTVTMTZTMTlTMjBTAA==
+</formula></item>
+<item name='$Collation' summary='true'>
+<rawitemdata type='2'>
+IAACAABEiGYHAAAGAIBmAAYABgBQb3N0SURQb3N0ZWQ=
+</rawitemdata></item>
+<item name='$Collation1' summary='true'>
+<rawitemdata type='2'>
+EwABAABEgWYAAAAGAFBvc3RlZA==
+</rawitemdata></item>
+<item name='$ViewFormat' summary='true' sign='true'>
+<rawitemdata type='5'>
+AQAHAAsAiEAAAFZDgwQGAAAAAAAAAAgAAQEACgABAAAAAAAAAAICAAAAVkMAAAkACQAAAAAAUAAB
+AAAKAAAAAAAAAAAAAgIAAABWQwAACgAKAAAAAABQAAEAAAoAAAAAAAAAAAACAgAAAFZDAAASABIA
+AAAAAFAAAQAACgAAAAAAAAAAAAICAAAAVkMAAAkACQAAAAAAUAABAAAKAAAAAAAAAAAAAgIAAABW
+QwAACwALAAAAAABQAAEAAAoAAAAAAAAAAAACAgAAAFZDAQIGAAYAAAAAAFAAAQAACgAAAAAAAAAA
+AAICAAAAUG9zdElEQ29tbWVudElEQ29tbWVudElEQXV0aG9yTmFtZUF1dGhvck5hbWVBdXRob3JF
+bWFpbEFkZHJlc3NBdXRob3JFbWFpbEFkZHJlc3NBdXRob3JVUkxBdXRob3JVUkxSZW1vdGVfQWRk
+clJlbW90ZV9BZGRyUG9zdGVkUG9zdGVkJgABAAAAAQEACQEAAAoBAQ4KAAA/AK0rAQABAAEAAAAA
+AAAAAABXQwEBAAkAAAAAAAAAAAAAAAAAAAAAAAAEAAAAAAD//wAAAAAAAAAAAAAAAAAAV0MBAQAJ
+AAAAAAAAAAAAAAAAAAAAAAAABAAAAAAA//8AAAAAAAAAAAAAAAAAAFdDAQEACQAAAAAAAAAAAAAA
+AAAAAAAAAAQAAAAAAP//AAAAAAAAAAAAAAAAAABXQwEBAAkAAAAAAAAAAAAAAAAAAAAAAAAEAAAA
+AAD//wAAAAAAAAAAAAAAAAAAV0MBAQAJAAAAAAAAAAAAAAAAAAAAAAAABAAAAAAA//8AAAAAAAAA
+AAAAAAAAAFdDAQEACQAAAAAAAAAAAAAAAAAAAAAAAAQAAAAAAP//AAAAAAAAAAAAAAAAAABXQwEF
+AAkAAAAAAAAAAAAAAAAAAAAAAAAEAAAAAAD//wAAAAAAAAAAAAAAAAAAQgARAAAAAQD///8AAQDv
+7+8AAQD///8AAAAAAAAAAAABAP///wABAP///wAAAAEAAAAAAAEAAAAAAAEAAAAAAAAACAAAAAAA
+AQA=
+</rawitemdata></item>
+<item name='$FormFormula' summary='true' sign='true'><formula>@If(
+	Form="SQLRow"; "Comment";
+	Form
+)</formula></item>
+<item name='$Comment' sign='true'><text/></item>
+<item name='$V5ACTIONS' sign='true'>
+<rawitemdata type='1'>
+vRwjAAAAAQABAAAAAQAAAAAAAAAAAAAACAACAHn/bAABANTQyAABAAAAAAAJAAAAAAABANTQyAAA
+AB8AAAAAAAAAAAADAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAPz/OgAAAAAAAQAAAAAAAQAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAEAAAAAAAAAAAAAAAAAAAA=
+</rawitemdata></item>
+<item name='$TITLE' sign='true'><text>Blog\Comments|Comments</text></item>
+<item name='$DesignerVersion' sign='true'><text>8.5.3</text></item>
+<item name='$Flags'><text>Y</text></item></note>
+
