@@ -10,3 +10,21 @@
 	list-style-type: none;
 	
 }
+
+/* ******************************************************************************
+ * Threads
+********************************************************************************/
+
+.thread-info {
+	margin: 1em 2em;
+}
+.thread-info .widget-header h5 {
+	line-height: 20px;
+	font-size: 14px;
+}
+.thread-info .widget-header {
+	min-height: 0;
+}
+.thread-info .self-link a {
+	color: black;
+}

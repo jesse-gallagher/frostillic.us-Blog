@@ -3,7 +3,7 @@
 	beforePageLoad="#{controller.beforePageLoad}" afterPageLoad="#{controller.afterPageLoad}" pageTitle="${translation.search}">
 
 	<xp:this.data>
-		<ff:modelListData var="posts" managerName="Posts" key="all" search="${param.thread}" sortColumn="Thread" sortOrder="ascending"/>
+		<ff:modelListData var="posts" managerName="Posts" key="By Thread" categoryFilter="${param.thread}"/>
 	</xp:this.data>
 
 	<xc:layout navigationPath="/Posts/Search">

@@ -1,11 +1,11 @@
 <?xml version='1.0' encoding='utf-8'?>
 <note class='view' xmlns='http://www.lotus.com/dxl' version='9.0' maintenanceversion='1.4'
  replicaid='85257EF7006D0765'>
-<noteinfo noteid='70e' unid='29C4F93260966E9F85257D4A006859DE' sequence='2'>
+<noteinfo noteid='70e' unid='29C4F93260966E9F85257D4A006859DE' sequence='5'>
 <created><datetime dst='true'>20140905T145947,50-04</datetime></created>
-<modified><datetime>20151108T165417,95-05</datetime></modified>
-<revised><datetime>20151108T165417,94-05</datetime></revised>
-<lastaccessed><datetime>20151108T165417,94-05</datetime></lastaccessed>
+<modified><datetime>20151108T173503,69-05</datetime></modified>
+<revised><datetime>20151108T173503,68-05</datetime></revised>
+<lastaccessed><datetime>20151108T173503,68-05</datetime></lastaccessed>
 <addedtofile><datetime>20151108T145914,90-05</datetime></addedtofile></noteinfo>
 <updatedby><name>CN=Jesse Gallagher/O=IKSG</name></updatedby>
 <wassignedby><name>CN=Jesse Gallagher/O=IKSG</name></wassignedby>
@@ -36,16 +36,12 @@ EwABAABEgWYAAAAGAFBvc3RlZA==
 <rawitemdata type='2'>
 EQABAABEgGYAAAAEACRLZXk=
 </rawitemdata></item>
-<item name='$Collation3' summary='true'>
-<rawitemdata type='2'>
-IAACAABEgGYAAAAGAIBmAAYABgBUaHJlYWRQb3N0ZWQ=
-</rawitemdata></item>
 <item name='$ViewFormat' summary='true' sign='true'>
 <rawitemdata type='5'>
 AQAHAAIAiEAAAFZDBQIGAAYAAAAAAFAAAQAACgAAAAAAAAAAAAICAAAAVkMAAAYABgAAAAAAUAAB
 AAAKAAAAAAAAAAAAAgIAAABWQwABBAAEAFAAAABQAAEAAAoAAAAAAAAAAAACAgAAAFZDAAAJAAkA
 AAAAAFAAAQAACgAAAAAAAAAAAAICAAAAVkMAAAcABwAAAAAAUAABAAAKAAAAAAAAAAAAAgIAAABW
-QwAABAAEAAAAAABQAAEAAAoAAAAAAAAAAAACAgAAAFZDABEGAAYAAAAAAFAAAQAACgAAAAAAAAAA
+QwAABAAEAAAAAABQAAEAAAoAAAAAAAAAAAACAgAAAFZDAAAGAAYAAAAAAFAAAQAACgAAAAAAAAAA
 AAICAAAAUG9zdGVkUG9zdGVkUG9zdElEUG9zdElEJEtleSRLZXlQAAIAPAAEACRLZXkFAAQAbmFt
 ZQEAAAAKAq8AIAAQAAUABgBQb3N0SUSuABAABQAEAG5hbWWuAAQAtQMDAAcAEgALAAkyUlQ2UzhS
 VDlSACQkQ3JlYXRvciQkQ3JlYXRvciQkVGl0bGUkJFRpdGxlVGFnc1RhZ3NUaHJlYWRUaHJlYWQm

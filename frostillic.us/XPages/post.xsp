@@ -22,7 +22,7 @@
 		</xp:this.facets>
 		
 		<xc:blogPost authorName="#{post.$$Creator}" posted="#{post.Posted}" commentCount="#{post.commentCount}"
-			thread="#{post.Thread}">
+			thread="#{post.Thread}" pageName="post" postId="#{post.id}">
 			<xp:text contentType="HTML" value="#{post.body}"/>
 		</xc:blogPost>
 		

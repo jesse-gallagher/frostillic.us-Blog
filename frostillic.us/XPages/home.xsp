@@ -3,7 +3,7 @@
 	beforePageLoad="#{controller.beforePageLoad}" afterPageLoad="#{controller.afterPageLoad}" pageTitle="${translation.home}">
 
 	<xp:this.data>
-		<ff:modelListData var="posts" managerName="Posts" key="all"/>
+		<ff:modelListData var="posts" managerName="Posts" key="all" search=""/>
 	</xp:this.data>
 
 	<xc:layout navigationPath="/Home" pageTitle="">

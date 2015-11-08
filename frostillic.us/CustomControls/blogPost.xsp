@@ -22,13 +22,39 @@
 <!--				</xp:text>-->
 				<xp:text value="#{compositeData.posted}"/>
 				
-				<xp:link rendered="#{not empty compositeData.thread}" text="#{compositeData.thread}" value="/thread.xsp">
-					<xp:this.parameters><xp:parameter name="thread" value="#{compositeData.thread}"/></xp:this.parameters>
-				</xp:link>
+				<xp:text value="|" rendered="#{not empty compositeData.thread}"/>
+				
+				<xp:span rendered="#{not empty compositeData.thread}">
+				
+					<xp:text value="${translation.threadLabel}"/>
+					<xp:link text="#{compositeData.thread}" value="/thread.xsp">
+						<xp:this.parameters><xp:parameter name="thread" value="#{compositeData.thread}"/></xp:this.parameters>
+					</xp:link>
+				</xp:span>
 			</xe:list>
 		</xp:div>
-		<xp:text value="thread: #{compositeData.thread}"/>
+		
 		<xp:callback/>
+		
+		<xe:widgetContainer styleClass="widget-header-small widget-header-flat thread-info" rendered="#{not empty compositeData.thread}"
+			titleBarText="#{translation.threadLabel}#{compositeData.thread}">
+			<xp:panel>
+				<xp:this.data>
+					<ff:modelListData var="threadPosts" managerName="Posts" key="By Thread" categoryFilter="#{compositeData.thread}"/>
+				</xp:this.data>
+
+				<xe:outline>
+					<xe:this.treeNodes>
+						<xe:repeatTreeNode value="#{threadPosts}" var="threadPost">
+							<xe:this.children>
+								<xe:pageTreeNode page="#{compositeData.pageName}" queryString="id=#{threadPost.id}" label="#{threadPost.$$Title}" rendered="#{threadPost.id != compositeData.postId}"/>
+								<xe:basicLeafNode label="#{threadPost.$$Title}" rendered="#{threadPost.id == compositeData.postId}" styleClass="self-link"/>
+							</xe:this.children>
+						</xe:repeatTreeNode>
+					</xe:this.treeNodes>
+				</xe:outline>
+			</xp:panel>
+		</xe:widgetContainer>
 		
 		<xp:div themeId="Meta">
 			<xp:link rendered="#{not empty compositeData.pageName}">
