@@ -21,7 +21,8 @@
 			</xe:breadCrumbs>
 		</xp:this.facets>
 		
-		<xc:blogPost authorName="#{post.$$Creator}" posted="#{post.Posted}" commentCount="#{post.commentCount}">
+		<xc:blogPost authorName="#{post.$$Creator}" posted="#{post.Posted}" commentCount="#{post.commentCount}"
+			thread="#{post.Thread}">
 			<xp:text contentType="HTML" value="#{post.body}"/>
 		</xc:blogPost>
 		

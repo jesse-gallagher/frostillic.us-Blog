@@ -134,4 +134,17 @@
 			<value>header</value>
 		</property>
 	</control>
+	
+	<!-- =======================================================================
+		Message controls
+	======================================================================= -->
+	
+	<!-- Basic Message -->
+	<control>
+		<name>Message</name>
+		<property>
+			<name>styleClass</name>
+			<value>alert alert-info</value>
+		</property>
+	</control>
 </theme>

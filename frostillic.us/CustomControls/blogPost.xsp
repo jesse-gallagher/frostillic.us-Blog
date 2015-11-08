@@ -21,8 +21,13 @@
 <!--					<xp:this.converter><ff:convertCommonName/></xp:this.converter>-->
 <!--				</xp:text>-->
 				<xp:text value="#{compositeData.posted}"/>
+				
+				<xp:link rendered="#{not empty compositeData.thread}" text="#{compositeData.thread}" value="/thread.xsp">
+					<xp:this.parameters><xp:parameter name="thread" value="#{compositeData.thread}"/></xp:this.parameters>
+				</xp:link>
 			</xe:list>
 		</xp:div>
+		<xp:text value="thread: #{compositeData.thread}"/>
 		<xp:callback/>
 		
 		<xp:div themeId="Meta">

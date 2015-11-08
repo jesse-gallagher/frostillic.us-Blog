@@ -37,5 +37,9 @@
       <property-name>commentCount</property-name>
       <property-class>int</property-class>
     </property>
+    <property>
+      <property-name>thread</property-name>
+      <property-class>string</property-class>
+    </property>
   </composite-component>
 </faces-config>
