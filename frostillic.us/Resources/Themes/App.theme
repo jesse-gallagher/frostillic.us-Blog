@@ -9,14 +9,14 @@
 		<metaData name="base" content="#{facesContext.externalContext.requestContextPath}/" />
 		<metaData name="search" content="#{facesContext.externalContext.requestContextPath}/Search.xsp" />
 		
-		<script src="/shCore.js" type="text/javascript" clientSide="true" />
-		<script src="/shBrushJScript.js" type="text/javascript" clientSide="true" />
-		<script src="/shBrushJava.js" type="text/javascript" clientSide="true" />
-		<script src="/shBrushRuby.js" type="text/javascript" clientSide="true" />
-		<script src="/shBrushVb.js" type="text/javascript" clientSide="true" />
-		<script src="/shBrushXml.js" type="text/javascript" clientSide="true" />
-		<script src="/shBrushPlain.js" type="text/javascript" clientSide="true" />
-		<styleSheet href="/shCoreEclipse.css" />
+		<script src="/sh/scripts/shCore.js" type="text/javascript" clientSide="true" />
+		<script src="/sh/scripts/shBrushJScript.js" type="text/javascript" clientSide="true" />
+		<script src="/sh/scripts/shBrushJava.js" type="text/javascript" clientSide="true" />
+		<script src="/sh/scripts/shBrushRuby.js" type="text/javascript" clientSide="true" />
+		<script src="/sh/scripts/shBrushVb.js" type="text/javascript" clientSide="true" />
+		<script src="/sh/scripts/shBrushXml.js" type="text/javascript" clientSide="true" />
+		<script src="/sh/scripts/shBrushPlain.js" type="text/javascript" clientSide="true" />
+		<styleSheet href="/sh/styles/shCoreEclipse.css" />
 		
 		<dojoModule name="dojo.behavior"/>
 		<script src="/behavior.js" clientSide="true"/>
