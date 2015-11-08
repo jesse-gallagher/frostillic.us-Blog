@@ -1,12 +1,12 @@
 <?xml version='1.0' encoding='utf-8'?>
-<note class='view' xmlns='http://www.lotus.com/dxl' version='9.0' maintenanceversion='1.2'
- replicaid='85257D45007EF868'>
-<noteinfo noteid='726' unid='EB3A4ABCAD828B4F85257D460002998C' sequence='8'>
-<created><datetime dst='true'>20140831T202823,80-04</datetime></created>
-<modified><datetime dst='true'>20140901T010228,15-04</datetime></modified>
-<revised><datetime dst='true'>20140901T010228,14-04</datetime></revised>
-<lastaccessed><datetime dst='true'>20140901T010228,14-04</datetime></lastaccessed>
-<addedtofile><datetime dst='true'>20140831T202823,92-04</datetime></addedtofile></noteinfo>
+<note class='view' xmlns='http://www.lotus.com/dxl' version='9.0' maintenanceversion='1.4'
+ replicaid='85257EF7006D0765'>
+<noteinfo noteid='70e' unid='29C4F93260966E9F85257D4A006859DE' sequence='1'>
+<created><datetime dst='true'>20140905T145947,50-04</datetime></created>
+<modified><datetime>20151108T145914,91-05</datetime></modified>
+<revised><datetime dst='true'>20140905T145947,92-04</datetime></revised>
+<lastaccessed><datetime>20151108T153153,17-05</datetime></lastaccessed>
+<addedtofile><datetime>20151108T145914,90-05</datetime></addedtofile></noteinfo>
 <updatedby><name>CN=Jesse Gallagher/O=IKSG</name></updatedby>
 <wassignedby><name>CN=Jesse Gallagher/O=IKSG</name></wassignedby>
 <item name='$FormatNote' summary='true'>

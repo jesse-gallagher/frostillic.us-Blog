@@ -1,12 +1,12 @@
 <?xml version='1.0' encoding='utf-8'?>
-<note class='view' xmlns='http://www.lotus.com/dxl' version='9.0' maintenanceversion='1.2'
- replicaid='85257D45007EF868'>
-<noteinfo noteid='746' unid='D2D0E77BA665DDC285257D460008C485' sequence='11'>
-<created><datetime dst='true'>20140831T213545,97-04</datetime></created>
-<modified><datetime dst='true'>20140831T215042,29-04</datetime></modified>
+<note class='view' xmlns='http://www.lotus.com/dxl' version='9.0' maintenanceversion='1.4'
+ replicaid='85257EF7006D0765'>
+<noteinfo noteid='70a' unid='394D1E070D4422FC85257D4A006859DF' sequence='2'>
+<created><datetime dst='true'>20140905T145947,51-04</datetime></created>
+<modified><datetime>20151108T145914,89-05</datetime></modified>
 <revised><datetime dst='true'>20140831T215042,28-04</datetime></revised>
-<lastaccessed><datetime dst='true'>20140831T215042,28-04</datetime></lastaccessed>
-<addedtofile><datetime dst='true'>20140831T213545,97-04</datetime></addedtofile></noteinfo>
+<lastaccessed><datetime>20151108T153153,09-05</datetime></lastaccessed>
+<addedtofile><datetime>20151108T145914,88-05</datetime></addedtofile></noteinfo>
 <updatedby><name>CN=Jesse Gallagher/O=IKSG</name></updatedby>
 <wassignedby><name>CN=Jesse Gallagher/O=IKSG</name></wassignedby>
 <item name='$FormatNote' summary='true' sign='true'>

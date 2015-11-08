@@ -1,15 +1,14 @@
 <?xml version='1.0' encoding='utf-8'?>
-<note class='filter' xmlns='http://www.lotus.com/dxl' version='9.0' maintenanceversion='1.2'
- replicaid='85257D45007EF868'>
-<noteinfo noteid='2c2' unid='FF24784F4F374ECB852579D90080CA53' sequence='2'>
+<note class='filter' xmlns='http://www.lotus.com/dxl' version='9.0' maintenanceversion='1.4'
+ replicaid='85257EF7006D0765'>
+<noteinfo noteid='2ea' unid='FF24784F4F374ECB852579D90080CA53' sequence='3'>
 <created><datetime dst='true'>20120407T192644,03-04</datetime></created>
-<modified><datetime dst='true'>20140831T190656,94-04</datetime></modified>
-<revised><datetime>20121214T102457,26-05</datetime></revised>
-<lastaccessed><datetime dst='true'>20140831T190656,89-04</datetime></lastaccessed>
-<addedtofile><datetime dst='true'>20140831T190656,89-04</datetime></addedtofile></noteinfo>
-<updatedby><name>CN=Jesse Gallagher/O=MTC</name><name>CN=Jesse Gallagher/O=Frost</name></updatedby>
-<wassignedby><name>CN=Jesse Gallagher/O=Frost</name></wassignedby>
-<item name='$POID'><datetime>20080129T154949,92-05</datetime></item>
+<modified><datetime>20151108T145909,78-05</datetime></modified>
+<revised><datetime dst='true'>20140831T193334,50-04</datetime></revised>
+<lastaccessed><datetime>20151108T145909,77-05</datetime></lastaccessed>
+<addedtofile><datetime>20151108T145909,77-05</datetime></addedtofile></noteinfo>
+<updatedby><name>CN=Jesse Gallagher/O=IKSG</name></updatedby>
+<wassignedby><name>CN=Jesse Gallagher/O=IKSG</name></wassignedby>
 <item name='$TITLE' sign='true'><text>JConfiguration</text></item>
 <item name='$Flags'><text>sj34Q</text></item>
 <item name='$PublicAccess' sign='true'><text>1</text></item>
@@ -56,5 +55,6 @@ JJfQz3WA8AdJK44eqpoizUnSPE9F85RhkXSXSPMGM9ZIuspHeBcjeIhRVkrgCZJ4yqxnSOMv/jMK
 9Ug39L/BXfVOKh0+QaqtgQEBRat5JqlB0kEkn964B7Dh4a8Qh3xlT6AbJ2mfoOcUdT/NxpOMGPWH
 IPEfUEsHCLfZrzZhAwAA/gUAAFBLAQIUABQACAAIABhYLDq32a82YQMAAP4FAAAUAAAAAAAAAAAA
 AAAAAAAAAABKQ29uZmlndXJhdGlvbi5jbGFzc1BLBQYAAAAAAQABAEIAAACjAwAAAAA=
-</filedata></file></object></item></note>
+</filedata></file></object></item>
+<item name='$POID'><datetime dst='true'>20140831T193334,50-04</datetime></item></note>
 

@@ -1,14 +1,14 @@
 <?xml version='1.0' encoding='utf-8'?>
-<note class='form' xmlns='http://www.lotus.com/dxl' version='9.0' maintenanceversion='1.2'
- replicaid='85257D45007EF868'>
-<noteinfo noteid='352' unid='2668859894D52B6C852579DA0079B4C1' sequence='4'>
+<note class='form' xmlns='http://www.lotus.com/dxl' version='9.0' maintenanceversion='1.4'
+ replicaid='85257EF7006D0765'>
+<noteinfo noteid='36a' unid='2668859894D52B6C852579DA0079B4C1' sequence='5'>
 <created><datetime dst='true'>20120408T180921,29-04</datetime></created>
-<modified><datetime dst='true'>20140831T190658,43-04</datetime></modified>
-<revised><datetime>20121214T102447,68-05</datetime></revised>
-<lastaccessed><datetime dst='true'>20140831T190658,42-04</datetime></lastaccessed>
-<addedtofile><datetime dst='true'>20140831T190658,42-04</datetime></addedtofile></noteinfo>
-<updatedby><name>CN=Jesse Gallagher/O=MTC</name><name>CN=Jesse Gallagher/O=Frost</name></updatedby>
-<wassignedby><name>CN=Jesse Gallagher/O=Frost</name></wassignedby>
+<modified><datetime>20151108T145910,39-05</datetime></modified>
+<revised><datetime dst='true'>20140831T193337,20-04</datetime></revised>
+<lastaccessed><datetime>20151108T145910,38-05</datetime></lastaccessed>
+<addedtofile><datetime>20151108T145910,38-05</datetime></addedtofile></noteinfo>
+<updatedby><name>CN=Jesse Gallagher/O=IKSG</name></updatedby>
+<wassignedby><name>CN=Jesse Gallagher/O=IKSG</name></wassignedby>
 <item name='OriginalModTime' sign='true'><datetime dst='true'>20060920T092307,38-04</datetime></item>
 <item name='$SubForm_RepIDs' sign='true'><text>0000000000000000</text></item>
 <item name='$$DatabaseNotes' summary='false' sign='true'><text>'++LotusScript Development Environment:2:5:(Options):0:66

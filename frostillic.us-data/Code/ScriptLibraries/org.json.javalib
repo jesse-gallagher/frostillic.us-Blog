@@ -1,14 +1,14 @@
 <?xml version='1.0' encoding='utf-8'?>
-<note class='filter' xmlns='http://www.lotus.com/dxl' version='9.0' maintenanceversion='1.2'
- replicaid='85257D45007EF868'>
-<noteinfo noteid='36a' unid='3CD607F79C700E77852579DB0008E2EC' sequence='2'>
+<note class='filter' xmlns='http://www.lotus.com/dxl' version='9.0' maintenanceversion='1.4'
+ replicaid='85257EF7006D0765'>
+<noteinfo noteid='35e' unid='3CD607F79C700E77852579DB0008E2EC' sequence='3'>
 <created><datetime dst='true'>20120408T213703,80-04</datetime></created>
-<modified><datetime dst='true'>20140831T190658,99-04</datetime></modified>
-<revised><datetime>20121214T102503,21-05</datetime></revised>
-<lastaccessed><datetime dst='true'>20140831T190658,98-04</datetime></lastaccessed>
-<addedtofile><datetime dst='true'>20140831T190658,98-04</datetime></addedtofile></noteinfo>
-<updatedby><name>CN=Jesse Gallagher/O=MTC</name><name>CN=Jesse Gallagher/O=Frost</name></updatedby>
-<wassignedby><name>CN=Jesse Gallagher/O=Frost</name></wassignedby>
+<modified><datetime>20151108T145910,33-05</datetime></modified>
+<revised><datetime dst='true'>20140831T193335,69-04</datetime></revised>
+<lastaccessed><datetime>20151108T145910,32-05</datetime></lastaccessed>
+<addedtofile><datetime>20151108T145910,32-05</datetime></addedtofile></noteinfo>
+<updatedby><name>CN=Jesse Gallagher/O=IKSG</name></updatedby>
+<wassignedby><name>CN=Jesse Gallagher/O=IKSG</name></wassignedby>
 <item name='$FlagsExt'><text/></item>
 <item name='$JavaCompilerSource'><text>1.3</text></item>
 <item name='$JavaCompilerTarget'><text>1.2</text></item>
@@ -1340,5 +1340,6 @@ AAAAAAAAADBOAABvcmcvanNvbi9KU09OV3JpdGVyLmNsYXNzUEsBAhQAFAAIAAgA5XMjPttxx+Is
 CgAA3xIAABIAAAAAAAAAAAAAAAAArVMAAG9yZy9qc29uL1hNTC5jbGFzc1BLAQIUABQACAAIAOVz
 Iz7CyjbBkgYAAB8MAAAZAAAAAAAAAAAAAAAAABleAABvcmcvanNvbi9YTUxUb2tlbmVyLmNsYXNz
 UEsFBgAAAAAQABAAXwQAAPJkAAAAAA==
-</filedata></file></object></item></note>
+</filedata></file></object></item>
+<item name='$POID'><datetime dst='true'>20140831T193335,69-04</datetime></item></note>
 
