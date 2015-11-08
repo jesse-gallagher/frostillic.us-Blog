@@ -1,0 +1,137 @@
+<theme extends="wrapbootstrap-ace-1.3" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="platform:/plugin/com.ibm.designer.domino.stylekits/schema/stylekit.xsd" >
+	
+	<resources>
+		<styleSheet href="/style.css"/>
+		<styleSheet href="/compat/code.css"/>
+		
+		<linkResource rel="alternate" type="application/rss+xml" title="#{database.title} &gt; Feed" href="#{facesContext.externalContext.requestContextPath}/feed.xml"/>
+		
+		<metaData name="base" content="#{facesContext.externalContext.requestContextPath}/" />
+		<metaData name="search" content="#{facesContext.externalContext.requestContextPath}/Search.xsp" />
+		
+		<script src="/shCore.js" type="text/javascript" clientSide="true" />
+		<script src="/shBrushJScript.js" type="text/javascript" clientSide="true" />
+		<script src="/shBrushJava.js" type="text/javascript" clientSide="true" />
+		<script src="/shBrushRuby.js" type="text/javascript" clientSide="true" />
+		<script src="/shBrushVb.js" type="text/javascript" clientSide="true" />
+		<script src="/shBrushXml.js" type="text/javascript" clientSide="true" />
+		<script src="/shBrushPlain.js" type="text/javascript" clientSide="true" />
+		<styleSheet href="/shCoreEclipse.css" />
+		
+		<dojoModule name="dojo.behavior"/>
+		<script src="/behavior.js" clientSide="true"/>
+		<script src="/hijackPartialRefresh.js" clientSide="true"/>
+		
+		<styleSheet href="/fixes.css"/>
+	</resources>
+	
+	<control>
+		<name>ViewRoot</name>
+		<property>
+			<name>pageIcon</name>
+			<value>/$Icon</value>
+		</property>
+		<property>
+			<name>pageTitle</name>
+			<value>#{javascript:database.getTitle()}</value>
+		</property>
+		<property>
+			<name>styleClass</name>
+			<value>no-skin</value>
+		</property>
+	</control>
+	
+	<!-- Layout -->
+	<control>
+		<name>ActionBar</name>
+		<property>
+			<name>styleClass</name>
+			<value>action-bar</value>
+		</property>
+	</control>
+	
+	<control>
+		<name>Sidebar.Profile</name>
+		<property>
+			<name>styleClass</name>
+			<value>sidebar-shortcuts</value>
+		</property>
+	</control>
+	
+	<!-- Meta -->
+	<control>
+		<name>Meta</name>
+		<property>
+			<name>styleClass</name>
+			<value>text-muted</value>
+		</property>
+	</control>
+	<control>
+		<name>Name</name>
+		<property>
+			<name>styleClass</name>
+			<value>lotusName</value>
+		</property>
+	</control>
+	
+	<!-- Lists -->
+	<control>
+		<name>List.Inline</name>
+		<property>
+			<name>styleClass</name>
+			<value>list-inline</value>
+		</property>
+	</control>
+	<control>
+		<name>Table.Vertical</name>
+		<property>
+			<name>styleClass</name>
+			<value>lotusVertTable</value>
+		</property>
+	</control>
+	<control>
+		<name>Outline.LinksList</name>
+		<property>
+			<name>styleClass</name>
+			<value></value>
+		</property>
+	</control>
+	
+	<control>
+		<name>Profile.UserInfo</name>
+		<property>
+			<name>styleClass</name>
+			<value>profile-user-info</value>
+		</property>
+	</control>
+	
+	
+	<!-- Containers -->
+	<control>
+		<name>Photo</name>
+		<property>
+			<name>styleClass</name>
+			<value>lotusPhoto</value>
+		</property>
+	</control>
+	
+	<!-- Blog Stuff -->
+	<control>
+		<name>Blog.Post</name>
+		<property>
+			<name>styleClass</name>
+			<value>post</value>
+		</property>
+	</control>
+	<control>
+		<name>Blog.Post.Title</name>
+		<property>
+			<name>tagName</name>
+			<value>h4</value>
+		</property>
+		<property>
+			<name>styleClass</name>
+			<value>header</value>
+		</property>
+	</control>
+</theme>

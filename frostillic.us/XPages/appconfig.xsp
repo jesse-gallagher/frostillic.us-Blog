@@ -1,0 +1,159 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xp:view xmlns:xp="http://www.ibm.com/xsp/core" xmlns:xe="http://www.ibm.com/xsp/coreex" xmlns:xc="http://www.ibm.com/xsp/custom" xmlns:ff="http://frostillic.us/framework"
+	beforePageLoad="#{controller.beforePageLoad}" afterPageLoad="#{controller.afterPageLoad}" pageTitle="${translation.config}">
+
+	<xp:this.acl>
+		<xp:acl>
+			<xp:this.entries>
+				<xp:aclEntry type="ROLE" right="EDITOR" name="[Admin]"/>
+				<xp:aclEntry type="ROLE" right="READER" name="[Admin]"/>
+			</xp:this.entries>
+		</xp:acl>
+	</xp:this.acl>
+	
+	<xp:this.navigationRules>
+		<xp:navigationRule outcome="xsp-success" viewId="/home.xsp" redirect="true" />
+	</xp:this.navigationRules>
+
+	<xc:layout navigationPath="/Config/AppConfig" pageTitle="${view.pageTitle}">
+		<xp:this.facets>
+			<xe:breadCrumbs xp:key="BreadCrumbs">
+				<xe:this.treeNodes>
+					<xe:basicLeafNode href="/" imageAlt="icon-home home-icon" label="${translation.home}"/>
+					<xe:basicLeafNode label="${translation.config}"/>
+				</xe:this.treeNodes>
+			</xe:breadCrumbs>
+			<xc:actionBar xp:key="ActionBar">
+				<xp:button id="save" value="${translation.save}">
+					<xp:eventHandler event="onclick" submit="true" action="#{controller.save}"/>
+				</xp:button>
+			</xc:actionBar>
+		</xp:this.facets>
+		
+		<xe:formTable formTitle="${translation.configBlog}">
+			<xe:formRow label="${translation.configBlogTitle}">
+				<xe:djTextarea value="#{appConfigData.blogTitle}"/>
+			</xe:formRow>
+			<xe:formRow label="${translation.configBlogOwnerName}">
+				<xe:djTextarea value="#{appConfigData.blogOwnerName}"/>
+			</xe:formRow>
+			<xe:formRow label="${translation.configBlogOwnerEmail}">
+				<xe:djTextarea value="#{appConfigData.blogOwnerEmail}"/>
+			</xe:formRow>
+			<xe:formRow label="${translation.configBlogOwnerCompany}">
+				<xe:djTextarea value="#{appConfigData.blogOwnerCompany}"/>
+			</xe:formRow>
+			<xe:formRow label="${translation.configBlogOwnerCompanyURL}">
+				<xe:djTextarea value="#{appConfigData.blogOwnerCompanyURL}"/>
+			</xe:formRow>
+			<xe:formRow label="${translation.configFooterContent}">
+				<xe:djTextarea value="#{appConfigData.footerContent}"/>
+			</xe:formRow>
+		</xe:formTable>
+		
+		<xe:formTable formTitle="${translation.configProfileLinks}">
+			<xe:formRow>
+				<xp:dataTable value="#{controller.profileLinks}" var="link" indexVar="linkIndex" rows="10000" id="profileLinks">
+					<xp:column>
+						<xp:this.facets><xp:text xp:key="header" value="${translation.configProfileLinkLabel}"/></xp:this.facets>
+						<xp:inputText value="#{link.label}"/>
+					</xp:column>
+					<xp:column>
+						<xp:this.facets><xp:text xp:key="header" value="${translation.configProfileLinkURL}"/></xp:this.facets>
+						<xp:inputText value="#{link.url}"/>
+					</xp:column>
+					<xp:column>
+						<xp:button id="button1" value="&#8595;" rendered="#{javascript: linkIndex &lt; this.parent.parent.value.length-1}">
+							<xp:eventHandler event="onclick" submit="true" disableValidators="true"
+									refreshMode="partial" refreshId="profileLinks"
+									action="#{controller.moveLinkDown}"/>
+						</xp:button>
+					</xp:column>
+					<xp:column>
+						<xp:button id="button2" value="&#8593;" rendered="#{linkIndex gt 0}">
+							<xp:eventHandler event="onclick" submit="true" disableValidators="true"
+									refreshMode="partial" refreshId="profileLinks"
+									action="#{controller.moveLinkUp}"/>
+						</xp:button>
+					</xp:column>
+					<xp:column>
+						<xp:this.facets>
+							<xp:button xp:key="footer" id="button3" value="+">
+								<xp:eventHandler event="onclick" submit="true" disableValidators="true"
+									refreshMode="partial" refreshId="profileLinks"
+									action="#{controller.addLink}"/>
+							</xp:button>
+						</xp:this.facets>
+						<xp:button id="button4" value="-">
+							<xp:eventHandler event="onclick" submit="true" disableValidators="true"
+								refreshMode="partial" refreshId="profileLinks"
+								action="#{controller.removeLink}"/>
+						</xp:button>
+					</xp:column>
+				</xp:dataTable>
+			</xe:formRow>
+		</xe:formTable>
+		
+		<xe:formTable formTitle="${translation.configData}">
+			<xe:formRow label="${translation.configDataDatabaseServer}">
+				<xe:djTextarea value="#{appConfigData.dataDatabaseServer}"/>
+			</xe:formRow>
+			<xe:formRow label="${translation.configDataDatabaseFilePath}">
+				<xe:djTextarea value="#{appConfigData.dataDatabaseFilePath}"/>
+			</xe:formRow>
+			<xe:formRow label="${translation.configAliases}">
+				<xp:dataTable value="#{controller.aliases}" var="alias" indexVar="aliasIndex" rows="10000" id="aliases">
+					<xp:column>
+						<xp:this.facets><xp:text xp:key="header" value="${translation.configAliasServerPattern}"/></xp:this.facets>
+						<xp:inputText value="#{alias.serverPattern}"/>
+					</xp:column>
+					<xp:column>
+						<xp:this.facets><xp:text xp:key="header" value="${translation.configAliasPattern}"/></xp:this.facets>
+						<xp:inputText value="#{alias.pattern}"/>
+					</xp:column>
+					<xp:column>
+						<xp:this.facets><xp:text xp:key="header" value="${translation.configAliasReplacement}"/></xp:this.facets>
+						<xp:inputText value="#{alias.replacement}"/>
+					</xp:column>
+					<xp:column>
+						<xp:button id="moveDown" value="&#8595;" rendered="#{javascript: aliasIndex &lt; this.parent.parent.value.length-1}">
+							<xp:eventHandler event="onclick" submit="true" disableValidators="true"
+									refreshMode="partial" refreshId="aliases"
+									action="#{controller.moveAliasDown}"/>
+						</xp:button>
+					</xp:column>
+					<xp:column>
+						<xp:button id="moveUp" value="&#8593;" rendered="#{aliasIndex gt 0}">
+							<xp:eventHandler event="onclick" submit="true" disableValidators="true"
+									refreshMode="partial" refreshId="aliases"
+									action="#{controller.moveAliasUp}"/>
+						</xp:button>
+					</xp:column>
+					<xp:column>
+						<xp:this.facets>
+							<xp:button xp:key="footer" id="addAlias" value="+">
+								<xp:eventHandler event="onclick" submit="true" disableValidators="true"
+									refreshMode="partial" refreshId="aliases"
+									action="#{controller.addAlias}"/>
+							</xp:button>
+						</xp:this.facets>
+						<xp:button id="removeAlias" value="-">
+							<xp:eventHandler event="onclick" submit="true" disableValidators="true"
+								refreshMode="partial" refreshId="aliases"
+								action="#{controller.removeAlias}"/>
+						</xp:button>
+					</xp:column>
+				</xp:dataTable>
+			</xe:formRow>
+		</xe:formTable>
+		
+		<xe:formTable formTitle="${translation.configAkismet}">
+			<xe:formRow label="${translation.configAkismetAPIKey}">
+				<xp:inputText value="#{appConfigData.akismetAPIKey}"/>
+			</xe:formRow>
+			<xe:formRow label="${translation.configAkismetBlog}">
+				<xp:inputText value="#{appConfigData.akismetBlog}"/>
+			</xe:formRow>
+		</xe:formTable>
+	</xc:layout>
+</xp:view>

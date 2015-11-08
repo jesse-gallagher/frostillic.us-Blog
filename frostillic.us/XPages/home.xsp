@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xp:view xmlns:xp="http://www.ibm.com/xsp/core" xmlns:xe="http://www.ibm.com/xsp/coreex" xmlns:xc="http://www.ibm.com/xsp/custom" xmlns:ff="http://frostillic.us/framework"
+	beforePageLoad="#{controller.beforePageLoad}" afterPageLoad="#{controller.afterPageLoad}" pageTitle="${translation.home}">
+
+	<xp:this.data>
+		<ff:modelListData var="posts" managerName="Posts" key="all"/>
+	</xp:this.data>
+
+	<xc:layout navigationPath="/Home" pageTitle="">
+		<xp:this.facets>
+			<xe:breadCrumbs xp:key="BreadCrumbs">
+				<xe:this.treeNodes>
+					<xe:basicLeafNode imageAlt="icon-home home-icon" label="${translation.home}"/>
+				</xe:this.treeNodes>
+			</xe:breadCrumbs>
+		</xp:this.facets>
+		
+		<xc:list_posts value="#{posts}" rows="15"/>
+	</xc:layout>
+</xp:view>

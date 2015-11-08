@@ -1,14 +1,14 @@
 <?xml version='1.0' encoding='utf-8'?>
 <note class='form' xmlns='http://www.lotus.com/dxl' version='9.0' maintenanceversion='1.4'
  replicaid='85257AEC00467093'>
-<noteinfo noteid='2ee' unid='EE6DBC271CF713FF852577EF006A6BB1' sequence='4'>
-<created><datetime>20101204T142223,85-05</datetime></created>
-<modified><datetime>20151108T144938,69-05</datetime></modified>
-<revised><datetime>20121214T102549,82-05</datetime></revised>
-<lastaccessed><datetime>20151108T144938,68-05</datetime></lastaccessed>
-<addedtofile><datetime>20151108T144938,68-05</datetime></addedtofile></noteinfo>
-<updatedby><name>CN=Jesse Gallagher/O=MTC</name><name>CN=Jesse Gallagher/O=Frost</name></updatedby>
-<wassignedby><name>CN=Jesse Gallagher/O=Frost</name></wassignedby>
+<noteinfo noteid='58b6' unid='EDD3AFB479A5C00E85257D450081BECC' sequence='5'>
+<created><datetime dst='true'>20140831T193709,88-04</datetime></created>
+<modified><datetime>20151108T150253,77-05</datetime></modified>
+<revised><datetime dst='true'>20140831T193710,03-04</datetime></revised>
+<lastaccessed><datetime>20151108T150253,76-05</datetime></lastaccessed>
+<addedtofile><datetime>20151108T150253,76-05</datetime></addedtofile></noteinfo>
+<updatedby><name>CN=Jesse Gallagher/O=IKSG</name></updatedby>
+<wassignedby><name>CN=Jesse Gallagher/O=IKSG</name></wassignedby>
 <item name='$TITLE'><text>$DBIcon</text></item>
 <item name='$Flags'><text>34Ci~Q</text></item>
 <item name='$ImagesWide' sign='true'><number>1</number></item>
@@ -88,7 +88,8 @@ cjqjKO8CSDh552xFryQBZGteAFAGUAVgLF0Bl3cBE4/HSRxxxPfELQB079697EMPPcRPTU3xNdY7
 AYi1sQA4BFFknLIse7B4+8lFo9FCNptVNU2rAlBqrgLQAJgArHM+dqWer82T5WMsihYLgAdgrwFx
 11y8padnCZxYm+dr65nlsT7oH/s4/rTtE//Vflr2X5C9bUn1bOBeAAAAAElFTkSuQmCC
 </rawitemdata></item>
-<item name='$FileModDT' sign='true'><datetime dst='true'>20120407T231130,00-04</datetime></item>
-<item name='$ImageNames' sign='true'><text>Y:\Pictures\Murloc 32.png</text></item>
+<item name='$MimeType' sign='true'><text>image/png</text></item>
+<item name='$FileModDT' sign='true'><datetime>20130116T114959,00-05</datetime></item>
+<item name='$ImageNames' sign='true'><text>\\psf\Home\Pictures\Murloc 32.png</text></item>
 <item name='$DesignerVersion'><text>8.5.3</text></item></note>
 

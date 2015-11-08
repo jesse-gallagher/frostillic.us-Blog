@@ -1,21 +1,5 @@
-#Sun Nov 08 15:03:00 EST 2015
-encoding//Resources/StyleSheets/posts.css=UTF-8
-encoding//Resources/StyleSheets/css_2fbootstrap.min.css=UTF-8
-encoding//Resources/StyleSheets/css_2fbootstrap-ubuntu.min.css=UTF-8
-encoding//Resources/StyleSheets/oneuiFixes.css=UTF-8
-encoding//Resources/StyleSheets/css_2fbootstrap.css=UTF-8
+#Sun Nov 08 15:26:28 EST 2015
 eclipse.preferences.version=1
-encoding//Resources/StyleSheets/comments.css=UTF-8
-encoding//Resources/StyleSheets/absoluteLayout.css=UTF-8
->>>>>>>=Expanded domino.rb, switched back to ScriptingContainer for Ruby embedding
-encoding//Resources/StyleSheets/xsp.css=UTF-8
-<<<<<<<=HEAD
-encoding//Resources/Files/test.rb=UTF-8
-encoding//Resources/StyleSheets/css_2fbootstrap-responsive.css=UTF-8
-encoding//Resources/StyleSheets/css_2fdocs.css=UTF-8
-encoding//Resources/Files/WhyRubyInXPages.html=UTF-8
-encoding//Resources/StyleSheets/code.css=UTF-8
-encoding//Resources/StyleSheets/css_2fbootstrap-responsive.min.css=UTF-8
-encoding//Resources/StyleSheets/notesView.css=UTF-8
-encoding//Resources/StyleSheets/style(27CA61F72FAA46C885257C85007FF1F4).css=UTF-8
-=\=\=\=\=\=\=
+encoding//Resources/StyleSheets/style.css=UTF-8
+encoding//Resources/StyleSheets/compat_2fcode.css=UTF-8
+encoding//Resources/StyleSheets/fixes.css=UTF-8

@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xp:view xmlns:xp="http://www.ibm.com/xsp/core" xmlns:xe="http://www.ibm.com/xsp/coreex" xmlns:xc="http://www.ibm.com/xsp/custom" xmlns:ff="http://frostillic.us/framework"
+	beforePageLoad="#{controller.beforePageLoad}" afterPageLoad="#{controller.afterPageLoad}" pageTitle="${translation.search}">
+
+	<xp:this.data>
+		<ff:modelListData var="posts" managerName="Posts" key="all" search="${param.q}" sortColumn="Posted" sortOrder="descending"/>
+	</xp:this.data>
+
+	<xc:layout navigationPath="/Posts/Search">
+		<xc:list_posts value="#{posts}" rows="15"/>
+	</xc:layout>
+</xp:view>

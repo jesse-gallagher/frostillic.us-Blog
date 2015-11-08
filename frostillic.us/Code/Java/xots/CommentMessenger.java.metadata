@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?><note class="form" maintenanceversion="1.4" replicaid="85257AEC00467093" version="9.0" xmlns="http://www.lotus.com/dxl">
+<noteinfo noteid="58a6" sequence="61" unid="42533D5A1DFD6A7485257D4B003FF88E">
+<created><datetime dst="true">20140906T073843,98-04</datetime></created>
+<modified><datetime>20151108T150253,63-05</datetime></modified>
+<revised><datetime dst="true">20150801T183526,58-04</datetime></revised>
+<lastaccessed><datetime>20151108T150253,62-05</datetime></lastaccessed>
+<addedtofile><datetime>20151108T150253,62-05</datetime></addedtofile></noteinfo>
+<updatedby><name>CN=Jesse Gallagher/O=IKSG</name></updatedby>
+<wassignedby><name>CN=Jesse Gallagher/O=IKSG</name></wassignedby>
+<item name="$Flags"><text>34567Cg~[</text></item>
+<item name="$TITLE"><text>xots/CommentMessenger.java</text></item>
+
+
+
+<item name="$DesignerVersion"><text>8.5.3</text></item>
+
+
+<item name="$FileNames" sign="true"><text>xots/CommentMessenger.java</text></item></note>

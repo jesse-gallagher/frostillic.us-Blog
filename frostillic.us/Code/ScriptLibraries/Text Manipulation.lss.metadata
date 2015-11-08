@@ -1,15 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?><note class="filter" maintenanceversion="1.4" replicaid="85257AEC00467093" version="9.0" xmlns="http://www.lotus.com/dxl">
-<noteinfo noteid="142" sequence="8" unid="92BBC0A76EC524C4852579D90079E37A">
+<noteinfo noteid="142" sequence="9" unid="92BBC0A76EC524C4852579D90079E37A">
 <created><datetime dst="true">20120407T181120,90-04</datetime></created>
-<modified><datetime>20151108T144936,25-05</datetime></modified>
-<revised><datetime>20130309T183910,09-05</datetime></revised>
-<lastaccessed><datetime>20151108T144936,24-05</datetime></lastaccessed>
+<modified><datetime>20151108T150249,48-05</datetime></modified>
+<revised><datetime dst="true">20140905T133213,59-04</datetime></revised>
+<lastaccessed><datetime>20151108T150249,47-05</datetime></lastaccessed>
 <addedtofile><datetime>20151108T144936,24-05</datetime></addedtofile></noteinfo>
-<updatedby><name>CN=Jesse Gallagher/O=Frost</name></updatedby>
-<wassignedby><name>CN=Jesse Gallagher/O=Frost</name></wassignedby>
+<updatedby><name>CN=Jesse Gallagher/O=MTC</name><name>CN=Jesse Gallagher/O=Frost</name><name>CN=Jesse Gallagher/O=IKSG</name></updatedby>
+<wassignedby><name>CN=Jesse Gallagher/O=IKSG</name></wassignedby>
 <item name="$TITLE" sign="true"><text>Text Manipulation</text></item>
 <item name="$Flags"><text>s34Q</text></item>
 <item name="$PublicAccess" sign="true"><text>1</text></item>
 <item name="$DesignerVersion"><text>8.5.3</text></item>
 
-</note>
+
+<item name="$POID"><datetime dst="true">20140905T133213,59-04</datetime></item></note>

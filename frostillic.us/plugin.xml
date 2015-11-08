@@ -19,7 +19,10 @@
     <import optional="true" plugin="com.ibm.notes.java.api"/>
     <import optional="true" plugin="com.ibm.xsp.rcp"/>
     <import optional="true" plugin="com.ibm.xsp.extlib"/>
-    <import optional="true" plugin="com.ibm.xsp.extlibx"/>
+    <import optional="true" plugin="org.openntf.domino.xsp"/>
+    <import optional="true" plugin="frostillicus.framework.plugin"/>
+    <import optional="true" plugin="org.openntf.xsp.debugtoolbar"/>
+    <import optional="true" plugin="frostillicus.wrapbootstrap.ace_1.3"/>
     <!--AUTOGEN-END-BUILDER: End of automatically generated section-->
   </requires>
 </plugin>

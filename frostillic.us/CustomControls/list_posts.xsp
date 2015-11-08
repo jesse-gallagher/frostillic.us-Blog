@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xp:view xmlns:xp="http://www.ibm.com/xsp/core" xmlns:xe="http://www.ibm.com/xsp/coreex" xmlns:xc="http://www.ibm.com/xsp/custom" xmlns:ff="http://frostillic.us/framework">
+	<xp:repeat value="#{compositeData.value}" rows="#{empty compositeData.rows ? 15 : compositeData.rows}" var="post">
+		<xc:blogPost authorName="#{post.$$Creator}" posted="#{post.Posted}" title="#{post.$$Title}" pageName="post" postId="#{post.id}"
+			commentCount="#{post.commentCount}">
+			<xp:text contentType="HTML" value="#{post.body}"/>
+		</xc:blogPost>
+	</xp:repeat>
+<!--	<xe:dataView value="#{compositeData.value}" rows="#{empty compositeData.rows ? 15 : compositeData.rows}" var="post"-->
+<!--		detailsOnClient="true" columnTitles="true" expandedDetail="true" pageName="/post.xsp">-->
+<!--		<xe:this.summaryColumn>-->
+<!--			<xe:viewSummaryColumn columnName="$$Title"/>-->
+<!--		</xe:this.summaryColumn>-->
+<!--		<xe:this.facets>-->
+<!--			<xp:div xp:key="detail">-->
+<!--				<xp:div themeId="Meta">-->
+<!--					<xe:list themeId="List.Inline">-->
+<!--						<xp:text value="#{post.$$Creator}">-->
+<!--							<xp:this.converter><ff:convertCommonName/></xp:this.converter>-->
+<!--						</xp:text>-->
+<!--						<xp:text value="#{post.Posted}"/>-->
+<!--					</xe:list>-->
+<!--				</xp:div>-->
+<!--				<xe:forumPost>-->
+<!--					<xe:this.facets>-->
+<!--						<xp:text xp:key="postTitle" value="#{post.$$Title}"/>-->
+<!--						<xp:text xp:key="postDetails" contentType="HTML" value="#{post.body}" />-->
+<!--					</xe:this.facets>-->
+<!--				</xe:forumPost>-->
+<!--				-->
+<!--				<xp:div themeId="Meta">-->
+<!--					<xe:list themeId="List.Inline">-->
+<!--						<xp:link value="/post.xsp?id=#{post.id}" text="#{post.commentCount} #{translation[post.commentCount == 1 ? 'commentCountSingle' : 'commentCountPlural']}"/>-->
+<!--					</xe:list>-->
+<!--				</xp:div>-->
+<!--			</xp:div>-->
+<!--		</xe:this.facets>-->
+<!--	</xe:dataView>-->
+</xp:view>

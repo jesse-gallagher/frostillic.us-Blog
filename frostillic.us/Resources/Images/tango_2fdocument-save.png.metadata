@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?><note class="form" maintenanceversion="1.4" replicaid="85257AEC00467093" version="9.0" xmlns="http://www.lotus.com/dxl">
+<noteinfo noteid="8ea" sequence="9" unid="953D0EAA3521C9C985257C85007FF275">
+<created><datetime>20140220T181731,41-05</datetime></created>
+<modified><datetime>20151108T150253,11-05</datetime></modified>
+<revised><datetime dst="true">20140609T165857,91-04</datetime></revised>
+<lastaccessed><datetime>20151108T150253,10-05</datetime></lastaccessed>
+<addedtofile><datetime>20151108T150253,10-05</datetime></addedtofile></noteinfo>
+<updatedby><name>CN=Jesse Gallagher/O=IKSG</name></updatedby>
+<wassignedby><name>CN=Jesse Gallagher/O=IKSG</name></wassignedby>
+<item name="$FlagsExt"><text>D</text></item>
+<item name="$ImagesWide" sign="true"><number>1</number></item>
+<item name="$ImagesHigh" sign="true"><number>1</number></item>
+<item name="$ImagesColorize" sign="true"><number>0</number></item>
+<item name="$FileModDT" sign="true"><datetime>20051110T095932,00-05</datetime></item>
+<item name="$ImageNames" sign="true"><text>document-save.png</text></item>
+<item name="$TITLE" sign="true"><text>tango/document-save.png</text></item>
+<item name="$DesignerVersion"><text>8.5.3</text></item>
+
+
+<item name="$Flags"><text>34CiQ</text></item></note>

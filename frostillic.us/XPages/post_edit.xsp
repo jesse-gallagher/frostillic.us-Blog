@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xp:view xmlns:xp="http://www.ibm.com/xsp/core" xmlns:xe="http://www.ibm.com/xsp/coreex" xmlns:xc="http://www.ibm.com/xsp/custom" xmlns:ff="http://frostillic.us/framework"
+	beforePageLoad="#{controller.beforePageLoad}" afterPageLoad="#{controller.afterPageLoad}" pageTitle="${translation[controller.postId == 'new' ? 'postNew' : 'postEdit']}">
+
+	<xp:this.data>
+		<ff:modelObjectData var="post" managerName="Posts" key="${controller.postId}" />
+	</xp:this.data>
+	
+	<xp:this.navigationRules>
+		<xp:navigationRule outcome="xsp-success" viewId="/post.xsp?id=#{post.id}"/>
+	</xp:this.navigationRules>
+
+	<xp:this.acl>
+		<xp:acl>
+			<xp:this.entries>
+				<xp:aclEntry type="ROLE" name="[Admin]" right="EDITOR"/>
+				<xp:aclEntry type="ROLE" name="[Admin]" right="READER"/>
+			</xp:this.entries>
+		</xp:acl>
+	</xp:this.acl>
+	
+	<xc:layout navigationPath="/Posts/Edit">
+		<xp:this.facets>
+			<xe:breadCrumbs xp:key="BreadCrumbs">
+				<xe:this.treeNodes>
+					<xe:basicLeafNode href="/" imageAlt="icon-home home-icon" label="${translation.home}"/>
+					<xe:basicLeafNode label="${translation.posts}"/>
+					<xe:basicLeafNode label="${view.pageTitle}"/>
+				</xe:this.treeNodes>
+			</xe:breadCrumbs>
+		</xp:this.facets>
+		
+		<xe:formTable formTitle="${view.pageTitle}">
+			<xe:this.facets>
+				<xc:actionBar xp:key="footer">
+					<xp:button id="save" value="${translation.save}">
+						<xp:eventHandler event="onclick" submit="true" action="#{controller.save}"/>
+					</xp:button>
+				</xc:actionBar>
+			</xe:this.facets>
+			
+			<xe:formRow label="${translation.postTitle}">
+				<xe:djTextarea value="#{post.$$Title}"/>
+			</xe:formRow>
+			<xe:formRow binding="#{controller.components[post].posted}"/>
+<!--			<xe:formRow label="${translation.postPosted}">-->
+<!--				<xp:inputText value="#{post.Posted}">-->
+<!--					<xp:this.converter>-->
+<!--						<xp:convertDateTime type="both"/>-->
+<!--					</xp:this.converter>-->
+<!--					<xp:dateTimeHelper/>-->
+<!--				</xp:inputText>-->
+<!--			</xe:formRow>-->
+			<xe:formRow label="${translation.postCreator}">
+				<xp:inputText value="#{post.$$Creator}"/>
+			</xe:formRow>
+			<xe:formRow binding="#{controller.components[post].tags}">
+				<xp:inputText id="inputText1" multipleSeparator="," multipleTrim="true">
+<!--					<xp:typeAhead mode="partial" minChars="1" ignoreCase="true" valueListSeparator="," tokens="," valueList="${Posts.knownTags}"/>-->
+				</xp:inputText>
+			</xe:formRow>
+			<xe:formRow binding="#{controller.components[post].thread}">
+				<xe:djTextarea/>
+			</xe:formRow>
+			<xe:formRow binding="#{controller.components[post].status}">
+			</xe:formRow>
+			<xe:formRow label="${translation.postBody}">
+				<xp:inputRichText value="#{post.body}">
+					<xp:this.attrs>
+						<xp:attr name="toolbar"><xp:this.value><![CDATA[
+							[
+								["Format", "Font", "FontSize"],
+								["Bold", "Italic", "Underline", "Strike", "-", "TextColor", "BGColor", "-", "JustifyLeft", "JustifyCenter", "JustifyRight", "JustifyBlock", "NumberedList", "-", "BulletedList"],
+								["Indent", "Outdent"],
+								["Subscript", "Superscript"],
+								["RemoveFormat", "-", "MenuPaste", "-", "Undo", "Redo", "Find", "LotusSpellChecker", "-", "Image", "Table", "Link", "Flash", "-", "PageBreak", "HorizontalRule", "SpecialChar", "Blockquote", "Smiley", "ShowBlocks"],
+								["Maximize", "Source"]
+							]
+						]]></xp:this.value></xp:attr>
+					</xp:this.attrs>
+				</xp:inputRichText>
+			</xe:formRow>
+		</xe:formTable>
+
+	</xc:layout>
+</xp:view>

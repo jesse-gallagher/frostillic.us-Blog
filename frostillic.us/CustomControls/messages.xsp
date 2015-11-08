@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xp:view xmlns:xp="http://www.ibm.com/xsp/core">
+	
+	<xp:messages id="messages"/>
+
+	<xp:div themeId="Messages.Error" rendered="#{not empty flashScope.errorMessages}">
+		<xp:repeat value="#{flashScope.errorMessages}" var="message">
+			<xp:this.facets>
+				<xp:text contentType="HTML" disableTheme="true" xp:key="header" value="&lt;ul&gt;"/>
+				<xp:text contentType="HTML" disableTheme="true" xp:key="footer" value="&lt;/ul&gt;"/>
+			</xp:this.facets>
+			<xp:text value="#{message}"/>
+		</xp:repeat>
+	</xp:div>
+	<xp:div themeId="Messages.Warning" rendered="#{not empty flashScope.warningMessages}">
+		<xp:repeat value="#{flashScope.warningMessages}" var="message">
+			<xp:this.facets>
+				<xp:text contentType="HTML" disableTheme="true" xp:key="header" value="&lt;ul&gt;"/>
+				<xp:text contentType="HTML" disableTheme="true" xp:key="footer" value="&lt;/ul&gt;"/>
+			</xp:this.facets>
+			<xp:text value="#{message}"/>
+		</xp:repeat>
+	</xp:div>
+	<xp:div themeId="Messages.Confirmation" rendered="#{not empty flashScope.confirmationMessages}">
+		<xp:repeat value="#{flashScope.confirmationMessages}" var="message">
+			<xp:this.facets>
+				<xp:text contentType="HTML" disableTheme="true" xp:key="header" value="&lt;ul&gt;"/>
+				<xp:text contentType="HTML" disableTheme="true" xp:key="footer" value="&lt;/ul&gt;"/>
+			</xp:this.facets>
+			<xp:text value="#{message}"/>
+		</xp:repeat>
+	</xp:div>
+	<xp:div themeId="Messages.Information" rendered="#{not empty flashScope.informationalMessages}">
+		<xp:repeat value="#{flashScope.informationalMessages}" var="message">
+			<xp:this.facets>
+				<xp:text contentType="HTML" disableTheme="true" xp:key="header" value="&lt;ul&gt;"/>
+				<xp:text contentType="HTML" disableTheme="true" xp:key="footer" value="&lt;/ul&gt;"/>
+			</xp:this.facets>
+			<xp:text value="#{message}"/>
+		</xp:repeat>
+	</xp:div>
+</xp:view>
