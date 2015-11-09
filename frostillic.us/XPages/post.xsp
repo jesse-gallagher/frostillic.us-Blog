@@ -34,7 +34,10 @@
 				<xe:forumPost xp:key="detail" id="detail">
 					<xe:this.facets>
 						<xp:image xp:key="authorAvatar" url="#{userInfo.profileImages[comment.AuthorEmailAddress][48]}"/>
-						<xp:text xp:key="authorName" styleClass="lotusAuthor" value="#{comment.AuthorName}"/>
+						<xp:span xp:key="authorName" styleClass="lotusAuthor">
+							<span id="comment#{comment.id}"></span>
+							<xp:text value="#{comment.AuthorName}" />
+						</xp:span>
 						<xp:text xp:key="postMeta" value="#{comment.Posted}" />
 						<xp:text xp:key="postDetails" contentType="HTML" value="#{comment.body}" />
 					</xe:this.facets>

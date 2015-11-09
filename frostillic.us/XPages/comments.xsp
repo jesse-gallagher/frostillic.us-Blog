@@ -34,7 +34,7 @@
 			<xp:viewColumn columnName="">
 				<xp:viewColumnHeader value="${translation.post}" />
 				
-				<xp:link value="/post.xsp?id=#{comment.post.id}" text="#{comment.post.$$Title}"/>
+				<xp:link value="/post.xsp?id=#{comment.post.id}#comment#{comment.id}" text="#{comment.post.$$Title}"/>
 			</xp:viewColumn>
 		</xp:viewPanel>
 	</xc:layout>
