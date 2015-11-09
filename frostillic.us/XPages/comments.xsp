@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xp:view xmlns:xp="http://www.ibm.com/xsp/core" xmlns:xe="http://www.ibm.com/xsp/coreex" xmlns:xc="http://www.ibm.com/xsp/custom" xmlns:ff="http://frostillic.us/framework"
+	beforePageLoad="#{controller.beforePageLoad}" afterPageLoad="#{controller.afterPageLoad}" pageTitle="${translation.titlePrefix}${translation.comments}">
+
+	<xp:this.data>
+		<ff:modelListData var="comments" managerName="Comments" key="By PostID" sortColumn="Posted" sortOrder="descending"/>
+	</xp:this.data>
+
+	<xc:layout navigationPath="/Comments/All">
+		<xp:this.facets>
+			<xe:breadCrumbs xp:key="BreadCrumbs">
+				<xe:this.treeNodes>
+					<xe:basicLeafNode href="/" imageAlt="icon-home home-icon" label="${translation.home}"/>
+					<xe:basicLeafNode label="${translation.comments}"/>
+				</xe:this.treeNodes>
+			</xe:breadCrumbs>
+		</xp:this.facets>
+		
+		<xp:viewPanel value="#{comments}" var="comment">
+			<xp:this.facets>
+				<xp:pager partialRefresh="true" layout="Previous Group Next" xp:key="headerPager" id="pager1"></xp:pager>
+				<xp:pager partialRefresh="true" layout="Previous Group Next" xp:key="footerPager" id="pager2"></xp:pager>
+			</xp:this.facets>
+
+			<xp:viewColumn columnName="Posted">
+				<xp:this.converter>
+					<xp:convertDateTime type="both" timeStyle="short"/>
+				</xp:this.converter>
+				<xp:viewColumnHeader value="${translation.posted}" />
+			</xp:viewColumn>
+			<xp:viewColumn columnName="AuthorName">
+				<xp:viewColumnHeader value="${translation.author}" />
+			</xp:viewColumn>
+			<xp:viewColumn columnName="">
+				<xp:viewColumnHeader value="${translation.post}" />
+				
+				<xp:link value="/post.xsp?id=#{comment.post.id}" text="#{comment.post.$$Title}"/>
+			</xp:viewColumn>
+		</xp:viewPanel>
+	</xc:layout>
+</xp:view>

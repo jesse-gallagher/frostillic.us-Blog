@@ -79,6 +79,10 @@ public class Comment extends AbstractDominoModel {
 	}
 
 
+	public Post getPost() {
+		return (Post)Post.Manager.get().getValue(getValue("PostID")); //$NON-NLS-1$
+	}
+
 
 	@ManagedBean(name="Comments")
 	@ApplicationScoped
