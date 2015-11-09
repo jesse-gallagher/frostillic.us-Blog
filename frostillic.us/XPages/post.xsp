@@ -10,7 +10,7 @@
 		<xp:navigationRule outcome="xsp-success" viewId="/post.xsp?id=#{post.id}"/>
 	</xp:this.navigationRules>
 	
-	<xc:layout navigationPath="/Posts/Post/${controller.postId}" pageTitle="#{view.pageTitle}">
+	<xc:layout navigationPath="/Posts/Post/${controller.postId}" pageTitle="#{post.$$Title}">
 		<xp:this.facets>
 			<xe:breadCrumbs xp:key="BreadCrumbs">
 				<xe:this.treeNodes>
