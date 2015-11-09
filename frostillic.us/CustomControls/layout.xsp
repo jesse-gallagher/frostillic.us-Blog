@@ -42,7 +42,7 @@
 				<xp:div themeId="Sidebar.Profile">
 					<xe:widgetContainer type="sidebar" titleBar="false">
 						<xp:div themeId="Photo">
-							<xp:image url="${userInfo.profileImages[appConfig.blogOwnerEmail][128]}" />
+							<xp:image url="${userInfo.profileImages[appConfig.blogOwnerEmail][128]}" styleClass="large-user-photo" />
 						</xp:div>
 						<p><xp:text themeId="Name" value="${appConfig.blogOwnerName}"/></p>
 						<xp:div themeId="Meta"><xp:link value="${appConfig.blogOwnerCompanyURL}" text="${appConfig.blogOwnerCompany}"/></xp:div>
