@@ -16,7 +16,7 @@
 				<xe:this.treeNodes>
 					<xe:basicLeafNode href="/" imageAlt="icon-home home-icon" label="${translation.home}"/>
 					<xe:basicLeafNode label="${translation.posts}"/>
-					<xe:basicLeafNode label="#{view.pageTitle}"/>
+					<xe:basicLeafNode label="#{post.$$Title}"/>
 				</xe:this.treeNodes>
 			</xe:breadCrumbs>
 		</xp:this.facets>

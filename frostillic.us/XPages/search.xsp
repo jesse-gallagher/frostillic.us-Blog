@@ -7,6 +7,15 @@
 	</xp:this.data>
 
 	<xc:layout navigationPath="/Posts/Search">
+		<xp:this.facets>
+			<xe:breadCrumbs xp:key="BreadCrumbs">
+				<xe:this.treeNodes>
+					<xe:basicLeafNode href="/" imageAlt="icon-home home-icon" label="${translation.home}"/>
+					<xe:basicLeafNode label="${translation.search}"/>
+				</xe:this.treeNodes>
+			</xe:breadCrumbs>
+		</xp:this.facets>
+		
 		<xp:div themeId="Message">
 			<xp:text value="${controller.message}"/>
 		</xp:div>

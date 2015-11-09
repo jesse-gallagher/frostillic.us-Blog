@@ -32,10 +32,6 @@
 			<value>/$Icon</value>
 		</property>
 		<property>
-			<name>pageTitle</name>
-			<value>#{javascript:database.getTitle()}</value>
-		</property>
-		<property>
 			<name>styleClass</name>
 			<value>no-skin</value>
 		</property>
