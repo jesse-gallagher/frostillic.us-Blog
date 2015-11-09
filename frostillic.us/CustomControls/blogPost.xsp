@@ -21,23 +21,11 @@
 <!--					<xp:this.converter><ff:convertCommonName/></xp:this.converter>-->
 <!--				</xp:text>-->
 				<xp:text value="#{compositeData.posted}"/>
-				
-				<xp:text value="|" rendered="#{not empty compositeData.thread}"/>
-				
-				<xp:span rendered="#{not empty compositeData.thread}">
-				
-					<xp:text value="${translation.threadLabel}"/>
-					<xp:link text="#{compositeData.thread}" value="/thread.xsp">
-						<xp:this.parameters><xp:parameter name="thread" value="#{compositeData.thread}"/></xp:this.parameters>
-					</xp:link>
-				</xp:span>
 			</xe:list>
 		</xp:div>
 		
-		<xp:callback/>
-		
 		<xe:widgetContainer styleClass="widget-header-small widget-header-flat thread-info" rendered="#{not empty compositeData.thread}"
-			titleBarText="#{translation.threadLabel}#{compositeData.thread}">
+			titleBarText="#{translation.threadLabel}#{compositeData.thread}" titleBarHref="/thread.xsp?thread=#{javascript: java.net.URLEncoder.encode(compositeData.thread, 'UTF-8')}">
 			<xp:panel>
 				<xp:this.data>
 					<ff:modelListData var="threadPosts" managerName="Posts" key="By Thread" categoryFilter="#{compositeData.thread}"/>
@@ -55,6 +43,9 @@
 				</xe:outline>
 			</xp:panel>
 		</xe:widgetContainer>
+		
+		<xp:callback/>
+		
 		
 		<xp:div themeId="Meta">
 			<xp:link rendered="#{not empty compositeData.pageName}">
