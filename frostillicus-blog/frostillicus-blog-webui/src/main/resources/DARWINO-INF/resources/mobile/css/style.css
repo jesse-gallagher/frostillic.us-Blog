@@ -1,0 +1,345 @@
+body {
+	/* cursor: url('http://ionicframework.com/img/finger.png'), auto; */
+ 	/*font-family: "Roboto","Helvetica Neue","Segoe UI",sans-serif;*/
+ 	font-family: "RobotoDraft","Helvetica Neue","Segoe UI",sans-serif;
+    font-size: 16px;
+ 	font-weight: 300;
+ 	color: #757575;
+}
+
+/* Mini avatar, for a footer */
+.item-miniavatar  > div {
+    font-size: 80%;
+    line-height: 16px
+}
+.item-miniavatar  > img:first-child {
+    border-radius: 50%;
+    max-height: 24px;
+    max-width: 24px;
+    top: 8px;
+    left: 24px;
+}
+
+
+
+.item-icon-right .icon.icon-post {
+	color: #9e9e9e;
+    font-size: 24px;
+}
+
+.item-icon-right .icon.icon-post >i {
+	vertical-align: top;
+	padding: 8px 8px 8px 8px;
+}
+
+.list {
+    margin-bottom: 8px;
+}
+
+.item {
+    font-size: 16px;
+}
+
+.item .item-body {
+	padding-top: 0;
+}
+
+.item-list-header {
+	padding-bottom: 0;
+	padding-right: 20;
+}
+
+.item-list-content {
+	padding-top: 0;
+	padding-bottom: 0;
+}
+
+.item-read {
+ 	font-weight: 300;
+ 	color: #757575;
+}
+
+.item-unread {
+ 	font-weight: 500;
+ 	color: black;
+}
+
+.bar .button.button-clear.button-dialog {
+	color: #9e9e9e;
+    font-size: 24px;
+}
+
+
+.dwo-date-image {
+	color: white;
+	font-size:8px;
+	background-color: #FDD017;
+	width: 12px;
+	height: 10px;
+	padding: 2px;
+	margin-right: 6px;
+}
+    
+.dwo-comment-message{
+	font-size:14px;
+	margin-top: 6px;
+}
+
+.dwo-profile-avatar {
+	display: block;
+	margin-top: 1em;
+	margin-bottom: 1em;
+	margin-left: auto;
+	margin-right: auto;
+	border-radius: 50%;
+    height: 90px;
+    width: 90px;
+}
+
+.dwo-profile-cn {
+	font-size: 2em;	
+	font-weight: 200;	
+	text-align: center;
+}
+
+.dwo-profile-dn {
+	font-size: 1.2em;	
+	font-weight: 200;	
+	text-align: center;
+}
+
+.dwo-profile-label {
+	font-weight: 700;	
+}
+
+/*
+ * Entry detail
+ */
+.item-body .item {
+	border-style: solid;
+	border-color: #DDDDDD;
+	border-width: 1px 0 0 0; 
+} 
+
+
+/*
+ * Entry attachment tables
+ */
+.attachment-table {
+	border-collapse: collapse;
+}
+.attachment-table th {
+	border-bottom: 0.2em solid lightgrey;
+}
+.attachment-table th, .attachment-table td {
+	padding: 0.25em 0.5em;
+}
+
+
+
+/****************************************************************************** */
+/* SEARCH BAR					 												*/
+/****************************************************************************** */
+.search-bar-input {
+	height: 100%;
+	font-size: 16px;
+	font-weight: 300;
+	marging-top: 5px;
+	marging-left: 20px;
+}
+.search-bar-icon {
+	color: white;
+	font-size: 14px;
+}
+
+
+
+/****************************************************************************** */
+/* RICH TEXT : CANCEL IONIC TAG OVERRIDES										*/
+/****************************************************************************** */
+
+i, em {
+	font-style: italic;
+}
+
+
+/****************************************************************************** */
+/* LEFT SIDE MENU																*/
+/****************************************************************************** */
+
+.left-side-menu .item-icon-left .icon {
+	font-size: 24px;
+}
+
+.left-side-menu {
+	color: #757575;
+	background-color: white;
+}
+
+.left-side-menu .item {
+	border: none;
+	font-size: 16px;
+    font-weight: 700;
+} 
+
+.left-side-menu .item-divider {
+	background-color: white;
+	border-top: 1px solid rgba(0, 0, 0, 0.12);
+    color: rgba(0, 0, 0, 0.54);
+    font-size: 14px;
+	font-weight: 400;
+    height: 48px;
+    line-height: 48px;
+}
+
+.left-side-menu .item-selected {
+	background-color: #EEE;
+} 
+
+.left-side-menu .item-title {
+	background-color: #EF4E3A;
+	font-size: 20px;
+	font-style: bold;
+} 
+
+.left-side-menu .count {
+	font-style: italic;
+	font-size: 80%;
+} 
+
+.left-side-menu .list {
+	margin-bottom: 0;
+} 
+
+
+
+
+/****************************************************************************** */
+/* List of entries
+/****************************************************************************** */
+
+.list-content {
+    border-right: 1px solid #DDDDDD;
+} 
+.list-entries .list .item {
+	padding: 4px 4px 4px 4px;
+    border-bottom: 1px solid #DDDDDD;
+} 
+.list-entries .list .item .selected {
+    border-left: 5px solid #387EF5;
+}
+
+
+/****************************************************************************** */
+/* MATERIAL DESIGN LIKE EXTENSIONS 												*/
+/****************************************************************************** */
+
+/* Fab buttons */
+.bar .button.button-fab.button-fab-bottom-right, .button.button-fab.button-fab-bottom-right {
+    bottom: 16px;
+    left: auto;
+    position: absolute;
+    right: 16px;
+    top: auto;
+}
+.bar .button.button-fab, .button.button-fab {
+    border-radius: 50%;
+    box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.16), 0 2px 10px 0 rgba(0, 0, 0, 0.12);
+    height: 56px;
+    max-height: initial;
+    max-width: initial;
+    overflow: hidden;
+    padding: 0;
+    transform: translate3d(0px, 0px, 0px);
+    transition-delay: 0s;
+    transition-duration: 0.3s;
+    transition-property: transform, box-shadow;
+    transition-timing-function: ease;
+    width: 56px;
+    z-index: 9999;
+}
+
+/* Action buttons */
+.icon-action {
+	font-size: 24px;
+}
+
+/* Avatar in the left menu */
+.menu .avatar {
+    height: 65px;
+    left: 16px;
+    top: 16px;
+    width: 65px;
+}
+.avatar, .item-avatar .avatar {
+    background-position: center center;
+    background-size: cover;
+    border-radius: 50%;
+    display: inline-block;
+    height: 56px;
+    left: 16px;
+    position: absolute;
+    width: 56px;
+}
+
+/* Side Menu */ 
+.menu-bottom {
+    bottom: 16px;
+    left: 16px;
+    position: absolute;
+    right: 16px;
+}
+.has-expanded-header {
+    top: 150px !important;
+}
+.menu .bar.bar-header.expanded {
+	background-image: url("../img/header.png");
+    background-position: 0 center;
+    background-size: 120% auto;
+    transition: all 0.5s ease-in-out 0s;
+	margin-bottom: 20px;
+	/* From material design*/ 
+    box-shadow: none;
+    color: #fff;
+    min-height: 150px;
+}	
+.menu-header-user {
+	font-weight: 300;
+	color: white;
+	margin-top: 20px;
+}
+.menu-header-user-dn {
+	font-size: 13px;
+}
+.menu-header-user-cn {
+    font-size: 16px;
+	font-weight: bold;
+}
+/* Maxi avatar, for a header */
+.item-maxiavatar  > div {
+    font-size: 80%;
+    line-height: 16px
+}
+.item-maxiavatar  > img:first-child {
+    border-radius: 50%;
+    max-height: 56px;
+    max-width: 56px;
+    top: 8px;
+    left: 24px;
+}
+
+
+/* Buttons on the toolbar should not be oversized */
+.bar .button.button-icon .icon::before, .bar .button.button-icon.icon-left::before, .bar .button.button-icon.icon-right::before, .bar .button.button-icon::before {
+    font-size: 24px;
+    vertical-align: top;
+}
+
+
+/*
+ * Ionic fix
+ */
+ /* https://forum.ionicframework.com/t/content-overlap-with-ion-refresher/52968 */
+.overflow-scroll > .scroll.overscroll {
+	position: static;
+}

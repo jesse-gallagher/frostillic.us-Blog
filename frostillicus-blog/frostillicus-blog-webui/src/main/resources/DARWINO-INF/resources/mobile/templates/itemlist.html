@@ -1,0 +1,41 @@
+<ion-list class='list-entries'>
+	<ion-item ng-repeat="item in entries.getEntries()" class="list-item item-list-entries" ng-click="entries.selectItem(item); entries.readEntry()">
+		<div class="{{item==entries.selectedItem?'selected':''}}">
+			<div ng-switch on="entries.isCategory(item)">
+				<div ng-switch-when="false">
+			<div class="item-avatar item-icon-right item-list-header {{item.read?'item-read':'item-unread'}}">
+						<img ng-src="{{entries.getPhoto(item)}}" alt="Photo" 
+							ng-click="go('/app/user/'+entries.getUserDn(item))" 
+					onerror="if(this.src!='$darwino-social/users/images/anonymous-photo.png') this.src = '$darwino-social/users/images/anonymous-photo.png';">
+				<div style="width:100%;">
+					<h2 ng-bind="item.unid"></h2>
+							<h3 ng-bind-template="{{entries.getUser(item).getCn()}}, {{item.cdate|formattedDate}}"></h3>
+						</div>
+					</div>
+				</div>
+				<div ng-switch-when="true">
+					<div class="item-avatar item-icon-right item-list-header {{item.read?'item-read':'item-unread'}}">
+						<img ng-src="{{getPhoto(item.key)}}" alt="Photo" 
+							ng-click="go('/app/user/'+item.key)" 
+							onerror="if(this.src!='$darwino-social/users/images/anonymous-photo.png') this.src = '$darwino-social/users/images/anonymous-photo.png';">
+						<div style="width:100%;">
+							<h2 ng-bind="getUser(item.key).getCn()" style="font-weight:800"></h2>
+							<h3>
+								<ng-pluralize count="{{item.value.Count}}"
+                						when="{'1': '1 post.',
+                    				       	'other': '{} posts.'}">
+								</ng-pluralize>
+							</h3>
+							<h4 style="font-style: italic; text-align: right;" ng-bind-template="dn: {{getUser(item.key).getDn()}}"></h4>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</ion-item>
+	<ion-item ng-if="entries.hasMoreButton()">
+		<button class="button button-clear button-block button-positive" ng-click="entries.loadMore()">Load More...</button>
+	</ion-item>
+</ion-list>
+
+<ion-infinite-scroll ng-if="infiniteScroll && entries.hasMore()" on-infinite="entries.loadMore()" distance="10%"></ion-infinite-scroll>

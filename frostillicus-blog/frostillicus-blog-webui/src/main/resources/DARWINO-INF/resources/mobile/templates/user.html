@@ -1,0 +1,45 @@
+<ion-view view-title="User">
+	<ion-content>
+	
+		<div>
+			<img class="dwo-profile-avatar" ng-src="{{userService.getUserPhotoUrl(user.getDn())}}" 
+					alt="Photo"
+					onerror="if(this.src!='$darwino-social/users/images/anonymous-photo.png') this.src = '$darwino-social/users/images/anonymous-photo.png';">
+		</div>
+		<div class="dwo-profile-cn">{{user.getCn()}}</div>
+		<div class="dwo-profile-dn">{{user.getDn()}}</div>
+
+<!-- 	
+		<div class="item item-avatar item-icon-right" ng-click="go('/app/user/'+user.getDn())">
+			<img ng-src="{{userService.getUserPhotoUrl(user.getDn())}}" alt="Photo" onerror="if(this.src!='$darwino-social/users/images/anonymous-photo.png') this.src = '$darwino-social/users/images/anonymous-photo.png';">
+			<h2 ng-bind-template="{{user.getCn()}}"></h2>
+			<h3 ng-bind-template="{{user.getDn()}}""></h3>
+		</div>
+		 -->
+		<div class="list">
+			<label class="item item-input item-stacked-label">
+				<span class="input-label dwo-profile-label">Title</span>
+				<div ng-bind="user.findAttribute('title')"></div>
+				<div ng-bind="user.findAttribute('subTitle')"></div>
+			</label>
+			<label class="item item-input item-stacked-label">
+				<span class="input-label dwo-profile-label">Job Title</span>
+				<div ng-bind="user.findAttribute('jobTitle')"></div>
+			</label>
+			<label class="item item-input item-stacked-label">
+				<span class="input-label dwo-profile-label">Department</span>
+				<div ng-bind="user.findAttribute('department')"></div>
+			</label>
+		</div>
+<!-- 				
+		<h3>Main data</h3>
+		<pre>{{userAttr}}</pre>
+		<h3>Main Payload</h3>
+		<pre>{{userPayload}}</pre>
+		<h3>Connections data</h3>
+		<pre>{{userConnAttr}}</pre>
+		<h3>Connections Payload</h3>
+		<pre>{{userConnPayload}}</pre>
+ -->		
+	</ion-content>
+</ion-view>

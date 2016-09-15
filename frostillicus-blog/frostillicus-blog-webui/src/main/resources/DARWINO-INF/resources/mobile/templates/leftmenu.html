@@ -1,0 +1,107 @@
+<ion-side-menus enable-menu-with-back-views="false">
+
+	<ion-side-menu-content>
+		<ion-nav-bar class="bar-positive">
+			<ion-nav-back-button class="button-clear"></ion-nav-back-button>
+			<ion-nav-buttons side="left">
+				<button class="button button-icon icon ion-navicon" menu-toggle="left" ng-hide="$exposeAside.active"></button>
+			</ion-nav-buttons>
+		</ion-nav-bar>
+		<ion-nav-view name="menuContent" animation="slide-left-right"></ion-nav-view>
+	</ion-side-menu-content> 
+
+	<ion-side-menu side="left" expose-aside-when="(min-width:1280px)" class="left-side-menu">
+		<ion-header-bar class="expanded bar bar-header disable-user-behavior" ng-click="go('/app/user/'+userService.getCurrentUser().getDn())">
+			<!-- <img class="avatar item-maxiavatar motion spin fade" ng-src="{{userService.getUserPhotoUrl('@me')}}" alt="Photo"/>  -->
+			<img class="avatar item-maxiavatar" ng-src="{{userService.getUserPhotoUrl('@me')}}" alt="Photo"/>
+			<div class="menu-bottom">
+				<div class="menu-header-user-cn">{{userService.getCurrentUser().getCn()}}</div>
+				<div class="menu-header-user-dn">{{userService.getCurrentUser().getDn()}}</div>
+			</div>
+		</ion-header-bar>
+		<ion-content class="has-expanded-header scroll-content ionic-scroll has-header">
+			<br/>
+			<ul class="list animate-rip">
+				<a href="#/app/home" class="item item-icon-left {{isState('app.home')?'item-selected':''}}" menu-close>
+					<i class="icon ion-ios-home"></i>
+					Home
+				</a>
+			</ul>
+			<ul class="list animate-rip">
+				<a href="#/app/views/bydate" class="item item-icon-left {{isState('app.views',{view:'bydate'})?'item-selected':''}}" menu-close>
+					<i class="icon ion-calendar"></i>
+					By Date
+					<span class='count'>&nbsp;&nbsp;{{isState('app.views',{view:'bydate'})?entries.getEntriesCount():''}}</span>
+				</a>
+			</ul>
+			<ul class="list animate-rip">
+				<a href="#/app/views/byauthor" class="item item-icon-left {{isState('app.views',{view:'byauthor'})||isState('app.author')?'item-selected':''}}" menu-close>
+					<i class="icon ion-calendar"></i>
+					By Author
+					<span class='count'>&nbsp;&nbsp;{{isState('app.views',{view:'byauthor'})||isState('app.author')?entries.getEntriesCount():''}}</span>
+				</a>
+			</ul>
+	
+			<div ng-show="darwino.hybrid.isHybrid()">
+				<div class="item item-divider">
+					Data Synchronization
+				</div>
+				<ul class="list animate-rip">
+					<a class="item item-icon-left item-icon-right" ng-click="darwino.hybrid.switchToRemote()">
+						<i class="icon ion-cloud"></i>
+						Work With Remote Data
+						<i class="icon ion-checkmark-round" style="font-size: 100%" ng-show="darwino.hybrid.getMode()==0"></i>
+					</a>	
+    	          	<a class="item item-icon-left item-icon-right" ng-click="darwino.hybrid.switchToLocal()">
+						<i class="icon ion-iphone"></i>
+						Work With Local Data
+						<i class="icon ion-checkmark-round" style="font-size: 100%" ng-show="darwino.hybrid.getMode()==1"></i>
+					</a>
+	              	<a class="item item-icon-left" ng-click="darwino.hybrid.synchronizeData()">
+						<i class="icon ion-loop"></i>
+						Synchronize Data Now
+					</a>
+	              	<a class="item item-icon-left" ng-click="darwino.hybrid.eraseLocalData()">
+						<i class="icon ion-trash-a"></i>
+						Erase Local Data
+					</a>
+				</ul>
+			</div>
+
+	
+			<div class="item item-divider item-icon-right">
+   				Settings
+			</div>
+           	<ul class="list animate-rip">
+           		<a class="item item-icon-left item-icon-right" ng-click="darwino.hybrid.refreshData()">
+					<i class="icon ion-refresh"></i>
+					Refresh Page
+					<i class="icon ion-loop" style="font-size: 100%" ng-show="darwino.hybrid.isDirty()"></i>
+				</a>
+              	<a ng-show="darwino.hybrid.isHybrid()" class="item item-icon-left" ng-click="darwino.hybrid.openSettings()">
+					<i class="icon ion-gear-a"></i>
+					General Settings...
+				</a>
+				<a href="#/app/about" class="item item-icon-left {{isState('app.about')?'item-selected':''}}" menu-close>
+					<i class="icon ion-information-circled"></i>
+					About
+				</a>
+<!--
+This is a place holder to add the demo DBExplorer 				
+          		<a class="item item-icon-left" href="../explorer/index.html">
+					<i class="icon ion-settings"></i>
+					Local DB Explorer
+				</a>
+ -->				
+				<div class="list item item-input item-select" ng-show="hasInstances()">
+					&nbsp;
+			    	<select ng-model="data.instance" ng-change="instanceChanged()" style="max-width: 100%">
+						<option ng-repeat="inst in data.instances" >{{inst}}</option>
+					</select>
+				</div>
+       		</ul>
+		</ion-content>
+
+	</ion-side-menu>
+
+</ion-side-menus>

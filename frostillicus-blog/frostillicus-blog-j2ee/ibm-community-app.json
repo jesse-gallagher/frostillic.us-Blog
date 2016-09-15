@@ -1,0 +1,29 @@
+{
+	"name": "frostillicus_blog",
+	"description": "",
+	"type":"community_widget",
+	"urls":{
+	},
+	"payload": {
+		"defId": "frostillic.us Blog",
+		"showInPalette": "true",
+		"primaryWidget": "false",
+		"modes": "view",
+		"themes": "wpthemeThin wpthemeNarrow wpthemeWide wpthemeBanner",
+		"url": "https://apps.collabservnext.com/connections/resources/web/com.ibm.social.urliWidget.web.resources/widget/urlWidget.xml",
+		"itemSet": [
+			{
+				"name": "url",
+				"value": "http://10.0.1.2:8080//frostillicus-blog/widget/ibm-community-app.html"
+			},
+			{
+				"name": "width",
+				"value": "100%"
+			},
+			{
+				"name": "height",
+				"value": "400px"
+			}
+		]
+	}
+}

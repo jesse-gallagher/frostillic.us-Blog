@@ -1,0 +1,9 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: frostillicus-blog-shared
+Bundle-SymbolicName: frostillicus.blog.frostillicus-blog-shared
+Bundle-Version: 0.0.1.qualifier
+DARWINO_VERSION: 1.5.0-SNAPSHOT
+Export-Package: frostillicus.blog.app;version="0.0.1"
+Require-Bundle: com.darwino.domino.platform;resolution:=optional
+Require-Capability: osgi.ee;filter:="(&(osgi.ee=JavaSE)(version=1.6))"

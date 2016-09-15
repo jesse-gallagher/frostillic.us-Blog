@@ -1,0 +1,27 @@
+<ion-view view-title="{{getTitle()}}">
+ 
+	<ion-nav-buttons side="right">
+		<button class="button button-icon button-clear ion-android-send" ng-click="submit()"></button>
+	</ion-nav-buttons>
+
+ 	<ion-content scroll="false" freeze-scroll="true">
+	
+		<label class="item item-input item-stacked-label">
+			<span class="input-label">JSON</span>
+			<textarea json-model rows="20" cols="50" ng-model="doc._json"></textarea>
+		</label>
+		
+<!-- 		
+		<label class="item item-input item-stacked-label">
+			<span class="input-label">FIELD</span>
+			<input type="text" ng-model="json.FIELD"></input>
+		</label>
+		<label class="item item-input item-stacked-label" style="width:100%">
+			<span class="input-label">HTMLFIELD</span>
+			<ng-quill-editor ng-model="json.HTMLFIELD" toolbar="true" link-tooltip="true" image-tooltip="true" toolbar-entries="font size bold list bullet italic underline strike align color background link image" editor-required="true" required="" error-class="input-error"></ng-quill-editor>
+		</label>
+ -->
+		
+	</ion-content>
+	
+</ion-view>

@@ -1,0 +1,33 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<parent>
+		<groupId>frostillicus.blog</groupId>
+		<artifactId>frostillicus-blog</artifactId>
+		<version>0.0.1-SNAPSHOT</version>
+	</parent>
+	<artifactId>frostillicus-blog-shared</artifactId>
+	
+	<dependencies>
+		<dependency>
+			<groupId>com.darwino</groupId>
+			<artifactId>dwo-platform</artifactId>
+			<version>${DARWINO_VERSION}</version>
+		</dependency>
+		<dependency>
+			<groupId>com.darwino</groupId>
+			<artifactId>dwo-jsonstore-services</artifactId>
+			<version>${DARWINO_VERSION}</version>
+		</dependency>
+		<dependency>
+			<groupId>com.darwino</groupId>
+			<artifactId>dwo-services-social</artifactId>
+			<version>${DARWINO_VERSION}</version>
+		</dependency>
+	</dependencies>
+	
+	<build>
+		<plugins>
+		</plugins>
+	</build>
+</project>

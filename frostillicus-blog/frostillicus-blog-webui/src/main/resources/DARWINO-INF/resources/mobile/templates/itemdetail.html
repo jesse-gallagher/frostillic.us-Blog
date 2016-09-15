@@ -1,0 +1,89 @@
+<div class="item-body" ng-hide="!entries.detailItem || entries.detailItem.category">
+	<div ng-click="entries.selectItem(entries.detailItem)">
+		<h2 ng-bind="entries.detailItem.value.subject"></h2>
+	</div>
+	
+	<div class="item item-avatar item-icon-right">
+		<img ng-src="{{entries.getPhoto(entries.detailItem)}}" alt="Photo" 
+				ng-click="go('/app/user/'+entries.getUserDn(entries.detailItem))" 
+				onerror="if(this.src!='$darwino-social/users/images/anonymous-photo.png') this.src = '$darwino-social/users/images/anonymous-photo.png';">
+		<div ng-click="entries.selectItem(entries.detailItem)" style="width:100%">
+			<h3 ng-bind-template="{{entries.getUser(entries.detailItem).getCn()}}, {{entries.detailItem.mdate|formattedDate}}"></h3>
+		</div>
+		<div class="icon">
+			<a class="button button-clear button-stable ion-reply icon-action" ng-show="entries.canCreateDocument()" ng-click="entries.newResponse()"></a>
+			<a class="button button-clear button-stable ion-android-create icon-action" ng-show="entries.canUpdateDocument()" ng-click="entries.editEntry()"></a>
+			<a class="button button-clear button-stable ion-trash-a icon-action" ng-show="entries.canDeleteDocument()" ng-click="entries.deleteEntry()"></a>
+		</div>
+	</div>
+	
+	<div class="list">
+  		<label class="item item-input">
+    		<span class="input-label">ID</span>
+    		<span ng-bind="entries.detailItem.id"></span>
+  		</label>
+  		<label class="item item-input">
+    		<span class="input-label">Store</span>
+    		<span ng-bind="entries.detailItem.storeId"></span>
+  		</label>
+  		<label class="item item-input">
+    		<span class="input-label">UNID</span>
+    		<span ng-bind="entries.detailItem.unid"></span>
+  		</label>
+  		<label class="item item-input">
+    		<span class="input-label">Created By</span>
+    		<span ng-bind="getUser(entries.detailItem.cuser).getCn()"></span>,&nbsp;<span ng-bind="entries.detailItem.cdate|formattedDate"></span>
+  		</label>
+  		<label class="item item-input">
+    		<span class="input-label">Modified By</span>
+    		<span ng-bind="getUser(entries.detailItem.muser).getCn()"></span>,&nbsp;<span ng-bind="entries.detailItem.mdate|formattedDate"></span>
+  		</label>
+  		<label class="item item-input">
+    		<span class="input-label">Content</span>
+    		<div ng-bind="entries.getFormattedJson(entries.detailItem)" style="font-family: monospace; font-size: 80%; white-space: pre;"></div>
+  		</label>
+<!-- 		
+		<label class="item item-input">
+			<span class="input-label">FIELD</span>
+    		<span ng-bind="entries.detailItem.value.FIELD"></span>
+		</label>
+		<label class="item item-input">
+			<span class="input-label">HTMLFIELD</span>
+			<span ng-bind-html="entries.detailItem.value.HTMLFIELD"></span>
+		</label>
+-->  		
+
+	</div>
+		
+	<p class="attachments" ng-hide="entries.getAttachments(entries.detailItem).length == 0" ng-cloak>
+		<a class="subdued">Attachments</a>
+		<table class="attachment-table">
+			<thead>
+				<tr>
+					<th>Name</th>
+					<th>Type</th>
+					<th>Size</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr ng-repeat="att in entries.getAttachments(entries.detailItem)">
+					<td><a href="{{att.url}}" ng-click="openAttachment($event, att)"><span ng-bind="att.display"></span></a></td>
+					<td><span ng-bind="att.mimeType"></span></td>
+					<td><span ng-bind="att.length"></span></td>
+				</tr>
+			</tbody>
+		</table>
+	</p>
+
+	<p ng-bind-template="{{entries.detailItem.children.length||0}} Response(s)"></p>
+
+	<div ng-repeat="child in entries.detailItem.children">
+		<div class="item item-avatar item-icon-right">
+			<div ng-click="entries.selectItem(child)" style="width:100%">
+    			<span class="input-label">Created By</span>
+    			<span ng-bind="child.muser"></span>,&nbsp;<span ng-bind="entries.detailItem.mdate|formattedDate"></span>
+    			<div ng-bind="entries.getFormattedJson(child)" style="font-family: monospace; font-size: 80%; white-space: pre;"></div>
+			</div>
+		</div>
+	</div>
+</div>

@@ -1,0 +1,177 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+
+	<groupId>frostillicus.blog</groupId>
+	<artifactId>frostillicus-blog</artifactId>
+	<version>0.0.1-SNAPSHOT</version>
+
+	<packaging>pom</packaging>
+	<modules>
+		<module>frostillicus-blog-shared</module>
+		<module>frostillicus-blog-webui</module>
+		<module>frostillicus-blog-j2ee</module>
+	</modules>
+
+	<properties>
+		<DARWINO_VERSION>1.5.0-SNAPSHOT</DARWINO_VERSION>
+
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+
+		<!-- The META-INF/MANIFEST.MF file is placed in the root of the project 
+			in order to make OSGi development in Eclipse smoother -->
+		<manifest-location>META-INF</manifest-location>
+		<maven.build.timestamp.format>yyyyMMddHHmm</maven.build.timestamp.format>
+		<osgi.qualifier>${maven.build.timestamp}</osgi.qualifier>
+
+		
+		<robovm.version>1.8.0</robovm.version>
+		
+		<android.plugin.version>4.3.0</android.plugin.version>
+		<android.platform.maven.version>4.4.2_r4</android.platform.maven.version>
+		<android.platform.sdk.version>19</android.platform.sdk.version>
+	</properties>
+
+
+	<dependencyManagement>
+		<dependencies>
+			<dependency>
+				<groupId>junit</groupId>
+				<artifactId>junit</artifactId>
+				<version>4.11</version>
+			</dependency>
+			
+			<!-- iOS Dependencies -->
+			<dependency>
+				<groupId>org.robovm</groupId>
+				<artifactId>robovm-rt</artifactId>
+				<version>${robovm.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.robovm</groupId>
+				<artifactId>robovm-cocoatouch</artifactId>
+				<version>${robovm.version}</version>
+			</dependency>
+			
+			<!-- Android dependencies -->
+			<dependency>
+				<groupId>android</groupId>
+				<artifactId>android</artifactId>
+				<version>${android.platform.maven.version}</version>
+			</dependency>
+			
+			
+			<dependency>
+				<groupId>javax.servlet</groupId>
+				<artifactId>javax.servlet-api</artifactId>
+				<version>3.0.1</version>
+				<scope>provided</scope>
+			</dependency>
+			<dependency>
+				<groupId>javax.servlet.jsp</groupId>
+				<artifactId>jsp-api</artifactId>
+				<version>2.2</version>
+				<scope>provided</scope>
+			</dependency>
+			<dependency>
+				<groupId>javax.el</groupId>
+				<artifactId>javax.el-api</artifactId>
+				<version>2.2.1</version>
+				<scope>provided</scope>
+			</dependency>
+		</dependencies>
+	</dependencyManagement>
+	
+	<build>
+		<pluginManagement>
+			<plugins>
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-compiler-plugin</artifactId>
+					<version>3.1</version>
+					<configuration>
+						<source>1.6</source>
+						<target>1.6</target>
+					</configuration>
+				</plugin>
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-surefire-plugin</artifactId>
+					<version>2.17</version>
+				</plugin>
+				
+				
+				<plugin>
+					<artifactId>maven-jar-plugin</artifactId>
+					<version>2.6</version>
+				</plugin>
+
+				<plugin>
+					<groupId>org.robovm</groupId>
+					<artifactId>robovm-maven-plugin</artifactId>
+					<version>${robovm.version}</version>
+				</plugin>
+				
+				<plugin>
+					<groupId>com.simpligility.maven.plugins</groupId>
+					<artifactId>android-maven-plugin</artifactId>
+					<version>${android.plugin.version}</version>
+					<extensions>true</extensions>
+					
+					<configuration>
+						<sdk>
+							<platform>${android.platform.sdk.version}</platform>
+						</sdk>
+						<androidManifestFile>${basedir}/AndroidManifest.xml</androidManifestFile>
+						<resourceDirectory>${basedir}/res</resourceDirectory>
+						<nativeLibrariesDirectory>${basedir}/libs</nativeLibrariesDirectory>
+						<assetsDirectory>${basedir}/assets</assetsDirectory>
+					</configuration>
+				</plugin>
+				
+				<plugin>
+					<groupId>org.eclipse.m2e</groupId>
+					<artifactId>lifecycle-mapping</artifactId>
+					<version>1.0.0</version>
+					<configuration>
+						<lifecycleMappingMetadata>
+							<pluginExecutions>
+								<pluginExecution>
+									<pluginExecutionFilter>
+										<groupId>com.simpligility.maven.plugins</groupId>
+										<artifactId>android-maven-plugin</artifactId>
+										<versionRange>[3.8.2,)</versionRange>
+										<goals>
+											<goal>emma</goal>
+										</goals>
+									</pluginExecutionFilter>
+									<action>
+										<ignore></ignore>
+									</action>
+								</pluginExecution>
+							</pluginExecutions>
+						</lifecycleMappingMetadata>
+					</configuration>
+				</plugin>
+			</plugins>
+		</pluginManagement>
+	</build>
+	
+	<profiles>
+	
+		<!-- Eclipse wants the qualifiers in MANIFEST.MF to be "qualifier", not the timestamp -->
+		<profile>
+			<activation>
+				<property>
+					<name>m2e.version</name>
+				</property>
+			</activation>
+			<properties>
+				<osgi.qualifier>qualifier</osgi.qualifier>
+			</properties>
+		</profile>
+	</profiles>
+	
+</project>
