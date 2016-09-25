@@ -1,0 +1,197 @@
+<web-app xmlns="http://java.sun.com/xml/ns/javaee"
+      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd"
+      version="3.0">
+  
+  <!--
+	  Darwino Configuration
+  -->
+  <display-name>frostillic.us Blog</display-name>
+					
+  	<!-- Make sure that the database is properly deployed when the app is launched -->
+  	<context-param>
+      	<param-name>dwo-auto-deploy-jsonstore</param-name>
+      	<param-value>${frostillicus_blog.auto-deploy-jsonstore=true}</param-value>
+      </context-param>
+
+
+  	<context-param>
+      	<param-name>dwo-sync-enabled</param-name>
+      	<param-value>${frostillicus_blog.sync-enabled=false}</param-value>
+    	</context-param>
+  	<context-param>
+      	<param-name>dwo-sync-emptyjsondbonstart</param-name>
+      	<param-value>${frostillicus_blog.sync-emptyjsondbonstart=false}</param-value>
+    	</context-param>
+  	<context-param>
+      	<param-name>dwo-sync-url</param-name>
+      	<param-value>${frostillicus_blog.sync-url=http://127.0.0.1/darwino.sync}</param-value>
+      </context-param>
+  	<context-param>
+      	<param-name>dwo-sync-platform</param-name>
+      	<param-value>${frostillicus_blog.sync-platform=domino}</param-value>
+    	</context-param>
+  		<context-param>
+      	<param-name>dwo-sync-commit-threshold</param-name>
+      	<param-value>${frostillicus_blog.sync-commit-threshold=100}</param-value>
+    	</context-param>
+  	<context-param>
+      	<param-name>dwo-sync-instances</param-name>
+      	<param-value>${frostillicus_blog.sync-instances}</param-value>
+      </context-param>
+  	<context-param>
+      	<param-name>dwo-sync-user</param-name>
+      	<param-value>${frostillicus_blog.sync-user}</param-value>
+    	</context-param>
+  	<context-param>
+      	<param-name>dwo-sync-password</param-name>
+      	<param-value>${frostillicus_blog.sync-password}</param-value>
+    	</context-param>
+  	<context-param>
+      	<param-name>dwo-sync-mode</param-name>
+      	<param-value>${frostillicus_blog.sync-mode=pull+push}</param-value>
+    	</context-param>
+  	<context-param>
+      	<param-name>dwo-sync-trace</param-name>
+      	<param-value>${frostillicus_blog.sync-trace=false}</param-value>
+    </context-param>
+	
+	<!-- Application initialization -->
+	<!-- <listener>
+	    <listener-class>
+			frostillicus.blog.app.AppContextListener
+	    </listener-class>
+	</listener> -->
+	
+		<!--  Filter for Gzip -->
+		<!--  Note that a GZIP filter should not be applied twice in case of FORWARD -->
+		<!--  This filter should then be added first -->
+		<!-- <filter>
+	    	<filter-name>GZipFilter</filter-name>
+	    	<filter-class>com.darwino.j2ee.servlet.gzip.GZipServletFilter</filter-class>
+		</filter>
+		<filter-mapping>
+	    	<filter-name>GZipFilter</filter-name>
+	    	<url-pattern>/*</url-pattern>
+	    </filter-mapping> -->
+	
+		
+		<!--  Filter for custom authentication -->
+		<!--  This should be the first one, before the J2EE filter as the user is required for the session  -->
+		<!--  Note that the server level authentication should be disabled then  -->
+		<!-- <filter>
+	    	<filter-name>DarwinoAuthentication</filter-name>
+	   		<filter-class>com.darwino.j2ee.servlet.authentication.AuthenticationFilter</filter-class>
+	        <init-param>
+	        	<param-name>modes</param-name>
+	            <param-value>FORM,BASIC</param-value>
+	        </init-param>
+	    </filter>
+		<filter-mapping>
+	    	<filter-name>DarwinoAuthentication</filter-name>
+	    	<url-pattern>/*</url-pattern>
+			<dispatcher>REQUEST</dispatcher>
+	    	<dispatcher>FORWARD</dispatcher>
+	   	</filter-mapping> -->
+
+		<!--  Filter for creating the Darwino Application, Context and DB session -->
+		<!-- <filter>
+	    	<filter-name>DarwinoApplication</filter-name>
+	    	<filter-class>com.darwino.j2ee.application.DarwinoJ2EEFilter</filter-class>
+		</filter>
+		<filter-mapping>
+	    	<filter-name>DarwinoApplication</filter-name>
+	    	<url-pattern>/*</url-pattern>
+		</filter-mapping> -->
+	
+		<!--  CORS filter for the JsonStore -->
+	<!-- 	
+		<filter>
+	    	<filter-name>Cors</filter-name>
+	    	<filter-class>com.darwino.j2ee.servlet.cors.CORSFilter</filter-class>
+		</filter>
+		<filter-mapping>
+	    	<filter-name>Cors</filter-name>
+	    	<url-pattern>/.darwino-jstore/*</url-pattern>
+	    	<dispatcher>REQUEST</dispatcher>
+	    	<dispatcher>FORWARD</dispatcher>
+	    </filter-mapping>
+	-->    
+
+		<!-- Filter for $darwino-xxx URLs rewritting -->
+		<!--  This filter must be before the services or resources filters, to make sure that the URL is processed before reaching them -->
+		<!-- <filter>
+	    	<filter-name>DarwinoRewriting</filter-name>
+	    	<filter-class>com.darwino.j2ee.servlet.resources.DarwinoGlobalPathRewriterFilter</filter-class>
+	   	</filter>
+		<filter-mapping>
+	    	<filter-name>DarwinoRewriting</filter-name>
+	    	<url-pattern>/*</url-pattern>
+		</filter-mapping> -->
+	
+		<!--  Filter for publishing the Darwino Services -->
+		<!-- <filter>
+	    	<filter-name>DarwinoServices</filter-name>
+	    	<filter-class>frostillicus.blog.app.AppServiceDispatcher</filter-class>
+		</filter>
+		<filter-mapping>
+	    	<filter-name>DarwinoServices</filter-name>
+	    	<url-pattern>/*</url-pattern>
+	    	<dispatcher>REQUEST</dispatcher>
+	    	<dispatcher>FORWARD</dispatcher>
+	   </filter-mapping> -->
+
+  <!--
+	  Warbler/Ruby Configuration
+  -->
+
+  <%# NOTE: to be renamed to servlet_context_params %>
+  <%- webxml.context_params.each do |name, value| -%>
+  <context-param>
+    <param-name><%= name %></param-name>
+    <param-value><%= value %></param-value>
+  </context-param>
+  <%- end -%>
+
+  <%- if webxml.respond_to?(:servlet_filter) -%>
+  <filter>
+    <filter-name><%= webxml.servlet_filter_name %></filter-name>
+    <filter-class><%= webxml.servlet_filter %></filter-class>
+    <async-supported><%= !! webxml.servlet_filter_async %></async-supported>
+  </filter>
+  <filter-mapping>
+    <filter-name><%= webxml.servlet_filter_name %></filter-name>
+    <url-pattern><%= webxml.servlet_filter_url_pattern %></url-pattern>
+  </filter-mapping>
+  <%- else -%> <%# NOTE: due compatibility when warbler gets downgraded to 2.0.0 %>
+  <filter>
+    <filter-name>RackFilter</filter-name>
+    <filter-class>org.jruby.rack.RackFilter</filter-class>
+    <async-supported>true</async-supported>
+  </filter>
+  <filter-mapping>
+    <filter-name>RackFilter</filter-name>
+    <url-pattern>/*</url-pattern>
+  </filter-mapping>
+  <%- end -%>
+
+  <%- if webxml.respond_to?(:servlet_context_listeners) -%>
+  <%- webxml.servlet_context_listeners.each do |listener| -%>
+  <listener>
+    <listener-class><%= listener %></listener-class>
+  </listener>
+  <%- end -%>
+  <%- else -%> <%# NOTE: due compatibility when warbler gets downgraded to 2.0.0 %>
+  <listener>
+    <listener-class><%= webxml.servlet_context_listener %></listener-class>
+  </listener>
+  <%- end -%>
+
+  <%- [webxml.jndi].flatten.each do |jndi| -%>
+  <resource-ref>
+    <res-ref-name><%= jndi %></res-ref-name>
+    <res-type>javax.sql.DataSource</res-type>
+    <res-auth>Container</res-auth>
+  </resource-ref>
+  <%- end if webxml.jndi -%>
+</web-app>
