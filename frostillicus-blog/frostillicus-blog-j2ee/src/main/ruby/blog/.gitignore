@@ -16,5 +16,7 @@
 # Ignore Byebug command history file.
 .byebug_history
 
+/Gemfile.lock
+
 # Java classes are copied in here
 /classes/

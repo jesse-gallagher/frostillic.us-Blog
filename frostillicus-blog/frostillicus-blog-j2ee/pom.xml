@@ -374,6 +374,7 @@
         						<argument>
         							rm -f src/main/ruby/blog/*.war
         							cd src/main/ruby/blog &amp;&amp; \
+        							jruby -S bundle install &amp;&amp; \
         							jruby -S warble -v executable war &amp;&amp; \
         							cd ../../../.. &amp;&amp;
         							mv src/main/ruby/blog/*.war target/${project.build.finalName}.war

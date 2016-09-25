@@ -57,11 +57,11 @@
     </context-param>
 	
 	<!-- Application initialization -->
-	<!-- <listener>
+	<listener>
 	    <listener-class>
 			frostillicus.blog.app.AppContextListener
 	    </listener-class>
-	</listener> -->
+	</listener>
 	
 		<!--  Filter for Gzip -->
 		<!--  Note that a GZIP filter should not be applied twice in case of FORWARD -->
@@ -79,7 +79,7 @@
 		<!--  Filter for custom authentication -->
 		<!--  This should be the first one, before the J2EE filter as the user is required for the session  -->
 		<!--  Note that the server level authentication should be disabled then  -->
-		<!-- <filter>
+		<filter>
 	    	<filter-name>DarwinoAuthentication</filter-name>
 	   		<filter-class>com.darwino.j2ee.servlet.authentication.AuthenticationFilter</filter-class>
 	        <init-param>
@@ -92,17 +92,17 @@
 	    	<url-pattern>/*</url-pattern>
 			<dispatcher>REQUEST</dispatcher>
 	    	<dispatcher>FORWARD</dispatcher>
-	   	</filter-mapping> -->
+	   	</filter-mapping>
 
 		<!--  Filter for creating the Darwino Application, Context and DB session -->
-		<!-- <filter>
+		<filter>
 	    	<filter-name>DarwinoApplication</filter-name>
 	    	<filter-class>com.darwino.j2ee.application.DarwinoJ2EEFilter</filter-class>
 		</filter>
 		<filter-mapping>
 	    	<filter-name>DarwinoApplication</filter-name>
 	    	<url-pattern>/*</url-pattern>
-		</filter-mapping> -->
+		</filter-mapping>
 	
 		<!--  CORS filter for the JsonStore -->
 	<!-- 	

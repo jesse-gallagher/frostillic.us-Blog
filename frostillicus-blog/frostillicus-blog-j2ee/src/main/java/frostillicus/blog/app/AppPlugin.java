@@ -9,9 +9,10 @@ import java.util.List;
 import com.darwino.commons.platform.beans.ManagedBeansExtension;
 import com.darwino.commons.platform.properties.PropertiesExtension;
 import com.darwino.commons.security.acl.UserService;
-import com.darwino.j2ee.platform.DefaultWebBeanExtension;
 import com.darwino.j2ee.platform.DefaultWebPropertiesExtension;
 import com.darwino.j2ee.servlet.authentication.AuthenticationService;
+
+import frostillicus.blog.app.beans.HomeDirBeanExtension;
 
 
 
@@ -46,7 +47,8 @@ public class AppPlugin extends AppBasePlugin {
 			//extensions.add(new UserServiceBeanDelegate());
 		} else if(serviceClass==ManagedBeansExtension.class) {
 			// Ok, default web entries - can be replaced by something more accurate
-			extensions.add(new DefaultWebBeanExtension());
+			extensions.add(new HomeDirBeanExtension());
+			
 		} else if(serviceClass==PropertiesExtension.class) {
 			// Ok, default web entries - can be replaced by something more accurate
 			extensions.add(new DefaultWebPropertiesExtension());
