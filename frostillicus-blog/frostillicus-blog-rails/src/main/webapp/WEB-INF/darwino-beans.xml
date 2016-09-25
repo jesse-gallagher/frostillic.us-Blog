@@ -1,0 +1,21 @@
+<beans>
+    
+<!-- Define your J2EE specific beans here, and register a WebInf provider in AppPlugin -->
+
+<!-- HTTP Security constraints -->
+<!-- 
+    <property name="c">com.darwino.config.http.HttpConstraintsStatic</property>
+    <property name="ce">com.darwino.config.http.HttpConstraintsStatic$Constraint</property>
+    <bean type="darwino/httpconstraint" name="c2" class="${c}" alias="local,default">
+        <list name="constraints">
+            <bean class='${ce}'>
+                <property name='urlPattern'>/mobile/*</property>
+                <list name="groups">
+                    <value>darwino</value>
+                </list>
+            </bean>    
+        </list>
+    </bean>
+ -->
+     
+</beans>

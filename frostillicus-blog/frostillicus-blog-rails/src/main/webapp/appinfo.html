@@ -1,0 +1,31 @@
+<!doctype html>
+<html>
+	<head>
+		<title>frostillic.us Blog</title>
+	<script src="$darwino-libs/darwino/darwino.js"></script>
+	</head>	
+	<body>
+    	<h1>Hello Darwino!</h1>
+       	<p>Application information, as returned by the custom REST service:</p>
+		<code>
+			<pre id='appinfo'></pre>
+		</code>
+		
+<script>
+	var req = new XMLHttpRequest(); // a new request
+	req.open("GET","$darwino-app",true);
+	req.send();
+	req.onreadystatechange=function() {
+		if(req.readyState==4) {
+			if(req.status==200) {
+				var txt = darwino.Utils.toJson(darwino.Utils.fromJson(req.responseText,false));
+				darwino.Utils.setText('appinfo',txt);
+			} else {
+				darwino.Utils.setText('appinfo','Error while calling the service');
+			}
+		}
+	};
+</script>
+
+	</body>
+</html>

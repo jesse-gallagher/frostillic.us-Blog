@@ -11,6 +11,7 @@
 		<module>frostillicus-blog-shared</module>
 		<module>frostillicus-blog-webui</module>
 		<module>frostillicus-blog-j2ee</module>
+		<module>frostillicus-blog-rails</module>
 	</modules>
 
 	<properties>

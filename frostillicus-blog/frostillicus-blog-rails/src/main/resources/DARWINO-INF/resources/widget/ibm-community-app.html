@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<title>frostillic.us Blog</title>
+
+	<script type="text/javascript">
+		window.onload = function() {
+			try {
+				window.addEventListener('message', function(evt) {
+					document.getElementById("contextId").innerHTML = JSON.stringify(evt.data, null, 3);
+				}, false);
+			} catch (e) {
+				console.log(e);
+			}
+			parent.postMessage("appReady", "*");
+		}
+	</script>
+</head>
+
+<body>
+	<h1>frostillic.us Blog</h1>
+	<p> The following context is passed from IBM Connections: </p>	
+	<pre id="contextId"></pre>	
+</body>
+
+</html>
