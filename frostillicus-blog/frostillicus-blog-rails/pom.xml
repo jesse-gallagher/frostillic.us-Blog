@@ -369,6 +369,9 @@
         					<!-- TODO make this not unix-based -->
         					<executable>/bin/sh</executable>
         					<workingDirectory>.</workingDirectory>
+        					<environmentVariables>
+        						<PATH>/bin:/usr/bin:/usr/local/bin</PATH>
+        					</environmentVariables>
         					<arguments>
         						<argument>-c</argument>
         						<argument>

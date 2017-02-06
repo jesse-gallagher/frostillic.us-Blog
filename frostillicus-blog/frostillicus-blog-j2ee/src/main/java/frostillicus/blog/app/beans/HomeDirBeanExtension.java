@@ -14,9 +14,9 @@ public class HomeDirBeanExtension extends DefaultWebBeanExtension {
 		
 		// Current user dir directory
 		try {
-			String h = System.getProperty("user.dir") + File.separatorChar + ".darwinosecret" + File.separatorChar;
+			String h = System.getProperty("user.dir") + File.separatorChar + ".darwinosecret" + File.separatorChar; //$NON-NLS-1$ //$NON-NLS-2$
 			if(StringUtil.isNotEmpty(h)) {
-				File f = new File(h,"darwino-beans.xml");
+				File f = new File(h,"darwino-beans.xml"); //$NON-NLS-1$
 				addFactoriesFromFile(f);
 			}
 		} catch(Exception ex) {

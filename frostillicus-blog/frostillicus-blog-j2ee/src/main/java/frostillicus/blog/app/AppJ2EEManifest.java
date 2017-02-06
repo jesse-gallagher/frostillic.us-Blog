@@ -22,7 +22,7 @@ public class AppJ2EEManifest extends DarwinoJ2EEManifest {
 	@Override
 	protected String[] getMobilePushedPropertyKeys() {
 		return new String[] {
-			"frostillicus_blog.instances"
+			"frostillicus_blog.instances" //$NON-NLS-1$
 		};
 	}
 }
