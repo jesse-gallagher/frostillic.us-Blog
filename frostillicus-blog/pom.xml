@@ -11,11 +11,10 @@
 		<module>frostillicus-blog-shared</module>
 		<module>frostillicus-blog-webui</module>
 		<module>frostillicus-blog-j2ee</module>
-		<!-- <module>frostillicus-blog-rails</module> -->
 	</modules>
 
 	<properties>
-		<DARWINO_VERSION>2.0.0-SNAPSHOT</DARWINO_VERSION>
+		<DARWINO_VERSION>2.2.0-SNAPSHOT</DARWINO_VERSION>
 
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
@@ -38,10 +37,10 @@
 			</dependency>
 			
 			<dependency>
-				<groupId>javax.servlet</groupId>
-				<artifactId>javax.servlet-api</artifactId>
-				<version>3.0.1</version>
-				<scope>provided</scope>
+			    <groupId>javax.servlet</groupId>
+			    <artifactId>servlet-api</artifactId>
+			    <version>2.4</version>
+			    <scope>provided</scope>
 			</dependency>
 			<dependency>
 				<groupId>javax.servlet.jsp</groupId>
@@ -66,8 +65,8 @@
 					<artifactId>maven-compiler-plugin</artifactId>
 					<version>3.1</version>
 					<configuration>
-						<source>1.6</source>
-						<target>1.6</target>
+						<source>1.8</source>
+						<target>1.8</target>
 					</configuration>
 				</plugin>
 				<plugin>
