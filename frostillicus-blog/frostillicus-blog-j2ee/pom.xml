@@ -13,10 +13,11 @@
 
 	<dependencies>
 		<dependency>
-		    <groupId>javax.servlet</groupId>
-		    <artifactId>servlet-api</artifactId>
-			<scope>provided</scope>
+		    <groupId>javax</groupId>
+		    <artifactId>javaee-api</artifactId>
+		    <scope>provided</scope>
 		</dependency>
+
 		
 		<dependency>
 			<groupId>com.darwino</groupId>
@@ -97,17 +98,7 @@
 	</dependencies>
 
 	<build>
-        <finalName>/frostillicus-blog</finalName>
-        
-		<pluginManagement>
-			<plugins>
-				<plugin>
-					<groupId>org.apache.tomcat.maven</groupId>
-					<artifactId>tomcat7-maven-plugin</artifactId>
-					<version>2.0</version>
-				</plugin>
-			</plugins>
-		</pluginManagement>
+        <finalName>frostillicus-blog</finalName>
 	</build>
 	
 </project>
