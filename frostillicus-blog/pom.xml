@@ -134,6 +134,29 @@
 					<artifactId>maven-resources-plugin</artifactId>
 					<version>3.0.2</version>
 				</plugin>
+
+				<plugin>
+					<groupId>com.mycila</groupId>
+					<artifactId>license-maven-plugin</artifactId>
+					<version>3.0</version>
+					<configuration>
+						<aggregate>true</aggregate>
+						<header>license.txt</header>
+						<excludes>
+							<exclude>**/pom.xml</exclude>
+				            <exclude>**/README</exclude>
+				            <exclude>src/test/resources/**</exclude>
+				            <exclude>src/main/resources/**</exclude>
+						</excludes>
+						<properties>
+							<owner>Jesse Gallagher</owner>
+							<copyrightYear>2018</copyrightYear>
+						</properties>
+						<mapping>
+							<tsx>TRIPLESLASH_STYLE</tsx>
+						</mapping>
+					</configuration>
+				</plugin>
 			</plugins>
 		</pluginManagement>
 	</build>
