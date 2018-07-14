@@ -33,7 +33,7 @@ import frostillicus.blog.app.beans.HomeDirBeanExtension;
 public class AppPlugin extends AppBasePlugin {
 	
 	public AppPlugin() {
-		super("J2EE Application"); //$NON-NLS-1$
+		super("frostillic.us J2EE Application"); //$NON-NLS-1$
 	}
 
 	@Override

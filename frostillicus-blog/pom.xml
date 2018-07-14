@@ -53,6 +53,11 @@
 			    <artifactId>javaee-api</artifactId>
 			    <version>8.0</version>
 			</dependency>
+			<dependency>
+				<groupId>javax.mvc</groupId>
+				<artifactId>javax.mvc-api</artifactId>
+				<version>1.0-pr</version>
+			</dependency>
 		</dependencies>
 	</dependencyManagement>
 	

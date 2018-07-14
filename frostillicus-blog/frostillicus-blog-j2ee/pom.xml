@@ -15,8 +15,78 @@
 		<dependency>
 		    <groupId>javax</groupId>
 		    <artifactId>javaee-api</artifactId>
-		    <scope>provided</scope>
+<!-- 		    <scope>provided</scope> -->
 		</dependency>
+		<dependency>
+			<groupId>javax.mvc</groupId>
+			<artifactId>javax.mvc-api</artifactId>
+		</dependency>
+<!-- 		<dependency> -->
+<!-- 			<groupId>org.mvc-spec.ozark</groupId> -->
+<!-- 			<artifactId>ozark-core</artifactId> -->
+<!-- 			<version>1.0.0-m03</version> -->
+<!-- 		</dependency> -->
+		<dependency>
+			<groupId>org.mvc-spec.ozark</groupId>
+			<artifactId>ozark-jersey</artifactId>
+			<version>1.0.0-m03</version>
+			<scope>runtime</scope>
+		</dependency>
+<!-- <dependency> -->
+<!-- 			<groupId>org.glassfish.jersey.media</groupId> -->
+<!-- 			<artifactId>jersey-media-multipart</artifactId> -->
+<!-- 			<version>2.17</version> -->
+<!-- 		</dependency> -->
+<!-- 		<dependency> -->
+<!-- 			<groupId>javax.servlet</groupId> -->
+<!-- 			<artifactId>jstl</artifactId> -->
+<!-- 			<version>1.2</version> -->
+<!-- 		</dependency> -->
+
+<!-- 		<dependency> -->
+<!-- 			<groupId>org.jboss.weld.servlet</groupId> -->
+<!-- 			<artifactId>weld-servlet</artifactId> -->
+<!-- 			<version>2.2.11.Final</version> -->
+<!-- 		</dependency> -->
+
+<!-- 		<dependency> -->
+<!-- 			<groupId>org.glassfish.jersey.containers</groupId> -->
+<!-- 			<artifactId>jersey-container-servlet</artifactId> -->
+<!-- 			<version>2.17</version> -->
+<!-- 		</dependency> -->
+
+<!-- 		<dependency> -->
+<!-- 			<groupId>org.glassfish.jersey.ext.cdi</groupId> -->
+<!-- 			<artifactId>jersey-cdi1x</artifactId> -->
+<!-- 			<version>2.17</version> -->
+<!-- 		</dependency> -->
+<!-- 				<dependency> -->
+<!-- 			<groupId>org.slf4j</groupId> -->
+<!-- 			<artifactId>slf4j-log4j12</artifactId> -->
+<!-- 			<version>1.6.0</version> -->
+<!-- 		</dependency> -->
+<!-- 		<dependency> -->
+<!-- 			<groupId>commons-io</groupId> -->
+<!-- 			<artifactId>commons-io</artifactId> -->
+<!-- 			<version>2.4</version> -->
+<!-- 		</dependency> -->
+<!-- 		<dependency> -->
+<!-- 			<groupId>commons-codec</groupId> -->
+<!-- 			<artifactId>commons-codec</artifactId> -->
+<!-- 			<version>1.10</version> -->
+<!-- 		</dependency> -->
+<!-- 		<dependency> -->
+<!-- 			<groupId>org.hibernate</groupId> -->
+<!-- 			<artifactId>hibernate-validator</artifactId> -->
+<!-- 			<version>5.2.2.Final</version> -->
+<!-- 		</dependency> -->
+
+
+<!-- 		<dependency> -->
+<!-- 			<groupId>antlr</groupId> -->
+<!-- 			<artifactId>antlr</artifactId> -->
+<!-- 			<version>2.7.7</version> -->
+<!-- 		</dependency> -->
 
 		
 		<dependency>
@@ -42,21 +112,36 @@
 			<version>${DARWINO_VERSION}</version>
 		</dependency>
 		<dependency>
-			<groupId>com.darwino</groupId>
-			<artifactId>dwo-jre-jdbc-drivers-db2</artifactId>
-			<version>${DARWINO_VERSION}</version>
+			<groupId>org.postgresql</groupId>
+			<artifactId>postgresql</artifactId>
+			<version>42.2.2</version>
 		</dependency>
 		<dependency>
 			<groupId>com.darwino</groupId>
-			<artifactId>dwo-jre-jdbc-drivers-h2</artifactId>
+			<artifactId>dwo-jre-jdbc-drivers-sqlserver</artifactId>
 			<version>${DARWINO_VERSION}</version>
 		</dependency>
 
+<!-- 		<dependency> -->
+<!-- 			<groupId>com.darwino</groupId> -->
+<!-- 			<artifactId>dwo-jre-jdbc-pool-bonecp</artifactId> -->
+<!-- 			<version>${DARWINO_VERSION}</version> -->
+<!-- 		</dependency> -->
+<!-- 		<dependency> -->
+<!-- 		    <groupId>com.jolbox</groupId> -->
+<!-- 		    <artifactId>bonecp</artifactId> -->
+<!-- 		    <version>0.8.0.RELEASE</version> -->
+<!-- 		</dependency> -->
 		<dependency>
 			<groupId>com.darwino</groupId>
-			<artifactId>dwo-jre-jdbc-pool-bonecp</artifactId>
+			<artifactId>dwo-jre-jdbc-pool-hikaricp</artifactId>
 			<version>${DARWINO_VERSION}</version>
 		</dependency>
+<dependency>
+    <groupId>com.zaxxer</groupId>
+    		<artifactId>HikariCP-java6</artifactId>
+    		<version>2.3.9</version>
+</dependency>
 
 <!-- For desktop SQLite tests 
 		<dependency>
@@ -98,7 +183,36 @@
 	</dependencies>
 
 	<build>
-        <finalName>frostillicus-blog</finalName>
+        <finalName>blog</finalName>
+        
+        <plugins>
+        	<plugin>
+        		<groupId>org.apache.maven.plugins</groupId>
+        		<artifactId>maven-war-plugin</artifactId>
+        		<configuration>
+        			<failOnMissingWebXml>false</failOnMissingWebXml>
+        		</configuration>
+        	</plugin>
+        </plugins>
+        
+		<pluginManagement>
+			<plugins>
+				<plugin>
+					<groupId>org.apache.tomcat.maven</groupId>
+					<artifactId>tomcat7-maven-plugin</artifactId>
+					<version>2.0</version>
+				</plugin>
+				<plugin>
+					<groupId>org.apache.openejb.maven</groupId>
+					<artifactId>tomee-maven-plugin</artifactId>
+					<version>1.7.5</version>
+					<configuration>
+						<tomeeVersion>1.7.5</tomeeVersion>
+						<tomeeClassifier>webprofile</tomeeClassifier>
+					</configuration>
+				</plugin>
+			</plugins>
+		</pluginManagement>
 	</build>
 	
 </project>
