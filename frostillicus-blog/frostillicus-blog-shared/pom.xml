@@ -24,6 +24,66 @@
 			<artifactId>dwo-services-social</artifactId>
 			<version>${DARWINO_VERSION}</version>
 		</dependency>
+		
+		<!-- General utilities -->
+		<dependency>
+			<groupId>org.projectlombok</groupId>
+			<artifactId>lombok</artifactId>
+			<version>1.16.20</version>
+			<scope>provided</scope>
+		</dependency>
+		
+		<!--
+			JNoSQL 
+		 -->
+		<dependency>
+			<groupId>org.jnosql.artemis</groupId>
+			<artifactId>artemis-core</artifactId>
+			<version>${jnosql-version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.jnosql.artemis</groupId>
+			<artifactId>artemis-document</artifactId>
+			<version>${jnosql-version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.jnosql.artemis</groupId>
+			<artifactId>artemis-validation</artifactId>
+			<version>${jnosql-version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.darwino</groupId>
+			<artifactId>darwino-jnosql-diana-driver</artifactId>
+			<version>${jnosql-version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.darwino</groupId>
+			<artifactId>darwino-jnosql-artemis-extension</artifactId>
+			<version>${jnosql-version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.jnosql.diana</groupId>
+			<artifactId>diana-document</artifactId>
+			<version>${jnosql-version}</version>
+		</dependency>
+		<dependency>
+			<groupId>javax.enterprise</groupId>
+			<artifactId>cdi-api</artifactId>
+			<version>2.0</version>
+			<scope>provided</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.glassfish</groupId>
+			<artifactId>javax.json</artifactId>
+			<version>1.1.2</version>
+			<scope>provided</scope>
+		</dependency>
+		<dependency>
+			<groupId>javax.json.bind</groupId>
+			<artifactId>javax.json.bind-api</artifactId>
+			<version>1.0</version>
+			<scope>provided</scope>
+		</dependency>
 	</dependencies>
 	
 	<build>
