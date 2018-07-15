@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package frostillicus.blog.app.model;
+package model;
 
 import javax.annotation.PostConstruct;
 import javax.enterprise.context.ApplicationScoped;
