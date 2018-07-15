@@ -32,27 +32,29 @@
 		<link rel="stylesheet" href="${pageContext.request.contextPath}/css/style.css" />
 	</head>
 	<body>
-		<header id="pageheader">
-			<a href="${pageContext.request.contextPath}">frostillic.us</a>
-		</header>
-		<nav id="pagenav">
-			<header class="authorinfo">
-				<img src="https://secure.gravatar.com/avatar/5aada48ea6558e53a94955db8ffe91b8?s=128" class="photo"/>
+		<div id="entirety">
+			<header id="pageheader">
+				<a href="${pageContext.request.contextPath}">frostillic.us</a>
 			</header>
-			<ul class="sitenav">
-				<li><a href="${pageContext.request.contextPath}/">Home</a></li>
-				<li><a href="posts">Archives</a></li>
-			</ul>
-		</nav>
-		<div id="pagebody">
-			<jsp:doBody />
+			<nav id="pagenav">
+				<header class="authorinfo">
+					<img src="https://secure.gravatar.com/avatar/5aada48ea6558e53a94955db8ffe91b8?s=128" class="photo"/>
+				</header>
+				<ul class="sitenav">
+					<li><a href="${pageContext.request.contextPath}/">Home</a></li>
+					<li><a href="posts">Archives</a></li>
+				</ul>
+			</nav>
+			<div id="pagebody">
+				<jsp:doBody />
+			</div>
+			<footer id="pagefooter">
+				<p>
+					Except as otherwise noted, the content of this page is licensed under the
+					<a href="http://creativecommons.org/licenses/by/3.0/">Creative Commons Attribution 3.0 License</a>
+					and code samples are licensed under the <a href="http://www.apache.org/licenses/LICENSE-2.0">Apache 2.0 License</a>.
+				</p>
+			</footer>
 		</div>
-		<footer id="pagefooter">
-			<p>
-				Except as otherwise noted, the content of this page is licensed under the
-				<a href="http://creativecommons.org/licenses/by/3.0/">Creative Commons Attribution 3.0 License</a>
-				and code samples are licensed under the <a href="http://www.apache.org/licenses/LICENSE-2.0">Apache 2.0 License</a>.
-			</p>
-		</footer>
 	</body>
 </html>

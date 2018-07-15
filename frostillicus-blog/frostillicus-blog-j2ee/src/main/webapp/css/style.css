@@ -13,11 +13,18 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-body {
+body, html {
+	background-color: rgb(56, 83, 136);
+}
+
+#entirety {
 	display: grid;
 	grid-gap: 0;
 	grid-template-areas: "header" "nav" "content" "footer";
-	max-width: 100%;
+	
+	width: 80%;
+	margin: 2em auto;
+	border: 1px solid black;
 	
 	font-family: "Helvetica", sans-serif;
 }
@@ -25,41 +32,49 @@ body {
 #pageheader {
 	grid-area: header;
 	
-	background-color: #ddd;
+	background-color: rgb(204, 221, 204);;
+	/* background-color: rgb(187, 204, 187); */
 	padding: 0.5em;
 }
 
 #pagenav {
 	grid-area: nav;
 	
-	background-color: #eee;
+	background-color: rgb(238, 238, 221);
 	padding: 0.5em;
+	
+	color: rgb(101, 101, 84);
+	font-size: 0.95em;
+	line-height: 1.7em;
 }
 
 #pagebody {
 	grid-area: content;
 	
+	background-color: white;
 	padding: 1em;
 }
 
 #pagefooter {
 	grid-area: footer;
 	
-	background-color: #ddd;
+	/* background-color: rgb(105, 140, 182); */
+	color: rgb(56, 75, 97);
+	background-color: rgb(111, 149, 208);
 	padding: 0.5em;
 	text-align: center;
 }
+#pagefooter a {
+	color: rgb(56, 75, 97);
+}
 
 @media ( min-width : 700px) {
-	body {
+	#entirety {
 		grid-template-columns: 1fr 5fr;
 		grid-template-areas:
 			"header header"
 			"nav    content"
 			"nav    content"
 			"footer footer";
-	}
-	#pagenav ul {
-		flex-direction: column;
 	}
 }
