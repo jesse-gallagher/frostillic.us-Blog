@@ -18,11 +18,13 @@ package controller;
 import javax.inject.Inject;
 import javax.mvc.Models;
 import javax.mvc.annotation.Controller;
+import javax.ws.rs.Consumes;
 import javax.ws.rs.FormParam;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
+import javax.ws.rs.core.MediaType;
 
 import com.darwino.commons.json.JsonException;
 import com.darwino.platform.DarwinoContext;
@@ -55,13 +57,14 @@ public class PostController {
 	
 	// TODO figure out if this can be done automatically without adding @FormParam to the model class
 	@POST
+	@Consumes(MediaType.MULTIPART_FORM_DATA)
 	public String create(@FormParam("title") String title, @FormParam("bodyMarkdown") String bodyMarkdown) throws JsonException {
 		Post post = new Post();
 		post.setPostedBy(DarwinoContext.get().getSession().getUser().getDn());
 		post.setTitle(title);
 		post.setBodyMarkdown(bodyMarkdown);
 		posts.save(post);
-		return "posted.jsp";
+		return "redirect:posts/" + post.getId();
 	}
 	
 	@GET

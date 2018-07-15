@@ -18,13 +18,16 @@
 <%@attribute name="value" required="true" type="model.Post" %>
 <%@attribute name="comments" required="false" type="java.util.List" %>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@taglib prefix="t" tagdir="/WEB-INF/tags" %>
-<article>
+<article class="post">
 	<header>
 		<h2><a href="posts/${pageScope.value.id}">${pageScope.value.title}</a></h2>
-		<h3>${pageScope.value.posted}</h3>
+		<h3><fmt:formatDate value="${pageScope.value.posted}" type="BOTH" dateStyle="MEDIUM" timeStyle="SHORT" /></h3>
 	</header>
-	${pageScope.value.bodyHtml}
+	<div class='body'>
+		${pageScope.value.bodyHtml}
+	</div>
 	
 	<c:if test="${not empty pageScope.comments}">
 		<section class="comments">

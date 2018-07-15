@@ -33,6 +33,8 @@ public class Comment {
 	@Id @Column @NotEmpty private String id;
 	@Column @NotEmpty @Convert(ISODateConverter.class) private Date posted;
 	@Column @NotEmpty private String postedBy;
+	@Column private String postedByEmail;
+	@Column private String postedByUrl;
 	@Column private String bodyMarkdown;
 	@Column @NotEmpty private String bodyHtml;
 }

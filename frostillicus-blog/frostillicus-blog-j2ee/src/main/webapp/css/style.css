@@ -16,6 +16,9 @@
 body, html {
 	background-color: rgb(56, 83, 136);
 }
+a {
+	color: rgb(51, 85, 136);
+}
 
 #entirety {
 	display: grid;
@@ -26,7 +29,7 @@ body, html {
 	margin: 2em auto;
 	border: 1px solid black;
 	
-	font-family: "Helvetica", sans-serif;
+	font-family: "Georgia", serif;
 }
 
 #pageheader {
@@ -47,12 +50,45 @@ body, html {
 	font-size: 0.95em;
 	line-height: 1.7em;
 }
+#pagenav li {
+	display: inline;
+}
+#pagenav a {
+	display: list-item;
+	list-style-type: square;
+}
 
 #pagebody {
 	grid-area: content;
 	
 	background-color: white;
 	padding: 1em;
+}
+
+.post header {
+	border-bottom: 1px dotted rgb(96, 96, 96);
+}
+.post header h2 {
+	font-size: 1.5em;
+	color: rgb(57, 82, 107);
+	margin-bottom: 0;
+}
+.post header h2 a {
+	color: rgb(57, 82, 107);
+	text-decoration: none;
+}
+.post header h3 {
+	font-size: 0.9em;
+	color: rgb(128, 128, 128);
+	margin-top: 0;
+	margin-bottom: 0.5em;
+}
+.post .body {
+	margin-left: 3em;
+}
+
+.post + .post {
+	margin-top: 2em;
 }
 
 #pagefooter {

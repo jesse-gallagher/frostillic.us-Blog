@@ -18,6 +18,7 @@
 <%@attribute name="value" required="true" type="model.Comment" %>
 <article class="comment">
 	<header>
+		<img class="photo" src="${userInfo.getGravatarUrl(pageScope.value.postedByEmail, 42)}"/>
 		<h3>${pageScope.value.postedBy}</h3>
 	</header>
 	${pageScope.value.bodyHtml}
