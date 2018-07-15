@@ -15,12 +15,18 @@
  */
 package model;
 
+import java.util.List;
+
 import org.darwino.jnosql.artemis.extension.DarwinoRepository;
 import org.darwino.jnosql.artemis.extension.RepositoryProvider;
+import org.jnosql.artemis.Query;
 
 import frostillicus.blog.app.AppDatabaseDef;
 
 @RepositoryProvider(AppDatabaseDef.STORE_POSTS)
 public interface PostRepository extends DarwinoRepository<Post, String> {
-
+	List<Post> findAll();
+	
+	@Query("select * from Post order by posted desc")
+	List<Post> byPosted();
 }

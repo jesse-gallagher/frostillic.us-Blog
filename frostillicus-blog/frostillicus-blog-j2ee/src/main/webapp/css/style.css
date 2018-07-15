@@ -1,1 +1,50 @@
-/* hello? */
+body {
+	display: grid;
+	grid-gap: 0;
+	grid-template-areas: "header" "nav" "content" "footer";
+	
+	
+	font-family: "Helvetica", sans-serif;
+}
+
+#pageheader {
+	grid-area: header;
+	
+	background-color: #ddd;
+	padding: 0.5em;
+}
+
+#pagenav {
+	grid-area: nav;
+	
+	background-color: #eee;
+	padding: 0.5em;
+}
+
+#pagebody {
+	grid-area: content;
+	
+	padding: 1em;
+}
+
+#pagefooter {
+	grid-area: footer;
+	
+	background-color: #ddd;
+	padding: 0.5em;
+	text-align: center;
+}
+
+@media ( min-width : 700px) {
+	body {
+		grid-template-columns: 1fr 5fr;
+		grid-template-areas:
+			"header header"
+			"nav    content"
+			"nav    content"
+			"footer footer";
+	}
+	#pagenav ul {
+		flex-direction: column;
+	}
+}

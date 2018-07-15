@@ -1,6 +1,6 @@
 <%--
 
-    Copyright © 2016-2018 Jesse Gallagher
+    Copyright Â© 2016-2018 Jesse Gallagher
 
     Licensed under the Apache License, Version 2.0 (the "License");
     you may not use this file except in compliance with the License.
@@ -15,4 +15,8 @@
     limitations under the License.
 
 --%>
-I'm posts.jsp
+<%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@taglib prefix="t" tagdir="/WEB-INF/tags" %>
+<t:layout>
+	I'm posts.jsp
+</t:layout>

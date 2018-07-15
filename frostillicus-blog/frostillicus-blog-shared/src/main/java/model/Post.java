@@ -15,7 +15,9 @@
  */
 package model;
 
+import org.darwino.jnosql.artemis.extension.ISODateConverter;
 import org.jnosql.artemis.Column;
+import org.jnosql.artemis.Convert;
 import org.jnosql.artemis.Entity;
 import org.jnosql.artemis.Id;
 
@@ -35,7 +37,7 @@ public class Post {
 	
 	@Id @Column @NotEmpty private String id;
 	@Column @NotEmpty private String title;
-	@Column @NotEmpty private Date posted;
+	@Column @NotEmpty @Convert(ISODateConverter.class) private Date posted;
 	@Column @NotEmpty private String postedBy;
 	@Column private String bodyMarkdown;
 	@Column @NotEmpty private String bodyHtml;

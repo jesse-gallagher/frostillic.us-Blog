@@ -15,15 +15,27 @@
  */
 package controller;
 
+import javax.inject.Inject;
+import javax.mvc.Models;
 import javax.mvc.annotation.Controller;
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 
+import model.PostRepository;
+
 @Path("/")
 @Controller
 public class HomeController {
+	@Inject
+	Models models;
+	
+	@Inject
+	PostRepository posts;
+	
 	@GET
 	public String get() {
+		models.put("posts", posts.byPosted());
+		
 		return "home.jsp";
 	}
 }
