@@ -101,7 +101,15 @@
         <init-param>
         	<param-name>modes</param-name>
             <param-value>FORM,BASIC</param-value>
-        </init-param>   		
+        </init-param>
+        <init-param>
+        	<param-name>login-param</param-name>
+        	<param-value>login</param-value>
+        </init-param>
+        <init-param>
+        	<param-name>auth-required</param-name>
+        	<param-value>false</param-value>
+        </init-param>
     </filter>
 	<filter-mapping>
     	<filter-name>DarwinoAuthentication</filter-name>
