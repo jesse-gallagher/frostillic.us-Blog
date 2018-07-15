@@ -15,6 +15,8 @@
  */
 package model;
 
+import java.util.List;
+
 import org.darwino.jnosql.artemis.extension.DarwinoRepository;
 import org.darwino.jnosql.artemis.extension.RepositoryProvider;
 
@@ -22,5 +24,5 @@ import frostillicus.blog.app.AppDatabaseDef;
 
 @RepositoryProvider(AppDatabaseDef.STORE_COMMENTS)
 public interface CommentRepository extends DarwinoRepository<Comment, String> {
-
+	List<Comment> findByPostId(String postId);
 }

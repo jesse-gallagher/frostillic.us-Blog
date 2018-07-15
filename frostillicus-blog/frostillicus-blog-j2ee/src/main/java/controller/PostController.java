@@ -27,6 +27,7 @@ import javax.ws.rs.PathParam;
 import com.darwino.commons.json.JsonException;
 import com.darwino.platform.DarwinoContext;
 
+import model.CommentRepository;
 import model.Post;
 import model.PostRepository;
 
@@ -38,6 +39,8 @@ public class PostController {
 	
 	@Inject
 	PostRepository posts;
+	@Inject
+	CommentRepository comments;
 	
 	@GET
 	public String list() {
@@ -66,6 +69,9 @@ public class PostController {
 	public String show(@PathParam("postId") String postId) {
 		Post post = posts.findById(postId).orElseThrow(() -> new IllegalArgumentException("Unable to find post matching ID " + postId));
 		models.put("post", post);
+		
+		models.put("comments", comments.findByPostId(post.getPostId()));
+		
 		return "post.jsp";
 	}
 }

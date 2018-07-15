@@ -20,12 +20,6 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <t:layout>
 	<c:forEach items="${posts}" var="post">
-		<article>
-			<header>
-				<h2>${post.title}</h2>
-				<h3>${post.posted}</h3>
-			</header>
-			${post.bodyHtml}
-		</article>
+		<t:post value="${post}"/>
 	</c:forEach>
 </t:layout>

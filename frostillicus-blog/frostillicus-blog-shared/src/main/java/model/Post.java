@@ -36,6 +36,7 @@ public class Post {
 	}
 	
 	@Id @Column @NotEmpty private String id;
+	@Column private String postId;
 	@Column @NotEmpty private String title;
 	@Column @NotEmpty @Convert(ISODateConverter.class) private Date posted;
 	@Column @NotEmpty private String postedBy;
