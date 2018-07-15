@@ -19,7 +19,13 @@
 			<a href="${pageContext.request.contextPath}">frostillic.us</a>
 		</header>
 		<nav id="pagenav">
-			I'm nav
+			<header class="authorinfo">
+				<img src="https://secure.gravatar.com/avatar/5aada48ea6558e53a94955db8ffe91b8?s=128" class="photo"/>
+			</header>
+			<ul class="sitenav">
+				<li><a href="${pageContext.request.contextPath}/">Home</a></li>
+				<li><a href="posts">Archives</a></li>
+			</ul>
 		</nav>
 		<div id="pagebody">
 			<jsp:doBody />

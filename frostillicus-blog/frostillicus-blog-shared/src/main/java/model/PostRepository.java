@@ -27,6 +27,6 @@ import frostillicus.blog.app.AppDatabaseDef;
 public interface PostRepository extends DarwinoRepository<Post, String> {
 	List<Post> findAll();
 	
-	@Query("select * from Post order by posted desc")
-	List<Post> byPosted();
+	@Query("select * from Post limit 20 order by posted desc")
+	List<Post> homeList();
 }

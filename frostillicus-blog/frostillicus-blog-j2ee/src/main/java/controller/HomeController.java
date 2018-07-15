@@ -34,7 +34,7 @@ public class HomeController {
 	
 	@GET
 	public String get() {
-		models.put("posts", posts.byPosted());
+		models.put("posts", posts.homeList());
 		
 		return "home.jsp";
 	}
