@@ -22,8 +22,12 @@ import javax.enterprise.inject.Produces;
 import org.darwino.jnosql.diana.driver.DarwinoDocumentCollectionManager;
 import org.darwino.jnosql.diana.driver.DarwinoDocumentCollectionManagerFactory;
 import org.darwino.jnosql.diana.driver.DarwinoDocumentConfiguration;
+import org.jnosql.artemis.Database;
+import org.jnosql.artemis.DatabaseType;
 import org.jnosql.diana.api.document.DocumentCollectionManagerFactory;
 import org.jnosql.diana.api.document.DocumentConfiguration;
+
+import frostillicus.blog.app.AppDatabaseDef;
 
 @ApplicationScoped
 public class DocumentCollectionManagerProducer {
@@ -40,5 +44,17 @@ public class DocumentCollectionManagerProducer {
 	@Produces
 	public DarwinoDocumentCollectionManager getManager() {
 		return managerFactory.get(com.darwino.jsonstore.Database.STORE_DEFAULT);
+	}
+	
+	@Produces
+	@Database(value=DatabaseType.DOCUMENT, provider=AppDatabaseDef.STORE_POSTS)
+	public DarwinoDocumentCollectionManager getPostsManager() {
+		return managerFactory.get(AppDatabaseDef.STORE_POSTS);
+	}
+	
+	@Produces
+	@Database(value=DatabaseType.DOCUMENT, provider=AppDatabaseDef.STORE_COMMENTS)
+	public DarwinoDocumentCollectionManager getCommentsManager() {
+		return managerFactory.get(AppDatabaseDef.STORE_COMMENTS);
 	}
 }

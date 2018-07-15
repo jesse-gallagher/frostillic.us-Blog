@@ -36,4 +36,22 @@ public class AppServiceDispatcher extends DarwinoJ2EEServiceDispatcherFilter {
 		// The service should always executed locally when running on a server
 		factories.add(new AppServiceFactory());
 	}
+	
+	@Override
+	protected void addJsonStoreServiceFactories(HttpServiceFactories factories) {
+		// disabled
+	}
+	@Override
+	protected void addGraphQLServiceFactories(HttpServiceFactories factories) {
+		// disabled
+	}
+	@Override
+	protected void addApiServiceFactories(HttpServiceFactories factories) {
+		// disabled
+	}
+	@Override
+	protected void addLibrariesServiceFactories(HttpServiceFactories factories) {
+		// disabled
+	}
+	
 }

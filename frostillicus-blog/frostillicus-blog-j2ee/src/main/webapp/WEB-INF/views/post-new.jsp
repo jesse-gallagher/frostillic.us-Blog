@@ -1,6 +1,6 @@
 <%--
 
-    Copyright © 2016-2018 Jesse Gallagher
+    Copyright Â© 2016-2018 Jesse Gallagher
 
     Licensed under the Apache License, Version 2.0 (the "License");
     you may not use this file except in compliance with the License.
@@ -15,23 +15,18 @@
     limitations under the License.
 
 --%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
-<html>
-	<head>
-		<base href="${pageContext.request.contextPath}/" />
-	</head>
-	<body>
-		<form name="form" action="posts" method="post">
-			<div>
-				<label for="title">Title:</label>
-				<input type="text" name="title" id="title"/>
-			</div>
-			<div>
-				<label for="bodyMarkdown">Body:</label>
-				<textarea name="bodyMarkdown" id="bodyMarkdown"></textarea>
-			</div>
-			<input type="submit" value="Submit"/>
-		</form>
-	</body>
-</html>
+<%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@taglib prefix="t" tagdir="/WEB-INF/tags" %>
+<t:layout>
+	<form name="form" action="posts" method="post">
+		<div>
+			<label for="title">Title:</label>
+			<input type="text" name="title" id="title"/>
+		</div>
+		<div>
+			<label for="bodyMarkdown">Body:</label>
+			<textarea name="bodyMarkdown" id="bodyMarkdown"></textarea>
+		</div>
+		<input type="submit" value="Submit"/>
+	</form>
+</t:layout>

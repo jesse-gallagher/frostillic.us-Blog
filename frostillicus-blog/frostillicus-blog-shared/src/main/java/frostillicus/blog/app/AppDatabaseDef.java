@@ -18,21 +18,19 @@ package frostillicus.blog.app;
 import com.darwino.commons.Platform;
 import com.darwino.commons.json.JsonException;
 import com.darwino.commons.util.StringUtil;
-import com.darwino.jsonstore.Database;
 import com.darwino.jsonstore.impl.DatabaseFactoryImpl;
 import com.darwino.jsonstore.meta._Database;
+import com.darwino.jsonstore.meta._DatabaseACL;
 import com.darwino.jsonstore.meta._FtSearch;
 import com.darwino.jsonstore.meta._Store;
 
-/**
- * Database Definition.
- * 
- * @author Philippe Riand
- */
 public class AppDatabaseDef extends DatabaseFactoryImpl {
 
-	public static final int DATABASE_VERSION	= 1;
+	public static final int DATABASE_VERSION	= 3;
 	public static final String DATABASE_NAME	= "frostillicus_blog"; //$NON-NLS-1$
+	public static final String STORE_POSTS = "posts";
+	public static final String STORE_COMMENTS = "comments";
+	public static final String STORE_CONFIG = "config";
 	
 	// The list  of instances is defined through a property for the DB
 	public static String[] getInstances() {
@@ -57,16 +55,29 @@ public class AppDatabaseDef extends DatabaseFactoryImpl {
 			return null;
 		}
 		_Database db = new _Database(DATABASE_NAME, "frostillic.us Blog", DATABASE_VERSION);
+		
+		_DatabaseACL acl = new _DatabaseACL();
+		acl.addRole("admin", _DatabaseACL.ROLE_MANAGE);
+		acl.addAnonymous(_DatabaseACL.ROLE_AUTHOR);
 
 		db.setReplicationEnabled(true);
 		
 		db.setInstanceEnabled(false);
 		
 		{
-			_Store _def = db.getStore(Database.STORE_DEFAULT);
-			_def.setFtSearchEnabled(true);
-			_FtSearch ft = _def.setFTSearch(new _FtSearch());
+			_Store posts = db.addStore(STORE_POSTS);
+			posts.setFtSearchEnabled(true);
+			_FtSearch ft = posts.setFTSearch(new _FtSearch());
 			ft.setFields("$"); //$NON-NLS-1$
+		}
+		{
+			_Store comments = db.addStore(STORE_COMMENTS);
+			comments.setFtSearchEnabled(true);
+			_FtSearch ft = comments.setFTSearch(new _FtSearch());
+			ft.setFields("$"); //$NON-NLS-1$
+		}
+		{
+			db.addStore(STORE_CONFIG);
 		}
 
 		return db;

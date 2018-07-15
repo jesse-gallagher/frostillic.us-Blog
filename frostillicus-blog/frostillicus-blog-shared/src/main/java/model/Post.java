@@ -23,13 +23,23 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.util.Date;
+import java.util.List;
+
+import javax.validation.constraints.NotEmpty;
 
 @Entity @Data @NoArgsConstructor
 public class Post {
-	@Id @Column private String id;
-	@Column private String title;
-	@Column private Date posted;
-	@Column private String postedBy;
+	public enum Status {
+		Posted, Draft
+	}
+	
+	@Id @Column @NotEmpty private String id;
+	@Column @NotEmpty private String title;
+	@Column @NotEmpty private Date posted;
+	@Column @NotEmpty private String postedBy;
 	@Column private String bodyMarkdown;
-	@Column private String bodyHtml;
+	@Column @NotEmpty private String bodyHtml;
+	@Column private List<String> tags;
+	@Column private String thread;
+	@Column private Status status;
 }

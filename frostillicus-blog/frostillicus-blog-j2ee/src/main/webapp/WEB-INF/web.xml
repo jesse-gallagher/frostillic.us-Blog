@@ -153,37 +153,25 @@
 	<filter-mapping>
     	<filter-name>DarwinoServices</filter-name>
     	<url-pattern>/*</url-pattern>
-<!--     	DarwinoRewriting can trigger a forward  -->
     	<dispatcher>REQUEST</dispatcher>
     	<dispatcher>FORWARD</dispatcher>
    </filter-mapping>
-				
-	<!--  Mapping for web resources -->
-	<!--  Mapping to /* prevents the <welcome-file-list> to be honored. To work it around, the servlet -->
-	<!--  has an optional welcome-file parameter. -->
-	<!--  The other solution is to map a subpath, like /mobile/* -->
-<!-- 	<servlet-mapping> -->
-<!-- 		<servlet-name>FilesServlet</servlet-name> -->
-<!-- 		<url-pattern>/*</url-pattern> -->
-<!-- 	</servlet-mapping> -->
-<!-- 	<servlet> -->
-<!-- 		<display-name>Default Files Servlet</display-name> -->
-<!-- 		<servlet-name>FilesServlet</servlet-name> -->
-<!-- 		<servlet-class>com.darwino.j2ee.servlet.resources.DarwinoAppResourcesServlet</servlet-class> -->
-<!-- 		<init-param> -->
-<!-- 			<param-name>welcome-file</param-name> -->
-<!-- 			<param-value>/index.html</param-value> -->
-<!-- 		</init-param> -->
-<!-- 	</servlet> -->
 	
-		
-	<!-- Welcome pages -->
-	<!-- Done at the resource service level
-  	<welcome-file-list>
-    	<welcome-file>index.html</welcome-file>
-  	</welcome-file-list>
+	<!--
+		Pass known static folders through directly, ignoring the JAX-RS app
+	-->
+	<servlet-mapping>
+		<servlet-name>default</servlet-name>
+		<url-pattern>/css/*</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>default</servlet-name>
+		<url-pattern>/img/*</url-pattern>
+	</servlet-mapping>
+	
+ 	<!--
+ 		CDI implementation for Tomcat 
  	-->
- 	
  	<listener>
 		<listener-class>org.jboss.weld.environment.servlet.Listener</listener-class>
 	</listener>
