@@ -15,6 +15,8 @@
  */
 body, html {
 	background-color: rgb(56, 83, 136);
+	padding: 0;
+	margin: 0;
 }
 a {
 	color: rgb(51, 85, 136);
@@ -25,8 +27,6 @@ a {
 	grid-gap: 0;
 	grid-template-areas: "header" "nav" "content" "footer";
 	
-	width: 80%;
-	margin: 2em auto;
 	border: 1px solid black;
 	
 	font-family: "Georgia", serif;
@@ -34,10 +34,10 @@ a {
 
 #pageheader {
 	grid-area: header;
-	
-	background-color: rgb(204, 221, 204);;
-	/* background-color: rgb(187, 204, 187); */
-	padding: 0.5em;
+	font-size: 2em;
+}
+#pageheader a {
+	text-decoration: none;
 }
 
 #pagenav {
@@ -56,6 +56,9 @@ a {
 #pagenav a {
 	display: list-item;
 	list-style-type: square;
+}
+#pagenav .photo {
+	max-width: 100%;
 }
 
 #pagebody {
@@ -83,9 +86,7 @@ a {
 	margin-top: 0;
 	margin-bottom: 0.5em;
 }
-.post .body {
-	margin-left: 3em;
-}
+
 
 .post + .post {
 	margin-top: 2em;
@@ -94,23 +95,63 @@ a {
 #pagefooter {
 	grid-area: footer;
 	
-	/* background-color: rgb(105, 140, 182); */
 	color: rgb(56, 75, 97);
-	background-color: rgb(111, 149, 208);
-	padding: 0.5em;
 	text-align: center;
 }
 #pagefooter a {
 	color: rgb(56, 75, 97);
 }
 
+@media ( max-width: 699px) {
+	#entirety {
+		max-width: 100%;
+	}
+	#pageheader {
+		background-color: rgb(204, 221, 204);
+	}
+	#pagefooter {
+		padding: 0.5em;
+		background-color: rgb(111, 149, 208);
+	}
+}
 @media ( min-width : 700px) {
 	#entirety {
+		width: 80%;
+		margin: 2em auto;
 		grid-template-columns: 1fr 5fr;
 		grid-template-areas:
 			"header header"
 			"nav    content"
 			"nav    content"
 			"footer footer";
+	}
+	#pageheader {
+		display: grid;
+		grid-template-columns: 1fr 5fr;
+		grid-template-areas: "padding link";
+		background-color: rgb(187, 204, 187);
+	}
+	#pageheader a {
+		grid-area: link;
+		display: block;
+		padding: 0.5em;
+		background-color: rgb(204, 221, 204);
+	}
+	
+	.post .body {
+		margin-left: 3em;
+	}
+	
+	#pagefooter {
+		display: grid;
+		grid-template-columns: 1fr 5fr;
+		grid-template-areas: "padding text";
+		background-color: rgb(105, 140, 182);
+	}
+	#pagefooter p {
+		grid-area: text;
+		padding: 0.5em;
+		background-color: rgb(111, 149, 208);
+		margin: 0;
 	}
 }

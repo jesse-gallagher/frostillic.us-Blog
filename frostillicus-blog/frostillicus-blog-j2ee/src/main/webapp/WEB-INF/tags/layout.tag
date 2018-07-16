@@ -22,14 +22,14 @@
 <html>
 	<head>
 		<meta http-equiv="x-ua-compatible" content="ie=edge">
-		<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no" />
 		
 		<base href="${pageContext.request.contextPath}/" />
 		
 		<link rel="shortcut icon" href="${pageContext.request.contextPath}/icon.png" />
 		<link rel="apple-touch-icon" href="icon.png" />
 		<link rel="alternate" href="${pageContext.request.contextPath}/feed.xml" type="application/rss+xml" title="frostillic.us &gt; Feed">
-		<link rel="stylesheet" href="${pageContext.request.contextPath}/css/normalize.css" />
+<%-- 		<link rel="stylesheet" href="${pageContext.request.contextPath}/css/normalize.css" /> --%>
 		<link rel="stylesheet" href="${pageContext.request.contextPath}/css/style.css" />
 	</head>
 	<body>
