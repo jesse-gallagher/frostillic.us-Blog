@@ -21,4 +21,12 @@ public class UserInfoBean {
 	public boolean isAdmin() {
 		return context.getUser().hasRole("admin");
 	}
+	
+	public boolean isAnonymous() {
+		return context.getUser().isAnonymous();
+	}
+	
+	public String getCn() {
+		return context.getUser().getCn();
+	}
 }

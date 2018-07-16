@@ -39,26 +39,26 @@
 	<body>
 		<div id="entirety">
 			<header id="pageheader">
-				<a href="${pageContext.request.contextPath}">frostillic.us</a>
+				<a href="${pageContext.request.contextPath}">${translation.appTitle}</a>
 			</header>
 			<nav id="pagenav">
 				<header class="authorinfo">
 					<img src="https://secure.gravatar.com/avatar/5aada48ea6558e53a94955db8ffe91b8?s=128" class="photo"/>
 				</header>
 				<ul class="sitenav">
-					<li><a href="${pageContext.request.contextPath}/">Home</a></li>
+					<li><a href="${pageContext.request.contextPath}/">${translation.home}</a></li>
 					<li><a href="posts">Archives</a></li>
 					<c:if test="${darwinoSession.user.anonymous}">
-						<li data-turbolinks="false"><a href="?login">Log In</a></li>
+						<li data-turbolinks="false"><a href="?login">${translation.logIn}</a></li>
 					</c:if>
 					<c:if test="${not darwinoSession.user.anonymous}">
-						<li data-turbolinks="false"><a href="?logout">Log Out</a></li>
+						<li data-turbolinks="false"><a href="?logout">${translation.logOut}</a></li>
 					</c:if>
 				</ul>
 				
 				<c:if test="${userInfo.admin}">
-					<ul title="Admin">
-						<li><a href="posts/new">New Post</a></li>
+					<ul title="${translation.admin}">
+						<li><a href="posts/new">${translation.newPost}</a></li>
 					</ul>
 				</c:if>
 			</nav>
@@ -66,11 +66,7 @@
 				<jsp:doBody />
 			</div>
 			<footer id="pagefooter">
-				<p>
-					Except as otherwise noted, the content of this page is licensed under the
-					<a href="http://creativecommons.org/licenses/by/3.0/">Creative Commons Attribution 3.0 License</a>
-					and code samples are licensed under the <a href="http://www.apache.org/licenses/LICENSE-2.0">Apache 2.0 License</a>.
-				</p>
+				<p>${translation.copyright}</p>
 			</footer>
 		</div>
 	</body>

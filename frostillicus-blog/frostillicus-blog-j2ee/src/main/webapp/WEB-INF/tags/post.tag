@@ -1,6 +1,6 @@
 <%--
 
-    Copyright © 2016-2018 Jesse Gallagher
+    Copyright Â© 2016-2018 Jesse Gallagher
 
     Licensed under the Apache License, Version 2.0 (the "License");
     you may not use this file except in compliance with the License.
@@ -24,19 +24,45 @@
 	<header>
 		<h2><a href="posts/${pageScope.value.postId}">${pageScope.value.title}</a></h2>
 		<h3><fmt:formatDate value="${pageScope.value.posted}" type="BOTH" dateStyle="MEDIUM" timeStyle="SHORT" /></h3>
+		
+		<c:if test="${userInfo.admin}">
+			<div class="admin">
+				<form method="POST" action="posts/${pageScope.value.postId}">
+					<input type="submit" class="delete" value="${translation.deleteButton}" onclick="return confirm('${translation.postDeleteConfirm}')" />
+					<input type="hidden" name="_method" value="DELETE" />
+				</form>
+			</div>
+		</c:if>
 	</header>
 	<div class='body'>
 		${pageScope.value.bodyHtml}
 	</div>
 	
-	<c:if test="${not empty pageScope.comments}">
+	<c:if test="${pageScope.comments != null}">
 		<section class="comments">
 			<c:forEach items="${pageScope.comments}" var="comment">
 				<t:comment value="${comment}"/>
 			</c:forEach>
+			
+			<form action="posts/${pageScope.value.postId}/comments" method="POST">
+				<fieldset class="new-comment">
+					<legend>
+					</legend>
+					<div>
+						<label for="postedBy">${translation.authorLabel}</label>
+						<input type="text" name="postedBy" id="postedBy" required="required"
+							value="${userInfo.anonymous ? '' : userInfo.cn}"/>
+					</div>
+					<div>
+						<label for="bodyMarkdown">${translation.bodyLabel}</label>
+						<textarea name="bodyMarkdown" id="bodyMarkdown" required="required"></textarea>
+					</div>
+					<input type="submit" value="${translation.postComment}"/>
+				</fieldset>
+			</form>
 		</section>
 	</c:if>
-	<c:if test="${empty pageScope.comments}">
+	<c:if test="${pageScope.comments == null}">
 		<div class="meta">${pageScope.value.commentCount} Comment${pageScope.value.commentCount == 1 ? '' : 's'}</div>
 	</c:if>
 </article>

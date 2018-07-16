@@ -18,6 +18,7 @@ package model;
 import java.util.Date;
 
 import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 
 import org.darwino.jnosql.artemis.extension.ISODateConverter;
 import org.jnosql.artemis.Column;
@@ -30,11 +31,13 @@ import lombok.NoArgsConstructor;
 
 @Entity @Data @NoArgsConstructor
 public class Comment {
-	@Id @Column @NotEmpty private String id;
-	@Column @NotEmpty @Convert(ISODateConverter.class) private Date posted;
-	@Column @NotEmpty private String postedBy;
-	@Column private String postedByEmail;
-	@Column private String postedByUrl;
-	@Column private String bodyMarkdown;
-	@Column @NotEmpty private String bodyHtml;
+	@Id @Column private String id;
+	@Column("commentId") @NotEmpty private String commentId;
+	@Column("postId") @NotEmpty private String postId;
+	@Column @NotNull @Convert(ISODateConverter.class) private Date posted;
+	@Column("postedBy") @NotEmpty private String postedBy;
+	@Column("postedByEmail") private String postedByEmail;
+	@Column("postedByUrl") private String postedByUrl;
+	@Column("bodyMarkdown") private String bodyMarkdown;
+	@Column("bodyHtml") @NotEmpty private String bodyHtml;
 }

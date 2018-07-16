@@ -16,13 +16,19 @@
 package model;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.darwino.jnosql.artemis.extension.DarwinoRepository;
 import org.darwino.jnosql.artemis.extension.RepositoryProvider;
+import org.jnosql.artemis.Param;
+import org.jnosql.artemis.Query;
 
 import frostillicus.blog.app.AppDatabaseDef;
 
 @RepositoryProvider(AppDatabaseDef.STORE_COMMENTS)
 public interface CommentRepository extends DarwinoRepository<Comment, String> {
-	List<Comment> findByPostId(String postId);
+	Optional<Comment> findByCommentId(String commentId);
+
+	@Query("select * from Comment where postId=@postId order by posted asc")
+	List<Comment> findByPostId(@Param("postId") String postId);
 }

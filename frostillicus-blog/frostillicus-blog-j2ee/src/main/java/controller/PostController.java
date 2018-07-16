@@ -22,6 +22,7 @@ import javax.inject.Inject;
 import javax.mvc.Models;
 import javax.mvc.annotation.Controller;
 import javax.ws.rs.Consumes;
+import javax.ws.rs.DELETE;
 import javax.ws.rs.FormParam;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
@@ -72,6 +73,7 @@ public class PostController {
 		post.setTitle(title);
 		post.setBodyMarkdown(bodyMarkdown);
 		post.setBodyHtml(markdown.toHtml(bodyMarkdown));
+		
 		post.setPostId(UUID.randomUUID().toString());
 		posts.save(post);
 		return "redirect:posts/" + post.getPostId();
@@ -86,5 +88,23 @@ public class PostController {
 		models.put("comments", comments.findByPostId(post.getPostId()));
 		
 		return "post.jsp";
+	}
+	
+	@POST
+	@Path("{postId}")
+	public String handlePost(@PathParam("postId") String postId, @FormParam("_method") String methodOverride) {
+		if("DELETE".equals(methodOverride)) {
+			return delete(postId);
+		} else {
+			throw new UnsupportedOperationException();
+		}
+	}
+	
+	@DELETE
+	@Path("{postId}")
+	public String delete(@PathParam("postId") String postId) {
+		Post post = posts.findByPostId(postId).orElseThrow(() -> new IllegalArgumentException("Unable to find post matching ID " + postId));
+		posts.deleteById(post.getId());
+		return "redirect:posts";
 	}
 }

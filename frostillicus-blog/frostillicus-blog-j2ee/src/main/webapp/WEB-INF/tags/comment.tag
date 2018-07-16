@@ -16,10 +16,19 @@
 
 --%>
 <%@attribute name="value" required="true" type="model.Comment" %>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <article class="comment">
 	<header>
 		<img class="photo" src="${userInfo.getGravatarUrl(pageScope.value.postedByEmail, 42)}"/>
 		<h3>${pageScope.value.postedBy}</h3>
+		<c:if test="${userInfo.admin}">
+			<div class="admin">
+				<form method="POST" action="posts/${pageScope.value.postId}/comments/${pageScope.value.commentId}">
+					<input type="submit" class="delete" value="${translation.deleteButton}" onclick="return confirm('${translation.commentDeleteConfirm}')" />
+					<input type="hidden" name="_method" value="DELETE" />
+				</form>
+			</div>
+		</c:if>
 	</header>
 	${pageScope.value.bodyHtml}
 </article>

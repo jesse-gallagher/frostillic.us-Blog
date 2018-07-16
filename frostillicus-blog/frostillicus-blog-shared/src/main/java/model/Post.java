@@ -29,6 +29,7 @@ import java.util.List;
 
 import javax.enterprise.inject.spi.CDI;
 import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 
 @Entity @Data @NoArgsConstructor
 public class Post {
@@ -36,10 +37,10 @@ public class Post {
 		Posted, Draft
 	}
 	
-	@Id @Column @NotEmpty private String id;
-	@Column private String postId;
+	@Id @Column private String id;
+	@Column("postId") private String postId;
 	@Column @NotEmpty private String title;
-	@Column @NotEmpty @Convert(ISODateConverter.class) private Date posted;
+	@Column @NotNull @Convert(ISODateConverter.class) private Date posted;
 	@Column("postedBy") @NotEmpty private String postedBy;
 	@Column("bodyMarkdown") private String bodyMarkdown;
 	@Column("bodyHtml") @NotEmpty private String bodyHtml;
