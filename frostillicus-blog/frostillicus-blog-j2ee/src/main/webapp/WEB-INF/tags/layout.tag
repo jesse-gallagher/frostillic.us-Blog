@@ -31,6 +31,8 @@
 		<link rel="apple-touch-icon" href="icon.png" />
 		<link rel="alternate" href="${pageContext.request.contextPath}/feed.xml" type="application/rss+xml" title="frostillic.us &gt; Feed">
 		<link rel="stylesheet" href="${pageContext.request.contextPath}/css/style.css" />
+		
+		<script type="text/javascript" src="${pageContext.request.contextPath}/js/turbolinks.js"></script>
 	</head>
 	<body>
 		<div id="entirety">
