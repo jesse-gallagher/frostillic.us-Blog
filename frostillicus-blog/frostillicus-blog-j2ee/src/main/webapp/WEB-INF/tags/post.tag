@@ -36,4 +36,7 @@
 			</c:forEach>
 		</section>
 	</c:if>
+	<c:if test="${empty pageScope.comments}">
+		<div class="meta">${pageScope.value.commentCount} Comment${pageScope.value.commentCount == 1 ? '' : 's'}</div>
+	</c:if>
 </article>

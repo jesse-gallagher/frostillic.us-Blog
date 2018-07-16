@@ -27,6 +27,7 @@ import lombok.NoArgsConstructor;
 import java.util.Date;
 import java.util.List;
 
+import javax.enterprise.inject.spi.CDI;
 import javax.validation.constraints.NotEmpty;
 
 @Entity @Data @NoArgsConstructor
@@ -45,4 +46,8 @@ public class Post {
 	@Column private List<String> tags;
 	@Column private String thread;
 	@Column private Status status;
+	
+	public int getCommentCount() {
+		return CDI.current().select(CommentRepository.class).get().findByPostId(getPostId()).size();
+	}
 }
