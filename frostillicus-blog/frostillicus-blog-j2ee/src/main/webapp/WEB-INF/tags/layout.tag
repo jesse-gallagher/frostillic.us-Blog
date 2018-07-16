@@ -33,6 +33,8 @@
 		<link rel="stylesheet" href="${pageContext.request.contextPath}/css/style.css" />
 		
 		<script type="text/javascript" src="${pageContext.request.contextPath}/js/turbolinks.js"></script>
+		
+		<title>frostillic.us</title>
 	</head>
 	<body>
 		<div id="entirety">
@@ -47,12 +49,18 @@
 					<li><a href="${pageContext.request.contextPath}/">Home</a></li>
 					<li><a href="posts">Archives</a></li>
 					<c:if test="${darwinoSession.user.anonymous}">
-						<li><a href="?login">Log In</a></li>
+						<li data-turbolinks="false"><a href="?login">Log In</a></li>
 					</c:if>
 					<c:if test="${not darwinoSession.user.anonymous}">
-						<li><a href="?logout">Log Out</a></li>
+						<li data-turbolinks="false"><a href="?logout">Log Out</a></li>
 					</c:if>
 				</ul>
+				
+				<c:if test="${userInfo.admin}">
+					<ul title="Admin">
+						<li><a href="posts/new">New Post</a></li>
+					</ul>
+				</c:if>
 			</nav>
 			<div id="pagebody">
 				<jsp:doBody />

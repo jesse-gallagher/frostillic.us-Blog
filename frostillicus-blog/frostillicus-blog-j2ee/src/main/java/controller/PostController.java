@@ -15,6 +15,9 @@
  */
 package controller;
 
+import java.util.Date;
+import java.util.UUID;
+
 import javax.inject.Inject;
 import javax.mvc.Models;
 import javax.mvc.annotation.Controller;
@@ -29,6 +32,7 @@ import javax.ws.rs.core.MediaType;
 import com.darwino.commons.json.JsonException;
 import com.darwino.platform.DarwinoContext;
 
+import bean.MarkdownBean;
 import model.CommentRepository;
 import model.Post;
 import model.PostRepository;
@@ -44,6 +48,9 @@ public class PostController {
 	@Inject
 	CommentRepository comments;
 	
+	@Inject
+	MarkdownBean markdown;
+	
 	@GET
 	public String list() {
 		return "posts.jsp";
@@ -57,20 +64,23 @@ public class PostController {
 	
 	// TODO figure out if this can be done automatically without adding @FormParam to the model class
 	@POST
-	@Consumes(MediaType.MULTIPART_FORM_DATA)
+	@Consumes({ MediaType.MULTIPART_FORM_DATA, MediaType.APPLICATION_FORM_URLENCODED })
 	public String create(@FormParam("title") String title, @FormParam("bodyMarkdown") String bodyMarkdown) throws JsonException {
 		Post post = new Post();
+		post.setPosted(new Date());
 		post.setPostedBy(DarwinoContext.get().getSession().getUser().getDn());
 		post.setTitle(title);
 		post.setBodyMarkdown(bodyMarkdown);
+		post.setBodyHtml(markdown.toHtml(bodyMarkdown));
+		post.setPostId(UUID.randomUUID().toString());
 		posts.save(post);
-		return "redirect:posts/" + post.getId();
+		return "redirect:posts/" + post.getPostId();
 	}
 	
 	@GET
 	@Path("{postId}")
 	public String show(@PathParam("postId") String postId) {
-		Post post = posts.findById(postId).orElseThrow(() -> new IllegalArgumentException("Unable to find post matching ID " + postId));
+		Post post = posts.findByPostId(postId).orElseThrow(() -> new IllegalArgumentException("Unable to find post matching ID " + postId));
 		models.put("post", post);
 		
 		models.put("comments", comments.findByPostId(post.getPostId()));

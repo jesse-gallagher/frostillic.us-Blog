@@ -51,6 +51,12 @@ a {
 	font-size: 0.95em;
 	line-height: 1.7em;
 }
+#pagenav ul[title]:before {
+	content: attr(title);
+	display: block;
+	width: 100%;
+	border-bottom: 1px dotted rgb(101, 101, 84);
+}
 #pagenav li {
 	display: inline;
 }

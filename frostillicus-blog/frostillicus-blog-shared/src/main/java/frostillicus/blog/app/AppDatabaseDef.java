@@ -26,7 +26,7 @@ import com.darwino.jsonstore.meta._Store;
 
 public class AppDatabaseDef extends DatabaseFactoryImpl {
 
-	public static final int DATABASE_VERSION	= 3;
+	public static final int DATABASE_VERSION	= 4;
 	public static final String DATABASE_NAME	= "frostillicus_blog"; //$NON-NLS-1$
 	public static final String STORE_POSTS = "posts";
 	public static final String STORE_COMMENTS = "comments";
@@ -59,6 +59,7 @@ public class AppDatabaseDef extends DatabaseFactoryImpl {
 		_DatabaseACL acl = new _DatabaseACL();
 		acl.addRole("admin", _DatabaseACL.ROLE_MANAGE);
 		acl.addAnonymous(_DatabaseACL.ROLE_AUTHOR);
+		db.setACL(acl);
 
 		db.setReplicationEnabled(true);
 		

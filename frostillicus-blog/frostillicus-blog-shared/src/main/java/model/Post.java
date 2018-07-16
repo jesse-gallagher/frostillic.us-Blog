@@ -40,9 +40,9 @@ public class Post {
 	@Column private String postId;
 	@Column @NotEmpty private String title;
 	@Column @NotEmpty @Convert(ISODateConverter.class) private Date posted;
-	@Column @NotEmpty private String postedBy;
-	@Column private String bodyMarkdown;
-	@Column @NotEmpty private String bodyHtml;
+	@Column("postedBy") @NotEmpty private String postedBy;
+	@Column("bodyMarkdown") private String bodyMarkdown;
+	@Column("bodyHtml") @NotEmpty private String bodyHtml;
 	@Column private List<String> tags;
 	@Column private String thread;
 	@Column private Status status;

@@ -16,6 +16,7 @@
 package model;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.darwino.jnosql.artemis.extension.DarwinoRepository;
 import org.darwino.jnosql.artemis.extension.RepositoryProvider;
@@ -25,6 +26,8 @@ import frostillicus.blog.app.AppDatabaseDef;
 
 @RepositoryProvider(AppDatabaseDef.STORE_POSTS)
 public interface PostRepository extends DarwinoRepository<Post, String> {
+	Optional<Post> findByPostId(String postId);
+	
 	List<Post> findAll();
 	
 	@Query("select * from Post limit 20 order by posted desc")
