@@ -31,7 +31,7 @@ public class FeedController {
 	ServletContext servletContext;
 	
 	@GET
-	@Produces(MediaType.TEXT_XML)
+	@Produces("application/rss+xml")
 	public String get() throws FeedException {
 		SyndFeed feed = new SyndFeedImpl();
 		feed.setFeedType("rss_2.0");
