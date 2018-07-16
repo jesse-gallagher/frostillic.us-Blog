@@ -154,7 +154,6 @@
 				            <exclude>**/README</exclude>
 				            <exclude>src/test/resources/**</exclude>
 				            <exclude>src/main/resources/**</exclude>
-				            <exclude>src/main/webapp/css/normalize.css</exclude>
 						</excludes>
 						<properties>
 							<owner>Jesse Gallagher</owner>
