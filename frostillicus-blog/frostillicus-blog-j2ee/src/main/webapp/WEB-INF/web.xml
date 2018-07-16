@@ -107,6 +107,10 @@
         	<param-value>login</param-value>
         </init-param>
         <init-param>
+        	<param-name>logout-param</param-name>
+        	<param-value>logout</param-value>
+        </init-param>
+        <init-param>
         	<param-name>auth-required</param-name>
         	<param-value>false</param-value>
         </init-param>
