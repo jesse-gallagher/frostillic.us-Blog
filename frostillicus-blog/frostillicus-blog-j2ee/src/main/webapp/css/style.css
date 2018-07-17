@@ -13,6 +13,11 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+ 
+* {
+	box-sizing: border-box;
+}
+ 
 body, html {
 	background-color: rgb(56, 83, 136);
 	padding: 0;

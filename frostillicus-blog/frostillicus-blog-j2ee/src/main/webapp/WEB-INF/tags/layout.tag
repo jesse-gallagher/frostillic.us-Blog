@@ -16,8 +16,6 @@
 
 --%>
 <%@tag description="Overall Page template" pageEncoding="UTF-8"%>
-<%@attribute name="header" fragment="true"%>
-<%@attribute name="footer" fragment="true"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
@@ -31,6 +29,7 @@
 		<link rel="apple-touch-icon" href="icon.png" />
 		<link rel="alternate" href="${pageContext.request.contextPath}/feed.xml" type="application/rss+xml" title="frostillic.us &gt; Feed">
 		<link rel="stylesheet" href="${pageContext.request.contextPath}/css/style.css" />
+		<link rel="stylesheet" href="${pageContext.request.contextPath}/css/tabs.css" />
 		
 		<script type="text/javascript" src="${pageContext.request.contextPath}/js/turbolinks.js"></script>
 		
