@@ -45,7 +45,7 @@ public class Post {
 	@Column("postedBy") @NotEmpty private String postedBy;
 	@Column("bodyMarkdown") private String bodyMarkdown;
 	@Column("bodyHtml") @NotEmpty private String bodyHtml;
-	@Column private List<String> tags;
+	@Column("_tags") private List<String> tags;
 	@Column private String thread;
 	@Column private Status status;
 	

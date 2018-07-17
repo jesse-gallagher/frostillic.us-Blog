@@ -27,6 +27,7 @@
 		
 		<c:if test="${userInfo.admin}">
 			<div class="admin">
+				<a class="edit" href="posts/${pageScope.value.postedYear}/${pageScope.value.postedMonth+1}/${pageScope.value.postedDay}/${pageScope.value.postId}/edit">${translation.editButton}</a>
 				<form method="POST" action="posts/${pageScope.value.postId}">
 					<input type="submit" class="delete" value="${translation.deleteButton}" onclick="return confirm('${translation.postDeleteConfirm}')" />
 					<input type="hidden" name="_method" value="DELETE" />
@@ -45,18 +46,16 @@
 			</c:forEach>
 			
 			<form action="posts/${pageScope.value.postId}/comments" method="POST">
-				<fieldset class="new-comment">
-					<legend>
-					</legend>
-					<div>
-						<label for="postedBy">${translation.authorLabel}</label>
-						<input type="text" name="postedBy" id="postedBy" required="required"
-							value="${userInfo.anonymous ? '' : userInfo.cn}"/>
-					</div>
-					<div>
-						<label for="bodyMarkdown">${translation.bodyLabel}</label>
-						<textarea name="bodyMarkdown" id="bodyMarkdown" required="required"></textarea>
-					</div>
+				<fieldset class="new-comment crud">
+					<legend>${translation.newComment}</legend>
+					
+					<label for="postedBy">${translation.authorLabel}</label>
+					<input type="text" name="postedBy" id="postedBy" required="required"
+						value="${userInfo.anonymous ? '' : userInfo.cn}"/>
+					
+					<label for="bodyMarkdown">${translation.bodyLabel}</label>
+					<textarea name="bodyMarkdown" id="bodyMarkdown" required="required"></textarea>
+					
 					<input type="submit" value="${translation.postComment}"/>
 				</fieldset>
 			</form>

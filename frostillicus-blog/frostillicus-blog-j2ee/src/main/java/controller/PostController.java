@@ -15,10 +15,13 @@
  */
 package controller;
 
+import java.util.Arrays;
 import java.util.Collection;
+import java.util.Collections;
 import java.util.Date;
 import java.util.TreeSet;
 import java.util.UUID;
+import java.util.stream.Collectors;
 
 import javax.inject.Inject;
 import javax.mvc.Models;
@@ -85,19 +88,25 @@ public class PostController {
 	@GET
 	@Path("new")
 	public String compose() {
+		models.put("post", new Post());
+		
 		return "post-new.jsp";
 	}
 	
 	// TODO figure out if this can be done automatically without adding @FormParam to the model class
 	@POST
 	@Consumes({ MediaType.MULTIPART_FORM_DATA, MediaType.APPLICATION_FORM_URLENCODED })
-	public String create(@FormParam("title") String title, @FormParam("bodyMarkdown") String bodyMarkdown) throws JsonException {
+	public String create(@FormParam("title") String title, @FormParam("bodyMarkdown") String bodyMarkdown, @FormParam("tags") String tags) throws JsonException {
 		Post post = new Post();
 		post.setPosted(new Date());
 		post.setPostedBy(DarwinoContext.get().getSession().getUser().getDn());
 		post.setTitle(title);
 		post.setBodyMarkdown(bodyMarkdown);
 		post.setBodyHtml(markdown.toHtml(bodyMarkdown));
+		post.setTags(
+			tags == null ? Collections.emptyList() :
+			Arrays.stream(tags.split(",")).map(String::trim).collect(Collectors.toList())
+		);
 		
 		post.setPostId(UUID.randomUUID().toString());
 		posts.save(post);
@@ -119,6 +128,14 @@ public class PostController {
 	@Path("{year}/{month}/{day}/{postId}")
 	public String showByDate(@PathParam("postId") String postId) {
 		return show(postId);
+	}
+	
+	@GET
+	@Path("{year}/{month}/{day}/{postId}/edit")
+	public String edit(@PathParam("postId") String postId) {
+		Post post = posts.findByPostId(postId).orElseThrow(() -> new IllegalArgumentException("Unable to find post matching ID " + postId));
+		models.put("post", post);
+		return "post-edit.jsp";
 	}
 	
 	@POST
