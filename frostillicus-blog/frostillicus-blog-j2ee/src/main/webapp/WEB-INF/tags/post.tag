@@ -48,7 +48,7 @@
 	</div>
 	
 	<c:if test="${pageScope.comments != null}">
-		<section class="comments">
+		<section class="comments" id="comments">
 			<c:forEach items="${pageScope.comments}" var="comment">
 				<t:comment value="${comment}"/>
 			</c:forEach>
@@ -74,6 +74,10 @@
 		</section>
 	</c:if>
 	<c:if test="${pageScope.comments == null}">
-		<div class="meta">${pageScope.value.commentCount} Comment${pageScope.value.commentCount == 1 ? '' : 's'}</div>
+		<div class="meta">
+			<a href="posts/${pageScope.value.postedYear}/${pageScope.value.postedMonth+1}/${pageScope.value.postedDay}/${pageScope.value.postId}#comments">
+				${pageScope.value.commentCount} Comment${pageScope.value.commentCount == 1 ? '' : 's'}
+			</a>
+		</div>
 	</c:if>
 </article>
