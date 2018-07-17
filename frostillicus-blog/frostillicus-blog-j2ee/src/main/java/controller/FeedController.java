@@ -1,9 +1,11 @@
 package controller;
 
 import java.util.Arrays;
+import java.util.ResourceBundle;
 import java.util.stream.Collectors;
 
 import javax.inject.Inject;
+import javax.inject.Named;
 import javax.servlet.ServletContext;
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
@@ -27,6 +29,8 @@ import model.PostRepository;
 public class FeedController {
 	@Inject
 	PostRepository posts;
+	@Inject @Named("translation")
+	ResourceBundle translation;
 	@Context
 	ServletContext servletContext;
 	
@@ -35,9 +39,9 @@ public class FeedController {
 	public String get() throws FeedException {
 		SyndFeed feed = new SyndFeedImpl();
 		feed.setFeedType("rss_2.0");
-		feed.setTitle("frostillic.us");
-		feed.setDescription("frostillic.us");
-		feed.setLink("https://frostillic.us");
+		feed.setTitle(translation.getString("appTitle"));
+		feed.setDescription(translation.getString("appDescription"));
+		feed.setLink(translation.getString("baseUrl"));
 		
 		feed.setEntries(posts.homeList().stream()
 			.map(this::toEntry)
@@ -50,7 +54,7 @@ public class FeedController {
 		SyndEntry entry = new SyndEntryImpl();
 		entry.setAuthor(post.getPostedBy());
 		entry.setTitle(post.getTitle());
-		entry.setLink("https://frostillic.us" + servletContext.getContextPath() + "/posts/" + post.getId());
+		entry.setLink(translation.getString("baseUrl") + servletContext.getContextPath() + "/posts/" + post.getId());
 		entry.setPublishedDate(post.getPosted());
 		SyndContent content = new SyndContentImpl();
 		content.setType(MediaType.TEXT_HTML);
