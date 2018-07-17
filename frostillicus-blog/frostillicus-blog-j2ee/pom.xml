@@ -45,6 +45,11 @@
 			<artifactId>dwo-jre-social</artifactId>
 			<version>${DARWINO_VERSION}</version>
 		</dependency>
+		<dependency>
+			<groupId>com.darwino</groupId>
+			<artifactId>dwo-jsonstore-sql-jsql</artifactId>
+			<version>${DARWINO_VERSION}</version>
+		</dependency>
 
 		<dependency>
 			<groupId>com.darwino</groupId>

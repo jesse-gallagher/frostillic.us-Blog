@@ -17,6 +17,7 @@ package model;
 
 import java.util.Date;
 
+import javax.validation.constraints.Email;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 
@@ -36,7 +37,7 @@ public class Comment {
 	@Column("postId") @NotEmpty private String postId;
 	@Column @NotNull @Convert(ISODateConverter.class) private Date posted;
 	@Column("postedBy") @NotEmpty private String postedBy;
-	@Column("postedByEmail") private String postedByEmail;
+	@Column("postedByEmail") @Email private String postedByEmail;
 	@Column("postedByUrl") private String postedByUrl;
 	@Column("bodyMarkdown") private String bodyMarkdown;
 	@Column("bodyHtml") @NotEmpty private String bodyHtml;

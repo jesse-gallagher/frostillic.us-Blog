@@ -113,7 +113,7 @@ a {
 }
 
 
-.post .meta {
+.meta, .meta a {
 	font-size: 0.9em;
 	color: grey;
 }
@@ -142,11 +142,12 @@ input:invalid {
 	grid-template-columns: 150px 1fr;
 	grid-gap: 0.5em;
 }
-.crud input[type='text'], .crud textarea {
+.crud input[type='text'], .crud input[type='email'], .crud textarea {
 	padding: 0.5em;
 	font-family: sans-serif;
 	border-radius: 0.5em;
 	border: 1px solid grey;
+	box-shadow: inset 0 0 0.25em lightgrey;
 }
 
 @media ( max-width: 699px) {
@@ -187,6 +188,10 @@ input:invalid {
 	
 	.post .body {
 		margin-left: 3em;
+		max-width: 100%;
+	}
+	.post img {
+		max-width: 100%;
 	}
 	
 	#pagefooter {

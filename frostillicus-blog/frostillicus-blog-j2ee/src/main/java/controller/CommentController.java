@@ -48,7 +48,12 @@ public class CommentController {
 	MarkdownBean markdown;
 	
 	@POST
-	public String create(@PathParam("postId") String postId, @FormParam("postedBy") String postedBy, @FormParam("bodyMarkdown") String bodyMarkdown) throws JsonException {
+	public String create(
+			@PathParam("postId") String postId,
+			@FormParam("postedBy") String postedBy,
+			@FormParam("bodyMarkdown") String bodyMarkdown,
+			@FormParam("postedByEmail") String postedByEmail
+			) throws JsonException {
 		posts.findByPostId(postId).orElseThrow(() -> new IllegalArgumentException("Unable to find post matching ID " + postId));
 		
 		Comment comment = new Comment();
@@ -56,6 +61,7 @@ public class CommentController {
 		comment.setPostId(postId);
 		comment.setPosted(new Date());
 		comment.setPostedBy(postedBy);
+		comment.setPostedByEmail(postedByEmail);
 		comment.setBodyMarkdown(bodyMarkdown);
 		
 		String html = markdown.toHtml(bodyMarkdown);

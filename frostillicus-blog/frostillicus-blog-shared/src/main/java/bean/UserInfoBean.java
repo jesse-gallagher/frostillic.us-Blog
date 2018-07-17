@@ -19,6 +19,8 @@ import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
 
+import com.darwino.commons.security.acl.User;
+import com.darwino.commons.security.acl.UserException;
 import com.darwino.platform.DarwinoContext;
 
 import util.MD5Util;
@@ -43,5 +45,10 @@ public class UserInfoBean {
 	
 	public String getCn() {
 		return context.getUser().getCn();
+	}
+	
+	public String getEmailAddress() throws UserException {
+		Object mail = context.getUser().getAttribute(User.ATTR_EMAIL);
+		return mail == null ? "" : String.valueOf(mail);
 	}
 }

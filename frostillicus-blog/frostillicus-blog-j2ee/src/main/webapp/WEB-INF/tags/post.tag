@@ -24,6 +24,14 @@
 	<header>
 		<h2><a href="posts/${pageScope.value.postedYear}/${pageScope.value.postedMonth+1}/${pageScope.value.postedDay}/${pageScope.value.postId}">${pageScope.value.title}</a></h2>
 		<h3><fmt:formatDate value="${pageScope.value.posted}" type="BOTH" dateStyle="MEDIUM" timeStyle="SHORT" /></h3>
+		<c:if test="${not empty pageScope.value.tags}">
+			<div class="meta">
+				${translation.tagsLabel}
+				<c:forEach items="${pageScope.value.tags}" var="tag">
+					<a href="posts/tag/${tag}">${tag}</a>
+				</c:forEach>	
+			</div>
+		</c:if>
 		
 		<c:if test="${userInfo.admin}">
 			<div class="admin">
@@ -52,6 +60,10 @@
 					<label for="postedBy">${translation.authorLabel}</label>
 					<input type="text" name="postedBy" id="postedBy" required="required"
 						value="${userInfo.anonymous ? '' : userInfo.cn}"/>
+					
+					<label for="postedByEmail">${translation.emailLabel}</label>
+					<input type="email" name="postedByEmail" id="postedByEmail" required="required"
+						value="${userInfo.anonymous ? '' : userInfo.emailAddress}"/>
 					
 					<label for="bodyMarkdown">${translation.bodyLabel}</label>
 					<textarea name="bodyMarkdown" id="bodyMarkdown" required="required"></textarea>

@@ -86,6 +86,22 @@ public class PostController {
 	}
 	
 	@GET
+	@Path("tag/{tag}")
+	public String byTag(@PathParam("tag") String tag) {
+		models.put("tag", tag);
+//		models.put("posts", posts.findByTag(tag));
+		// TODO figure out how to do this in a query
+		models.put("posts",
+			posts.findAll().stream()
+				.filter(p -> p.getTags() != null && p.getTags().contains(tag))
+				.collect(Collectors.toList())
+		);
+		
+		// TODO make standalone page
+		return "home.jsp";
+	}
+	
+	@GET
 	@Path("new")
 	public String compose() {
 		models.put("post", new Post());
