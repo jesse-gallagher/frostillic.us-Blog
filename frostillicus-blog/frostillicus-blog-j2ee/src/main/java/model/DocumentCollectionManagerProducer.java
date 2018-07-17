@@ -57,4 +57,10 @@ public class DocumentCollectionManagerProducer {
 	public DarwinoDocumentCollectionManager getCommentsManager() {
 		return managerFactory.get(AppDatabaseDef.STORE_COMMENTS);
 	}
+	
+	@Produces
+	@Database(value=DatabaseType.DOCUMENT, provider=AppDatabaseDef.STORE_CONFIG)
+	public DarwinoDocumentCollectionManager getConfigManager() {
+		return managerFactory.get(AppDatabaseDef.STORE_CONFIG);
+	}
 }

@@ -56,6 +56,14 @@
 					</c:if>
 				</ul>
 				
+				<c:forEach items="${links.byCategory}" var="cat">
+					<ul title="${cat.key}">
+						<c:forEach items="${cat.value}" var="link">
+							<li><a href="${link.url}">${link.name}</a></li>
+						</c:forEach>
+					</ul>
+				</c:forEach>
+				
 				<c:if test="${userInfo.admin}">
 					<ul title="${translation.admin}">
 						<li><a href="posts/new">${translation.newPost}</a></li>
