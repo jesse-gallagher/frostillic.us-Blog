@@ -26,7 +26,6 @@
 
 	<modules>
 		<module>frostillicus-blog-shared</module>
-		<module>frostillicus-blog-webui</module>
 		<module>frostillicus-blog-j2ee</module>
 	</modules>
 
@@ -56,9 +55,37 @@
 			    <version>7.0</version>
 			</dependency>
 			<dependency>
+				<groupId>javax.enterprise</groupId>
+				<artifactId>cdi-api</artifactId>
+				<version>2.0</version>
+			</dependency>
+			<dependency>
+				<groupId>javax.validation</groupId>
+				<artifactId>validation-api</artifactId>
+				<version>2.0.1.Final</version>
+			</dependency>
+			
+			<dependency>
 				<groupId>javax.mvc</groupId>
 				<artifactId>javax.mvc-api</artifactId>
 				<version>1.0-pr</version>
+			</dependency>
+			
+			<dependency>
+				<groupId>org.hibernate.validator</groupId>
+				<artifactId>hibernate-validator</artifactId>
+				<version>6.0.8.Final</version>
+			</dependency>
+			
+			<dependency>
+				<groupId>org.projectlombok</groupId>
+				<artifactId>lombok</artifactId>
+				<version>1.18.0</version>
+			</dependency>
+			<dependency>
+				<groupId>com.atlassian.commonmark</groupId>
+				<artifactId>commonmark</artifactId>
+				<version>0.11.0</version>
 			</dependency>
 		</dependencies>
 	</dependencyManagement>
@@ -68,7 +95,7 @@
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-enforcer-plugin</artifactId>
-				<version>3.0.0-M1</version>
+				<version>3.0.0-M2</version>
 				<executions>
 					<execution>
 						<id>enforce-maven-and-java</id>

@@ -67,11 +67,6 @@
 			<artifactId>frostillicus-blog-shared</artifactId>
 			<version>0.0.1-SNAPSHOT</version>
 		</dependency>
-		<dependency>
-			<groupId>frostillicus.blog</groupId>
-			<artifactId>frostillicus-blog-webui</artifactId>
-			<version>0.0.1-SNAPSHOT</version>
-		</dependency>
 		
 		<!-- RSS generation -->
 		<dependency>
@@ -106,7 +101,7 @@
 				<plugin>
 					<groupId>org.apache.tomcat.maven</groupId>
 					<artifactId>tomcat7-maven-plugin</artifactId>
-					<version>2.0</version>
+					<version>2.2</version>
 				</plugin>
 			</plugins>
 		</pluginManagement>

@@ -29,13 +29,11 @@
 		<dependency>
 			<groupId>org.projectlombok</groupId>
 			<artifactId>lombok</artifactId>
-			<version>1.16.20</version>
 			<scope>provided</scope>
 		</dependency>
 		<dependency>
 			<groupId>com.atlassian.commonmark</groupId>
 			<artifactId>commonmark</artifactId>
-			<version>0.11.0</version>
 		</dependency>
 		
 		<!--
@@ -74,7 +72,6 @@
 		<dependency>
 			<groupId>javax.enterprise</groupId>
 			<artifactId>cdi-api</artifactId>
-			<version>2.0</version>
 			<scope>provided</scope>
 		</dependency>
 		
@@ -84,7 +81,6 @@
 		<dependency>
 			<groupId>javax.validation</groupId>
 			<artifactId>validation-api</artifactId>
-			<version>2.0.1.Final</version>
 		</dependency>
 		<dependency>
 			<groupId>org.hibernate.validator</groupId>
@@ -96,22 +92,5 @@
 			<artifactId>javax.el</artifactId>
 			<version>3.0.1-b10</version>
 		</dependency>
-<!-- 		<dependency> -->
-<!-- 			<groupId>org.glassfish</groupId> -->
-<!-- 			<artifactId>javax.json</artifactId> -->
-<!-- 			<version>1.1.2</version> -->
-<!-- 			<scope>provided</scope> -->
-<!-- 		</dependency> -->
-<!-- 		<dependency> -->
-<!-- 			<groupId>javax.json.bind</groupId> -->
-<!-- 			<artifactId>javax.json.bind-api</artifactId> -->
-<!-- 			<version>1.0</version> -->
-<!-- 			<scope>provided</scope> -->
-<!-- 		</dependency> -->
 	</dependencies>
-	
-	<build>
-		<plugins>
-		</plugins>
-	</build>
 </project>
