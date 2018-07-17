@@ -22,7 +22,7 @@
 <%@taglib prefix="t" tagdir="/WEB-INF/tags" %>
 <article class="post">
 	<header>
-		<h2><a href="posts/${pageScope.value.postId}">${pageScope.value.title}</a></h2>
+		<h2><a href="posts/${pageScope.value.postedYear}/${pageScope.value.postedMonth+1}/${pageScope.value.postedDay}/${pageScope.value.postId}">${pageScope.value.title}</a></h2>
 		<h3><fmt:formatDate value="${pageScope.value.posted}" type="BOTH" dateStyle="MEDIUM" timeStyle="SHORT" /></h3>
 		
 		<c:if test="${userInfo.admin}">

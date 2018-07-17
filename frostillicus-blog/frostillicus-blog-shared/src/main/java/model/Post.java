@@ -24,6 +24,7 @@ import org.jnosql.artemis.Id;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
@@ -50,5 +51,25 @@ public class Post {
 	
 	public int getCommentCount() {
 		return CDI.current().select(CommentRepository.class).get().findByPostId(getPostId()).size();
+	}
+	
+	public int getPostedYear() {
+		return getCalendar().get(Calendar.YEAR);
+	}
+	public int getPostedMonth() {
+		return getCalendar().get(Calendar.MONTH);
+	}
+	public int getPostedDay() {
+		return getCalendar().get(Calendar.DAY_OF_MONTH);
+	}
+	
+	// *******************************************************************************
+	// * Internal utility methods
+	// *******************************************************************************
+	
+	private Calendar getCalendar() {
+		Calendar cal = Calendar.getInstance();
+		cal.setTime(getPosted());
+		return cal;
 	}
 }

@@ -15,7 +15,9 @@
  */
 package controller;
 
+import java.util.Collection;
 import java.util.Date;
+import java.util.TreeSet;
 import java.util.UUID;
 
 import javax.inject.Inject;
@@ -31,9 +33,13 @@ import javax.ws.rs.PathParam;
 import javax.ws.rs.core.MediaType;
 
 import com.darwino.commons.json.JsonException;
+import com.darwino.commons.json.JsonObject;
+import com.darwino.jsonstore.Database;
+import com.darwino.jsonstore.Store;
 import com.darwino.platform.DarwinoContext;
 
 import bean.MarkdownBean;
+import frostillicus.blog.app.AppDatabaseDef;
 import model.CommentRepository;
 import model.Post;
 import model.PostRepository;
@@ -52,8 +58,27 @@ public class PostController {
 	@Inject
 	MarkdownBean markdown;
 	
+	@Inject
+	Database database;
+	
 	@GET
-	public String list() {
+	public String list() throws JsonException {
+		Collection<String> months = new TreeSet<String>();
+		
+		// Fetch the months - use Darwino directly for this for now
+		Store store = database.getStore(AppDatabaseDef.STORE_POSTS);
+		store.openCursor()
+			.query(JsonObject.of("form", Post.class.getSimpleName()))
+			.findDocuments(doc -> {
+				String posted = doc.getString("posted");
+				if(posted != null && posted.length() >= 7) {
+					months.add(posted.substring(0, 7));
+				}
+				return true;
+			});
+		
+		models.put("months", months);
+		
 		return "posts.jsp";
 	}
 	
@@ -88,6 +113,12 @@ public class PostController {
 		models.put("comments", comments.findByPostId(post.getPostId()));
 		
 		return "post.jsp";
+	}
+	
+	@GET
+	@Path("{year}/{month}/{day}/{postId}")
+	public String showByDate(@PathParam("postId") String postId) {
+		return show(postId);
 	}
 	
 	@POST

@@ -20,8 +20,11 @@ import javax.enterprise.inject.Produces;
 import javax.inject.Named;
 
 import com.darwino.commons.json.JsonException;
+import com.darwino.jsonstore.Database;
 import com.darwino.jsonstore.Session;
 import com.darwino.platform.DarwinoContext;
+
+import frostillicus.blog.app.AppDatabaseDef;
 
 @RequestScoped
 public class DarwinoContextBean {
@@ -33,5 +36,10 @@ public class DarwinoContextBean {
 	@Produces @Named("darwinoSession")
 	public Session getSession() throws JsonException {
 		return DarwinoContext.get().getSession();
+	}
+	
+	@Produces @Named("darwinoDatabase")
+	public Database getDatabase() throws JsonException {
+		return getSession().getDatabase(AppDatabaseDef.DATABASE_NAME);
 	}
 }
