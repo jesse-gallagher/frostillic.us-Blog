@@ -23,6 +23,7 @@ import java.util.TreeSet;
 import java.util.UUID;
 import java.util.stream.Collectors;
 
+import javax.annotation.security.RolesAllowed;
 import javax.inject.Inject;
 import javax.mvc.Models;
 import javax.mvc.annotation.Controller;
@@ -37,6 +38,7 @@ import javax.ws.rs.core.MediaType;
 
 import com.darwino.commons.json.JsonException;
 import com.darwino.commons.json.JsonObject;
+import com.darwino.commons.util.StringUtil;
 import com.darwino.jsonstore.Database;
 import com.darwino.jsonstore.Store;
 import com.darwino.platform.DarwinoContext;
@@ -112,6 +114,7 @@ public class PostController {
 	// TODO figure out if this can be done automatically without adding @FormParam to the model class
 	@POST
 	@Consumes({ MediaType.MULTIPART_FORM_DATA, MediaType.APPLICATION_FORM_URLENCODED })
+	@RolesAllowed("admin")
 	public String create(@FormParam("title") String title, @FormParam("bodyMarkdown") String bodyMarkdown, @FormParam("tags") String tags) throws JsonException {
 		Post post = new Post();
 		post.setPosted(new Date());
@@ -121,7 +124,10 @@ public class PostController {
 		post.setBodyHtml(markdown.toHtml(bodyMarkdown));
 		post.setTags(
 			tags == null ? Collections.emptyList() :
-			Arrays.stream(tags.split(",")).map(String::trim).collect(Collectors.toList())
+			Arrays.stream(tags.split(","))
+				.map(String::trim)
+				.filter(StringUtil::isNotEmpty)
+				.collect(Collectors.toList())
 		);
 		
 		post.setPostId(UUID.randomUUID().toString());
@@ -149,6 +155,7 @@ public class PostController {
 	
 	@GET
 	@Path("{year}/{month}/{day}/{postId}/edit")
+	@RolesAllowed("admin")
 	public String edit(@PathParam("postId") String postId) {
 		Post post = posts.findByPostId(postId).orElseThrow(() -> new IllegalArgumentException("Unable to find post matching ID " + postId));
 		models.put("post", post);
@@ -156,7 +163,15 @@ public class PostController {
 	}
 	
 	@DELETE
+	@Path("{year}/{month}/{day}/{postId}")
+	@RolesAllowed("admin")
+	public String deleteByDate(@PathParam("postId") String postId) {
+		return delete(postId);
+	}
+	
+	@DELETE
 	@Path("{postId}")
+	@RolesAllowed("admin")
 	public String delete(@PathParam("postId") String postId) {
 		Post post = posts.findByPostId(postId).orElseThrow(() -> new IllegalArgumentException("Unable to find post matching ID " + postId));
 		posts.deleteById(post.getId());
