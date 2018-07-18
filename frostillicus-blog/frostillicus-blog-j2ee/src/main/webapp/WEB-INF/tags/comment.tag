@@ -19,7 +19,7 @@
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <article class="comment">
 	<header>
-		<img class="photo" src="${userInfo.getGravatarUrl(pageScope.value.postedByEmail, 42)}"/>
+		<img class="photo" src="$darwino-social/users/users/${pageScope.value.postedByEmail}/content/photo"/>
 		<h3>${pageScope.value.postedBy}</h3>
 		<c:if test="${userInfo.admin}">
 			<div class="admin">

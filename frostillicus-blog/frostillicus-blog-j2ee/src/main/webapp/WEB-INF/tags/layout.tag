@@ -43,7 +43,7 @@
 			</header>
 			<nav id="pagenav">
 				<header class="authorinfo">
-					<img src="https://secure.gravatar.com/avatar/5aada48ea6558e53a94955db8ffe91b8?s=128" class="photo"/>
+					<img src="$darwino-social/users/users/cn%3Djesse%2Co%3Ddarwino/content/photo" class="photo"/>
 				</header>
 				<ul class="sitenav">
 					<li><a href="${pageContext.request.contextPath}/">${translation.home}</a></li>
