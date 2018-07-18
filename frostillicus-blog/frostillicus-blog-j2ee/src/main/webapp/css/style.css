@@ -142,25 +142,7 @@ input:invalid {
 	border-color: red;
 }
 
-.crud {
-	display: grid;
-	grid-template-columns: 150px 1fr;
-	grid-gap: 0.5em;
-}
-.crud input[type='text'], .crud input[type='email'], .crud textarea {
-	padding: 0.5em;
-	font-family: sans-serif;
-	border-radius: 0.5em;
-	border: 1px solid grey;
-	box-shadow: inset 0 0 0.25em lightgrey;
-}
-.crud textarea {
-	resize: vertical;
-	height: 20em;
-}
-.new-comment.crud textarea {
-	height: 5em;
-}
+
 
 @media ( max-width: 699px) {
 	#entirety {

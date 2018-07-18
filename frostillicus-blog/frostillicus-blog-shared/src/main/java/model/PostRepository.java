@@ -19,9 +19,7 @@ import java.util.List;
 import java.util.Optional;
 
 import org.darwino.jnosql.artemis.extension.DarwinoRepository;
-import org.darwino.jnosql.artemis.extension.JSQL;
 import org.darwino.jnosql.artemis.extension.RepositoryProvider;
-import org.jnosql.artemis.Param;
 import org.jnosql.artemis.Query;
 
 import frostillicus.blog.app.AppDatabaseDef;

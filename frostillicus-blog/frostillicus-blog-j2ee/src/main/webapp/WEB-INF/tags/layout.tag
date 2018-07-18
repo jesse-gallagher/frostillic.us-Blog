@@ -29,6 +29,7 @@
 		<link rel="apple-touch-icon" href="icon.png" />
 		<link rel="alternate" href="${pageContext.request.contextPath}/feed.xml" type="application/rss+xml" title="frostillic.us &gt; Feed">
 		<link rel="stylesheet" href="${pageContext.request.contextPath}/css/style.css" />
+		<link rel="stylesheet" href="${pageContext.request.contextPath}/css/forms.css" />
 		<link rel="stylesheet" href="${pageContext.request.contextPath}/css/tabs.css" />
 		
 		<script type="text/javascript" src="${pageContext.request.contextPath}/js/turbolinks.js"></script>
@@ -65,6 +66,7 @@
 				
 				<c:if test="${userInfo.admin}">
 					<ul title="${translation.admin}">
+						<li><a href="admin">${translation.adminPanel}</a></li>
 						<li><a href="posts/new">${translation.newPost}</a></li>
 					</ul>
 				</c:if>
