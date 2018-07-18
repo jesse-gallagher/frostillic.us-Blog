@@ -63,6 +63,10 @@ public class Post {
 		return getCalendar().get(Calendar.DAY_OF_MONTH);
 	}
 	
+	public List<Post> getThreadInfo() {
+		return CDI.current().select(PostRepository.class).get().findByThread(getThread());
+	}
+	
 	// *******************************************************************************
 	// * Internal utility methods
 	// *******************************************************************************

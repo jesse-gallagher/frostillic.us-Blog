@@ -19,7 +19,9 @@ import java.util.List;
 import java.util.Optional;
 
 import org.darwino.jnosql.artemis.extension.DarwinoRepository;
+import org.darwino.jnosql.artemis.extension.JSQL;
 import org.darwino.jnosql.artemis.extension.RepositoryProvider;
+import org.jnosql.artemis.Param;
 import org.jnosql.artemis.Query;
 
 import frostillicus.blog.app.AppDatabaseDef;
@@ -37,4 +39,7 @@ public interface PostRepository extends DarwinoRepository<Post, String> {
 	
 	@Query("select * from Post limit 20 order by posted desc")
 	List<Post> homeList();
+	
+	@JSQL("select unid from posts where $.form='Post' and $.thread=:thread")
+	List<Post> findByThread(@Param("thread") String thread);
 }

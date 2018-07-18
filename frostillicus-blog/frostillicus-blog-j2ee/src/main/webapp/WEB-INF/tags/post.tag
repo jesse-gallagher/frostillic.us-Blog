@@ -43,6 +43,13 @@
 			</div>
 		</c:if>
 	</header>
+	<c:if test="${not empty pageScope.value.thread}">
+		<ol class="thread" title="${pageScope.value.thread}">
+			<c:forEach items="${pageScope.value.threadInfo}" var="threadEntry">
+				<li><a href="posts/${threadEntry.postedYear}/${threadEntry.postedMonth+1}/${threadEntry.postedDay}/${threadEntry.postId}">${threadEntry.title}</a></li>
+			</c:forEach>
+		</ol>
+	</c:if>
 	<div class='body'>
 		${pageScope.value.bodyHtml}
 	</div>

@@ -123,9 +123,26 @@ a {
 	color: grey;
 }
 
-
 .post + .post {
 	margin-top: 2em;
+}
+
+.post .thread {
+	border: 1px solid lightblue;
+	padding: 0;
+	padding-bottom: 0.5em;
+}
+.post .thread:before {
+	display: block;
+	content: attr(title);
+	padding: 0.5em;
+	border-bottom: 1px solid lightblue;
+	background-color: rgba(0, 0, 128, 0.05);
+	margin-bottom: 0.5em;
+}
+.post .thread li {
+	margin-left: 2em;
+	line-height: 1.4;
 }
 
 #pagefooter {
