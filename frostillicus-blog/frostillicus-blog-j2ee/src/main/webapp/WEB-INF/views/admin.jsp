@@ -20,14 +20,11 @@
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <t:layout>
 	<div class="tab-container">
-		<input type="radio" id="tab1" name="tab-group" checked="checked" />
-		<label for="tab1">${translation.generalSettings}</label>
-		<input type="radio" id="tab2" name="tab-group" />
+		<input type="radio" id="tab2" name="tab-group" checked="checked" />
 		<label for="tab2">${translation.links}</label>
+		<input type="radio" id="tab1" name="tab-group" />
+		<label for="tab1">${translation.generalSettings}</label>
 		<div class="tabs">
-			<div class="tab">
-				General Settings
-			</div>
 			<div class="tab">
 				<div class="links crud-list">
 					<div class="header">
@@ -59,7 +56,15 @@
 							</div>
 						</form>
 					</c:forEach>
+					<div class="footer">
+						<form method="POST" action="admin/links/new">
+							<button type="submit">${translation.addButton}</button>
+						</form>
+					</div>
 				</div>
+			</div>
+			<div class="tab">
+				General Settings
 			</div>
 		</div>
 	</div>

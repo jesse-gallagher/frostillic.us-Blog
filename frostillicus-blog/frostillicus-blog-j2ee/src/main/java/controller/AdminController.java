@@ -61,4 +61,14 @@ public class AdminController {
 		links.deleteById(linkId);
 		return "redirect:admin";
 	}
+	
+	@POST
+	@Path("links/new")
+	public String createLink() {
+		Link link = new Link();
+		link.setName("New Link");
+		link.setUrl("http://...");
+		links.save(link);
+		return "redirect:admin";
+	}
 }

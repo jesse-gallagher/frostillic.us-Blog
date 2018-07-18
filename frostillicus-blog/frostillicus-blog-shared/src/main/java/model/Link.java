@@ -17,6 +17,7 @@ package model;
 
 import javax.validation.constraints.NotEmpty;
 
+import org.hibernate.validator.constraints.URL;
 import org.jnosql.artemis.Column;
 import org.jnosql.artemis.Convert;
 import org.jnosql.artemis.Entity;
@@ -30,7 +31,7 @@ import util.BooleanYNConverter;
 public class Link {
 	@Id @Column private String id;
 	@Column private String category;
-	@Column("link_url") @NotEmpty private String url;
+	@Column("link_url") @NotEmpty @URL private String url;
 	@Column("link_name") @NotEmpty private String name;
 	@Column("link_visible") @Convert(BooleanYNConverter.class) private boolean visible;
 }
