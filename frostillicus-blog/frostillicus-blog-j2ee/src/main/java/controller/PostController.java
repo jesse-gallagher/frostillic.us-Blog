@@ -126,6 +126,7 @@ public class PostController {
 		
 		post.setPostId(UUID.randomUUID().toString());
 		posts.save(post);
+		
 		return "redirect:posts/" + post.getPostId();
 	}
 	
@@ -152,16 +153,6 @@ public class PostController {
 		Post post = posts.findByPostId(postId).orElseThrow(() -> new IllegalArgumentException("Unable to find post matching ID " + postId));
 		models.put("post", post);
 		return "post-edit.jsp";
-	}
-	
-	@POST
-	@Path("{postId}")
-	public String handlePost(@PathParam("postId") String postId, @FormParam("_method") String methodOverride) {
-		if("DELETE".equals(methodOverride)) {
-			return delete(postId);
-		} else {
-			throw new UnsupportedOperationException();
-		}
 	}
 	
 	@DELETE

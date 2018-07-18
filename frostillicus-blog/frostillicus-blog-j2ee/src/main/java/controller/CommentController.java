@@ -73,16 +73,6 @@ public class CommentController {
 		return "redirect:posts/" + postId;
 	}
 	
-	@POST
-	@Path("{commentId}")
-	public String handlePost(@PathParam("postId") String postId, @PathParam("commentId") String commentId, @FormParam("_method") String methodOverride) {
-		if("DELETE".equals(methodOverride)) {
-			return delete(postId, commentId);
-		} else {
-			throw new UnsupportedOperationException();
-		}
-	}
-	
 	@DELETE
 	@Path("{commentId}")
 	public String delete(@PathParam("postId") String postId, @PathParam("commentId") String commentId) {

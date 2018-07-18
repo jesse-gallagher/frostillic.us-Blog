@@ -30,22 +30,13 @@ public class AdminController {
 	
 	@POST
 	@Path("links/{linkId}")
-	public String handlePostLink(
+	public String update(
 			@PathParam("linkId") String linkId,
-			@FormParam("_method") String methodOverride,
 			@FormParam("visible") String visible,
 			@FormParam("category") String category,
 			@FormParam("name") String name,
 			@FormParam("url") String url
 		) {
-		if("DELETE".equals(methodOverride)) {
-			return deleteLink(linkId);
-		} else {
-			return update(linkId, visible, category, name, url);
-		}
-	}
-	
-	public String update(String linkId, String visible, String category, String name, String url) {
 		Link link = links.findById(linkId).orElseThrow(() -> new IllegalArgumentException("Unable to find link matching ID " + linkId));
 		link.setVisible("Y".equals(visible));
 		link.setCategory(category);
