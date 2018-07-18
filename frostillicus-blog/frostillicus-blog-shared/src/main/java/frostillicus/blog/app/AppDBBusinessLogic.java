@@ -19,8 +19,6 @@ import com.darwino.jsonstore.extensions.DefaultExtensionRegistry;
 
 /**
  * Database Business logic - event handlers.
- * 
- * @author Philippe Riand
  */
 public  class AppDBBusinessLogic extends DefaultExtensionRegistry {
 	

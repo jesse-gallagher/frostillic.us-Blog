@@ -26,8 +26,6 @@ import com.darwino.platform.DarwinoManifest;
 
 /**
  * Application Manifest.
- * 
- * @author Philippe Riand
  */
 public class AppManifest extends DarwinoManifest {
 	

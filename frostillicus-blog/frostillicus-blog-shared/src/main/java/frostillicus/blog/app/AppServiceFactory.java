@@ -36,8 +36,6 @@ import com.darwino.platform.DarwinoHttpConstants;
  * Application Service Factory.
  * 
  * This is the place where to define custom application services.
- * 
- * @author Philippe Riand
  */
 public class AppServiceFactory extends RestServiceFactory {
 	

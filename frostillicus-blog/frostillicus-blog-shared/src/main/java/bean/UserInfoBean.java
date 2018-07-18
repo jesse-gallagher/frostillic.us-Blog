@@ -15,12 +15,15 @@
  */
 package bean;
 
+import java.net.URLEncoder;
+
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
 
 import com.darwino.commons.security.acl.User;
 import com.darwino.commons.security.acl.UserException;
+import com.darwino.commons.util.StringUtil;
 import com.darwino.platform.DarwinoContext;
 
 @RequestScoped
@@ -28,6 +31,10 @@ import com.darwino.platform.DarwinoContext;
 public class UserInfoBean {
 	@Inject @Named("darwinoContext")
 	DarwinoContext context;
+	
+	public String getImageUrl(String userName) {
+		return StringUtil.format("$darwino-social/users/users/{0}/content/photo", URLEncoder.encode(userName, StringUtil.UTF_8));
+	}
 	
 	public boolean isAdmin() {
 		return context.getUser().hasRole("admin");

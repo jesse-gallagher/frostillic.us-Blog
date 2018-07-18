@@ -20,14 +20,10 @@ import javax.servlet.ServletContext;
 import com.darwino.commons.json.JsonException;
 import com.darwino.commons.platform.ManagedBeansService;
 import com.darwino.j2ee.application.DarwinoJ2EEApplication;
-import com.darwino.jsonstore.meta.DatabaseCustomizer;
 import com.darwino.platform.DarwinoManifest;
-import com.darwino.sql.drivers.DBDriver;
 
 /**
  * J2EE application.
- * 
- * @author Philippe Riand
  */
 public class AppJ2EEApplication extends DarwinoJ2EEApplication {
 	
@@ -49,11 +45,6 @@ public class AppJ2EEApplication extends DarwinoJ2EEApplication {
 	@Override
 	public String[] getConfigurationBeanNames() {
 		return new String[] {"frostillicus_blog",ManagedBeansService.LOCAL_NAME,ManagedBeansService.DEFAULT_NAME}; //$NON-NLS-1$
-	}
-	
-	@Override
-	protected DatabaseCustomizer findDatabaseCustomizerFactory(DBDriver driver, String dbName) {
-		return new AppDatabaseCustomizer(driver); 
 	}
 	
 }

@@ -5,14 +5,12 @@ import java.util.ResourceBundle;
 import javax.inject.Inject;
 import javax.inject.Named;
 import javax.mvc.annotation.Controller;
-import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
 import javax.ws.rs.FormParam;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
-import javax.ws.rs.core.MediaType;
 
 import model.Link;
 import model.LinkRepository;
@@ -41,7 +39,6 @@ public class AdminController {
 			@FormParam("name") String name,
 			@FormParam("url") String url
 		) {
-		System.out.println("submit is " + submit);
 		if("DELETE".equals(methodOverride) || translation.getString("deleteButton").equals(submit)) {
 			return deleteLink(linkId);
 		} else {

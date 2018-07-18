@@ -19,9 +19,7 @@ import com.darwino.commons.services.HttpServiceFactories;
 import com.darwino.j2ee.application.DarwinoJ2EEServiceDispatcherFilter;
 
 /**
- * J2EE application.
- * 
- * @author Philippe Riand
+ * Service dispatcher.
  */
 public class AppServiceDispatcher extends DarwinoJ2EEServiceDispatcherFilter {
 	
