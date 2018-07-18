@@ -36,8 +36,14 @@
 			<artifactId>commonmark</artifactId>
 		</dependency>
 		
+        <dependency>
+            <groupId>javax.enterprise</groupId>
+            <artifactId>cdi-api</artifactId>
+            <scope>provided</scope>
+        </dependency>
+		
 		<!--
-			JNoSQL 
+			JNoSQL
 		 -->
 		<dependency>
 			<groupId>org.jnosql.artemis</groupId>
@@ -69,22 +75,14 @@
 			<artifactId>diana-document</artifactId>
 			<version>${jnosql-version}</version>
 		</dependency>
-		<dependency>
-			<groupId>javax.enterprise</groupId>
-			<artifactId>cdi-api</artifactId>
-			<scope>provided</scope>
-		</dependency>
 		
 		<!--
 			Bean Validation 
 		 -->
 		<dependency>
-			<groupId>javax.validation</groupId>
-			<artifactId>validation-api</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>org.hibernate.validator</groupId>
+			<groupId>org.hibernate</groupId>
 			<artifactId>hibernate-validator</artifactId>
+			<scope>provided</scope>
 		</dependency>
 		<dependency>
 			<groupId>org.glassfish</groupId>
