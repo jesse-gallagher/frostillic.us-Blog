@@ -49,4 +49,8 @@ public class LinksBean {
 		
 		return result;
 	}
+	
+	public Collection<Link> getAll() {
+		return links.findAllByCategoryAndName();
+	}
 }

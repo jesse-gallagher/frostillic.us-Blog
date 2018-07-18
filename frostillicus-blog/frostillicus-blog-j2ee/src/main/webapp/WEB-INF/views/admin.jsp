@@ -37,29 +37,27 @@
 						<label>${translation.url}</label>
 						<label></label>
 					</div>
-					<c:forEach items="${links.byCategory}" var="cat">
-						<c:forEach items="${cat.value}" var="link">
-							<form method="POST" action="admin/links/${link.id}" accept-charset="UTF-8">
-								<!-- TODO figure out a good way to submit the delete -->
-								<!-- TODO see if there's a way to ditch the "span"s. They're there to act as table cells -->
-								<span>
-									<input type="checkbox" name="visible" value="Y" checked="${link.visible ? 'checked' : ''}" />
-								</span>
-								<span>
-									<input type="text" name="category" value="${link.category}"/>
-								</span>
-								<span>
-									<input type="text" name="name" value="${link.name}"/>
-								</span>
-								<span>
-									<input type="text" name="url" value="${link.url}"/>
-								</span>
-								<div class="actions">
-									<input type="submit" name="submit" value="${translation.saveButton}" onclick="return confirm('${translation.linkSaveConfirm}')"/>
-									<button type="submit" name="_method" value="DELETE" onclick="return confirm('${translation.linkDeleteConfirm}')">${translation.deleteButton}</button>
-								</div>
-							</form>
-						</c:forEach>
+					<c:forEach items="${links.all}" var="link">
+						<form method="POST" action="admin/links/${link.id}" accept-charset="UTF-8">
+							<!-- TODO figure out a good way to submit the delete -->
+							<!-- TODO see if there's a way to ditch the "span"s. They're there to act as table cells -->
+							<span>
+								<input type="checkbox" name="visible" value="Y" ${link.visible ? 'checked="checked"' : ''} />
+							</span>
+							<span>
+								<input type="text" name="category" value="${link.category}"/>
+							</span>
+							<span>
+								<input type="text" name="name" value="${link.name}"/>
+							</span>
+							<span>
+								<input type="text" name="url" value="${link.url}"/>
+							</span>
+							<div class="actions">
+								<input type="submit" name="submit" value="${translation.saveButton}" onclick="return confirm('${translation.linkSaveConfirm}')"/>
+								<button type="submit" name="_method" value="DELETE" onclick="return confirm('${translation.linkDeleteConfirm}')">${translation.deleteButton}</button>
+							</div>
+						</form>
 					</c:forEach>
 				</div>
 			</div>

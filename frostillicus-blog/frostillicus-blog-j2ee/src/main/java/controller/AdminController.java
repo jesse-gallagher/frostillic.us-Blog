@@ -32,14 +32,13 @@ public class AdminController {
 	@Path("links/{linkId}")
 	public String handlePostLink(
 			@PathParam("linkId") String linkId,
-			@FormParam("submit") String submit,
 			@FormParam("_method") String methodOverride,
 			@FormParam("visible") String visible,
 			@FormParam("category") String category,
 			@FormParam("name") String name,
 			@FormParam("url") String url
 		) {
-		if("DELETE".equals(methodOverride) || translation.getString("deleteButton").equals(submit)) {
+		if("DELETE".equals(methodOverride)) {
 			return deleteLink(linkId);
 		} else {
 			return update(linkId, visible, category, name, url);
