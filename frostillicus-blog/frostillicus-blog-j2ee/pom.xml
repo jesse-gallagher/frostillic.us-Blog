@@ -27,6 +27,11 @@
 			<version>2.1</version>
 			<scope>provided</scope>
 		</dependency>
+		<dependency>
+			<groupId>javax.security.enterprise</groupId>
+			<artifactId>javax.security.enterprise-api</artifactId>
+			<version>1.0</version>
+		</dependency>
 
 		
 		<dependency>
