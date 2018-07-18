@@ -2,6 +2,7 @@ package controller;
 
 import java.util.ResourceBundle;
 
+import javax.annotation.security.RolesAllowed;
 import javax.inject.Inject;
 import javax.inject.Named;
 import javax.mvc.annotation.Controller;
@@ -17,6 +18,7 @@ import model.LinkRepository;
 
 @Controller
 @Path("admin")
+@RolesAllowed("admin")
 public class AdminController {
 	@Inject
 	LinkRepository links;

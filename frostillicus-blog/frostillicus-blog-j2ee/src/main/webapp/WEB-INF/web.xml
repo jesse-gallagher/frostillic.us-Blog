@@ -201,5 +201,13 @@
 		<param-name>resteasy.injector.factory</param-name>
 		<param-value>org.jboss.resteasy.cdi.CdiInjectorFactory</param-value>
 	</context-param>
+	
+	<!--
+		Configure RESTEasy security 
+	-->
+	<context-param>
+		<param-name>resteasy.role.based.security</param-name>
+		<param-value>true</param-value>
+	</context-param>
    	  	
 </web-app>
