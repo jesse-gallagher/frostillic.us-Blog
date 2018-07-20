@@ -36,14 +36,35 @@
 
 .search {
 	display: grid;
-	grid-template-columns: 1fr 2em;
+	margin-right: 1em;
+	grid-template-columns: 1fr 3em;
 }
-.search input[type='text'] {
-	padding: 0.5em;
+.search input {
+	padding: 0.25em 0.5em;
 	font-size: 1.4em;
+	margin: 0;
 }
 .search [type='submit'] {
+	display: block;
 	border: 0;
 	background: transparent;
 	font-size: 2em;
+}
+
+.inline-search {
+	display: grid;
+	margin-right: 1em;
+	margin-left: 2em;
+	grid-template-columns: 1fr 1em;
+}
+.inline-search input {
+	margin: 0;
+}
+.inline-search [type='submit'] {
+	display: block;
+	border: 0;
+	padding: 0;
+	margin: 0;
+	width: 1.5em;
+	background: transparent;
 }

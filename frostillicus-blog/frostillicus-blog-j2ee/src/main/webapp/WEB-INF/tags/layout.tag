@@ -17,6 +17,7 @@
 --%>
 <%@tag description="Overall Page template" pageEncoding="UTF-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <!DOCTYPE html>
 <html lang="${translation._lang}">
 	<head>
@@ -56,6 +57,11 @@
 						<li data-turbolinks="false"><a href="?logout">${translation.logOut}</a></li>
 					</c:if>
 				</ul>
+				
+				<form action="posts/search" method="GET" class="inline-search">
+					<input class="search" name="q" value="${fn:escapeXml(param.q)}"/>
+					<button type="submit">${translation.searchButton}</button>
+				</form>
 				
 				<c:forEach items="${links.byCategory}" var="cat">
 					<ul title="${cat.key}">

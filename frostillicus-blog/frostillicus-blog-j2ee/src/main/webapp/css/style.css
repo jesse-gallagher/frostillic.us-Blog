@@ -116,6 +116,13 @@ a {
 	padding: 0 0.25em;
 	text-decoration: none;
 }
+.post pre {
+	max-width: 50vw;
+	overflow-x: auto;
+	border: 1px solid #ccc;
+	background: #fefefe;
+	padding: 0.5em;
+}
 
 
 .meta, .meta a {
