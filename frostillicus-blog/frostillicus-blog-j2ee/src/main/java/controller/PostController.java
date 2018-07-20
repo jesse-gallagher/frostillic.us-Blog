@@ -34,6 +34,7 @@ import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
+import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
 
 import com.darwino.commons.json.JsonException;
@@ -176,5 +177,15 @@ public class PostController {
 		Post post = posts.findByPostId(postId).orElseThrow(() -> new IllegalArgumentException("Unable to find post matching ID " + postId));
 		posts.deleteById(post.getId());
 		return "redirect:posts";
+	}
+	
+	// *******************************************************************************
+	// * Searching
+	// *******************************************************************************
+	@GET
+	@Path("search")
+	public String search(@QueryParam("q") String query) {
+		models.put("posts", posts.search(query));
+		return "search.jsp";
 	}
 }

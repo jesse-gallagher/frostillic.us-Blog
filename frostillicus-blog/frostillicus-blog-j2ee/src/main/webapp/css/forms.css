@@ -33,3 +33,17 @@
 .crud-list input[type='text'], .crud-list input[type='email'], .crud-list textarea {
 	width: 100%;
 }
+
+.search {
+	display: grid;
+	grid-template-columns: 1fr 2em;
+}
+.search input[type='text'] {
+	padding: 0.5em;
+	font-size: 1.4em;
+}
+.search [type='submit'] {
+	border: 0;
+	background: transparent;
+	font-size: 2em;
+}

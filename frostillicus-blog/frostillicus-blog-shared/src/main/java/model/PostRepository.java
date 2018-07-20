@@ -21,6 +21,7 @@ import java.util.Optional;
 import org.darwino.jnosql.artemis.extension.DarwinoRepository;
 import org.darwino.jnosql.artemis.extension.JSQL;
 import org.darwino.jnosql.artemis.extension.RepositoryProvider;
+import org.darwino.jnosql.artemis.extension.Search;
 import org.jnosql.artemis.Param;
 import org.jnosql.artemis.Query;
 
@@ -33,6 +34,9 @@ public interface PostRepository extends DarwinoRepository<Post, String> {
 //	@JSQL("select _unid from posts where $.form='Post' and tags::array=:tag order by $.posted desc")
 //	List<Post> findByTag(@Param("tag") String tag);
 //	List<Post> findByTag(String tag);
+	
+	@Search(orderBy="posted desc")
+	List<Post> search(String query);
 
 	@Query("select * from Post order by posted desc")
 	List<Post> findAll();
