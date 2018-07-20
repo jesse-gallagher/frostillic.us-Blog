@@ -44,7 +44,7 @@
 			</header>
 			<nav id="pagenav">
 				<header class="authorinfo">
-					<img src="$darwino-social/users/users/cn%3Djesse%2Co%3Ddarwino/content/photo" class="photo"/>
+					<img src="$darwino-social/users/users/cn%3Djesse%2Co%3Ddarwino/content/photo" class="photo" alt="${translation.authorPhoto}"/>
 				</header>
 				<ul class="sitenav">
 					<li><a href="${pageContext.request.contextPath}/">${translation.home}</a></li>

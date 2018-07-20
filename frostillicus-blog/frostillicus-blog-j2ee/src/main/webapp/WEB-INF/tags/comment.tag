@@ -19,7 +19,7 @@
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <article class="comment">
 	<header>
-		<img class="photo" src="${userInfo.getImageUrl(pageScope.value.postedByEmail)}"/>
+		<img class="photo" src="${userInfo.getImageUrl(pageScope.value.postedByEmail)}" alt="${translation.commenterPhoto}"/>
 		<h3>${pageScope.value.postedBy}</h3>
 		<c:if test="${userInfo.admin}">
 			<div class="admin">
