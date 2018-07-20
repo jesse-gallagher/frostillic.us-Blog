@@ -19,6 +19,7 @@
 <%@attribute name="comments" required="false" type="java.util.List" %>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <%@taglib prefix="t" tagdir="/WEB-INF/tags" %>
 <article class="post">
 	<header>
@@ -46,7 +47,12 @@
 	<c:if test="${not empty pageScope.value.thread}">
 		<ol class="thread" title="${pageScope.value.thread}">
 			<c:forEach items="${pageScope.value.threadInfo}" var="threadEntry">
-				<li><a href="posts/${threadEntry.postedYear}/${threadEntry.postedMonth+1}/${threadEntry.postedDay}/${threadEntry.postId}">${threadEntry.title}</a></li>
+				<c:if test="${pageScope.value.id == threadEntry.id}">
+					<li>${fn:escapeXml(threadEntry.title)}</li>
+				</c:if>
+				<c:if test="${pageScope.value.id != threadEntry.id}">
+					<li><a href="posts/${threadEntry.postedYear}/${threadEntry.postedMonth+1}/${threadEntry.postedDay}/${threadEntry.postId}">${fn:escapeXml(threadEntry.title)}</a></li>
+				</c:if>
 			</c:forEach>
 		</ol>
 	</c:if>
