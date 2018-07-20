@@ -59,7 +59,7 @@
 				</ul>
 				
 				<form action="posts/search" method="GET" class="inline-search">
-					<input class="search" name="q" value="${fn:escapeXml(param.q)}"/>
+					<input class="search" name="q"/>
 					<button type="submit">${translation.searchButton}</button>
 				</form>
 				
