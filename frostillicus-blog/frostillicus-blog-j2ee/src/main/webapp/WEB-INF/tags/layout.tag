@@ -47,7 +47,7 @@
 				</header>
 				<ul class="sitenav">
 					<li><a href="${pageContext.request.contextPath}/">${translation.home}</a></li>
-					<li><a href="posts">Archives</a></li>
+					<li><a href="posts">${translation.archive}</a></li>
 					<c:if test="${darwinoSession.user.anonymous}">
 						<li data-turbolinks="false"><a href="?login">${translation.logIn}</a></li>
 					</c:if>
