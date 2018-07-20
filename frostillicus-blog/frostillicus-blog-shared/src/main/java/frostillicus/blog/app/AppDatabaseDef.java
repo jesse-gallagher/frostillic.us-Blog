@@ -26,7 +26,7 @@ import com.darwino.jsonstore.meta._Store;
 
 public class AppDatabaseDef extends DatabaseFactoryImpl {
 
-	public static final int DATABASE_VERSION	= 6;
+	public static final int DATABASE_VERSION	= 7;
 	public static final String DATABASE_NAME	= "frostillicus_blog"; //$NON-NLS-1$
 	public static final String STORE_POSTS = "posts";
 	public static final String STORE_COMMENTS = "comments";
@@ -69,6 +69,7 @@ public class AppDatabaseDef extends DatabaseFactoryImpl {
 		{
 			_Store posts = db.addStore(STORE_POSTS);
 			posts.setFtSearchEnabled(true);
+			posts.setTaggingEnabled(true);
 			_FtSearch ft = posts.setFTSearch(new _FtSearch());
 			ft.setFields("$"); //$NON-NLS-1$
 		}
