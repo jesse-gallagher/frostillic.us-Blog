@@ -66,24 +66,26 @@
 				<t:comment value="${comment}"/>
 			</c:forEach>
 			
-			<form action="posts/${pageScope.value.postId}/comments" method="POST">
-				<fieldset class="new-comment crud">
-					<legend>${translation.newComment}</legend>
-					
-					<label for="postedBy">${translation.authorLabel}</label>
-					<input type="text" name="postedBy" id="postedBy" required="required"
-						value="${userInfo.anonymous ? '' : userInfo.cn}"/>
-					
-					<label for="postedByEmail">${translation.emailLabel}</label>
-					<input type="email" name="postedByEmail" id="postedByEmail" required="required"
-						value="${userInfo.anonymous ? '' : userInfo.emailAddress}"/>
-					
-					<label for="bodyMarkdown">${translation.bodyLabel}</label>
-					<textarea name="bodyMarkdown" id="bodyMarkdown" required="required"></textarea>
-					
-					<input type="submit" value="${translation.postComment}"/>
-				</fieldset>
-			</form>
+			<c:if test="${userInfo.admin}">
+				<form action="posts/${pageScope.value.postId}/comments" method="POST">
+					<fieldset class="new-comment crud">
+						<legend>${translation.newComment}</legend>
+						
+						<label for="postedBy">${translation.authorLabel}</label>
+						<input type="text" name="postedBy" id="postedBy" required="required"
+							value="${userInfo.anonymous ? '' : userInfo.cn}"/>
+						
+						<label for="postedByEmail">${translation.emailLabel}</label>
+						<input type="email" name="postedByEmail" id="postedByEmail" required="required"
+							value="${userInfo.anonymous ? '' : userInfo.emailAddress}"/>
+						
+						<label for="bodyMarkdown">${translation.bodyLabel}</label>
+						<textarea name="bodyMarkdown" id="bodyMarkdown" required="required"></textarea>
+						
+						<input type="submit" value="${translation.postComment}"/>
+					</fieldset>
+				</form>
+			</c:if>
 		</section>
 	</c:if>
 	<c:if test="${pageScope.comments == null}">

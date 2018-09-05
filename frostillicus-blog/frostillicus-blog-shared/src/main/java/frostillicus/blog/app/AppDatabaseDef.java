@@ -18,6 +18,7 @@ package frostillicus.blog.app;
 import com.darwino.commons.Platform;
 import com.darwino.commons.json.JsonException;
 import com.darwino.commons.util.StringUtil;
+import com.darwino.jsonstore.Database;
 import com.darwino.jsonstore.impl.DatabaseFactoryImpl;
 import com.darwino.jsonstore.meta._Database;
 import com.darwino.jsonstore.meta._DatabaseACL;
@@ -26,7 +27,7 @@ import com.darwino.jsonstore.meta._Store;
 
 public class AppDatabaseDef extends DatabaseFactoryImpl {
 
-	public static final int DATABASE_VERSION	= 7;
+	public static final int DATABASE_VERSION	= 8;
 	public static final String DATABASE_NAME	= "frostillicus_blog"; //$NON-NLS-1$
 	public static final String STORE_POSTS = "posts"; //$NON-NLS-1$
 	public static final String STORE_COMMENTS = "comments"; //$NON-NLS-1$
@@ -55,11 +56,12 @@ public class AppDatabaseDef extends DatabaseFactoryImpl {
 			return null;
 		}
 		_Database db = new _Database(DATABASE_NAME, "frostillic.us Blog", DATABASE_VERSION); //$NON-NLS-1$
+		db.setDocumentSecurity(Database.DOCSEC_NOTESLIKE | Database.DOCSEC_INCLUDE);
 		
 		_DatabaseACL acl = new _DatabaseACL();
 		acl.addRole("admin", _DatabaseACL.ROLE_MANAGE); //$NON-NLS-1$
 		acl.addAnonymous(_DatabaseACL.ROLE_AUTHOR);
-		acl.addUser("anonymous", _DatabaseACL.ROLE_AUTHOR); //$NON-NLS-1$
+		acl.addUser("anonymous", _DatabaseACL.ROLE_READER); //$NON-NLS-1$
 		db.setACL(acl);
 
 		db.setReplicationEnabled(true);
