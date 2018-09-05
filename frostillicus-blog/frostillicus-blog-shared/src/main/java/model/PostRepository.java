@@ -37,9 +37,6 @@ public interface PostRepository extends DarwinoRepository<Post, String> {
 	
 	@Search(orderBy="posted desc")
 	List<Post> search(String query);
-
-	@Query("select * from Post order by posted desc")
-	List<Post> findAll();
 	
 	@Query("select * from Post limit 20 order by posted desc")
 	List<Post> homeList();
