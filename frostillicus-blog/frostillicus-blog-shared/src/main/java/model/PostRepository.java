@@ -31,8 +31,8 @@ import frostillicus.blog.app.AppDatabaseDef;
 public interface PostRepository extends DarwinoRepository<Post, String> {
 	Optional<Post> findByPostId(String postId);
 	
-//	@JSQL("select _unid from posts where $.form='Post' and tags::array=:tag order by $.posted desc")
-//	List<Post> findByTag(@Param("tag") String tag);
+	@JSQL("select _unid from posts where $.form='Post' and docid in (select docid from frostillicus_blog_tag where tag=:tag) order by $.posted desc")
+	List<Post> findByTag(@Param("tag") String tag);
 //	List<Post> findByTag(String tag);
 	
 	@Search(orderBy="posted desc")

@@ -21,12 +21,12 @@ public class BooleanYNConverter implements AttributeConverter<Boolean, String> {
 
 	@Override
 	public String convertToDatabaseColumn(Boolean attribute) {
-		return attribute ? "Y" : "N";
+		return attribute ? "Y" : "N"; //$NON-NLS-1$ //$NON-NLS-2$
 	}
 
 	@Override
 	public Boolean convertToEntityAttribute(String dbData) {
-		return "Y".equals(dbData);
+		return "Y".equals(dbData); //$NON-NLS-1$
 	}
 
 }

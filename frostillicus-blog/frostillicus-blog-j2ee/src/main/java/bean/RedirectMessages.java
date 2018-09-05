@@ -27,6 +27,6 @@ public class RedirectMessages implements Serializable {
 	}
 	
 	public static void add(String message) {
-		CDI.current().select(literal, NamedLiteral.of("redirectMessages")).get().add(message);
+		CDI.current().select(literal, NamedLiteral.of("redirectMessages")).get().add(message); //$NON-NLS-1$
 	}
 }

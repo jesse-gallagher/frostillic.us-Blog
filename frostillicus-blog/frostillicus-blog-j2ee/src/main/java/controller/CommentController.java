@@ -54,7 +54,7 @@ public class CommentController {
 			@FormParam("bodyMarkdown") String bodyMarkdown,
 			@FormParam("postedByEmail") String postedByEmail
 			) throws JsonException {
-		posts.findByPostId(postId).orElseThrow(() -> new IllegalArgumentException("Unable to find post matching ID " + postId));
+		posts.findByPostId(postId).orElseThrow(() -> new IllegalArgumentException("Unable to find post matching ID " + postId)); //$NON-NLS-1$
 		
 		Comment comment = new Comment();
 		comment.setCommentId(UUID.randomUUID().toString());
@@ -70,14 +70,14 @@ public class CommentController {
 		
 		comments.save(comment);
 		
-		return "redirect:posts/" + postId;
+		return "redirect:posts/" + postId; //$NON-NLS-1$
 	}
 	
 	@DELETE
 	@Path("{commentId}")
 	public String delete(@PathParam("postId") String postId, @PathParam("commentId") String commentId) {
-		Comment comment = comments.findByCommentId(commentId).orElseThrow(() -> new IllegalArgumentException("Unable to find comment matching ID " + commentId));
+		Comment comment = comments.findByCommentId(commentId).orElseThrow(() -> new IllegalArgumentException("Unable to find comment matching ID " + commentId)); //$NON-NLS-1$
 		comments.deleteById(comment.getId());
-		return "redirect:posts/" + postId;
+		return "redirect:posts/" + postId; //$NON-NLS-1$
 	}
 }

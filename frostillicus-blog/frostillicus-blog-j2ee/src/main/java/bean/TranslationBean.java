@@ -26,6 +26,6 @@ import javax.inject.Named;
 public class TranslationBean {
 	@Produces @Named("translation")
 	public ResourceBundle getTranslation() {
-		return ResourceBundle.getBundle("translation");
+		return ResourceBundle.getBundle("translation"); //$NON-NLS-1$
 	}
 }

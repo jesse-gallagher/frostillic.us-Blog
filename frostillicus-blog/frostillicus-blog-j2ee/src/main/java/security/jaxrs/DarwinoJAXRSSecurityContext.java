@@ -28,7 +28,7 @@ public class DarwinoJAXRSSecurityContext implements SecurityContext {
 
 	@Override
 	public boolean isSecure() {
-		return uriInfo.getAbsolutePath().toString().startsWith("https");
+		return uriInfo.getAbsolutePath().toString().startsWith("https"); //$NON-NLS-1$
 	}
 
 	@Override

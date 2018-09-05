@@ -34,8 +34,8 @@ public class HomeController {
 	
 	@GET
 	public String get() {
-		models.put("posts", posts.homeList());
+		models.put("posts", posts.homeList()); //$NON-NLS-1$
 		
-		return "home.jsp";
+		return "home.jsp"; //$NON-NLS-1$
 	}
 }

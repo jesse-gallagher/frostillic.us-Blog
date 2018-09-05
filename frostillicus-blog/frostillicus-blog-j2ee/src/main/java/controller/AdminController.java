@@ -27,7 +27,7 @@ public class AdminController {
 	
 	@GET
 	public String show() {
-		return "admin.jsp";
+		return "admin.jsp"; //$NON-NLS-1$
 	}
 	
 	@POST
@@ -39,29 +39,29 @@ public class AdminController {
 			@FormParam("name") String name,
 			@FormParam("url") String url
 		) {
-		Link link = links.findById(linkId).orElseThrow(() -> new IllegalArgumentException("Unable to find link matching ID " + linkId));
-		link.setVisible("Y".equals(visible));
+		Link link = links.findById(linkId).orElseThrow(() -> new IllegalArgumentException("Unable to find link matching ID " + linkId)); //$NON-NLS-1$
+		link.setVisible("Y".equals(visible)); //$NON-NLS-1$
 		link.setCategory(category);
 		link.setName(name);
 		link.setUrl(url);
 		links.save(link);
-		return "redirect:admin";
+		return "redirect:admin"; //$NON-NLS-1$
 	}
 	
 	@DELETE
 	@Path("links/{linkId}")
 	public String deleteLink(@PathParam("linkId") String linkId) {
 		links.deleteById(linkId);
-		return "redirect:admin";
+		return "redirect:admin"; //$NON-NLS-1$
 	}
 	
 	@POST
 	@Path("links/new")
 	public String createLink() {
 		Link link = new Link();
-		link.setName("New Link");
-		link.setUrl("http://...");
+		link.setName("New Link"); //$NON-NLS-1$
+		link.setUrl("http://..."); //$NON-NLS-1$
 		links.save(link);
-		return "redirect:admin";
+		return "redirect:admin"; //$NON-NLS-1$
 	}
 }

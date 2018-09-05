@@ -53,10 +53,10 @@ public class FeedController {
 	@Produces("application/rss+xml")
 	public String get() throws FeedException {
 		SyndFeed feed = new SyndFeedImpl();
-		feed.setFeedType("rss_2.0");
-		feed.setTitle(translation.getString("appTitle"));
-		feed.setDescription(translation.getString("appDescription"));
-		feed.setLink(translation.getString("baseUrl"));
+		feed.setFeedType("rss_2.0"); //$NON-NLS-1$
+		feed.setTitle(translation.getString("appTitle")); //$NON-NLS-1$
+		feed.setDescription(translation.getString("appDescription")); //$NON-NLS-1$
+		feed.setLink(translation.getString("baseUrl")); //$NON-NLS-1$
 		
 		feed.setEntries(posts.homeList().stream()
 			.map(this::toEntry)
@@ -69,7 +69,7 @@ public class FeedController {
 		SyndEntry entry = new SyndEntryImpl();
 		entry.setAuthor(post.getPostedBy());
 		entry.setTitle(post.getTitle());
-		entry.setLink(translation.getString("baseUrl") + servletContext.getContextPath() + "/posts/" + post.getId());
+		entry.setLink(translation.getString("baseUrl") + servletContext.getContextPath() + "/posts/" + post.getId()); //$NON-NLS-1$ //$NON-NLS-2$
 		entry.setPublishedDate(post.getPosted());
 		SyndContent content = new SyndContentImpl();
 		content.setType(MediaType.TEXT_HTML);

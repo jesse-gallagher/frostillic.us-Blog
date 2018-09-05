@@ -45,7 +45,7 @@ public class AppServiceFactory extends RestServiceFactory {
 			if(context.isGet()) {
 				JsonObject o = new JsonObject();
 				try {
-					o.put("name", "frostillicus_blog"); //$NON-NLS-1$
+					o.put("name", "frostillicus_blog"); //$NON-NLS-1$ //$NON-NLS-2$
 					
 					// Access to the app manifest
 					AppManifest mf = (AppManifest)DarwinoApplication.get().getManifest();
@@ -55,7 +55,6 @@ public class AppServiceFactory extends RestServiceFactory {
 					
 					// Access to the database session
 					JsonObject jSession = new JsonObject();
-					@SuppressWarnings("resource")
 					Session session = DarwinoContext.get().getSession();
 					jSession.put("user", session.getUser().getDn()); //$NON-NLS-1$
 					jSession.put("instanceId", session.getInstanceId()); //$NON-NLS-1$
@@ -84,7 +83,6 @@ public class AppServiceFactory extends RestServiceFactory {
 					// Instances are only supported with the Enterprise edition
 					o.put("useInstances", false); //$NON-NLS-1$
 					if(Lic.isEnterpriseEdition()) {
-						@SuppressWarnings("resource")
 						Session session = DarwinoContext.get().getSession();
 						String dbName = DarwinoApplication.get().getManifest().getMainDatabase();
 						Database db = session.getDatabase(dbName);

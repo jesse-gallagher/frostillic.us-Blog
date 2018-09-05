@@ -74,42 +74,42 @@ public class PostController {
 		// Fetch the months - use Darwino directly for this for now
 		Store store = database.getStore(AppDatabaseDef.STORE_POSTS);
 		store.openCursor()
-			.query(JsonObject.of("form", Post.class.getSimpleName()))
+			.query(JsonObject.of("form", Post.class.getSimpleName())) //$NON-NLS-1$
 			.findDocuments(doc -> {
-				String posted = doc.getString("posted");
+				String posted = doc.getString("posted"); //$NON-NLS-1$
 				if(posted != null && posted.length() >= 7) {
 					months.add(posted.substring(0, 7));
 				}
 				return true;
 			});
 		
-		models.put("months", months);
+		models.put("months", months); //$NON-NLS-1$
 		
-		return "posts.jsp";
+		return "posts.jsp"; //$NON-NLS-1$
 	}
 	
 	@GET
 	@Path("tag/{tag}")
 	public String byTag(@PathParam("tag") String tag) {
-		models.put("tag", tag);
-//		models.put("posts", posts.findByTag(tag));
+		models.put("tag", tag); //$NON-NLS-1$
+		models.put("posts", posts.findByTag(tag)); //$NON-NLS-1$
 		// TODO figure out how to do this in a query
-		models.put("posts",
-			posts.findAll().stream()
-				.filter(p -> p.getTags() != null && p.getTags().contains(tag))
-				.collect(Collectors.toList())
-		);
+//		models.put("posts",
+//			posts.findAll().stream()
+//				.filter(p -> p.getTags() != null && p.getTags().contains(tag))
+//				.collect(Collectors.toList())
+//		);
 		
 		// TODO make standalone page
-		return "home.jsp";
+		return "home.jsp"; //$NON-NLS-1$
 	}
 	
 	@GET
 	@Path("new")
 	public String compose() {
-		models.put("post", new Post());
+		models.put("post", new Post()); //$NON-NLS-1$
 		
-		return "post-new.jsp";
+		return "post-new.jsp"; //$NON-NLS-1$
 	}
 	
 	// TODO figure out if this can be done automatically without adding @FormParam to the model class
@@ -125,7 +125,7 @@ public class PostController {
 		post.setBodyHtml(markdown.toHtml(bodyMarkdown));
 		post.setTags(
 			tags == null ? Collections.emptyList() :
-			Arrays.stream(tags.split(","))
+			Arrays.stream(tags.split(",")) //$NON-NLS-1$
 				.map(String::trim)
 				.filter(StringUtil::isNotEmpty)
 				.collect(Collectors.toList())
@@ -134,18 +134,18 @@ public class PostController {
 		post.setPostId(UUID.randomUUID().toString());
 		posts.save(post);
 		
-		return "redirect:posts/" + post.getPostId();
+		return "redirect:posts/" + post.getPostId(); //$NON-NLS-1$
 	}
 	
 	@GET
 	@Path("{postId}")
 	public String show(@PathParam("postId") String postId) {
-		Post post = posts.findByPostId(postId).orElseThrow(() -> new IllegalArgumentException("Unable to find post matching ID " + postId));
-		models.put("post", post);
+		Post post = posts.findByPostId(postId).orElseThrow(() -> new IllegalArgumentException("Unable to find post matching ID " + postId)); //$NON-NLS-1$
+		models.put("post", post); //$NON-NLS-1$
 		
-		models.put("comments", comments.findByPostId(post.getPostId()));
+		models.put("comments", comments.findByPostId(post.getPostId())); //$NON-NLS-1$
 		
-		return "post.jsp";
+		return "post.jsp"; //$NON-NLS-1$
 	}
 	
 	@GET
@@ -158,9 +158,9 @@ public class PostController {
 	@Path("{year}/{month}/{day}/{postId}/edit")
 	@RolesAllowed("admin")
 	public String edit(@PathParam("postId") String postId) {
-		Post post = posts.findByPostId(postId).orElseThrow(() -> new IllegalArgumentException("Unable to find post matching ID " + postId));
-		models.put("post", post);
-		return "post-edit.jsp";
+		Post post = posts.findByPostId(postId).orElseThrow(() -> new IllegalArgumentException("Unable to find post matching ID " + postId)); //$NON-NLS-1$
+		models.put("post", post); //$NON-NLS-1$
+		return "post-edit.jsp"; //$NON-NLS-1$
 	}
 	
 	@DELETE
@@ -174,9 +174,9 @@ public class PostController {
 	@Path("{postId}")
 	@RolesAllowed("admin")
 	public String delete(@PathParam("postId") String postId) {
-		Post post = posts.findByPostId(postId).orElseThrow(() -> new IllegalArgumentException("Unable to find post matching ID " + postId));
+		Post post = posts.findByPostId(postId).orElseThrow(() -> new IllegalArgumentException("Unable to find post matching ID " + postId)); //$NON-NLS-1$
 		posts.deleteById(post.getId());
-		return "redirect:posts";
+		return "redirect:posts"; //$NON-NLS-1$
 	}
 	
 	// *******************************************************************************
@@ -185,7 +185,7 @@ public class PostController {
 	@GET
 	@Path("search")
 	public String search(@QueryParam("q") String query) {
-		models.put("posts", posts.search(query));
-		return "search.jsp";
+		models.put("posts", posts.search(query)); //$NON-NLS-1$
+		return "search.jsp"; //$NON-NLS-1$
 	}
 }

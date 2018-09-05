@@ -33,11 +33,11 @@ public class UserInfoBean {
 	DarwinoContext context;
 	
 	public String getImageUrl(String userName) {
-		return StringUtil.format("$darwino-social/users/users/{0}/content/photo", URLEncoder.encode(userName, StringUtil.UTF_8));
+		return StringUtil.format("$darwino-social/users/users/{0}/content/photo", URLEncoder.encode(userName, StringUtil.UTF_8)); //$NON-NLS-1$
 	}
 	
 	public boolean isAdmin() {
-		return context.getUser().hasRole("admin");
+		return context.getUser().hasRole("admin"); //$NON-NLS-1$
 	}
 	
 	public boolean isAnonymous() {
@@ -50,6 +50,6 @@ public class UserInfoBean {
 	
 	public String getEmailAddress() throws UserException {
 		Object mail = context.getUser().getAttribute(User.ATTR_EMAIL);
-		return mail == null ? "" : String.valueOf(mail);
+		return StringUtil.toString(mail);
 	}
 }

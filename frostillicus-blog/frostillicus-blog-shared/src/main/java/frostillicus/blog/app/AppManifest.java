@@ -47,7 +47,7 @@ public class AppManifest extends DarwinoManifest {
 	
 	@Override
 	public String getLabel() {
-		return "frostillic.us Blog";
+		return "frostillic.us Blog"; //$NON-NLS-1$
 	}
 	
 	@Override

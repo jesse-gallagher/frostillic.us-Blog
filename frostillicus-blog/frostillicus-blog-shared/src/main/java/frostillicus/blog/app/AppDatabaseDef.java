@@ -28,9 +28,9 @@ public class AppDatabaseDef extends DatabaseFactoryImpl {
 
 	public static final int DATABASE_VERSION	= 7;
 	public static final String DATABASE_NAME	= "frostillicus_blog"; //$NON-NLS-1$
-	public static final String STORE_POSTS = "posts";
-	public static final String STORE_COMMENTS = "comments";
-	public static final String STORE_CONFIG = "config";
+	public static final String STORE_POSTS = "posts"; //$NON-NLS-1$
+	public static final String STORE_COMMENTS = "comments"; //$NON-NLS-1$
+	public static final String STORE_CONFIG = "config"; //$NON-NLS-1$
 	
 	// The list  of instances is defined through a property for the DB
 	public static String[] getInstances() {
@@ -54,12 +54,12 @@ public class AppDatabaseDef extends DatabaseFactoryImpl {
 		if(!StringUtil.equalsIgnoreCase(databaseName, DATABASE_NAME)) {
 			return null;
 		}
-		_Database db = new _Database(DATABASE_NAME, "frostillic.us Blog", DATABASE_VERSION);
+		_Database db = new _Database(DATABASE_NAME, "frostillic.us Blog", DATABASE_VERSION); //$NON-NLS-1$
 		
 		_DatabaseACL acl = new _DatabaseACL();
-		acl.addRole("admin", _DatabaseACL.ROLE_MANAGE);
+		acl.addRole("admin", _DatabaseACL.ROLE_MANAGE); //$NON-NLS-1$
 		acl.addAnonymous(_DatabaseACL.ROLE_AUTHOR);
-		acl.addUser("anonymous", _DatabaseACL.ROLE_AUTHOR);
+		acl.addUser("anonymous", _DatabaseACL.ROLE_AUTHOR); //$NON-NLS-1$
 		db.setACL(acl);
 
 		db.setReplicationEnabled(true);

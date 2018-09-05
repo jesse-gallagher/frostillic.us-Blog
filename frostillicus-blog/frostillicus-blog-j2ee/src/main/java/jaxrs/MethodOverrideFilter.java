@@ -16,12 +16,12 @@ public class MethodOverrideFilter implements ContainerRequestFilter {
 
 	@Override
 	public void filter(ContainerRequestContext requestContext) throws IOException {
-		if("POST".equals(requestContext.getMethod()) && requestContext.hasEntity()) {
+		if("POST".equals(requestContext.getMethod()) && requestContext.hasEntity()) { //$NON-NLS-1$
 			// TODO look for a non-implementation-specific way to do this
 			if(requestContext.getRequest() instanceof RequestImpl) {
 				// Check for a _method form param
 				RequestImpl req = (RequestImpl)requestContext.getRequest();
-				List<String> formVal = req.getFormParameters().get("_method");
+				List<String> formVal = req.getFormParameters().get("_method"); //$NON-NLS-1$
 				if(formVal != null && !formVal.isEmpty()) {
 					requestContext.setMethod(formVal.get(0));
 				}
