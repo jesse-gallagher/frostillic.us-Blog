@@ -95,14 +95,14 @@ a {
 	color: rgb(57, 82, 107);
 	text-decoration: none;
 }
-.post header h3 {
+.post header h3, .comment > h3 {
 	font-size: 0.9em;
 	color: rgb(128, 128, 128);
 	margin-top: 0;
 	margin-bottom: 0.5em;
 }
 
-.post .admin {
+.post > .admin {
 	position: absolute;
 	top: 0;
 	right: 0;
@@ -154,6 +154,25 @@ a {
 	line-height: 1.4;
 }
 
+.comment {
+	display: grid;
+}
+
+.comment .photo {
+	grid-area: photo;
+	max-width: 48px;
+}
+.comment > h3 {
+	grid-area: title;
+}
+.comment > .admin {
+	grid-area: admin;
+	text-align: right;
+}
+.comment > .comment-body {
+	grid-area: content;
+}
+
 #pagefooter {
 	grid-area: footer;
 	
@@ -169,7 +188,6 @@ input:invalid {
 }
 
 
-
 @media ( max-width: 699px) {
 	#entirety {
 		max-width: 100%;
@@ -180,6 +198,18 @@ input:invalid {
 	#pagefooter {
 		padding: 0.5em;
 		background-color: rgb(111, 149, 208);
+	}
+	
+	
+	.comment {
+		grid-template-columns: 5fr 1fr;
+		grid-template-areas:
+			"title admin"
+			"content content";
+	}
+	
+	.comment .photo {
+		display: none;
 	}
 }
 @media ( min-width : 700px) {
@@ -212,6 +242,13 @@ input:invalid {
 	}
 	.post img {
 		max-width: 100%;
+	}
+	
+	.comment {
+		grid-template-columns: 52px 6fr 1fr;
+		grid-template-areas:
+			"photo title admin"
+			"photo content content";
 	}
 	
 	#pagefooter {

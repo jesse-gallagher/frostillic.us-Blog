@@ -17,18 +17,23 @@
 --%>
 <%@attribute name="value" required="true" type="model.Comment" %>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <article class="comment">
-	<header>
-		<img class="photo" src="${userInfo.getImageUrl(pageScope.value.postedByEmail)}" alt="${translation.commenterPhoto}"/>
-		<h3>${pageScope.value.postedBy}</h3>
-		<c:if test="${userInfo.admin}">
-			<div class="admin">
-				<form method="POST" action="posts/${pageScope.value.postId}/comments/${pageScope.value.commentId}">
-					<input type="submit" class="delete" value="${translation.deleteButton}" onclick="return confirm('${translation.commentDeleteConfirm}')" />
-					<input type="hidden" name="_method" value="DELETE" />
-				</form>
-			</div>
-		</c:if>
-	</header>
-	${pageScope.value.bodyHtml}
+	<img class="photo" src="${userInfo.getImageUrl(pageScope.value.postedByEmail)}" alt="${translation.commenterPhoto}"/>
+	<h3>
+		${pageScope.value.postedBy}
+		-
+		<fmt:formatDate value="${pageScope.value.posted}" type="both" dateStyle="medium" timeStyle="short" />
+	</h3>
+	<c:if test="${userInfo.admin}">
+		<div class="admin">
+			<form method="POST" action="posts/${pageScope.value.postId}/comments/${pageScope.value.commentId}">
+				<input type="submit" class="delete" value="${translation.deleteButton}" onclick="return confirm('${translation.commentDeleteConfirm}')" />
+				<input type="hidden" name="_method" value="DELETE" />
+			</form>
+		</div>
+	</c:if>
+	<div class="comment-body">
+		${pageScope.value.bodyHtml}
+	</div>
 </article>
