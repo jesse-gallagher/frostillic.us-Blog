@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en-us">
+	<head>
+		<meta http-equiv="x-ua-compatible" content="ie=edge">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no" />
+		
+		<link rel="shortcut icon" href="${CONTEXT_PATH}/icon.png" />
+		<link rel="apple-touch-icon" href="icon.png" />
+		<link rel="stylesheet" href="${CONTEXT_PATH}/css/style.css" />
+		<link rel="stylesheet" href="${CONTEXT_PATH}/css/forms.css" />
+		
+		<title>frostillic.us Login</title>
+	</head>
+	<body>
+		<div id="entirety">
+			<header id="pageheader">
+<!-- 				<a href="${pageContext.request.contextPath}">${translation.appTitle}</a> -->
+			</header>
+			<nav id="pagenav">
+				
+			</nav>
+			<div id="pagebody">
+				<h2 class="title">Log In</h2>
+				<form action="${ACTION_URL}" method="post">
+					<p>
+						<p class="error" style="color: red">
+							${ERROR_MESSAGE}
+						</p>
+						<input type="text" class="edit" name="dwo_username" placeholder="User Name" value="${USER}">
+					</p>
+					<p>
+						<input type="password" class="edit" name="dwo_password" placeholder="Password">
+					</p>
+						<input type="hidden" name="dwo_redirect" value="${REDIRECT_URL}">
+					<p>
+						<input type="submit" class="submit" value="Log In">
+					</p>
+				</form>
+			</div>
+			<footer id="pagefooter">
+				
+			</footer>
+		</div>
+	</body>
+</html>
