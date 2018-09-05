@@ -22,6 +22,7 @@ import org.darwino.jnosql.artemis.extension.DarwinoRepository;
 import org.darwino.jnosql.artemis.extension.JSQL;
 import org.darwino.jnosql.artemis.extension.RepositoryProvider;
 import org.darwino.jnosql.artemis.extension.Search;
+import org.darwino.jnosql.artemis.extension.StoredCursor;
 import org.jnosql.artemis.Param;
 import org.jnosql.artemis.Query;
 
@@ -31,9 +32,8 @@ import frostillicus.blog.app.AppDatabaseDef;
 public interface PostRepository extends DarwinoRepository<Post, String> {
 	Optional<Post> findByPostId(String postId);
 	
-	@JSQL("select _unid from posts where $.form='Post' and docid in (select docid from frostillicus_blog_tag where tag=:tag) order by $.posted desc")
+	@StoredCursor("PostsByTag")
 	List<Post> findByTag(@Param("tag") String tag);
-//	List<Post> findByTag(String tag);
 	
 	@Search(orderBy="posted desc")
 	List<Post> search(String query);

@@ -16,6 +16,7 @@
 package frostillicus.blog.app;
 
 import com.darwino.jsonstore.extensions.DefaultExtensionRegistry;
+import com.darwino.jsonstore.impl.DarwinoInfCursorFactory;
 
 /**
  * Database Business logic - event handlers.
@@ -29,6 +30,9 @@ public  class AppDBBusinessLogic extends DefaultExtensionRegistry {
 //			public void querySaveDocument(Document doc) throws JsonException {
 //			}
 //		});
+
+		// Use a query factory
+		setQueryFactory(new DarwinoInfCursorFactory(getClass()));
 		
 		
 	}
