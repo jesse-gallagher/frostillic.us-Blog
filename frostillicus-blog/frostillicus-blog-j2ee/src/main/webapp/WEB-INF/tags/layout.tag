@@ -78,7 +78,7 @@
 					</ul>
 				</c:if>
 			</nav>
-			<div id="pagebody">
+			<main id="pagebody">
 				<c:if test="${not empty redirectMessages}">
 					<ul>
 						<c:forEach items="${redirectMessages}" var="message">
@@ -88,7 +88,7 @@
 				</c:if>
 			
 				<jsp:doBody />
-			</div>
+			</main>
 			<footer id="pagefooter">
 				<p>${translation.copyright}</p>
 			</footer>
