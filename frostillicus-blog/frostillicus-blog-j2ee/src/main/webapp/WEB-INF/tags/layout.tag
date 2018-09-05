@@ -59,7 +59,8 @@
 				</ul>
 				
 				<form action="posts/search" method="GET" class="inline-search">
-					<input class="search" name="q"/>
+					<label for="quick-search">${translation.quickSearch}</label>
+					<input class="search" name="q" id="quick-search"/>
 					<button type="submit">${translation.searchButton}</button>
 				</form>
 				

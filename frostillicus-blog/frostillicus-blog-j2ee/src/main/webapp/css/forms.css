@@ -68,3 +68,6 @@
 	width: 1.5em;
 	background: transparent;
 }
+.inline-search label {
+	display: none;
+}
