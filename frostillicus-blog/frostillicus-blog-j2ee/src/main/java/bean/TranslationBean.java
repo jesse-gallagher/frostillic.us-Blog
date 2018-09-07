@@ -15,10 +15,13 @@
  */
 package bean;
 
+import java.text.MessageFormat;
 import java.util.ResourceBundle;
 
 import javax.enterprise.context.RequestScoped;
 import javax.enterprise.inject.Produces;
+import javax.enterprise.inject.literal.NamedLiteral;
+import javax.enterprise.inject.spi.CDI;
 import javax.inject.Named;
 
 // TODO switch to app scoped and use request locale
@@ -27,5 +30,20 @@ public class TranslationBean {
 	@Produces @Named("translation")
 	public ResourceBundle getTranslation() {
 		return ResourceBundle.getBundle("translation"); //$NON-NLS-1$
+	}
+	
+	@Produces @Named("messages")
+	public Messages getMessages() {
+		return Messages.INSTANCE;
+	}
+	
+	public static final class Messages {
+		public static final Messages INSTANCE = new Messages();
+		
+		public String format(String key, Object... params) {
+			ResourceBundle translation = CDI.current().select(ResourceBundle.class, NamedLiteral.of("translation")).get(); //$NON-NLS-1$
+			String message = translation.getString(key);
+			return MessageFormat.format(message, params);
+		}
 	}
 }

@@ -93,15 +93,7 @@ public class PostController {
 	public String byTag(@PathParam("tag") String tag) {
 		models.put("tag", tag); //$NON-NLS-1$
 		models.put("posts", posts.findByTag(tag)); //$NON-NLS-1$
-		// TODO figure out how to do this in a query
-//		models.put("posts",
-//			posts.findAll().stream()
-//				.filter(p -> p.getTags() != null && p.getTags().contains(tag))
-//				.collect(Collectors.toList())
-//		);
-		
-		// TODO make standalone page
-		return "home.jsp"; //$NON-NLS-1$
+		return "posts-bytag.jsp"; //$NON-NLS-1$
 	}
 	
 	@GET
