@@ -75,6 +75,7 @@
 				<c:if test="${userInfo.admin}">
 					<ul title="${translation.admin}">
 						<li><a href="admin">${translation.adminPanel}</a></li>
+						<li><a href="admin/console">${translation.adminConsole}</a></li>
 						<li><a href="posts/new">${translation.newPost}</a></li>
 					</ul>
 				</c:if>

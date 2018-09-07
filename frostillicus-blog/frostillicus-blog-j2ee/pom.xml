@@ -38,6 +38,16 @@
 			<artifactId>dwo-jsonstore-sql-jsql</artifactId>
 			<version>${DARWINO_VERSION}</version>
 		</dependency>
+		<dependency>
+			<groupId>com.darwino</groupId>
+			<artifactId>dwo-commons-runtime-debug</artifactId>
+			<version>${DARWINO_VERSION}</version>
+		</dependency>
+		<dependency>
+			<groupId>com.darwino</groupId>
+			<artifactId>dwo-commons-runtime-debug-script</artifactId>
+			<version>${DARWINO_VERSION}</version>
+		</dependency>
 
 		<dependency>
 			<groupId>com.darwino</groupId>

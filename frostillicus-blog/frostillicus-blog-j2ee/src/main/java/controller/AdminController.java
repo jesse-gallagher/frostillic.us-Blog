@@ -64,4 +64,10 @@ public class AdminController {
 		links.save(link);
 		return "redirect:admin"; //$NON-NLS-1$
 	}
+	
+	@GET
+	@Path("console")
+	public String showConsole() {
+		return "admin-console.jsp"; //$NON-NLS-1$
+	}
 }
