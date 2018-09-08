@@ -66,6 +66,12 @@
 			<version>${project.version}</version>
 		</dependency>
 		
+		<dependency>
+			<groupId>org.projectlombok</groupId>
+			<artifactId>lombok</artifactId>
+			<scope>provided</scope>
+		</dependency>
+		
 		<!-- RSS generation -->
 		<dependency>
 			<groupId>com.rometools</groupId>
