@@ -82,14 +82,14 @@
 	<!--  Filter for Gzip -->
 	<!--  Note that a GZIP filter should not be applied twice in case of FORWARD -->
 	<!--  This filter should then be added first -->
-	<filter>
-    	<filter-name>GZipFilter</filter-name>
-    	<filter-class>com.darwino.j2ee.servlet.gzip.GZipServletFilter</filter-class>
-	</filter>
-	<filter-mapping>
-    	<filter-name>GZipFilter</filter-name>
-    	<url-pattern>/*</url-pattern>
-    </filter-mapping>
+<!-- 	<filter> -->
+<!--     	<filter-name>GZipFilter</filter-name> -->
+<!--     	<filter-class>com.darwino.j2ee.servlet.gzip.GZipServletFilter</filter-class> -->
+<!-- 	</filter> -->
+<!-- 	<filter-mapping> -->
+<!--     	<filter-name>GZipFilter</filter-name> -->
+<!--     	<url-pattern>/*</url-pattern> -->
+<!--     </filter-mapping> -->
 	
 		
 	<!--  Filter for custom authentication -->
@@ -152,14 +152,14 @@
 
 	<!-- Filter for $darwino-xxx URLs rewritting -->
 	<!--  This filter must be before the services or resources filters, to make sure that the URL is processed before reaching them -->
-	<filter>
-    	<filter-name>DarwinoRewriting</filter-name>
-    	<filter-class>com.darwino.j2ee.servlet.resources.DarwinoGlobalPathRewriterFilter</filter-class>
-   	</filter>
-	<filter-mapping>
-    	<filter-name>DarwinoRewriting</filter-name>
-    	<url-pattern>/*</url-pattern>
-	</filter-mapping>
+<!-- 	<filter> -->
+<!--     	<filter-name>DarwinoRewriting</filter-name> -->
+<!--     	<filter-class>com.darwino.j2ee.servlet.resources.DarwinoGlobalPathRewriterFilter</filter-class> -->
+<!--    	</filter> -->
+<!-- 	<filter-mapping> -->
+<!--     	<filter-name>DarwinoRewriting</filter-name> -->
+<!--     	<url-pattern>/*</url-pattern> -->
+<!-- 	</filter-mapping> -->
 	
 	<!--  Filter for publishing the Darwino Services -->
 	<filter>
@@ -174,32 +174,37 @@
    </filter-mapping>
 	
 	<!--
-		Pass known static folders through directly, ignoring the JAX-RS app
+		Pass known static folders through to the Darwino files servler, ignoring the JAX-RS app
 	-->
+	<servlet>
+		<display-name>Default Files Servlet</display-name>
+		<servlet-name>FilesServlet</servlet-name>
+		<servlet-class>com.darwino.j2ee.servlet.resources.DarwinoAppResourcesServlet</servlet-class>
+	</servlet>
 	<servlet-mapping>
-		<servlet-name>default</servlet-name>
+		<servlet-name>FilesServlet</servlet-name>
 		<url-pattern>/css/*</url-pattern>
 	</servlet-mapping>
 	<servlet-mapping>
-		<servlet-name>default</servlet-name>
+		<servlet-name>FilesServlet</servlet-name>
 		<url-pattern>/img/*</url-pattern>
 	</servlet-mapping>
 	<servlet-mapping>
-		<servlet-name>default</servlet-name>
+		<servlet-name>FilesServlet</servlet-name>
 		<url-pattern>/js/*</url-pattern>
 	</servlet-mapping>
 	
  	<!--
  		CDI implementation for Tomcat 
  	-->
- 	<listener>
-		<listener-class>org.jboss.weld.environment.servlet.Listener</listener-class>
-	</listener>
+<!--  	<listener> -->
+<!-- 		<listener-class>org.jboss.weld.environment.servlet.Listener</listener-class> -->
+<!-- 	</listener> -->
 
-	<resource-env-ref>
-		<resource-env-ref-name>BeanManager</resource-env-ref-name>
-		<resource-env-ref-type>javax.enterprise.inject.spi.BeanManager</resource-env-ref-type>
-	</resource-env-ref>
+<!-- 	<resource-env-ref> -->
+<!-- 		<resource-env-ref-name>BeanManager</resource-env-ref-name> -->
+<!-- 		<resource-env-ref-type>javax.enterprise.inject.spi.BeanManager</resource-env-ref-type> -->
+<!-- 	</resource-env-ref> -->
 
 	<context-param>
 		<param-name>resteasy.injector.factory</param-name>
