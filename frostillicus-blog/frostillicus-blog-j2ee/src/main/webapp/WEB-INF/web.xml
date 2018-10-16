@@ -152,26 +152,26 @@
 
 	<!-- Filter for $darwino-xxx URLs rewritting -->
 	<!--  This filter must be before the services or resources filters, to make sure that the URL is processed before reaching them -->
-<!-- 	<filter> -->
-<!--     	<filter-name>DarwinoRewriting</filter-name> -->
-<!--     	<filter-class>com.darwino.j2ee.servlet.resources.DarwinoGlobalPathRewriterFilter</filter-class> -->
-<!--    	</filter> -->
-<!-- 	<filter-mapping> -->
-<!--     	<filter-name>DarwinoRewriting</filter-name> -->
-<!--     	<url-pattern>/*</url-pattern> -->
-<!-- 	</filter-mapping> -->
+	<filter>
+    	<filter-name>DarwinoRewriting</filter-name>
+    	<filter-class>com.darwino.j2ee.servlet.resources.DarwinoGlobalPathRewriterFilter</filter-class>
+   	</filter>
+	<filter-mapping>
+    	<filter-name>DarwinoRewriting</filter-name>
+    	<url-pattern>/*</url-pattern>
+	</filter-mapping>
 	
 	<!--  Filter for publishing the Darwino Services -->
-<!-- 	<filter> -->
-<!--     	<filter-name>DarwinoServices</filter-name> -->
-<!--     	<filter-class>frostillicus.blog.app.AppServiceDispatcher</filter-class> -->
-<!-- 	</filter> -->
-<!-- 	<filter-mapping> -->
-<!--     	<filter-name>DarwinoServices</filter-name> -->
-<!--     	<url-pattern>/*</url-pattern> -->
-<!--     	<dispatcher>REQUEST</dispatcher> -->
-<!--     	<dispatcher>FORWARD</dispatcher> -->
-<!--    </filter-mapping> -->
+	<filter>
+    	<filter-name>DarwinoServices</filter-name>
+    	<filter-class>frostillicus.blog.app.AppServiceDispatcher</filter-class>
+	</filter>
+	<filter-mapping>
+    	<filter-name>DarwinoServices</filter-name>
+    	<url-pattern>/*</url-pattern>
+    	<dispatcher>REQUEST</dispatcher>
+    	<dispatcher>FORWARD</dispatcher>
+   </filter-mapping>
 	
 	<!--
 		Pass known static folders through to the Darwino files servlet, ignoring the JAX-RS app
