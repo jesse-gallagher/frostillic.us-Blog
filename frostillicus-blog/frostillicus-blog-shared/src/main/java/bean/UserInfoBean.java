@@ -26,14 +26,17 @@ import com.darwino.commons.security.acl.UserException;
 import com.darwino.commons.util.StringUtil;
 import com.darwino.platform.DarwinoContext;
 
+import lombok.SneakyThrows;
+
 @RequestScoped
 @Named("userInfo")
 public class UserInfoBean {
 	@Inject @Named("darwinoContext")
 	DarwinoContext context;
 	
+	@SneakyThrows
 	public String getImageUrl(String userName) {
-		return StringUtil.format("$darwino-social/users/users/{0}/content/photo", URLEncoder.encode(userName, StringUtil.UTF_8)); //$NON-NLS-1$
+		return StringUtil.format("$darwino-social/users/users/{0}/content/photo", URLEncoder.encode(userName, "UTF-8")); //$NON-NLS-1$
 	}
 	
 	public boolean isAdmin() {

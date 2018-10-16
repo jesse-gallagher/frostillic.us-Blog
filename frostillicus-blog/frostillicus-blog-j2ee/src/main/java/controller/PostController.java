@@ -26,7 +26,7 @@ import java.util.stream.Collectors;
 import javax.annotation.security.RolesAllowed;
 import javax.inject.Inject;
 import javax.mvc.Models;
-import javax.mvc.annotation.Controller;
+import javax.mvc.Controller;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
 import javax.ws.rs.FormParam;

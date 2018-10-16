@@ -19,7 +19,7 @@ import java.util.Date;
 import java.util.UUID;
 
 import javax.inject.Inject;
-import javax.mvc.annotation.Controller;
+import javax.mvc.Controller;
 import javax.ws.rs.DELETE;
 import javax.ws.rs.FormParam;
 import javax.ws.rs.POST;

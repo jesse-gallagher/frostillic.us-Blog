@@ -20,7 +20,7 @@ import java.util.ResourceBundle;
 import javax.annotation.security.RolesAllowed;
 import javax.inject.Inject;
 import javax.inject.Named;
-import javax.mvc.annotation.Controller;
+import javax.mvc.Controller;
 import javax.ws.rs.DELETE;
 import javax.ws.rs.FormParam;
 import javax.ws.rs.GET;

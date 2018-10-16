@@ -24,7 +24,7 @@ import javax.enterprise.inject.literal.NamedLiteral;
 import javax.enterprise.inject.spi.CDI;
 import javax.enterprise.util.TypeLiteral;
 import javax.inject.Named;
-import javax.mvc.annotation.RedirectScoped;
+import javax.mvc.RedirectScoped;
 
 
 @RedirectScoped
@@ -32,7 +32,7 @@ public class RedirectMessages implements Serializable {
 	private static final long serialVersionUID = 1L;
 	
 	private final List<String> messages = new ArrayList<>();
-	private static final TypeLiteral<List<String>> literal = new TypeLiteral<>() {
+	private static final TypeLiteral<List<String>> literal = new TypeLiteral<List<String>>() {
 		private static final long serialVersionUID = 1L;
 	};
 

@@ -90,17 +90,17 @@
 			<dependency>
 				<groupId>javax.mvc</groupId>
 				<artifactId>javax.mvc-api</artifactId>
-				<version>1.0-pr</version>
+				<version>1.0-pfd</version>
 			</dependency>
 			<dependency>
 				<groupId>org.mvc-spec.ozark</groupId>
 				<artifactId>ozark-core</artifactId>
-				<version>1.0.0-m03</version>
+				<version>1.0.0-m04</version>
 			</dependency>
 			<dependency>
 				<groupId>org.mvc-spec.ozark</groupId>
 				<artifactId>ozark-resteasy</artifactId>
-				<version>1.0.0-m03</version>
+				<version>1.0.0-m04</version>
 			</dependency>
 			
 			<dependency>
