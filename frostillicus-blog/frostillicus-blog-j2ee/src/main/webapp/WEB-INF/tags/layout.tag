@@ -36,7 +36,7 @@
 		
 		<script type="text/javascript" src="${pageContext.request.contextPath}/js/turbolinks.js"></script>
 		
-		<title>frostillic.us</title>
+		<title>${translation.appTitle}</title>
 	</head>
 	<body>
 		<div id="entirety">
