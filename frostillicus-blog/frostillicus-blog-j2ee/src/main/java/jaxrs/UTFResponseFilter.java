@@ -12,7 +12,7 @@ import java.io.IOException;
  * forces their content charset to UTF-8.
  */
 @Provider
-public class UTFFilterResponse implements ContainerResponseFilter {
+public class UTFResponseFilter implements ContainerResponseFilter {
     @Override
     public void filter(ContainerRequestContext requestContext, ContainerResponseContext responseContext) throws IOException {
         String contentType = responseContext.getHeaderString("Content-Type");
