@@ -15,9 +15,12 @@
  */
 package security;
 
+import javax.enterprise.context.ApplicationScoped;
+import javax.security.enterprise.credential.Credential;
 import javax.security.enterprise.credential.UsernamePasswordCredential;
 import javax.security.enterprise.identitystore.CredentialValidationResult;
 import javax.security.enterprise.identitystore.IdentityStore;
+import javax.security.enterprise.identitystore.IdentityStoreHandler;
 
 import com.darwino.commons.Platform;
 import com.darwino.commons.security.acl.User;
@@ -30,7 +33,8 @@ import com.darwino.commons.security.acl.UserService;
  * @author Jesse Gallagher
  * @since 2.0.0
  */
-public class DarwinoIdentityStore implements IdentityStore {
+@ApplicationScoped
+public class DarwinoIdentityStore implements IdentityStore, IdentityStoreHandler {
 	public static final String STORE_ID = DarwinoIdentityStore.class.getName();
 	
 	public CredentialValidationResult validate(UsernamePasswordCredential credential) {
@@ -39,11 +43,19 @@ public class DarwinoIdentityStore implements IdentityStore {
 		try {
 			if((dn = userDir.getAuthenticator().authenticate(credential.getCaller(), credential.getPasswordAsString())) != null) {
 				User user = userDir.findUser(dn);
-				return new CredentialValidationResult(STORE_ID, credential.getCaller(), dn, dn, user.getGroups());
+				return new CredentialValidationResult(STORE_ID, credential.getCaller(), dn, dn, user.getRoles());
 			}
 		} catch (UserException e) {
 			throw new RuntimeException(e);
 		}
 		return CredentialValidationResult.INVALID_RESULT;
+	}
+
+	@Override
+	public CredentialValidationResult validate(Credential credential) {
+		if(credential instanceof UsernamePasswordCredential) {
+			return validate((UsernamePasswordCredential)credential);
+		}
+		return null;
 	}
 }
