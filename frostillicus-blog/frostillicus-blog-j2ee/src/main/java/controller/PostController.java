@@ -132,7 +132,12 @@ public class PostController {
 	@GET
 	@Path("{postId}")
 	public String show(@PathParam("postId") String postId) {
-		Post post = posts.findByPostId(postId).orElseThrow(() -> new IllegalArgumentException("Unable to find post matching ID " + postId)); //$NON-NLS-1$
+		// IDs are often stored as lowercased UNIDs
+		Post post = posts.findByPostId(postId)
+				.orElseGet(() -> posts.findByPostId(StringUtil.toString(postId).toLowerCase())
+				.orElseGet(() -> posts.findById(postId)
+				.orElseThrow(() -> new IllegalArgumentException("Unable to find post matching ID " + postId)) //$NON-NLS-1$
+				));
 		models.put("post", post); //$NON-NLS-1$
 		
 		models.put("comments", comments.findByPostId(post.getPostId())); //$NON-NLS-1$
