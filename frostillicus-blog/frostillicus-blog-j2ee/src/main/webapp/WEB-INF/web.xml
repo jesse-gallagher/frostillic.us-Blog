@@ -82,14 +82,14 @@
 	<!--  Filter for Gzip -->
 	<!--  Note that a GZIP filter should not be applied twice in case of FORWARD -->
 	<!--  This filter should then be added first -->
- 	<filter>
-     	<filter-name>GZipFilter</filter-name>
-     	<filter-class>com.darwino.j2ee.servlet.gzip.GZipServletFilter</filter-class>
- 	</filter>
- 	<filter-mapping>
-     	<filter-name>GZipFilter</filter-name>
-     	<url-pattern>/*</url-pattern>
-     </filter-mapping>
+ 	<!--<filter>-->
+     	<!--<filter-name>GZipFilter</filter-name>-->
+     	<!--<filter-class>com.darwino.j2ee.servlet.gzip.GZipServletFilter</filter-class>-->
+ 	<!--</filter>-->
+ 	<!--<filter-mapping>-->
+     	<!--<filter-name>GZipFilter</filter-name>-->
+     	<!--<url-pattern>/*</url-pattern>-->
+     <!--</filter-mapping>-->
 	
 		
 	<!--  Filter for custom authentication -->
