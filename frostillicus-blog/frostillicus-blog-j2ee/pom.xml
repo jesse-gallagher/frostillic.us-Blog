@@ -144,11 +144,11 @@
 			</activation>
 			
 			<dependencies>
-				<dependency>
-					<groupId>javax</groupId>
-					<artifactId>javaee-api</artifactId>
-					<scope>compile</scope>
-				</dependency>
+<!-- 				<dependency> -->
+<!-- 					<groupId>javax</groupId> -->
+<!-- 					<artifactId>javaee-api</artifactId> -->
+<!-- 					<scope>compile</scope> -->
+<!-- 				</dependency> -->
 		        
 				<dependency>
 					<groupId>org.mvc-spec.ozark</groupId>
@@ -174,9 +174,14 @@
 					<groupId>org.jboss.resteasy</groupId>
 					<artifactId>resteasy-servlet-initializer</artifactId>
 				</dependency>
+				
+				<dependency>
+					<groupId>org.jboss.resteasy</groupId>
+					<artifactId>resteasy-validator-provider-11</artifactId>
+				</dependency>
 			
 				<dependency>
-					<groupId>org.hibernate</groupId>
+					<groupId>org.hibernate.validator</groupId>
 					<artifactId>hibernate-validator</artifactId>
 				</dependency>
 				<dependency>
