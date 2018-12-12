@@ -57,7 +57,6 @@ public class HomeController {
 		if(start > -1) {
 			models.put("posts", posts.homeList(start, PAGE_LENGTH));
 			models.put("start", start);
-			models.put("pageSize", PAGE_LENGTH);
 
 			int total = start + PAGE_LENGTH;
 			if(total >= PostUtil.getPostCount()) {
@@ -67,7 +66,9 @@ public class HomeController {
 			}
 		} else {
 			models.put("posts", posts.homeList()); //$NON-NLS-1$
+			models.put("start", 0);
 		}
+		models.put("pageSize", PAGE_LENGTH);
 		
 		return "home.jsp"; //$NON-NLS-1$
 	}

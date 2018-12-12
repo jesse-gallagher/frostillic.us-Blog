@@ -23,9 +23,6 @@
     <c:if test="${pageScope.start gt 0}">
         <a class="newer" href="posts/?start=${pageScope.start - pageScope.pageSize gt 0 ? pageScope.start - pageScope.pageSize : 0}">${translation.newerPosts}</a>
     </c:if>
-    <c:if test="${pageScope.start eq 0}">
-        <span class="newer">${translation.newerPosts}</span>
-    </c:if>
 
     <c:if test="${not pageScope.endOfLine}">
         <a class="older" href="posts/?start=${pageScope.start + pageScope.pageSize}">${translation.olderPosts}</a>
