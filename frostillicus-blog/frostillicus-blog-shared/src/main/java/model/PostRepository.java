@@ -38,8 +38,11 @@ public interface PostRepository extends DarwinoRepository<Post, String> {
 	@Search(orderBy="posted desc")
 	List<Post> search(String query);
 	
-	@Query("select * from Post limit 20 order by posted desc")
+	@Query("select * from Post limit 10 order by posted desc")
 	List<Post> homeList();
+
+	@JSQL("select unid from posts where $.form='Post' order by $.posted desc")
+	List<Post> homeList(@Param("skip") int skip, @Param("limit") int limit);
 	
 	@JSQL("select unid from posts where $.form='Post' and $.thread=:thread")
 	List<Post> findByThread(@Param("thread") String thread);

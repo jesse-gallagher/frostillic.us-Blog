@@ -19,7 +19,5 @@
 <%@taglib prefix="t" tagdir="/WEB-INF/tags" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <t:layout>
-	<c:forEach items="${posts}" var="post">
-		<t:post value="${post}"/>
-	</c:forEach>
+	<t:postList value="${posts}" start="${start}" pageSize="${pageSize}" endOfLine="${endOfLine}"/>
 </t:layout>

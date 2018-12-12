@@ -49,6 +49,9 @@ import frostillicus.blog.app.AppDatabaseDef;
 import model.CommentRepository;
 import model.Post;
 import model.PostRepository;
+import model.PostUtil;
+
+import static model.PostUtil.PAGE_LENGTH;
 
 @Path("/posts")
 @Controller
@@ -68,24 +71,48 @@ public class PostController {
 	Database database;
 	
 	@GET
-	public String list() throws JsonException {
-		Collection<String> months = new TreeSet<String>();
-		
-		// Fetch the months - use Darwino directly for this for now
-		Store store = database.getStore(AppDatabaseDef.STORE_POSTS);
-		store.openCursor()
-			.query(JsonObject.of("form", Post.class.getSimpleName())) //$NON-NLS-1$
-			.findDocuments(doc -> {
-				String posted = doc.getString("posted"); //$NON-NLS-1$
-				if(posted != null && posted.length() >= 7) {
-					months.add(posted.substring(0, 7));
-				}
-				return true;
-			});
-		
-		models.put("months", months); //$NON-NLS-1$
-		
-		return "posts.jsp"; //$NON-NLS-1$
+	public String list(@QueryParam("start") String startParam) throws JsonException {
+		int start;
+		if(StringUtil.isNotEmpty(startParam)) {
+			try {
+				start = Integer.parseInt(startParam);
+			} catch(NumberFormatException e) {
+				start = -1;
+			}
+		} else {
+			start = -1;
+		}
+		if(start > -1) {
+			models.put("posts", posts.homeList(start, PAGE_LENGTH));
+			models.put("start", start);
+			models.put("pageSize", PAGE_LENGTH);
+
+			int total = start + PAGE_LENGTH;
+			if(total >= PostUtil.getPostCount()) {
+				models.put("endOfLine", true);
+			} else {
+				models.put("endOfLine", false);
+			}
+			return "home.jsp"; //$NON-NLS-1$
+		} else {
+			Collection<String> months = new TreeSet<>();
+
+			// Fetch the months - use Darwino directly for this for now
+			Store store = database.getStore(AppDatabaseDef.STORE_POSTS);
+			store.openCursor()
+					.query(JsonObject.of("form", Post.class.getSimpleName())) //$NON-NLS-1$
+					.findDocuments(doc -> {
+						String posted = doc.getString("posted"); //$NON-NLS-1$
+						if(posted != null && posted.length() >= 7) {
+							months.add(posted.substring(0, 7));
+						}
+						return true;
+					});
+
+			models.put("months", months); //$NON-NLS-1$
+
+			return "posts.jsp"; //$NON-NLS-1$
+		}
 	}
 	
 	@GET

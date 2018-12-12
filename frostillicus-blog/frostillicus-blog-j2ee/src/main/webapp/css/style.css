@@ -218,6 +218,26 @@ code, pre {
 	font-family: "Consolas", monospace;
 }
 
+.posts-older-newer {
+	display: grid;
+	grid-template-columns: 1fr 1fr;
+	grid-template-areas: "newer older";
+}
+.posts-older-newer .newer {
+	grid-area: newer;
+	text-align: left;
+}
+.posts-older-newer .newer:before {
+	content: "<< ";
+}
+.posts-older-newer .older {
+	grid-area: older;
+	text-align: right;
+}
+.posts-older-newer .older::after {
+	content: " >>";
+}
+
 
 @media ( max-width: 699px) {
 	#entirety {
