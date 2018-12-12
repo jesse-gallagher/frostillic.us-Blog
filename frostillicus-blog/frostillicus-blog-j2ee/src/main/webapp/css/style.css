@@ -34,7 +34,9 @@ a {
 	
 	border: 1px solid black;
 	
-	font-family: "Georgia", serif;
+	font-family: "Tahoma", sans-serif;
+	line-height: 1.3;
+	font-size: 14px;
 }
 
 #pageheader {
@@ -154,8 +156,24 @@ a {
 	line-height: 1.4;
 }
 
+.comments {
+	margin-top: 2em;
+}
+.comments:before {
+	content: "Comments";
+	font-size: 1.2em;
+	font-weight: bold;
+	color: #888;
+	border-bottom: 1px solid #ddd;
+	margin-bottom: 1em;
+	display: block;
+}
+
 .comment {
 	display: grid;
+}
+.comment + .comment {
+	margin-top: 1em;
 }
 
 .comment .photo {
@@ -171,6 +189,9 @@ a {
 }
 .comment > .comment-body {
 	grid-area: content;
+}
+.comment > .comment-body p:first-child {
+	margin-top: 0;
 }
 
 #pagefooter {
@@ -191,6 +212,10 @@ input:invalid {
 	border: 0;
 	width: 100%;
 	height: 900px;
+}
+
+code, pre {
+	font-family: "Consolas", monospace;
 }
 
 
