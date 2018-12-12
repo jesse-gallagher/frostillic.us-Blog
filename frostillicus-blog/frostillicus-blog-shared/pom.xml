@@ -87,6 +87,7 @@
 		<dependency>
 			<groupId>org.glassfish</groupId>
 			<artifactId>javax.el</artifactId>
+			<scope>provided</scope>
 		</dependency>
 	</dependencies>
 </project>
