@@ -29,7 +29,6 @@ import java.util.Date;
 import java.util.List;
 
 import javax.enterprise.inject.spi.CDI;
-import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 
 @Entity @Data @NoArgsConstructor
