@@ -222,7 +222,7 @@ input:invalid {
 	#entirety {
 		width: 80%;
 		margin: 2em auto;
-		grid-template-columns: 1fr 5fr;
+		grid-template-columns: minmax(210px, 1fr) 5fr;
 		grid-template-areas:
 			"header header"
 			"nav    content"
@@ -231,7 +231,7 @@ input:invalid {
 	}
 	#pageheader {
 		display: grid;
-		grid-template-columns: 1fr 5fr;
+		grid-template-columns: minmax(210px, 1fr) 5fr;
 		grid-template-areas: "padding link";
 		background-color: rgb(187, 204, 187);
 	}
@@ -259,7 +259,7 @@ input:invalid {
 	
 	#pagefooter {
 		display: grid;
-		grid-template-columns: 1fr 5fr;
+		grid-template-columns: minmax(210px, 1fr) 5fr;
 		grid-template-areas: "padding text";
 		background-color: rgb(105, 140, 182);
 	}
