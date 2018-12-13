@@ -24,6 +24,7 @@ import com.darwino.platform.DarwinoContext;
 import frostillicus.blog.app.AppDatabaseDef;
 import model.CommentRepository;
 import model.Post;
+import model.PostUtil;
 
 import javax.annotation.security.RolesAllowed;
 import javax.inject.Inject;
@@ -52,22 +53,7 @@ public class PostController extends AbstractPostListController {
 		if(StringUtil.isNotEmpty(maybeList)) {
 			return maybeList;
 		} else {
-			Collection<String> months = new TreeSet<>();
-
-			// Fetch the months - use Darwino directly for this for now
-			Store store = database.getStore(AppDatabaseDef.STORE_POSTS);
-			store.openCursor()
-					.query(JsonObject.of("form", Post.class.getSimpleName())) //$NON-NLS-1$
-					.findDocuments(doc -> {
-						String posted = doc.getString("posted"); //$NON-NLS-1$
-						if(posted != null && posted.length() >= 7) {
-							months.add(posted.substring(0, 7));
-						}
-						return true;
-					});
-
-			models.put("months", months); //$NON-NLS-1$
-
+			models.put("months", PostUtil.getPostMonths()); //$NON-NLS-1$
 			return "posts.jsp"; //$NON-NLS-1$
 		}
 	}
@@ -84,7 +70,7 @@ public class PostController extends AbstractPostListController {
 	@Path("new")
 	public String compose() {
 		models.put("post", new Post()); //$NON-NLS-1$
-		
+
 		return "post-new.jsp"; //$NON-NLS-1$
 	}
 	
@@ -122,7 +108,7 @@ public class PostController extends AbstractPostListController {
 		models.put("post", post); //$NON-NLS-1$
 		
 		models.put("comments", comments.findByPostId(post.getPostId())); //$NON-NLS-1$
-		
+
 		return "post.jsp"; //$NON-NLS-1$
 	}
 	
