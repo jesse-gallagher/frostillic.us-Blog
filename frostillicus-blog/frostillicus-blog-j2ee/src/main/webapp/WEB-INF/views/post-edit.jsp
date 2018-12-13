@@ -18,5 +18,5 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@taglib prefix="t" tagdir="/WEB-INF/tags" %>
 <t:layout>
-	<t:postForm value="${post}" />
+	<t:postForm value="${post}" edit="true"/>
 </t:layout>

@@ -16,11 +16,12 @@
 
 --%>
 <%@attribute name="value" required="true" type="model.Post" %>
+<%@attribute name="edit" required="true" type="java.lang.Boolean" %>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <%@taglib prefix="t" tagdir="/WEB-INF/tags" %>
-<form name="form" action="posts" method="post" class="crud">
+<form name="form" action="posts/${pageScope.edit ? post.id : ""}" method="post" class="crud">
 	<label for="title">${translation.titleLabel}</label>
 	<input type="text" name="title" id="title" required="required" autofocus="autofocus" value="${pageScope.value.title}" />
 	
@@ -31,4 +32,7 @@
 	<textarea name="bodyMarkdown" id="bodyMarkdown"><c:out value="${empty pageScope.value.bodyMarkdown ? pageScope.value.bodyHtml : pageScope.value.bodyMarkdown}"/></textarea>
 		
 	<input type="submit" value="${translation.savePost}"/>
+	<c:if test="${pageScope.edit}">
+		<input type="hidden" name="_method" value="PUT" />
+	</c:if>
 </form>

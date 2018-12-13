@@ -140,6 +140,28 @@ public class PostController extends AbstractPostListController {
 		models.put("post", post); //$NON-NLS-1$
 		return "post-edit.jsp"; //$NON-NLS-1$
 	}
+
+	@PUT
+	@Path("{postId}")
+	@RolesAllowed("admin")
+	public String update(@PathParam("postId") String postId, @FormParam("title") String title, @FormParam("bodyMarkdown") String bodyMarkdown, @FormParam("tags") String tags) {
+		Post post = posts.findPost(postId)
+				.orElseThrow(() -> new IllegalArgumentException("Unable to find post matching ID " + postId)); //$NON-NLS-1$
+		post.setTitle(title);
+		post.setBodyMarkdown(bodyMarkdown);
+		post.setBodyHtml(markdown.toHtml(bodyMarkdown));
+		post.setTags(
+				tags == null ? Collections.emptyList() :
+						Arrays.stream(tags.split(",")) //$NON-NLS-1$
+								.map(String::trim)
+								.filter(StringUtil::isNotEmpty)
+								.collect(Collectors.toList())
+		);
+
+		posts.save(post);
+
+		return "redirect:posts/" + post.getPostId(); //$NON-NLS-1$
+	}
 	
 	@DELETE
 	@Path("{year}/{month}/{day}/{postId}")
