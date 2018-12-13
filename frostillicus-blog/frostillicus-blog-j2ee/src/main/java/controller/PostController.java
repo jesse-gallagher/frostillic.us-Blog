@@ -116,8 +116,9 @@ public class PostController extends AbstractPostListController {
 		Post post = posts.findByPostId(postId)
 				.orElseGet(() -> posts.findByPostId(StringUtil.toString(postId).toLowerCase())
 				.orElseGet(() -> posts.findById(postId)
+				.orElseGet(() -> posts.findByName(postId)
 				.orElseThrow(() -> new IllegalArgumentException("Unable to find post matching ID " + postId)) //$NON-NLS-1$
-				));
+				)));
 		models.put("post", post); //$NON-NLS-1$
 		
 		models.put("comments", comments.findByPostId(post.getPostId())); //$NON-NLS-1$
