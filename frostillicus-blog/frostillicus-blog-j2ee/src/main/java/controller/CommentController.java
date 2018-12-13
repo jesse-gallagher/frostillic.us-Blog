@@ -54,7 +54,7 @@ public class CommentController {
 			@FormParam("bodyMarkdown") String bodyMarkdown,
 			@FormParam("postedByEmail") String postedByEmail
 			) throws JsonException {
-		posts.findByPostId(postId).orElseThrow(() -> new IllegalArgumentException("Unable to find post matching ID " + postId)); //$NON-NLS-1$
+		posts.findPost(postId).orElseThrow(() -> new IllegalArgumentException("Unable to find post matching ID " + postId)); //$NON-NLS-1$
 		
 		Comment comment = new Comment();
 		comment.setCommentId(UUID.randomUUID().toString());

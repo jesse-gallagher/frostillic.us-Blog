@@ -1,0 +1,15 @@
+{
+    "query": {
+        "$and": [
+            {"form": "Post" },
+            {
+                "$or": [
+                    { "_unid": "$$key" },
+                    { "postId":  {"$eq_i": "$$key" } },
+                    { "name":  "$$key" }
+                ],
+            }
+        ]
+    },
+    "limit": 1
+}

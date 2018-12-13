@@ -30,9 +30,8 @@ import frostillicus.blog.app.AppDatabaseDef;
 
 @RepositoryProvider(AppDatabaseDef.STORE_POSTS)
 public interface PostRepository extends DarwinoRepository<Post, String> {
-	Optional<Post> findByPostId(String postId);
-
-	Optional<Post> findByName(String name);
+	@StoredCursor("FindPost")
+	Optional<Post> findPost(@Param("key") String key);
 	
 	@StoredCursor("PostsByTag")
 	List<Post> findByTag(@Param("tag") String tag);

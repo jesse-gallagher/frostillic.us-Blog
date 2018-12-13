@@ -113,12 +113,8 @@ public class PostController extends AbstractPostListController {
 	@Path("{postId}")
 	public String show(@PathParam("postId") String postId) {
 		// IDs are often stored as lowercased UNIDs
-		Post post = posts.findByPostId(postId)
-				.orElseGet(() -> posts.findByPostId(StringUtil.toString(postId).toLowerCase())
-				.orElseGet(() -> posts.findById(postId)
-				.orElseGet(() -> posts.findByName(postId)
-				.orElseThrow(() -> new IllegalArgumentException("Unable to find post matching ID " + postId)) //$NON-NLS-1$
-				)));
+		Post post = posts.findPost(postId)
+				.orElseThrow(() -> new IllegalArgumentException("Unable to find post matching ID " + postId)); //$NON-NLS-1$
 		models.put("post", post); //$NON-NLS-1$
 		
 		models.put("comments", comments.findByPostId(post.getPostId())); //$NON-NLS-1$
@@ -136,7 +132,7 @@ public class PostController extends AbstractPostListController {
 	@Path("{year}/{month}/{day}/{postId}/edit")
 	@RolesAllowed("admin")
 	public String edit(@PathParam("postId") String postId) {
-		Post post = posts.findByPostId(postId).orElseThrow(() -> new IllegalArgumentException("Unable to find post matching ID " + postId)); //$NON-NLS-1$
+		Post post = posts.findPost(postId).orElseThrow(() -> new IllegalArgumentException("Unable to find post matching ID " + postId)); //$NON-NLS-1$
 		models.put("post", post); //$NON-NLS-1$
 		return "post-edit.jsp"; //$NON-NLS-1$
 	}
@@ -152,7 +148,7 @@ public class PostController extends AbstractPostListController {
 	@Path("{postId}")
 	@RolesAllowed("admin")
 	public String delete(@PathParam("postId") String postId) {
-		Post post = posts.findByPostId(postId).orElseThrow(() -> new IllegalArgumentException("Unable to find post matching ID " + postId)); //$NON-NLS-1$
+		Post post = posts.findPost(postId).orElseThrow(() -> new IllegalArgumentException("Unable to find post matching ID " + postId)); //$NON-NLS-1$
 		posts.deleteById(post.getId());
 		return "redirect:posts"; //$NON-NLS-1$
 	}
