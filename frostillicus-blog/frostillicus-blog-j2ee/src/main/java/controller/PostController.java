@@ -15,85 +15,38 @@
  */
 package controller;
 
-import java.util.Arrays;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.Date;
-import java.util.TreeSet;
-import java.util.UUID;
-import java.util.stream.Collectors;
-
-import javax.annotation.security.RolesAllowed;
-import javax.inject.Inject;
-import javax.mvc.Models;
-import javax.mvc.Controller;
-import javax.ws.rs.Consumes;
-import javax.ws.rs.DELETE;
-import javax.ws.rs.FormParam;
-import javax.ws.rs.GET;
-import javax.ws.rs.POST;
-import javax.ws.rs.Path;
-import javax.ws.rs.PathParam;
-import javax.ws.rs.QueryParam;
-import javax.ws.rs.core.MediaType;
-
+import bean.MarkdownBean;
 import com.darwino.commons.json.JsonException;
 import com.darwino.commons.json.JsonObject;
 import com.darwino.commons.util.StringUtil;
-import com.darwino.jsonstore.Database;
 import com.darwino.jsonstore.Store;
 import com.darwino.platform.DarwinoContext;
-
-import bean.MarkdownBean;
 import frostillicus.blog.app.AppDatabaseDef;
 import model.CommentRepository;
 import model.Post;
-import model.PostRepository;
-import model.PostUtil;
 
-import static model.PostUtil.PAGE_LENGTH;
+import javax.annotation.security.RolesAllowed;
+import javax.inject.Inject;
+import javax.mvc.Controller;
+import javax.ws.rs.*;
+import javax.ws.rs.core.MediaType;
+import java.util.*;
+import java.util.stream.Collectors;
 
 @Path("/posts")
 @Controller
-public class PostController {
-	@Inject
-	Models models;
-	
-	@Inject
-	PostRepository posts;
+public class PostController extends AbstractPostListController {
 	@Inject
 	CommentRepository comments;
 	
 	@Inject
 	MarkdownBean markdown;
 	
-	@Inject
-	Database database;
-	
 	@GET
 	public String list(@QueryParam("start") String startParam) throws JsonException {
-		int start;
-		if(StringUtil.isNotEmpty(startParam)) {
-			try {
-				start = Integer.parseInt(startParam);
-			} catch(NumberFormatException e) {
-				start = -1;
-			}
-		} else {
-			start = -1;
-		}
-		if(start > -1) {
-			models.put("posts", posts.homeList(start, PAGE_LENGTH));
-			models.put("start", start);
-			models.put("pageSize", PAGE_LENGTH);
-
-			int total = start + PAGE_LENGTH;
-			if(total >= PostUtil.getPostCount()) {
-				models.put("endOfLine", true);
-			} else {
-				models.put("endOfLine", false);
-			}
-			return "home.jsp"; //$NON-NLS-1$
+		String maybeList = maybeList(startParam);
+		if(StringUtil.isNotEmpty(maybeList)) {
+			return maybeList;
 		} else {
 			Collection<String> months = new TreeSet<>();
 

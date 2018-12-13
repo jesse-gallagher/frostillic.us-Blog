@@ -15,56 +15,24 @@
  */
 package controller;
 
-import javax.inject.Inject;
-import javax.mvc.Models;
+import com.darwino.commons.json.JsonException;
+import com.darwino.commons.util.StringUtil;
+
 import javax.mvc.Controller;
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.QueryParam;
 
-import com.darwino.commons.json.JsonException;
-import com.darwino.commons.util.StringUtil;
-import com.darwino.jsonstore.Database;
-import model.PostRepository;
-import model.PostUtil;
-
 import static model.PostUtil.PAGE_LENGTH;
 
 @Path("/")
 @Controller
-public class HomeController {
-	@Inject
-	Models models;
-	
-	@Inject
-	PostRepository posts;
-
-	@Inject
-	Database database;
+public class HomeController extends AbstractPostListController {
 	
 	@GET
 	public String get(@QueryParam("start") String startParam) throws JsonException {
-		int start;
-		if(StringUtil.isNotEmpty(startParam)) {
-			try {
-				start = Integer.parseInt(startParam);
-			} catch(NumberFormatException e) {
-				start = -1;
-			}
-		} else {
-			start = -1;
-		}
-		if(start > -1) {
-			models.put("posts", posts.homeList(start, PAGE_LENGTH));
-			models.put("start", start);
-
-			int total = start + PAGE_LENGTH;
-			if(total >= PostUtil.getPostCount()) {
-				models.put("endOfLine", true);
-			} else {
-				models.put("endOfLine", false);
-			}
-		} else {
+		String maybeList = maybeList(startParam);
+		if(StringUtil.isEmpty(maybeList)) {
 			models.put("posts", posts.homeList()); //$NON-NLS-1$
 			models.put("start", 0);
 		}
