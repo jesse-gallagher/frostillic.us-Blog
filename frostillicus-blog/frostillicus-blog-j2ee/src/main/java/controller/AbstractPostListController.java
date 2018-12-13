@@ -12,7 +12,7 @@ import javax.ws.rs.QueryParam;
 
 import static model.PostUtil.PAGE_LENGTH;
 
-public class AbstractPostListController {
+public abstract class AbstractPostListController {
     @Inject
     Models models;
 
@@ -22,7 +22,7 @@ public class AbstractPostListController {
     @Inject
     Database database;
 
-    public String maybeList(@QueryParam("start") String startParam) throws JsonException {
+    protected String maybeList(String startParam) throws JsonException {
         int start;
         if(StringUtil.isNotEmpty(startParam)) {
             try {
