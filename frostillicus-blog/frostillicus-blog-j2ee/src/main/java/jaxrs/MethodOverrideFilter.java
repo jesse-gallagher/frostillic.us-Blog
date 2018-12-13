@@ -15,33 +15,78 @@
  */
 package jaxrs;
 
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
+import java.lang.annotation.Annotation;
 import java.util.List;
 
 import javax.ws.rs.container.ContainerRequestContext;
 import javax.ws.rs.container.ContainerRequestFilter;
 import javax.ws.rs.container.PreMatching;
+import javax.ws.rs.core.Context;
+import javax.ws.rs.core.Form;
+import javax.ws.rs.core.MediaType;
 import javax.ws.rs.ext.Provider;
+import javax.ws.rs.ext.Providers;
 
-import org.jboss.resteasy.specimpl.RequestImpl;
+import com.darwino.commons.util.StringUtil;
+import com.darwino.commons.util.io.StreamUtil;
 
+/**
+ * This class hooks into incoming requests for a method-override form parameter.
+ */
 @Provider
 @PreMatching
 public class MethodOverrideFilter implements ContainerRequestFilter {
+	@Context
+	private Providers providers;
 
 	@Override
 	public void filter(ContainerRequestContext requestContext) throws IOException {
-		if("POST".equals(requestContext.getMethod()) && requestContext.hasEntity()) { //$NON-NLS-1$
-			// TODO look for a non-implementation-specific way to do this
-			if(requestContext.getRequest() instanceof RequestImpl) {
-				// Check for a _method form param
-				RequestImpl req = (RequestImpl)requestContext.getRequest();
-				List<String> formVal = req.getFormParameters().get("_method"); //$NON-NLS-1$
+		if(isReadable(requestContext)) {
+			String overrideMethod = null;
+
+			Form formData = getFormData(requestContext);
+			if(formData != null) {
+				List<String> formVal = formData.asMap().get("_method"); //$NON-NLS-1$
 				if(formVal != null && !formVal.isEmpty()) {
-					requestContext.setMethod(formVal.get(0));
+					overrideMethod = formVal.get(0);
 				}
+			}
+
+			if(StringUtil.isNotEmpty(overrideMethod)) {
+				requestContext.setMethod(overrideMethod);
 			}
 		}
 	}
 
+	private boolean isReadable(ContainerRequestContext requestContext) {
+		if(!"POST".equals(requestContext.getMethod())) {
+			return false;
+		}
+
+		// requestContext.hasEntity() is oddly unreliable - Liberty says false with a URL-encoded form post
+		if(requestContext.getLength() < 1) {
+			return false;
+		}
+
+		MediaType mediaType = requestContext.getMediaType();
+		return MediaType.APPLICATION_FORM_URLENCODED_TYPE.equals(mediaType) || MediaType.MULTIPART_FORM_DATA_TYPE.equals(mediaType);
+	}
+
+	private Form getFormData(ContainerRequestContext requestContext) throws IOException {
+		ByteArrayInputStream is = copy(requestContext.getEntityStream());
+		Form form = providers.getMessageBodyReader(Form.class, Form.class, new Annotation[0], requestContext.getMediaType())
+				.readFrom(Form.class, Form.class, new Annotation[0], requestContext.getMediaType(), null, is);
+		return form;
+	}
+
+	private ByteArrayInputStream copy(InputStream is) throws IOException {
+		ByteArrayOutputStream baos = new ByteArrayOutputStream();
+		StreamUtil.copyStream(is, baos);
+		byte[] data = baos.toByteArray();
+		return new ByteArrayInputStream(data);
+	}
 }

@@ -127,13 +127,6 @@
 					<groupId>javax.servlet</groupId>
 					<artifactId>jstl</artifactId>
 				</dependency>
-				
-				<!-- TODO remove assumption -->
-				<dependency>
-					<groupId>org.jboss.resteasy</groupId>
-					<artifactId>resteasy-servlet-initializer</artifactId>
-					<scope>provided</scope>
-				</dependency>
 			</dependencies>
 		</profile>
 	
