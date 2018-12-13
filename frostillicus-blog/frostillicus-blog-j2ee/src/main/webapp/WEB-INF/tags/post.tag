@@ -60,7 +60,7 @@
 		${pageScope.value.bodyHtml}
 	</div>
 	
-	<c:if test="${pageScope.comments != null}">
+	<c:if test="${not empty pageScope.comments or (pageScope.comments != null && userInfo.admin)}">
 		<section class="comments" id="comments">
 			<c:forEach items="${pageScope.comments}" var="comment">
 				<t:comment value="${comment}"/>
