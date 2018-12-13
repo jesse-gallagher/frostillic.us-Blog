@@ -123,8 +123,8 @@ a {
 .post pre {
 	max-width: 50vw;
 	overflow-x: auto;
-	border: 1px solid #ccc;
-	background: #fefefe;
+	border: 1px solid #ddd;
+	background: #eee;
 	padding: 0.5em;
 }
 
@@ -216,6 +216,12 @@ input:invalid {
 
 code, pre {
 	font-family: "Consolas", monospace;
+	background-color: #eee;
+	border: 1px solid #ccc;
+}
+pre code {
+	border: 0;
+	background-color: transparent;
 }
 
 .posts-older-newer {
