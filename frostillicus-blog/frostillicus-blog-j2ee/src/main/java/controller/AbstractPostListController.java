@@ -8,7 +8,6 @@ import model.PostUtil;
 
 import javax.inject.Inject;
 import javax.mvc.Models;
-import javax.ws.rs.QueryParam;
 
 import static model.PostUtil.PAGE_LENGTH;
 
