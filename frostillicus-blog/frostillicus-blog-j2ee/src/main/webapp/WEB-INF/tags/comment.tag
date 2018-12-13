@@ -15,6 +15,7 @@
     limitations under the License.
 
 --%>
+<%@tag description="Displays an individual model.Comment object in a list" pageEncoding="UTF-8" trimDirectiveWhitespaces="true" %>
 <%@attribute name="value" required="true" type="model.Comment" %>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>

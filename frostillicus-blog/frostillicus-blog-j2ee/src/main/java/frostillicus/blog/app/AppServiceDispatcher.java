@@ -19,9 +19,13 @@ import com.darwino.commons.services.HttpServiceFactories;
 import com.darwino.commons.services.debug.DebugRestFactory;
 import com.darwino.j2ee.application.DarwinoJ2EEServiceDispatcherFilter;
 
+import javax.servlet.DispatcherType;
+import javax.servlet.annotation.WebFilter;
+
 /**
  * Service dispatcher.
  */
+@WebFilter(filterName="DarwinoServices", urlPatterns="/*", dispatcherTypes={DispatcherType.REQUEST, DispatcherType.FORWARD})
 public class AppServiceDispatcher extends DarwinoJ2EEServiceDispatcherFilter {
 	
 	public AppServiceDispatcher() {

@@ -14,7 +14,7 @@ import java.io.StringWriter;
 
 import static javax.servlet.RequestDispatcher.*;
 
-@WebServlet(urlPatterns="/errorHandler")
+@WebServlet(name="ErrorHandler", urlPatterns="/errorHandler")
 public class ErrorHandlerServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {

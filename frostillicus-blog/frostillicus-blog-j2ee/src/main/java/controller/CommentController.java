@@ -29,8 +29,6 @@ import javax.ws.rs.PathParam;
 import org.jsoup.Jsoup;
 import org.jsoup.safety.Whitelist;
 
-import com.darwino.commons.json.JsonException;
-
 import bean.MarkdownBean;
 import model.Comment;
 import model.CommentRepository;
@@ -53,7 +51,7 @@ public class CommentController {
 			@FormParam("postedBy") String postedBy,
 			@FormParam("bodyMarkdown") String bodyMarkdown,
 			@FormParam("postedByEmail") String postedByEmail
-			) throws JsonException {
+			) {
 		posts.findPost(postId).orElseThrow(() -> new IllegalArgumentException("Unable to find post matching ID " + postId)); //$NON-NLS-1$
 		
 		Comment comment = new Comment();

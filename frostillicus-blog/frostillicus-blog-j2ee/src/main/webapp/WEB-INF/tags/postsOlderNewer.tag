@@ -15,6 +15,7 @@
     limitations under the License.
 
 --%>
+<%@tag description="Displays post-history navigation links" pageEncoding="UTF-8" trimDirectiveWhitespaces="true" %>
 <%@attribute name="start" required="true" type="java.lang.Integer"%>
 <%@attribute name="pageSize" required="true" type="java.lang.Integer"%>
 <%@attribute name="endOfLine" required="true" type="java.lang.Boolean"%>

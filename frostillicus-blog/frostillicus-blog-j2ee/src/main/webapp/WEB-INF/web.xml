@@ -29,7 +29,6 @@
     	<param-value>${frostillicus_blog.auto-deploy-jsonstore=true}</param-value>
     </context-param>
 
-
 	<context-param>
     	<param-name>dwo-sync-enabled</param-name>
     	<param-value>${frostillicus_blog.sync-enabled=false}</param-value>
@@ -140,20 +139,6 @@
     	<filter-name>DarwinoApplication</filter-name>
     	<url-pattern>/*</url-pattern>
 	</filter-mapping>
-	
-	<!--  CORS filter for the JsonStore -->
-<!-- 	
-	<filter>
-    	<filter-name>Cors</filter-name>
-    	<filter-class>com.darwino.j2ee.servlet.cors.CORSFilter</filter-class>
-	</filter>
-	<filter-mapping>
-    	<filter-name>Cors</filter-name>
-    	<url-pattern>/.darwino-jstore/*</url-pattern>
-    	<dispatcher>REQUEST</dispatcher>
-    	<dispatcher>FORWARD</dispatcher>
-    </filter-mapping>
--->    
 
 	<!-- Filter for $darwino-xxx URLs rewritting -->
 	<!--  This filter must be before the services or resources filters, to make sure that the URL is processed before reaching them -->
@@ -165,18 +150,6 @@
     	<filter-name>DarwinoRewriting</filter-name>
     	<url-pattern>/*</url-pattern>
 	</filter-mapping>
-	
-	<!--  Filter for publishing the Darwino Services -->
-	<filter>
-    	<filter-name>DarwinoServices</filter-name>
-    	<filter-class>frostillicus.blog.app.AppServiceDispatcher</filter-class>
-	</filter>
-	<filter-mapping>
-    	<filter-name>DarwinoServices</filter-name>
-    	<url-pattern>/*</url-pattern>
-    	<dispatcher>REQUEST</dispatcher>
-    	<dispatcher>FORWARD</dispatcher>
-   </filter-mapping>
 	
 	<!--
 		Pass known static folders through to the Darwino files servlet, ignoring the JAX-RS app
@@ -202,29 +175,27 @@
 	<error-page>
 		<location>/errorHandler</location>
 	</error-page>
-	
- 	<!--
- 		CDI implementation for Tomcat 
- 	-->
-<!--  	<listener> -->
-<!-- 		<listener-class>org.jboss.weld.environment.servlet.Listener</listener-class> -->
-<!-- 	</listener> -->
 
-	<resource-env-ref>
-		<resource-env-ref-name>BeanManager</resource-env-ref-name>
-		<resource-env-ref-type>javax.enterprise.inject.spi.BeanManager</resource-env-ref-type>
-	</resource-env-ref>
-
-	<context-param>
-		<param-name>resteasy.injector.factory</param-name>
-		<param-value>org.jboss.resteasy.cdi.CdiInjectorFactory</param-value>
-	</context-param>
-	
 	<!--
-		Configure RESTEasy security 
-	-->
-	<context-param>
-		<param-name>resteasy.role.based.security</param-name>
-		<param-value>true</param-value>
-	</context-param>
+        CDI implementation for Tomcat
+    -->
+	<!--  	<listener> -->
+	<!-- 		<listener-class>org.jboss.weld.environment.servlet.Listener</listener-class> -->
+	<!-- 	</listener> -->
+	<!--<resource-env-ref>-->
+	<!--<resource-env-ref-name>BeanManager</resource-env-ref-name>-->
+	<!--<resource-env-ref-type>javax.enterprise.inject.spi.BeanManager</resource-env-ref-type>-->
+	<!--</resource-env-ref>-->
+
+	<!--
+        RESTEasy-specific configuration
+    -->
+	<!--<context-param>-->
+		<!--<param-name>resteasy.injector.factory</param-name>-->
+		<!--<param-value>org.jboss.resteasy.cdi.CdiInjectorFactory</param-value>-->
+	<!--</context-param>-->
+	<!--<context-param>-->
+		<!--<param-name>resteasy.role.based.security</param-name>-->
+		<!--<param-value>true</param-value>-->
+	<!--</context-param>-->
 </web-app>

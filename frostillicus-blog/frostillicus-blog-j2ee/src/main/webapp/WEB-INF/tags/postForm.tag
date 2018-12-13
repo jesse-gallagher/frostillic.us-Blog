@@ -15,6 +15,7 @@
     limitations under the License.
 
 --%>
+<%@tag description="Displays a model.Post in an editable form" pageEncoding="UTF-8" trimDirectiveWhitespaces="true" %>
 <%@attribute name="value" required="true" type="model.Post" %>
 <%@attribute name="edit" required="true" type="java.lang.Boolean" %>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
