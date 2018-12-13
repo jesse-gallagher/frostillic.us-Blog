@@ -28,6 +28,7 @@ import model.Post;
 import javax.annotation.security.RolesAllowed;
 import javax.inject.Inject;
 import javax.mvc.Controller;
+import javax.servlet.http.HttpServletRequest;
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import java.util.*;
@@ -36,6 +37,9 @@ import java.util.stream.Collectors;
 @Path("/posts")
 @Controller
 public class PostController extends AbstractPostListController {
+	@Inject
+	HttpServletRequest request;
+
 	@Inject
 	CommentRepository comments;
 	
@@ -150,6 +154,16 @@ public class PostController extends AbstractPostListController {
 	public String delete(@PathParam("postId") String postId) {
 		Post post = posts.findPost(postId).orElseThrow(() -> new IllegalArgumentException("Unable to find post matching ID " + postId)); //$NON-NLS-1$
 		posts.deleteById(post.getId());
+
+		String referer = request.getHeader("Referer");
+		if(StringUtil.isNotEmpty(referer)) {
+			// TODO make this more robust?
+			String context = request.getContextPath();
+			int contextIndex = referer.indexOf(context);
+			if(contextIndex > -1) {
+				return "redirect:" + referer.substring(contextIndex + context.length());
+			}
+		}
 		return "redirect:posts"; //$NON-NLS-1$
 	}
 	
