@@ -29,6 +29,8 @@
 .crud textarea {
 	resize: vertical;
 	height: 20em;
+	font-family: "Consolas", monospace;
+	font-size: 13px;
 }
 .new-comment.crud textarea {
 	height: 5em;
