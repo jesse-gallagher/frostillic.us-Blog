@@ -15,7 +15,10 @@
  */
 package security;
 
+import com.darwino.commons.httpclnt.HttpBase;
 import com.darwino.commons.httpclnt.HttpClient;
+import com.darwino.commons.util.StringUtil;
+import com.darwino.commons.util.io.Base64Util;
 import com.darwino.j2ee.servlet.authentication.handler.FormAuthHandler;
 
 import javax.enterprise.context.ApplicationScoped;
@@ -34,23 +37,40 @@ import java.io.IOException;
 
 @ApplicationScoped
 public class DarwinoHttpAuthenticationMechanism implements HttpAuthenticationMechanism {
-
     @Inject
     IdentityStore identityStore;
     
     @Override
     public AuthenticationStatus validateRequest(HttpServletRequest request, HttpServletResponse response, HttpMessageContext httpMessageContext) throws AuthenticationException {
+        // Check for basic auth first
+        String authHeaderB64 = request.getHeader(HttpBase.HEADER_AUTHORIZATION);
+        if(StringUtil.isNotEmpty(authHeaderB64) && authHeaderB64.startsWith("Basic ")) {
+            String authHeader = new String(Base64Util.decodeBase64(authHeaderB64.substring(authHeaderB64.indexOf(' ') + 1)));
+            int i = authHeader.indexOf(':');
+            if (i > 0) {
+                String userName = authHeader.substring(0, i);
+                String password = i == authHeader.length()-1 ? "" : authHeader.substring(i+1);
+                CredentialValidationResult result = identityStore.validate(new UsernamePasswordCredential(userName, password));
+                return httpMessageContext.notifyContainerAboutLogin(result.getCallerPrincipal(), result.getCallerGroups());
+            } else {
+                return httpMessageContext.responseUnauthorized();
+            }
+        }
+
+        // Failing that, check for form auth
         FormAuthHandler handler = new FormAuthHandler();
         try {
             HttpClient.Authenticator auth = handler.readAuthentication(request, response);
             if(auth instanceof HttpClient.BasicAuthenticator) {
                 HttpClient.BasicAuthenticator cred = (HttpClient.BasicAuthenticator)auth;
                 CredentialValidationResult result = identityStore.validate(new UsernamePasswordCredential(cred.getUserName(), cred.getPassword()));
-                httpMessageContext.notifyContainerAboutLogin(result.getCallerPrincipal(), result.getCallerGroups());
+                return httpMessageContext.notifyContainerAboutLogin(result.getCallerPrincipal(), result.getCallerGroups());
             }
         } catch (IOException | ServletException e) {
+            e.printStackTrace();
             throw new AuthenticationException(e);
         }
+
         return httpMessageContext.doNothing();
     }
 }
