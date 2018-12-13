@@ -199,6 +199,10 @@
 		<url-pattern>/js/*</url-pattern>
 	</servlet-mapping>
 	
+	<error-page>
+		<location>/errorHandler</location>
+	</error-page>
+	
  	<!--
  		CDI implementation for Tomcat 
  	-->
