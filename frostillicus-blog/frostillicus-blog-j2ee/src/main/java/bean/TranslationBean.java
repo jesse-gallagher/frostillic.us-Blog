@@ -23,23 +23,25 @@ import javax.enterprise.context.RequestScoped;
 import javax.enterprise.inject.Produces;
 import javax.enterprise.inject.literal.NamedLiteral;
 import javax.enterprise.inject.spi.CDI;
+import javax.inject.Inject;
 import javax.inject.Named;
+import javax.servlet.http.HttpServletRequest;
 
-// TODO switch to app scoped and use request locale
 @RequestScoped
 public class TranslationBean {
+	@Inject
+	HttpServletRequest request;
+
 	@Produces @Named("translation")
 	public ResourceBundle getTranslation() {
-		return ResourceBundle.getBundle("translation"); //$NON-NLS-1$
+		return ResourceBundle.getBundle("translation", request.getLocale()); //$NON-NLS-1$
 	}
-	
-	@Produces @Named("messages")
-	public Messages getMessages() {
-		return Messages.INSTANCE;
-	}
-	
-	public static final class Messages {
-		public static final Messages INSTANCE = new Messages();
+
+	@RequestScoped
+	@Named("messages")
+	public static class Messages {
+		@Inject
+		HttpServletRequest request;
 		
 		public String format(String key, Object... params) {
 			ResourceBundle translation = CDI.current().select(ResourceBundle.class, NamedLiteral.of("translation")).get(); //$NON-NLS-1$
@@ -48,7 +50,7 @@ public class TranslationBean {
 		}
 
 		public String getMonth(int index) {
-			return DateFormatSymbols.getInstance().getMonths()[index];
+			return DateFormatSymbols.getInstance(request.getLocale()).getMonths()[index];
 		}
 	}
 }
