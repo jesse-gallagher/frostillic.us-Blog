@@ -17,14 +17,18 @@
 --%>
 <%@tag description="Displays List<model.Post>" pageEncoding="UTF-8" trimDirectiveWhitespaces="true" %>
 <%@attribute name="value" required="true" type="java.util.List" %>
-<%@attribute name="start" required="true" type="java.lang.Integer"%>
-<%@attribute name="pageSize" required="true" type="java.lang.Integer"%>
-<%@attribute name="endOfLine" required="true" type="java.lang.Boolean"%>
+<%@attribute name="start" required="false" type="java.lang.Integer"%>
+<%@attribute name="pageSize" required="false" type="java.lang.Integer"%>
+<%@attribute name="endOfLine" required="false" type="java.lang.Boolean"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@taglib prefix="t" tagdir="/WEB-INF/tags" %>
 <%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
-<t:postsOlderNewer start="${pageScope.start}" pageSize="${pageScope.pageSize}" endOfLine="${pageScope.endOfLine}"/>
+<c:if test="${pageScope.start != null}">
+    <t:postsOlderNewer start="${pageScope.start}" pageSize="${pageScope.pageSize}" endOfLine="${pageScope.endOfLine}"/>
+</c:if>
 <c:forEach items="${pageScope.value}" var="post">
     <t:post value="${post}"/>
 </c:forEach>
-<t:postsOlderNewer start="${pageScope.start}" pageSize="${pageScope.pageSize}" endOfLine="${pageScope.endOfLine}"/>
+<c:if test="${pageScope.start != null}">
+    <t:postsOlderNewer start="${pageScope.start}" pageSize="${pageScope.pageSize}" endOfLine="${pageScope.endOfLine}"/>
+</c:if>

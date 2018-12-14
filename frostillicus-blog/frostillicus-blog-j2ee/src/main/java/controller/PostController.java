@@ -62,8 +62,16 @@ public class PostController extends AbstractPostListController {
 				months.computeIfAbsent(y, year -> new TreeSet<>()).add(m);
 			}
 			models.put("months", months); //$NON-NLS-1$
-			return "posts.jsp"; //$NON-NLS-1$
+			return "posts-months.jsp"; //$NON-NLS-1$
 		}
+	}
+
+	@GET
+	@Path("{year}/{month}")
+	public String listByMonth(@PathParam("year") int year, @PathParam("month") int month, @QueryParam("start") String startParam) {
+		String monthQuery = String.format("%04d-%02d", year, month);
+		models.put("posts", posts.findByMonth(monthQuery));
+		return "posts-list.jsp";
 	}
 	
 	@GET

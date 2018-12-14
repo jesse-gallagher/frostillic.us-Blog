@@ -18,16 +18,7 @@ public abstract class AbstractPostListController {
     PostRepository posts;
 
     protected String maybeList(String startParam) throws JsonException {
-        int start;
-        if(StringUtil.isNotEmpty(startParam)) {
-            try {
-                start = Integer.parseInt(startParam);
-            } catch(NumberFormatException e) {
-                start = -1;
-            }
-        } else {
-            start = -1;
-        }
+        int start = parseStartParam(startParam);
         if(start > -1) {
             models.put("posts", posts.homeList(start, PAGE_LENGTH));
             models.put("start", start);
@@ -43,5 +34,19 @@ public abstract class AbstractPostListController {
         } else {
            return null;
         }
+    }
+
+    protected int parseStartParam(String startParam) {
+        int start;
+        if(StringUtil.isNotEmpty(startParam)) {
+            try {
+                start = Integer.parseInt(startParam);
+            } catch(NumberFormatException e) {
+                start = -1;
+            }
+        } else {
+            start = -1;
+        }
+        return start;
     }
 }

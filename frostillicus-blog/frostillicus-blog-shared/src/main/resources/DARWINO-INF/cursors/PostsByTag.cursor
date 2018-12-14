@@ -1,4 +1,7 @@
 {
+	"query": {
+		"form": "Post"
+	},
 	"tags": ":tag",
 	"orderBy": "posted desc"
 }

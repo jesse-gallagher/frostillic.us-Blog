@@ -1,0 +1,9 @@
+{
+    "query": {
+        "$and": [
+            {"form": "Post" },
+            {"posted": { "$startsWith": "$$monthQuery"}}
+        ]
+    },
+    "orderBy": "posted desc"
+}

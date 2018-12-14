@@ -35,6 +35,9 @@ public interface PostRepository extends DarwinoRepository<Post, String> {
 	
 	@StoredCursor("PostsByTag")
 	List<Post> findByTag(@Param("tag") String tag);
+
+	@StoredCursor("PostsByMonth")
+	List<Post> findByMonth(@Param("monthQuery") String monthQuery);
 	
 	@Search(orderBy="posted desc")
 	List<Post> search(String query);

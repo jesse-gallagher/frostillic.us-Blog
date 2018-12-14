@@ -23,7 +23,7 @@
 		<c:forEach items="${months}" var="entry">
 			<h3>${entry.key}</h3>
 			<c:forEach items="${entry.value}" var="m">
-				<li>${messages.getMonth(m-1)}</li>
+				<li><a href="posts/${entry.key}/${m}">${messages.getMonth(m-1)}</a></li>
 			</c:forEach>
 		</c:forEach>
 	</ul>
