@@ -19,7 +19,6 @@ import bean.MarkdownBean;
 import com.darwino.commons.json.JsonException;
 import com.darwino.commons.util.StringUtil;
 import com.darwino.jsonstore.Session;
-import com.darwino.platform.DarwinoContext;
 import model.CommentRepository;
 import model.Post;
 import model.PostUtil;
@@ -30,10 +29,7 @@ import javax.mvc.Controller;
 import javax.servlet.http.HttpServletRequest;
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.Date;
-import java.util.UUID;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @Path("/posts")
@@ -57,7 +53,15 @@ public class PostController extends AbstractPostListController {
 		if(StringUtil.isNotEmpty(maybeList)) {
 			return maybeList;
 		} else {
-			models.put("months", PostUtil.getPostMonths()); //$NON-NLS-1$
+			Map<Integer, Collection<Integer>> months = new TreeMap<>();
+			for(String month : PostUtil.getPostMonths()) {
+				int dash = month.indexOf('-');
+				int y = Integer.parseInt(month.substring(0, dash));
+				int m = Integer.parseInt(month.substring(dash+1), 10);
+
+				months.computeIfAbsent(y, year -> new TreeSet<>()).add(m);
+			}
+			models.put("months", months); //$NON-NLS-1$
 			return "posts.jsp"; //$NON-NLS-1$
 		}
 	}
@@ -86,23 +90,14 @@ public class PostController extends AbstractPostListController {
 		Post post = new Post();
 		post.setPosted(new Date());
 		post.setPostedBy(darwinoSession.getUser().getDn());
-		post.setTitle(title);
-		post.setBodyMarkdown(bodyMarkdown);
-		post.setBodyHtml(markdown.toHtml(bodyMarkdown));
-		post.setTags(
-			tags == null ? Collections.emptyList() :
-			Arrays.stream(tags.split(",")) //$NON-NLS-1$
-				.map(String::trim)
-				.filter(StringUtil::isNotEmpty)
-				.collect(Collectors.toList())
-		);
-		
+		updatePost(post, bodyMarkdown, tags, title);
+
 		post.setPostId(UUID.randomUUID().toString());
 		posts.save(post);
 		
 		return "redirect:posts/" + post.getPostId(); //$NON-NLS-1$
 	}
-	
+
 	@GET
 	@Path("{postId}")
 	public String show(@PathParam("postId") String postId) {
@@ -137,16 +132,7 @@ public class PostController extends AbstractPostListController {
 	public String update(@PathParam("postId") String postId, @FormParam("title") String title, @FormParam("bodyMarkdown") String bodyMarkdown, @FormParam("tags") String tags) {
 		Post post = posts.findPost(postId)
 				.orElseThrow(() -> new IllegalArgumentException("Unable to find post matching ID " + postId)); //$NON-NLS-1$
-		post.setTitle(title);
-		post.setBodyMarkdown(bodyMarkdown);
-		post.setBodyHtml(markdown.toHtml(bodyMarkdown));
-		post.setTags(
-				tags == null ? Collections.emptyList() :
-						Arrays.stream(tags.split(",")) //$NON-NLS-1$
-								.map(String::trim)
-								.filter(StringUtil::isNotEmpty)
-								.collect(Collectors.toList())
-		);
+		updatePost(post, bodyMarkdown, tags, title);
 
 		posts.save(post);
 
@@ -187,5 +173,22 @@ public class PostController extends AbstractPostListController {
 	public String search(@QueryParam("q") String query) {
 		models.put("posts", posts.search(query)); //$NON-NLS-1$
 		return "search.jsp"; //$NON-NLS-1$
+	}
+	
+	// *******************************************************************************
+	// * Internal utility methods
+	// *******************************************************************************
+
+	private void updatePost(Post post, @FormParam("bodyMarkdown") String bodyMarkdown, @FormParam("tags") String tags, @FormParam("title") String title) {
+		post.setTitle(title);
+		post.setBodyMarkdown(bodyMarkdown);
+		post.setBodyHtml(markdown.toHtml(bodyMarkdown));
+		post.setTags(
+				tags == null ? Collections.emptyList() :
+						Arrays.stream(tags.split(",")) //$NON-NLS-1$
+								.map(String::trim)
+								.filter(StringUtil::isNotEmpty)
+								.collect(Collectors.toList())
+		);
 	}
 }
