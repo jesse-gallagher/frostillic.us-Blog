@@ -2,7 +2,6 @@ package controller;
 
 import com.darwino.commons.json.JsonException;
 import com.darwino.commons.util.StringUtil;
-import com.darwino.jsonstore.Database;
 import model.PostRepository;
 import model.PostUtil;
 
@@ -17,9 +16,6 @@ public abstract class AbstractPostListController {
 
     @Inject
     PostRepository posts;
-
-    @Inject
-    Database database;
 
     protected String maybeList(String startParam) throws JsonException {
         int start;

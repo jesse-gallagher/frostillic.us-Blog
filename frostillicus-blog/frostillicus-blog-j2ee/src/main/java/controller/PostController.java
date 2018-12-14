@@ -17,11 +17,9 @@ package controller;
 
 import bean.MarkdownBean;
 import com.darwino.commons.json.JsonException;
-import com.darwino.commons.json.JsonObject;
 import com.darwino.commons.util.StringUtil;
-import com.darwino.jsonstore.Store;
+import com.darwino.jsonstore.Session;
 import com.darwino.platform.DarwinoContext;
-import frostillicus.blog.app.AppDatabaseDef;
 import model.CommentRepository;
 import model.Post;
 import model.PostUtil;
@@ -32,7 +30,10 @@ import javax.mvc.Controller;
 import javax.servlet.http.HttpServletRequest;
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
-import java.util.*;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.Date;
+import java.util.UUID;
 import java.util.stream.Collectors;
 
 @Path("/posts")
@@ -46,6 +47,9 @@ public class PostController extends AbstractPostListController {
 	
 	@Inject
 	MarkdownBean markdown;
+
+	@Inject
+	Session darwinoSession;
 	
 	@GET
 	public String list(@QueryParam("start") String startParam) throws JsonException {
@@ -81,7 +85,7 @@ public class PostController extends AbstractPostListController {
 	public String create(@FormParam("title") String title, @FormParam("bodyMarkdown") String bodyMarkdown, @FormParam("tags") String tags) throws JsonException {
 		Post post = new Post();
 		post.setPosted(new Date());
-		post.setPostedBy(DarwinoContext.get().getSession().getUser().getDn());
+		post.setPostedBy(darwinoSession.getUser().getDn());
 		post.setTitle(title);
 		post.setBodyMarkdown(bodyMarkdown);
 		post.setBodyHtml(markdown.toHtml(bodyMarkdown));
