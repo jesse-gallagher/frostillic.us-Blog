@@ -20,8 +20,11 @@
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <t:layout>
 	<ul>
-		<c:forEach items="${months}" var="month">
-			<li>${month}</li>
+		<c:forEach items="${months}" var="entry">
+			<h3>${entry.key}</h3>
+			<c:forEach items="${entry.value}" var="m">
+				<li>${messages.getMonth(m-1)}</li>
+			</c:forEach>
 		</c:forEach>
 	</ul>
 </t:layout>

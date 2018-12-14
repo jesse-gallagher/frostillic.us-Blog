@@ -15,6 +15,7 @@
  */
 package bean;
 
+import java.text.DateFormatSymbols;
 import java.text.MessageFormat;
 import java.util.ResourceBundle;
 
@@ -44,6 +45,10 @@ public class TranslationBean {
 			ResourceBundle translation = CDI.current().select(ResourceBundle.class, NamedLiteral.of("translation")).get(); //$NON-NLS-1$
 			String message = translation.getString(key);
 			return MessageFormat.format(message, params);
+		}
+
+		public String getMonth(int index) {
+			return DateFormatSymbols.getInstance().getMonths()[index];
 		}
 	}
 }
