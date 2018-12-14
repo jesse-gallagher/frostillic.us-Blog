@@ -95,12 +95,9 @@ public class PostController extends AbstractPostListController {
 	@Consumes({ MediaType.MULTIPART_FORM_DATA, MediaType.APPLICATION_FORM_URLENCODED })
 	@RolesAllowed("admin")
 	public String create(@FormParam("title") String title, @FormParam("bodyMarkdown") String bodyMarkdown, @FormParam("tags") String tags) throws JsonException {
-		Post post = new Post();
-		post.setPosted(new Date());
+		Post post = PostUtil.createPost();
 		post.setPostedBy(darwinoSession.getUser().getDn());
 		updatePost(post, bodyMarkdown, tags, title);
-
-		post.setPostId(UUID.randomUUID().toString());
 		posts.save(post);
 		
 		return "redirect:posts/" + post.getPostId(); //$NON-NLS-1$
@@ -188,6 +185,9 @@ public class PostController extends AbstractPostListController {
 	// *******************************************************************************
 
 	private void updatePost(Post post, @FormParam("bodyMarkdown") String bodyMarkdown, @FormParam("tags") String tags, @FormParam("title") String title) {
+		if(StringUtil.isEmpty(post.getName())) {
+			post.setName(StringUtil.toString(title).toLowerCase().replaceAll("\\s+", "-"));
+		}
 		post.setTitle(title);
 		post.setBodyMarkdown(bodyMarkdown);
 		post.setBodyHtml(markdown.toHtml(bodyMarkdown));

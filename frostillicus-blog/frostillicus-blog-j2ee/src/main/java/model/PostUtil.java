@@ -7,8 +7,7 @@ import com.darwino.jsonstore.Store;
 import frostillicus.blog.app.AppDatabaseDef;
 
 import javax.enterprise.inject.spi.CDI;
-import java.util.Collection;
-import java.util.TreeSet;
+import java.util.*;
 
 public enum PostUtil {
     ;
@@ -39,4 +38,22 @@ public enum PostUtil {
 
         return months;
     }
+
+    public static Post createPost() {
+        Post post = new Post();
+        post.setPosted(new Date());
+        post.setPostId(UUID.randomUUID().toString());
+
+        // It's not pretty, but it's CLOSER to replication-safe
+        Random random = new Random();
+        PostRepository posts = CDI.current().select(PostRepository.class).get();
+        int postIdInt;
+        do {
+            postIdInt = random.nextInt();
+        } while(posts.findByPostIdInt(postIdInt).isPresent());
+        post.setPostIdInt(postIdInt);
+
+        return post;
+    }
+
 }
