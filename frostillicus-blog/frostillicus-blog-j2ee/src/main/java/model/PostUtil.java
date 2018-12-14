@@ -15,14 +15,17 @@
  */
 package model;
 
+import com.darwino.commons.json.JsonArray;
 import com.darwino.commons.json.JsonException;
 import com.darwino.commons.json.JsonObject;
+import com.darwino.commons.util.StringUtil;
 import com.darwino.jsonstore.Database;
 import com.darwino.jsonstore.Store;
 import frostillicus.blog.app.AppDatabaseDef;
 
 import javax.enterprise.inject.spi.CDI;
 import java.util.*;
+import java.util.stream.Collectors;
 
 public enum PostUtil {
     ;
@@ -69,6 +72,12 @@ public enum PostUtil {
         post.setPostIdInt(postIdInt);
 
         return post;
+    }
+
+    public static Collection<String> getCategories() throws JsonException {
+        Database database = CDI.current().select(Database.class).get();
+        JsonArray tags = (JsonArray)database.getStore(AppDatabaseDef.STORE_POSTS).getTags(Integer.MAX_VALUE, true);
+        return tags.stream().map(StringUtil::toString).collect(Collectors.toList());
     }
 
 }

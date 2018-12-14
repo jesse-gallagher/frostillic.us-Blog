@@ -88,7 +88,6 @@ public class PostsResource {
     @Inject
     PostRepository posts;
 
-    @Inject
     UriInfo uriInfo;
 
     @GET
