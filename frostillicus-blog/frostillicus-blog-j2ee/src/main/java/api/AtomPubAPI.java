@@ -13,9 +13,8 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package controller;
+package api;
 
-import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -29,7 +28,6 @@ import javax.inject.Named;
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.ws.rs.GET;
-import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.Context;
@@ -59,9 +57,9 @@ import lombok.SneakyThrows;
 import model.Post;
 import model.PostRepository;
 
-@Path(AtomPubController.BASE_PATH)
+@Path(AtomPubAPI.BASE_PATH)
 @RolesAllowed("admin")
-public class AtomPubController {
+public class AtomPubAPI {
 	static final String BASE_PATH = "/atompub"; //$NON-NLS-1$
 	
 	static final String BLOG_ID = AppDatabaseDef.DATABASE_NAME;
