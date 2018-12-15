@@ -27,11 +27,12 @@ import com.darwino.jsonstore.meta._Store;
 
 public class AppDatabaseDef extends DatabaseFactoryImpl {
 
-	public static final int DATABASE_VERSION	= 10;
+	public static final int DATABASE_VERSION	= 11;
 	public static final String DATABASE_NAME	= "frostillicus_blog"; //$NON-NLS-1$
 	public static final String STORE_POSTS = "posts"; //$NON-NLS-1$
 	public static final String STORE_COMMENTS = "comments"; //$NON-NLS-1$
 	public static final String STORE_CONFIG = "config"; //$NON-NLS-1$
+	public static final String STORE_MEDIA = "media";
 	
 	// The list  of instances is defined through a property for the DB
 	public static String[] getInstances() {
@@ -84,6 +85,9 @@ public class AppDatabaseDef extends DatabaseFactoryImpl {
 		}
 		{
 			db.addStore(STORE_CONFIG);
+		}
+		{
+			db.addStore(STORE_MEDIA);
 		}
 
 		return db;

@@ -173,9 +173,9 @@ public class BlogResource {
 
         // Add links
         SyndLink read = new SyndLinkImpl();
-        read.setHref(resolveUrl("posts", post.getId()));
+        read.setHref(resolveUrl(AtomPubAPI.BLOG_ID, post.getId()));
         SyndLink edit = new SyndLinkImpl();
-        edit.setHref(resolveUrl("posts", post.getId()));
+        edit.setHref(resolveUrl(AtomPubAPI.BLOG_ID, post.getId()));
         edit.setRel("edit"); //$NON-NLS-1$
         entry.setLinks(Arrays.asList(read, edit));
 

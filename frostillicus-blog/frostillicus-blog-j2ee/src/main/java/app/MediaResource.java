@@ -1,0 +1,34 @@
+package app;
+
+import com.darwino.commons.json.JsonException;
+import com.darwino.jsonstore.Attachment;
+import com.darwino.jsonstore.Database;
+import com.darwino.jsonstore.Document;
+import com.darwino.jsonstore.Store;
+import frostillicus.blog.app.AppDatabaseDef;
+
+import javax.inject.Inject;
+import javax.ws.rs.GET;
+import javax.ws.rs.Path;
+import javax.ws.rs.PathParam;
+import javax.ws.rs.core.HttpHeaders;
+import javax.ws.rs.core.Response;
+
+@Path(MediaResource.PATH)
+public class MediaResource {
+    public static final String PATH = "media";
+
+    @Inject
+    Database database;
+
+    @GET
+    @Path("{mediaId}/{mediaName}")
+    public Response get(@PathParam("mediaId") String mediaId) throws JsonException {
+        Store store = database.getStore(AppDatabaseDef.STORE_MEDIA);
+        Document doc = store.loadDocument(mediaId);
+
+        Attachment att = doc.getAttachments()[0];
+
+        return Response.ok(att.getInputStream()).header(HttpHeaders.CONTENT_TYPE, att.getMimeType()).build();
+    }
+}

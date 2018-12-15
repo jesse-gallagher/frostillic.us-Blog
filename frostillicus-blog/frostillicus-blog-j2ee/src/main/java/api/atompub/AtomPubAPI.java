@@ -30,9 +30,11 @@ import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.Context;
+import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.UriInfo;
 import java.net.URI;
 import java.util.ResourceBundle;
+import java.util.stream.Stream;
 
 @Path(AtomPubAPI.BASE_PATH)
 @RolesAllowed("admin")
@@ -62,11 +64,22 @@ public class AtomPubAPI {
 		Element workspace = DomUtil.createElement(service, "workspace"); //$NON-NLS-1$
 		DomUtil.createElement(workspace, "atom:title", BLOG_ID); //$NON-NLS-1$
 
-		Element collection = DomUtil.createElement(workspace, "collection"); //$NON-NLS-1$
-		collection.setAttribute("href", resolveUrl(BLOG_ID)); //$NON-NLS-1$
-		DomUtil.createElement(collection, "atom:title", "Entries"); //$NON-NLS-1$ //$NON-NLS-2$
-		Element categories = DomUtil.createElement(collection, "categories");
-		categories.setAttribute("href", resolveUrl(BLOG_ID, "categories"));
+		// Blog posts collection
+		{
+			Element collection = DomUtil.createElement(workspace, "collection"); //$NON-NLS-1$
+			collection.setAttribute("href", resolveUrl(BLOG_ID)); //$NON-NLS-1$
+			DomUtil.createElement(collection, "atom:title", "Entries"); //$NON-NLS-1$ //$NON-NLS-2$
+			Element categories = DomUtil.createElement(collection, "categories");
+			categories.setAttribute("href", resolveUrl(BLOG_ID, "categories"));
+		}
+
+		// Media collection
+		{
+			Element collection = DomUtil.createElement(workspace, "collection");
+			collection.setAttribute("href", resolveUrl(BLOG_ID, MediaResource.PATH));
+			DomUtil.createElement(collection, "atom:title", "Pictures");
+			Stream.of("image/png", "image/jpeg", "image/gif", "image/webp").forEach(type -> DomUtil.createElement(collection, "accept", type));
+		}
 
 		return DomUtil.getXMLString(xml);
 	}
