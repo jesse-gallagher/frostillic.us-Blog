@@ -39,16 +39,18 @@ public class Post {
 	
 	@Id @Column private String id;
 	@Column private int postIdInt;
-	@Column("postId") private String postId;
+	@Column private String postId;
 	@Column private String title;
 	@Column @NotNull @Convert(ISODateConverter.class) private Date posted;
-	@Column("postedBy") private String postedBy;
-	@Column("bodyMarkdown") private String bodyMarkdown;
-	@Column("bodyHtml") private String bodyHtml;
+	@Column private String postedBy;
+	@Column private String bodyMarkdown;
+	@Column private String bodyHtml;
 	@Column("_tags") private List<String> tags;
 	@Column private String thread;
 	@Column private Status status;
 	@Column private String name;
+	@Column @Convert(ISODateConverter.class) private Date modified;
+	@Column private String modifiedBy;
 	
 	public int getCommentCount() {
 		return CDI.current().select(CommentRepository.class).get().findByPostId(getPostId()).size();

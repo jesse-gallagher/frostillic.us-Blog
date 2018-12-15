@@ -80,4 +80,17 @@ public enum PostUtil {
         return tags.stream().map(StringUtil::toString).collect(Collectors.toList());
     }
 
+    public static int parseStartParam(String startParam) {
+        int start;
+        if(StringUtil.isNotEmpty(startParam)) {
+            try {
+                start = Integer.parseInt(startParam);
+            } catch(NumberFormatException e) {
+                start = -1;
+            }
+        } else {
+            start = -1;
+        }
+        return start;
+    }
 }

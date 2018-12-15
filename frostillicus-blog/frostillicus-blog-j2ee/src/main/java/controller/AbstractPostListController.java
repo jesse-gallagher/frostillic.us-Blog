@@ -16,7 +16,6 @@
 package controller;
 
 import com.darwino.commons.json.JsonException;
-import com.darwino.commons.util.StringUtil;
 import model.PostRepository;
 import model.PostUtil;
 
@@ -33,7 +32,7 @@ public abstract class AbstractPostListController {
     PostRepository posts;
 
     protected String maybeList(String startParam) throws JsonException {
-        int start = parseStartParam(startParam);
+        int start = PostUtil.parseStartParam(startParam);
         if(start > -1) {
             models.put("posts", posts.homeList(start, PAGE_LENGTH));
             models.put("start", start);
@@ -51,17 +50,4 @@ public abstract class AbstractPostListController {
         }
     }
 
-    protected int parseStartParam(String startParam) {
-        int start;
-        if(StringUtil.isNotEmpty(startParam)) {
-            try {
-                start = Integer.parseInt(startParam);
-            } catch(NumberFormatException e) {
-                start = -1;
-            }
-        } else {
-            start = -1;
-        }
-        return start;
-    }
 }

@@ -10,12 +10,14 @@ import frostillicus.blog.app.AppDatabaseDef;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
+import javax.annotation.security.RolesAllowed;
 import javax.inject.Inject;
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 
 @Path(AtomPubAPI.BASE_PATH + "/{blogId}/categories")
+@RolesAllowed("admin")
 public class CategoriesResource {
     @Inject
     Database database;

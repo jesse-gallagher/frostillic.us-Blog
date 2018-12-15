@@ -8,13 +8,9 @@ import com.darwino.commons.util.StringUtil;
 import com.darwino.commons.xml.DomUtil;
 import com.darwino.commons.xml.XPathUtil;
 import com.darwino.jsonstore.Session;
-import com.rometools.rome.feed.atom.Entry;
 import com.rometools.rome.feed.synd.*;
-import com.rometools.rome.feed.synd.impl.ConverterForAtom10;
 import com.rometools.rome.io.FeedException;
 import com.rometools.rome.io.SyndFeedOutput;
-import com.rometools.rome.io.impl.Atom10Generator;
-import lombok.SneakyThrows;
 import model.Post;
 import model.PostRepository;
 import model.PostUtil;
@@ -23,7 +19,7 @@ import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
-import javax.enterprise.inject.spi.CDI;
+import javax.annotation.security.RolesAllowed;
 import javax.inject.Inject;
 import javax.inject.Named;
 import javax.ws.rs.*;
@@ -31,18 +27,17 @@ import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.UriInfo;
-import javax.xml.xpath.XPath;
 import javax.xml.xpath.XPathExpressionException;
 import java.net.URI;
 import java.net.URISyntaxException;
-import java.net.URL;
 import java.util.*;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
 @Path(AtomPubAPI.BASE_PATH + "/{blogId}")
+@RolesAllowed("admin")
 public class BlogResource {
-
+    public static final int PAGE_LENGTH = 100;
 
     @Inject
     @Named("translation")
@@ -62,15 +57,36 @@ public class BlogResource {
 
     @GET
     @Produces("application/atom+xml")
-    public String get() throws FeedException {
+    public String get(@QueryParam("start") String startParam) throws FeedException, JsonException {
         SyndFeed feed = new SyndFeedImpl();
         feed.setFeedType("atom_1.0"); //$NON-NLS-1$
         feed.setTitle(translation.getString("appTitle")); //$NON-NLS-1$
         feed.setDescription(translation.getString("appDescription")); //$NON-NLS-1$
         feed.setLink(translation.getString("baseUrl")); //$NON-NLS-1$
-        feed.setUri(resolveUrl());
+        feed.setUri(resolveUrl(AtomPubAPI.BLOG_ID));
 
-        feed.setEntries(posts.homeList().stream()
+        // Figure out the starting point
+        int start = Math.max(PostUtil.parseStartParam(startParam), 0);
+        List<Post> result = posts.homeList(start, PAGE_LENGTH);
+
+        // Add a nav link
+        List<SyndLink> links = new ArrayList<>();
+        SyndLink first = new SyndLinkImpl();
+        first.setRel("first");
+        first.setHref(resolveUrl(AtomPubAPI.BLOG_ID));
+        links.add(first);
+
+        if(start + PAGE_LENGTH < PostUtil.getPostCount()) {
+            // Then add nav links
+            SyndLink next = new SyndLinkImpl();
+            next.setRel("next");
+            next.setHref(resolveUrl(AtomPubAPI.BLOG_ID) + "?start=" + (start + PAGE_LENGTH));
+            links.add(next);
+        }
+        feed.setLinks(links);
+
+
+        feed.setEntries(result.stream()
                 .map(this::toEntry)
                 .collect(Collectors.toList()));
 
@@ -80,32 +96,10 @@ public class BlogResource {
     @POST
     @Produces("application/atom+xml")
     public Response post(Document xml) throws XPathExpressionException, JsonException, URISyntaxException, FeedException {
-        // TODO convert to ROME
-
-        String title = XPathUtil.node(xml,"/*[name()='entry']/*[name()='title']").getTextContent();
-        String body = XPathUtil.node(xml, "/*[name()='entry']/*[name()='content']").getTextContent();
-        NodeList tagsNodes = XPathUtil.nodes(xml,"/*[name()='entry']/*[name()='category']");
-        List<String> tags = IntStream.range(0, tagsNodes.getLength())
-            .mapToObj(tagsNodes::item)
-            .map(Element.class::cast)
-            .map(el -> el.getAttribute("term"))
-            .collect(Collectors.toList());
-
-        boolean posted = !"no".equals(XPathUtil.node(xml, "*[name()='entry']/*[name()='app:control']/*[name()='app:draft']").getTextContent());
 
         Post post = PostUtil.createPost();
         post.setPostedBy(darwinoSession.getUser().getDn());
-
-        if(StringUtil.isEmpty(post.getName())) {
-            post.setName(StringUtil.toString(title).toLowerCase().replaceAll("\\s+", "-"));
-        }
-        post.setTitle(title);
-        post.setBodyMarkdown(body);
-        post.setBodyHtml(markdown.toHtml(body));
-        post.setTags(tags);
-        post.setStatus(posted ? Post.Status.Posted : Post.Status.Draft);
-        post.setPosted(new Date());
-        posts.save(post);
+        updatePost(post, xml);
 
         return Response.created(new URI(resolveUrl(AtomPubAPI.BLOG_ID, post.getPostId()))).entity(toAtomXml(post)).build();
     }
@@ -118,11 +112,30 @@ public class BlogResource {
         return toAtomXml(post);
     }
 
+    @PUT
+    @Path("{entryId}")
+    public Response updateEntry(@PathParam("entryId") String postId, Document xml) throws XPathExpressionException {
+        Post post = posts.findPost(postId).orElseThrow(() -> new IllegalArgumentException("Unable to find post matching ID " + postId)); //$NON-NLS-1$
+        updatePost(post, xml);
+        return Response.ok().build();
+    }
+
+    @DELETE
+    @Path("{entryId}")
+    public Response deleteEntry(@PathParam("entryId") String postId) {
+        // TODO figure out why this doesn't work with existing posts. I imagine it's to do with Darwino's treatment of editors
+        Post post = posts.findPost(postId).orElseThrow(() -> new IllegalArgumentException("Unable to find post matching ID " + postId)); //$NON-NLS-1$
+        posts.deleteById(post.getId());
+        return Response.ok().build();
+    }
+
     private SyndEntry toEntry(Post post) {
         SyndEntry entry = new SyndEntryImpl();
         entry.setAuthor(post.getPostedBy());
         entry.setTitle(post.getTitle());
         entry.setPublishedDate(post.getPosted());
+        Date mod = post.getModified();
+        entry.setUpdatedDate(mod == null ? post.getPosted() : mod);
 
         List<SyndContent> contents = new ArrayList<>();
 
@@ -148,7 +161,7 @@ public class BlogResource {
         SyndLink read = new SyndLinkImpl();
         read.setHref(resolveUrl("posts", post.getId()));
         SyndLink edit = new SyndLinkImpl();
-        edit.setHref(resolveUrl("posts", post.getId(), "edit"));
+        edit.setHref(resolveUrl("posts", post.getId()));
         edit.setRel("edit"); //$NON-NLS-1$
         entry.setLinks(Arrays.asList(read, edit));
 
@@ -172,6 +185,31 @@ public class BlogResource {
         SyndCategory cat = new SyndCategoryImpl();
         cat.setName(tag);
         return cat;
+    }
+
+    private void updatePost(Post post, Document xml) throws XPathExpressionException {
+        // TODO convert to ROME
+
+        String title = XPathUtil.node(xml,"/*[name()='entry']/*[name()='title']").getTextContent();
+        String body = XPathUtil.node(xml, "/*[name()='entry']/*[name()='content']").getTextContent();
+        NodeList tagsNodes = XPathUtil.nodes(xml,"/*[name()='entry']/*[name()='category']");
+        List<String> tags = IntStream.range(0, tagsNodes.getLength())
+                .mapToObj(tagsNodes::item)
+                .map(Element.class::cast)
+                .map(el -> el.getAttribute("term"))
+                .collect(Collectors.toList());
+
+        boolean posted = !"no".equals(XPathUtil.node(xml, "*[name()='entry']/*[name()='app:control']/*[name()='app:draft']").getTextContent());
+        if(StringUtil.isEmpty(post.getName())) {
+            post.setName(StringUtil.toString(title).toLowerCase().replaceAll("\\s+", "-"));
+        }
+        post.setTitle(title);
+        post.setBodyMarkdown(body);
+        post.setBodyHtml(markdown.toHtml(body));
+        post.setTags(tags);
+        post.setStatus(posted ? Post.Status.Posted : Post.Status.Draft);
+        post.setPosted(new Date());
+        posts.save(post);
     }
 
     private String resolveUrl(String... parts) {
