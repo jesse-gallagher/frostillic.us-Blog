@@ -1,6 +1,5 @@
 package api.atompub;
 
-import api.AtomPubAPI;
 import com.darwino.commons.json.JsonArray;
 import com.darwino.commons.json.JsonException;
 import com.darwino.commons.json.JsonObject;

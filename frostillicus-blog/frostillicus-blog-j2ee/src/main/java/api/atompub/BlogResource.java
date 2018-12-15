@@ -1,6 +1,5 @@
 package api.atompub;
 
-import api.AtomPubAPI;
 import bean.MarkdownBean;
 import com.darwino.commons.json.JsonException;
 import com.darwino.commons.util.PathUtil;
