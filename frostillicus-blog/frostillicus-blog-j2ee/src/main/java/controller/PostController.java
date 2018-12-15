@@ -94,10 +94,10 @@ public class PostController extends AbstractPostListController {
 	@POST
 	@Consumes({ MediaType.MULTIPART_FORM_DATA, MediaType.APPLICATION_FORM_URLENCODED })
 	@RolesAllowed("admin")
-	public String create(@FormParam("title") String title, @FormParam("bodyMarkdown") String bodyMarkdown, @FormParam("tags") String tags) throws JsonException {
+	public String create(@FormParam("title") String title, @FormParam("bodyMarkdown") String bodyMarkdown, @FormParam("tags") String tags, @FormParam("thread") String thread) throws JsonException {
 		Post post = PostUtil.createPost();
 		post.setPostedBy(darwinoSession.getUser().getDn());
-		updatePost(post, bodyMarkdown, tags, title);
+		updatePost(post, bodyMarkdown, tags, title, thread);
 		posts.save(post);
 		
 		return "redirect:posts/" + post.getPostId(); //$NON-NLS-1$
@@ -134,10 +134,10 @@ public class PostController extends AbstractPostListController {
 	@PUT
 	@Path("{postId}")
 	@RolesAllowed("admin")
-	public String update(@PathParam("postId") String postId, @FormParam("title") String title, @FormParam("bodyMarkdown") String bodyMarkdown, @FormParam("tags") String tags) {
+	public String update(@PathParam("postId") String postId, @FormParam("title") String title, @FormParam("bodyMarkdown") String bodyMarkdown, @FormParam("tags") String tags, @FormParam("thread") String thread) {
 		Post post = posts.findPost(postId)
 				.orElseThrow(() -> new IllegalArgumentException("Unable to find post matching ID " + postId)); //$NON-NLS-1$
-		updatePost(post, bodyMarkdown, tags, title);
+		updatePost(post, bodyMarkdown, tags, title, thread);
 
 		posts.save(post);
 
@@ -184,13 +184,14 @@ public class PostController extends AbstractPostListController {
 	// * Internal utility methods
 	// *******************************************************************************
 
-	private void updatePost(Post post, @FormParam("bodyMarkdown") String bodyMarkdown, @FormParam("tags") String tags, @FormParam("title") String title) {
+	private void updatePost(Post post, String bodyMarkdown, String tags, String title, String thread) {
 		if(StringUtil.isEmpty(post.getName())) {
 			post.setName(StringUtil.toString(title).toLowerCase().replaceAll("\\s+", "-"));
 		}
 		post.setTitle(title);
 		post.setBodyMarkdown(bodyMarkdown);
 		post.setBodyHtml(markdown.toHtml(bodyMarkdown));
+		post.setThread(thread);
 		post.setTags(
 				tags == null ? Collections.emptyList() :
 						Arrays.stream(tags.split(",")) //$NON-NLS-1$

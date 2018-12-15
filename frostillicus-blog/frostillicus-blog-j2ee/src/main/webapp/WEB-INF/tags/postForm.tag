@@ -29,6 +29,9 @@
 	<label for="tags">${translation.tagsLabel}</label>
 	<input type="text" name="tags" id="tags" value="${fn:join(pageScope.value.tags.toArray(),', ')}"/>
 
+	<label for="thread">${translation.threadLabel}</label>
+	<input type="text" name="thread" id="thread" value="${pageScope.value.thread}"/>
+
 	<label for="bodyMarkdown">${translation.bodyLabel}</label>
 	<textarea name="bodyMarkdown" id="bodyMarkdown"><c:out value="${empty pageScope.value.bodyMarkdown ? pageScope.value.bodyHtml : pageScope.value.bodyMarkdown}"/></textarea>
 		
