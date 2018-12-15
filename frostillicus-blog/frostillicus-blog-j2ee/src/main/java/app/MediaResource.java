@@ -11,8 +11,7 @@ import javax.inject.Inject;
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
-import javax.ws.rs.core.HttpHeaders;
-import javax.ws.rs.core.Response;
+import javax.ws.rs.core.*;
 
 @Path(MediaResource.PATH)
 public class MediaResource {
@@ -20,6 +19,9 @@ public class MediaResource {
 
     @Inject
     Database database;
+
+    @Context
+    Request request;
 
     @GET
     @Path("{mediaId}/{mediaName}")
@@ -29,6 +31,19 @@ public class MediaResource {
 
         Attachment att = doc.getAttachments()[0];
 
-        return Response.ok(att.getInputStream()).header(HttpHeaders.CONTENT_TYPE, att.getMimeType()).build();
+        EntityTag etag = new EntityTag(att.getETag());
+        Response.ResponseBuilder builder = request.evaluatePreconditions(etag);
+        if(builder == null) {
+            builder = Response.ok(att.getInputStream())
+                    .header(HttpHeaders.CONTENT_TYPE, att.getMimeType())
+                    .header(HttpHeaders.ETAG, etag);
+        }
+
+        CacheControl cc = new CacheControl();
+        cc.setMaxAge(5 * 24 * 60 * 60);
+
+        return builder
+                .cacheControl(cc)
+                .build();
     }
 }
