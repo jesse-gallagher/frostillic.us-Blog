@@ -15,6 +15,7 @@
  */
 package controller;
 
+import java.sql.Date;
 import java.util.Arrays;
 import java.util.ResourceBundle;
 import java.util.stream.Collectors;
@@ -70,7 +71,7 @@ public class FeedController {
 		entry.setAuthor(post.getPostedBy());
 		entry.setTitle(post.getTitle());
 		entry.setLink(translation.getString("baseUrl") + servletContext.getContextPath() + "/posts/" + post.getId()); //$NON-NLS-1$ //$NON-NLS-2$
-		entry.setPublishedDate(post.getPosted());
+		entry.setPublishedDate(Date.from(post.getPosted().toInstant()));
 		SyndContent content = new SyndContentImpl();
 		content.setType(MediaType.TEXT_HTML);
 		content.setValue(post.getBodyHtml());

@@ -15,6 +15,7 @@
  */
 package controller;
 
+import java.time.OffsetDateTime;
 import java.util.Date;
 import java.util.UUID;
 
@@ -57,7 +58,7 @@ public class CommentController {
 		Comment comment = new Comment();
 		comment.setCommentId(UUID.randomUUID().toString());
 		comment.setPostId(postId);
-		comment.setPosted(new Date());
+		comment.setPosted(OffsetDateTime.now());
 		comment.setPostedBy(postedBy);
 		comment.setPostedByEmail(postedByEmail);
 		comment.setBodyMarkdown(bodyMarkdown);

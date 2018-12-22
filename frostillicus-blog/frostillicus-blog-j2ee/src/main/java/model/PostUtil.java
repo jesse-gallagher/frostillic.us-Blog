@@ -24,6 +24,7 @@ import com.darwino.jsonstore.Store;
 import frostillicus.blog.app.AppDatabaseDef;
 
 import javax.enterprise.inject.spi.CDI;
+import java.time.OffsetDateTime;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -59,7 +60,7 @@ public enum PostUtil {
 
     public static Post createPost() {
         Post post = new Post();
-        post.setPosted(new Date());
+        post.setPosted(OffsetDateTime.now());
         post.setPostId(UUID.randomUUID().toString());
 
         // It's not pretty, but it's CLOSER to replication-safe

@@ -24,7 +24,7 @@
 	<h3>
 		${pageScope.value.postedBy}
 		-
-		<fmt:formatDate value="${pageScope.value.posted}" type="both" dateStyle="medium" timeStyle="short" />
+		<fmt:formatDate value="${pageScope.value.postedDate}" type="both" dateStyle="medium" timeStyle="short" />
 	</h3>
 	<c:if test="${userInfo.admin}">
 		<div class="admin">

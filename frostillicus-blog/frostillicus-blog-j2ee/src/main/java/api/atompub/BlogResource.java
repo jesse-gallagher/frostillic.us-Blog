@@ -44,6 +44,8 @@ import javax.ws.rs.core.UriInfo;
 import javax.xml.xpath.XPathExpressionException;
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.time.OffsetDateTime;
+import java.time.temporal.ChronoField;
 import java.util.*;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
@@ -147,9 +149,9 @@ public class BlogResource {
         SyndEntry entry = new SyndEntryImpl();
         entry.setAuthor(post.getPostedBy());
         entry.setTitle(post.getTitle());
-        entry.setPublishedDate(post.getPosted());
-        Date mod = post.getModified();
-        entry.setUpdatedDate(mod == null ? post.getPosted() : mod);
+        entry.setPublishedDate(Date.from(post.getPosted().toInstant()));
+        OffsetDateTime mod = post.getModified();
+        entry.setUpdatedDate(mod == null ? entry.getPublishedDate() : Date.from(mod.toInstant()));
 
         List<SyndContent> contents = new ArrayList<>();
 
@@ -222,7 +224,7 @@ public class BlogResource {
         post.setBodyHtml(markdown.toHtml(body));
         post.setTags(tags);
         post.setStatus(posted ? Post.Status.Posted : Post.Status.Draft);
-        post.setPosted(new Date());
+        post.setPosted(OffsetDateTime.now());
         posts.save(post);
     }
 

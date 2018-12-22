@@ -24,8 +24,8 @@
 <%@taglib prefix="t" tagdir="/WEB-INF/tags" %>
 <article class="post">
 	<header>
-		<h2><a href="posts/${pageScope.value.postedYear}/${pageScope.value.postedMonth+1}/${pageScope.value.postedDay}/${pageScope.value.postId}">${pageScope.value.title}</a></h2>
-		<h3><fmt:formatDate value="${pageScope.value.posted}" type="BOTH" dateStyle="MEDIUM" timeStyle="SHORT" /></h3>
+		<h2><a href="posts/${pageScope.value.postedYear}/${pageScope.value.postedMonth}/${pageScope.value.postedDay}/${pageScope.value.postId}">${pageScope.value.title}</a></h2>
+		<h3><fmt:formatDate value="${pageScope.value.postedDate}" type="BOTH" dateStyle="MEDIUM" timeStyle="SHORT" /></h3>
 		<c:if test="${not empty pageScope.value.tags}">
 			<div class="meta">
 				${translation.tagsLabel}
@@ -37,7 +37,7 @@
 		
 		<c:if test="${userInfo.admin}">
 			<div class="admin">
-				<a class="edit" href="posts/${pageScope.value.postedYear}/${pageScope.value.postedMonth+1}/${pageScope.value.postedDay}/${pageScope.value.postId}/edit">${translation.editButton}</a>
+				<a class="edit" href="posts/${pageScope.value.postedYear}/${pageScope.value.postedMonth}/${pageScope.value.postedDay}/${pageScope.value.postId}/edit">${translation.editButton}</a>
 				<form method="POST" action="posts/${pageScope.value.postId}">
 					<input type="submit" class="delete" value="${translation.deleteButton}" onclick="return confirm('${translation.postDeleteConfirm}')" />
 					<input type="hidden" name="_method" value="DELETE" />

@@ -15,30 +15,33 @@
  */
 package model;
 
-import java.util.Date;
-
-import javax.validation.constraints.Email;
-import javax.validation.constraints.NotEmpty;
-import javax.validation.constraints.NotNull;
-
-import org.darwino.jnosql.artemis.extension.ISODateConverter;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+import org.darwino.jnosql.artemis.extension.converter.ISOOffsetDateTimeConverter;
 import org.jnosql.artemis.Column;
 import org.jnosql.artemis.Convert;
 import org.jnosql.artemis.Entity;
 import org.jnosql.artemis.Id;
 
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import javax.validation.constraints.Email;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
+import java.time.OffsetDateTime;
+import java.util.Date;
 
 @Entity @Data @NoArgsConstructor
 public class Comment {
 	@Id @Column private String id;
 	@Column("commentId") @NotEmpty private String commentId;
 	@Column("postId") @NotEmpty private String postId;
-	@Column @NotNull @Convert(ISODateConverter.class) private Date posted;
+	@Column @NotNull @Convert(ISOOffsetDateTimeConverter.class) private OffsetDateTime posted;
 	@Column("postedBy") @NotEmpty private String postedBy;
 	@Column("postedByEmail") @Email private String postedByEmail;
 	@Column("postedByUrl") private String postedByUrl;
 	@Column("bodyMarkdown") private String bodyMarkdown;
 	@Column("bodyHtml") @NotEmpty private String bodyHtml;
+
+	public Date getPostedDate() {
+		return Date.from(posted.toInstant());
+	}
 }

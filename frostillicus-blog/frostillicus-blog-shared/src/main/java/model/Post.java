@@ -15,21 +15,20 @@
  */
 package model;
 
-import org.darwino.jnosql.artemis.extension.ISODateConverter;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+import org.darwino.jnosql.artemis.extension.converter.ISOOffsetDateTimeConverter;
 import org.jnosql.artemis.Column;
 import org.jnosql.artemis.Convert;
 import org.jnosql.artemis.Entity;
 import org.jnosql.artemis.Id;
 
-import lombok.Data;
-import lombok.NoArgsConstructor;
-
-import java.util.Calendar;
-import java.util.Date;
-import java.util.List;
-
 import javax.enterprise.inject.spi.CDI;
 import javax.validation.constraints.NotNull;
+import java.time.OffsetDateTime;
+import java.time.temporal.ChronoField;
+import java.util.Date;
+import java.util.List;
 
 @Entity @Data @NoArgsConstructor
 public class Post {
@@ -41,7 +40,7 @@ public class Post {
 	@Column private int postIdInt;
 	@Column private String postId;
 	@Column private String title;
-	@Column @NotNull @Convert(ISODateConverter.class) private Date posted;
+	@Column @NotNull @Convert(ISOOffsetDateTimeConverter.class) private OffsetDateTime posted;
 	@Column private String postedBy;
 	@Column private String bodyMarkdown;
 	@Column private String bodyHtml;
@@ -49,7 +48,7 @@ public class Post {
 	@Column private String thread;
 	@Column private Status status;
 	@Column private String name;
-	@Column @Convert(ISODateConverter.class) private Date modified;
+	@Column @Convert(ISOOffsetDateTimeConverter.class) private OffsetDateTime modified;
 	@Column private String modifiedBy;
 	
 	public int getCommentCount() {
@@ -57,26 +56,20 @@ public class Post {
 	}
 	
 	public int getPostedYear() {
-		return getCalendar().get(Calendar.YEAR);
+		return posted.get(ChronoField.YEAR);
 	}
 	public int getPostedMonth() {
-		return getCalendar().get(Calendar.MONTH);
+		return posted.get(ChronoField.MONTH_OF_YEAR);
 	}
 	public int getPostedDay() {
-		return getCalendar().get(Calendar.DAY_OF_MONTH);
+		return posted.get(ChronoField.DAY_OF_MONTH);
+	}
+
+	public Date getPostedDate() {
+		return Date.from(posted.toInstant());
 	}
 	
 	public List<Post> getThreadInfo() {
 		return CDI.current().select(PostRepository.class).get().findByThread(getThread());
-	}
-	
-	// *******************************************************************************
-	// * Internal utility methods
-	// *******************************************************************************
-	
-	private Calendar getCalendar() {
-		Calendar cal = Calendar.getInstance();
-		cal.setTime(getPosted());
-		return cal;
 	}
 }
