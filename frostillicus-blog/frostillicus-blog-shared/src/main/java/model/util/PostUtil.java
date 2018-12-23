@@ -49,8 +49,9 @@ public enum PostUtil {
         Store store = database.getStore(AppDatabaseDef.STORE_POSTS);
         store.openCursor()
                 .query(JsonObject.of("form", Post.class.getSimpleName())) //$NON-NLS-1$
-                .findDocuments(doc -> {
-                    String posted = doc.getString("posted"); //$NON-NLS-1$
+                .extract(JsonObject.of("posted", "posted"))
+                .find(entry -> {
+                    String posted = entry.getString("posted"); //$NON-NLS-1$
                     if(posted != null && posted.length() >= 7) {
                         months.add(posted.substring(0, 7));
                     }
