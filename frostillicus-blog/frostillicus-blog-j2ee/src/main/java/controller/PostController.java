@@ -159,7 +159,7 @@ public class PostController extends AbstractPostListController {
 		posts.deleteById(post.getId());
 
 		String referer = request.getHeader("Referer");
-		if(StringUtil.isNotEmpty(referer)) {
+		if(StringUtil.isNotEmpty(referer) && !referer.toLowerCase().contains(postId.toLowerCase())) {
 			// TODO make this more robust?
 			String context = request.getContextPath();
 			int contextIndex = referer.indexOf(context);
