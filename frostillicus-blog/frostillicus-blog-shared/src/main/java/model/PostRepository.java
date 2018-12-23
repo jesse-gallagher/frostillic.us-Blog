@@ -26,7 +26,7 @@ import org.darwino.jnosql.artemis.extension.StoredCursor;
 import org.jnosql.artemis.Param;
 import org.jnosql.artemis.Query;
 
-import frostillicus.blog.app.AppDatabaseDef;
+import darwino.AppDatabaseDef;
 
 @RepositoryProvider(AppDatabaseDef.STORE_POSTS)
 public interface PostRepository extends DarwinoRepository<Post, String> {

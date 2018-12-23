@@ -73,8 +73,8 @@
 	<!-- Application initialization -->
 	<listener>
 	    <listener-class>
-			frostillicus.blog.app.AppContextListener        
-	    </listener-class>
+            darwino.AppContextListener
+        </listener-class>
 	</listener>
 
 		

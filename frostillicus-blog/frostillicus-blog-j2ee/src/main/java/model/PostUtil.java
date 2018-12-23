@@ -21,7 +21,7 @@ import com.darwino.commons.json.JsonObject;
 import com.darwino.commons.util.StringUtil;
 import com.darwino.jsonstore.Database;
 import com.darwino.jsonstore.Store;
-import frostillicus.blog.app.AppDatabaseDef;
+import darwino.AppDatabaseDef;
 
 import javax.enterprise.inject.spi.CDI;
 import java.time.OffsetDateTime;

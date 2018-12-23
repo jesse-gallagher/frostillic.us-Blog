@@ -17,7 +17,7 @@ package api.atompub;
 
 import com.darwino.commons.util.PathUtil;
 import com.darwino.commons.xml.DomUtil;
-import frostillicus.blog.app.AppDatabaseDef;
+import darwino.AppDatabaseDef;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
@@ -30,7 +30,6 @@ import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.Context;
-import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.UriInfo;
 import java.net.URI;
 import java.util.ResourceBundle;

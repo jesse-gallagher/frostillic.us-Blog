@@ -9,7 +9,7 @@ import com.darwino.jsonstore.Attachment;
 import com.darwino.jsonstore.Database;
 import com.darwino.jsonstore.Document;
 import com.darwino.jsonstore.Store;
-import frostillicus.blog.app.AppDatabaseDef;
+import darwino.AppDatabaseDef;
 import lombok.SneakyThrows;
 import org.w3c.dom.Element;
 

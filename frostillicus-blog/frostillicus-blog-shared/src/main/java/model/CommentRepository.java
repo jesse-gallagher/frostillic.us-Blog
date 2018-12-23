@@ -23,7 +23,7 @@ import org.darwino.jnosql.artemis.extension.RepositoryProvider;
 import org.jnosql.artemis.Param;
 import org.jnosql.artemis.Query;
 
-import frostillicus.blog.app.AppDatabaseDef;
+import darwino.AppDatabaseDef;
 
 @RepositoryProvider(AppDatabaseDef.STORE_COMMENTS)
 public interface CommentRepository extends DarwinoRepository<Comment, String> {

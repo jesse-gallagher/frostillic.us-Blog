@@ -27,7 +27,7 @@ import org.jnosql.artemis.DatabaseType;
 import org.jnosql.diana.api.document.DocumentCollectionManagerFactory;
 import org.jnosql.diana.api.document.DocumentConfiguration;
 
-import frostillicus.blog.app.AppDatabaseDef;
+import darwino.AppDatabaseDef;
 
 @ApplicationScoped
 public class DocumentCollectionManagerProducer {

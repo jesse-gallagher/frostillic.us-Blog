@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package frostillicus.blog.app;
+package darwino;
 
 import java.util.List;
 
@@ -21,8 +21,7 @@ import com.darwino.commons.platform.beans.ManagedBeansExtension;
 import com.darwino.commons.platform.properties.PropertiesExtension;
 import com.darwino.j2ee.platform.DefaultWebPropertiesExtension;
 
-import frostillicus.blog.app.beans.HomeDirBeanExtension;
-
+import darwino.beans.HomeDirBeanExtension;
 
 
 /**

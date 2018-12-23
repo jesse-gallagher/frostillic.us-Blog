@@ -24,7 +24,7 @@ import com.darwino.jsonstore.Database;
 import com.darwino.jsonstore.Session;
 import com.darwino.platform.DarwinoContext;
 
-import frostillicus.blog.app.AppDatabaseDef;
+import darwino.AppDatabaseDef;
 
 @RequestScoped
 public class DarwinoContextBean {

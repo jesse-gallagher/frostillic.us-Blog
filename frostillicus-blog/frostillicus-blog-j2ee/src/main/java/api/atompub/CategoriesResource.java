@@ -20,7 +20,7 @@ import com.darwino.commons.json.JsonException;
 import com.darwino.commons.json.JsonObject;
 import com.darwino.commons.xml.DomUtil;
 import com.darwino.jsonstore.Database;
-import frostillicus.blog.app.AppDatabaseDef;
+import darwino.AppDatabaseDef;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 

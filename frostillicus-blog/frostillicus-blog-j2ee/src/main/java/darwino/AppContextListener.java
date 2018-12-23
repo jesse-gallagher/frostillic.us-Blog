@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package frostillicus.blog.app;
+package darwino;
 
 import javax.servlet.ServletContext;
 import javax.servlet.ServletContextEvent;
