@@ -17,12 +17,12 @@ package controller;
 
 import com.darwino.commons.json.JsonException;
 import model.PostRepository;
-import model.PostUtil;
+import model.util.PostUtil;
 
 import javax.inject.Inject;
 import javax.mvc.Models;
 
-import static model.PostUtil.PAGE_LENGTH;
+import static model.util.PostUtil.PAGE_LENGTH;
 
 public abstract class AbstractPostListController {
     @Inject

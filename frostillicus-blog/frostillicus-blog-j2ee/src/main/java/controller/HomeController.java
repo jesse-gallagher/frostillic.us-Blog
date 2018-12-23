@@ -23,7 +23,7 @@ import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.QueryParam;
 
-import static model.PostUtil.PAGE_LENGTH;
+import static model.util.PostUtil.PAGE_LENGTH;
 
 @Path("/")
 @Controller

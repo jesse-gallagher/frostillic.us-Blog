@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package model;
+package model.util;
 
 import com.darwino.commons.json.JsonArray;
 import com.darwino.commons.json.JsonException;
@@ -22,6 +22,8 @@ import com.darwino.commons.util.StringUtil;
 import com.darwino.jsonstore.Database;
 import com.darwino.jsonstore.Store;
 import darwino.AppDatabaseDef;
+import model.Post;
+import model.PostRepository;
 
 import javax.enterprise.inject.spi.CDI;
 import java.time.OffsetDateTime;

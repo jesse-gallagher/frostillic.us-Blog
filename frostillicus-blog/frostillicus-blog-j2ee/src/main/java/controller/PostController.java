@@ -21,7 +21,7 @@ import com.darwino.commons.util.StringUtil;
 import com.darwino.jsonstore.Session;
 import model.CommentRepository;
 import model.Post;
-import model.PostUtil;
+import model.util.PostUtil;
 
 import javax.annotation.security.RolesAllowed;
 import javax.inject.Inject;
