@@ -50,6 +50,10 @@ public class UserInfoBean {
 	public String getCn() {
 		return context.getUser().getCn();
 	}
+
+	public String getDn() {
+		return context.getUser().getDn();
+	}
 	
 	public String getEmailAddress() throws UserException {
 		Object mail = context.getUser().getAttribute(User.ATTR_EMAIL);

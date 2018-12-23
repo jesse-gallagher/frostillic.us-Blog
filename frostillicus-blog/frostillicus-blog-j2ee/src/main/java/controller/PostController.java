@@ -16,9 +16,9 @@
 package controller;
 
 import bean.MarkdownBean;
+import bean.UserInfoBean;
 import com.darwino.commons.json.JsonException;
 import com.darwino.commons.util.StringUtil;
-import com.darwino.jsonstore.Session;
 import model.CommentRepository;
 import model.Post;
 import model.util.PostUtil;
@@ -45,7 +45,7 @@ public class PostController extends AbstractPostListController {
 	MarkdownBean markdown;
 
 	@Inject
-	Session darwinoSession;
+	UserInfoBean userInfo;
 	
 	@GET
 	public String list(@QueryParam("start") String startParam) throws JsonException {
@@ -94,9 +94,9 @@ public class PostController extends AbstractPostListController {
 	@POST
 	@Consumes({ MediaType.MULTIPART_FORM_DATA, MediaType.APPLICATION_FORM_URLENCODED })
 	@RolesAllowed("admin")
-	public String create(@FormParam("title") String title, @FormParam("bodyMarkdown") String bodyMarkdown, @FormParam("tags") String tags, @FormParam("thread") String thread) throws JsonException {
+	public String create(@FormParam("title") String title, @FormParam("bodyMarkdown") String bodyMarkdown, @FormParam("tags") String tags, @FormParam("thread") String thread) {
 		Post post = PostUtil.createPost();
-		post.setPostedBy(darwinoSession.getUser().getDn());
+		post.setPostedBy(userInfo.getDn());
 		updatePost(post, bodyMarkdown, tags, title, thread);
 		posts.save(post);
 		

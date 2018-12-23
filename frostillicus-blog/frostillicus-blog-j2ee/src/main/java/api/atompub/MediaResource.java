@@ -25,6 +25,7 @@ import javax.ws.rs.core.UriInfo;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.net.URLEncoder;
+import java.nio.charset.StandardCharsets;
 import java.util.ResourceBundle;
 
 @Path(AtomPubAPI.BASE_PATH + "/{blogId}/" + MediaResource.PATH)
@@ -122,7 +123,7 @@ public class MediaResource {
         Element content = DomUtil.createElement(entry, "content");
         content.setAttribute("type", att.getMimeType());
 
-        String nameEnc = URLEncoder.encode(doc.getString("name"), "UTF-8");
+        String nameEnc = URLEncoder.encode(doc.getString("name"), StandardCharsets.UTF_8.name());
         String path = PathUtil.concat(MediaResource.PATH, doc.getUnid(), nameEnc);
         content.setAttribute("src", path);
 

@@ -80,7 +80,11 @@ public enum PostUtil {
     public static Collection<String> getCategories() throws JsonException {
         Database database = CDI.current().select(Database.class).get();
         JsonArray tags = (JsonArray)database.getStore(AppDatabaseDef.STORE_POSTS).getTags(Integer.MAX_VALUE, true);
-        return tags.stream().map(StringUtil::toString).collect(Collectors.toList());
+        return tags.stream()
+                .map(JsonObject.class::cast)
+                .map(tag -> tag.getAsString("name"))
+                .map(StringUtil::toString)
+                .collect(Collectors.toList());
     }
 
     public static int parseStartParam(String startParam) {
