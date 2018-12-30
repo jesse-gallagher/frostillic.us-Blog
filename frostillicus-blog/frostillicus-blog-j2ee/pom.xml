@@ -48,6 +48,11 @@
 			<artifactId>dwo-commons-runtime-debug-script</artifactId>
 			<version>${DARWINO_VERSION}</version>
 		</dependency>
+		<dependency>
+			<groupId>com.darwino</groupId>
+			<artifactId>dwo-jre-j2ee-security</artifactId>
+			<version>${DARWINO_VERSION}</version>
+		</dependency>
 
 		<dependency>
 			<groupId>com.darwino</groupId>
