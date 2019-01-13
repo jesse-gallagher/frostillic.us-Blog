@@ -15,7 +15,7 @@
     limitations under the License.
 
 --%>
-<%@tag description="Displays List<model.Post>" pageEncoding="UTF-8" trimDirectiveWhitespaces="true" %>
+<%@tag description="Displays List&kt;model.Post&gt;" pageEncoding="UTF-8" trimDirectiveWhitespaces="true" %>
 <%@attribute name="value" required="true" type="java.util.List" %>
 <%@attribute name="start" required="false" type="java.lang.Integer"%>
 <%@attribute name="pageSize" required="false" type="java.lang.Integer"%>
