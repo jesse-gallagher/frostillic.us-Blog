@@ -17,6 +17,8 @@ package api.atompub;
 
 import com.darwino.commons.json.JsonException;
 import com.darwino.commons.xml.DomUtil;
+
+import bean.UserInfoBean;
 import model.util.PostUtil;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
@@ -27,7 +29,7 @@ import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 
 @Path(AtomPubAPI.BASE_PATH + "/{blogId}/categories")
-@RolesAllowed("admin")
+@RolesAllowed(UserInfoBean.ROLE_ADMIN)
 public class CategoriesResource {
     @GET
     @Produces("application/atomserv+xml")

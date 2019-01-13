@@ -17,6 +17,7 @@ package darwino;
 
 import com.darwino.jsonstore.extensions.DefaultExtensionRegistry;
 import com.darwino.jsonstore.impl.DarwinoInfCursorFactory;
+import com.darwino.jsonstore.local.DefaultDatabaseACLFactory;
 
 /**
  * Database Business logic - event handlers.
@@ -33,7 +34,7 @@ public  class AppDBBusinessLogic extends DefaultExtensionRegistry {
 
 		// Use a query factory
 		setQueryFactory(new DarwinoInfCursorFactory(getClass()));
-		
+		setDatabaseACLFactory(new DefaultDatabaseACLFactory());
 		
 	}
 }

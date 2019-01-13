@@ -17,6 +17,8 @@ package api.atompub;
 
 import com.darwino.commons.util.PathUtil;
 import com.darwino.commons.xml.DomUtil;
+
+import bean.UserInfoBean;
 import darwino.AppDatabaseDef;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
@@ -36,7 +38,7 @@ import java.util.ResourceBundle;
 import java.util.stream.Stream;
 
 @Path(AtomPubAPI.BASE_PATH)
-@RolesAllowed("admin")
+@RolesAllowed(UserInfoBean.ROLE_ADMIN)
 public class AtomPubAPI {
 	public static final String BASE_PATH = "atompub"; //$NON-NLS-1$
 	

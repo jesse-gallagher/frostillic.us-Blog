@@ -93,7 +93,7 @@ public class PostController extends AbstractPostListController {
 	// TODO figure out if this can be done automatically without adding @FormParam to the model class
 	@POST
 	@Consumes({ MediaType.MULTIPART_FORM_DATA, MediaType.APPLICATION_FORM_URLENCODED })
-	@RolesAllowed("admin")
+	@RolesAllowed(UserInfoBean.ROLE_ADMIN)
 	public String create(@FormParam("title") String title, @FormParam("bodyMarkdown") String bodyMarkdown, @FormParam("tags") String tags, @FormParam("thread") String thread) {
 		Post post = PostUtil.createPost();
 		post.setPostedBy(userInfo.getDn());
@@ -124,7 +124,7 @@ public class PostController extends AbstractPostListController {
 	
 	@GET
 	@Path("{year}/{month}/{day}/{postId}/edit")
-	@RolesAllowed("admin")
+	@RolesAllowed(UserInfoBean.ROLE_ADMIN)
 	public String edit(@PathParam("postId") String postId) {
 		Post post = posts.findPost(postId).orElseThrow(() -> new IllegalArgumentException("Unable to find post matching ID " + postId)); //$NON-NLS-1$
 		models.put("post", post); //$NON-NLS-1$
@@ -133,7 +133,7 @@ public class PostController extends AbstractPostListController {
 
 	@PUT
 	@Path("{postId}")
-	@RolesAllowed("admin")
+	@RolesAllowed(UserInfoBean.ROLE_ADMIN)
 	public String update(@PathParam("postId") String postId, @FormParam("title") String title, @FormParam("bodyMarkdown") String bodyMarkdown, @FormParam("tags") String tags, @FormParam("thread") String thread) {
 		Post post = posts.findPost(postId)
 				.orElseThrow(() -> new IllegalArgumentException("Unable to find post matching ID " + postId)); //$NON-NLS-1$
@@ -146,14 +146,14 @@ public class PostController extends AbstractPostListController {
 	
 	@DELETE
 	@Path("{year}/{month}/{day}/{postId}")
-	@RolesAllowed("admin")
+	@RolesAllowed(UserInfoBean.ROLE_ADMIN)
 	public String deleteByDate(@PathParam("postId") String postId) {
 		return delete(postId);
 	}
 	
 	@DELETE
 	@Path("{postId}")
-	@RolesAllowed("admin")
+	@RolesAllowed(UserInfoBean.ROLE_ADMIN)
 	public String delete(@PathParam("postId") String postId) {
 		Post post = posts.findPost(postId).orElseThrow(() -> new IllegalArgumentException("Unable to find post matching ID " + postId)); //$NON-NLS-1$
 		posts.deleteById(post.getId());

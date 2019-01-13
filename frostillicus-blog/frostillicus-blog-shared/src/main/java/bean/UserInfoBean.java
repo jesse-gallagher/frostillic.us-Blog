@@ -31,6 +31,8 @@ import lombok.SneakyThrows;
 @RequestScoped
 @Named("userInfo")
 public class UserInfoBean {
+	public static final String ROLE_ADMIN = "Admin";
+	
 	@Inject @Named("darwinoContext")
 	DarwinoContext context;
 	
@@ -40,7 +42,7 @@ public class UserInfoBean {
 	}
 	
 	public boolean isAdmin() {
-		return context.getUser().hasRole("admin"); //$NON-NLS-1$
+		return context.getUser().hasRole(ROLE_ADMIN); //$NON-NLS-1$
 	}
 	
 	public boolean isAnonymous() {

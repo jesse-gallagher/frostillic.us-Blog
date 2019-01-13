@@ -16,6 +16,8 @@
 package api.atompub;
 
 import bean.MarkdownBean;
+import bean.UserInfoBean;
+
 import com.darwino.commons.json.JsonException;
 import com.darwino.commons.util.PathUtil;
 import com.darwino.commons.util.StringUtil;
@@ -50,7 +52,7 @@ import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
 @Path(AtomPubAPI.BASE_PATH + "/{blogId}")
-@RolesAllowed("admin")
+@RolesAllowed(UserInfoBean.ROLE_ADMIN)
 public class BlogResource {
     public static final int PAGE_LENGTH = 100;
 

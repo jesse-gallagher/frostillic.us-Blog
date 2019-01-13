@@ -9,6 +9,8 @@ import com.darwino.jsonstore.Attachment;
 import com.darwino.jsonstore.Database;
 import com.darwino.jsonstore.Document;
 import com.darwino.jsonstore.Store;
+
+import bean.UserInfoBean;
 import darwino.AppDatabaseDef;
 import lombok.SneakyThrows;
 import org.w3c.dom.Element;
@@ -29,7 +31,7 @@ import java.nio.charset.StandardCharsets;
 import java.util.ResourceBundle;
 
 @Path(AtomPubAPI.BASE_PATH + "/{blogId}/" + MediaResource.PATH)
-@RolesAllowed("admin")
+@RolesAllowed(UserInfoBean.ROLE_ADMIN)
 public class MediaResource {
     public static final String PATH = "media";
 

@@ -28,12 +28,13 @@ import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 
+import bean.UserInfoBean;
 import model.Link;
 import model.LinkRepository;
 
 @Controller
 @Path("admin")
-@RolesAllowed("admin")
+@RolesAllowed(UserInfoBean.ROLE_ADMIN)
 public class AdminController {
 	@Inject
 	LinkRepository links;
