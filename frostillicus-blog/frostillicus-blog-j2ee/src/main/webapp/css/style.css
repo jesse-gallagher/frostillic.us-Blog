@@ -72,6 +72,7 @@ a {
 	list-style-type: square;
 }
 #pagenav .photo {
+	width: 128px;
 	max-width: 100%;
 	display: block;
 	margin: 0 auto;
