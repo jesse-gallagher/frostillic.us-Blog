@@ -1,7 +1,9 @@
 package controller;
 
 import bean.DominoBean;
+import bean.UserInfoBean;
 
+import javax.annotation.security.RolesAllowed;
 import javax.inject.Inject;
 import javax.mvc.Controller;
 import javax.mvc.Models;
@@ -14,6 +16,7 @@ import java.util.concurrent.ExecutionException;
 
 @Path("info")
 @Controller
+@RolesAllowed(UserInfoBean.ROLE_ADMIN)
 public class InfoController {
     @Inject
     Models models;
@@ -34,6 +37,7 @@ public class InfoController {
         info.put("Protocol", req.getProtocol());
         info.put("Server Info", req.getServletContext().getServerInfo());
         info.put("Server Name", dominoInfo.getServerName());
+        info.put("Remote IP", req.getRemoteHost());
 
         models.put("info", info);
 
