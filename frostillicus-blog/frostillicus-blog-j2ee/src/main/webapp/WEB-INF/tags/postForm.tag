@@ -22,7 +22,7 @@
 <%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <%@taglib prefix="t" tagdir="/WEB-INF/tags" %>
-<form name="form" action="posts/${pageScope.edit ? post.id : ""}" method="post" class="crud">
+<form name="form" action="posts/${pageScope.edit ? post.id : ''}" method="post" class="crud">
 	<label for="title">${translation.titleLabel}</label>
 	<input type="text" name="title" id="title" required="required" autofocus="autofocus" value="${pageScope.value.title}" />
 	
@@ -33,7 +33,7 @@
 	<input type="text" name="thread" id="thread" value="${pageScope.value.thread}"/>
 
 	<label for="bodyMarkdown">${translation.bodyLabel}</label>
-	<textarea name="bodyMarkdown" id="bodyMarkdown"><c:out value="${empty pageScope.value.bodyMarkdown ? pageScope.value.bodyHtml : pageScope.value.bodyMarkdown}"/></textarea>
+	<textarea name="bodyMarkdown" id="bodyMarkdown">${empty pageScope.value.bodyMarkdown ? pageScope.value.bodyHtml : pageScope.value.bodyMarkdown}"</textarea>
 		
 	<input type="submit" value="${translation.savePost}"/>
 	<c:if test="${pageScope.edit}">
