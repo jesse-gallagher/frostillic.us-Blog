@@ -35,6 +35,5 @@ public  class AppDBBusinessLogic extends DefaultExtensionRegistry {
 		// Use a query factory
 		setQueryFactory(new DarwinoInfCursorFactory(getClass()));
 		setDatabaseACLFactory(new DefaultDatabaseACLFactory());
-		
 	}
 }
