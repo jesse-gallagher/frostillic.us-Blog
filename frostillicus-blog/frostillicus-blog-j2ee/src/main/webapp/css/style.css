@@ -274,7 +274,7 @@ pre code {
 @media ( min-width : 700px) {
 	#entirety {
 		width: 80%;
-		max-width: 1100px;
+		max-width: 1200px;
 		margin: 2em auto;
 		grid-template-columns: minmax(210px, 1fr) 5fr;
 		grid-template-areas:
