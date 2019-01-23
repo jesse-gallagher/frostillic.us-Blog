@@ -36,7 +36,6 @@
 					</div>
 					<c:forEach items="${links.all}" var="link">
 						<form method="POST" action="admin/links/${link.id}" accept-charset="UTF-8">
-							<!-- TODO figure out a good way to submit the delete -->
 							<!-- TODO see if there's a way to ditch the "span"s. They're there to act as table cells -->
 							<span>
 								<input type="checkbox" name="visible" value="Y" ${link.visible ? 'checked="checked"' : ''} />

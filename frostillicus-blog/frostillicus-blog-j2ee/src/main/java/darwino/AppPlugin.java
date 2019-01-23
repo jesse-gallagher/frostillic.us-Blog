@@ -17,10 +17,12 @@ package darwino;
 
 import java.util.List;
 
+import com.darwino.commons.json.JsonFactory;
 import com.darwino.commons.platform.beans.ManagedBeansExtension;
 import com.darwino.commons.platform.properties.PropertiesExtension;
 import com.darwino.j2ee.platform.DefaultWebPropertiesExtension;
 
+import com.darwino.jre.j2ee.jsonp.JsonPJsonFactory;
 import darwino.beans.HomeDirBeanExtension;
 
 
@@ -40,5 +42,13 @@ public class AppPlugin extends AppBasePlugin {
 		} else if(serviceClass==PropertiesExtension.class) {
 			extensions.add(new DefaultWebPropertiesExtension());
 		}
+	}
+
+	@Override
+	public Object findDefaultService(Class<?> serviceClass) {
+		if(serviceClass== JsonFactory.class) {
+			return new JsonPJsonFactory();
+		}
+		return super.findDefaultService(serviceClass);
 	}
 }

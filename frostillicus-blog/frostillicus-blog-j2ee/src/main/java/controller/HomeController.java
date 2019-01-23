@@ -17,6 +17,7 @@ package controller;
 
 import com.darwino.commons.json.JsonException;
 import com.darwino.commons.util.StringUtil;
+import com.darwino.platform.DarwinoContext;
 
 import javax.mvc.Controller;
 import javax.ws.rs.GET;
@@ -37,6 +38,8 @@ public class HomeController extends AbstractPostListController {
 			models.put("start", 0);
 		}
 		models.put("pageSize", PAGE_LENGTH);
+		
+		System.out.println("Factory is " + DarwinoContext.get().getSession().getJsonFactory());
 		
 		return "home.jsp"; //$NON-NLS-1$
 	}
