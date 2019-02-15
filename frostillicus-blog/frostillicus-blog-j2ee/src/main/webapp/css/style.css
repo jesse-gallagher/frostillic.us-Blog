@@ -36,6 +36,9 @@ a {
 	font-family: sans-serif;
 	line-height: 1.3;
 	font-size: 14px;
+	word-wrap: break-word;
+	hyphens: auto;
+	-webkit-hyphens: auto;
 }
 
 #pageheader {
@@ -121,7 +124,6 @@ a {
 	text-decoration: none;
 }
 .post pre {
-	max-width: 50vw;
 	overflow-x: auto;
 	border: 1px solid #ddd;
 	background: #eee;
@@ -154,6 +156,11 @@ a {
 .post .thread li {
 	margin-left: 2em;
 	line-height: 1.4;
+}
+.post img {
+	max-width: 100%;
+	width: auto;
+	height: auto;
 }
 
 .comments {
@@ -247,8 +254,9 @@ pre code {
 }
 
 
-@media ( max-width: 699px) {
+@media (max-width: 699px) {
 	#entirety {
+		border: 0;
 		max-width: 100%;
 	}
 	#pageheader {
@@ -258,7 +266,10 @@ pre code {
 		padding: 0.5em;
 		background-color: rgb(111, 149, 208);
 	}
-	
+
+	.post pre {
+		width: calc(100vw - 2em);
+	}
 	
 	.comment {
 		grid-template-columns: 5fr 1fr;
@@ -271,7 +282,7 @@ pre code {
 		display: none;
 	}
 }
-@media ( min-width : 700px) {
+@media (min-width : 700px) {
 	#entirety {
 		width: 80%;
 		max-width: 1200px;
@@ -300,11 +311,9 @@ pre code {
 		margin-left: 3em;
 		max-width: 100%;
 	}
-	.post img {
-		max-width: 100%;
-		width: auto;
-		height: auto;
-	}
+	.post pre {
+		 max-width: 50vw;
+	 }
 	
 	.comment {
 		grid-template-columns: 52px 6fr 1fr;
