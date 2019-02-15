@@ -39,8 +39,6 @@ public class HomeController extends AbstractPostListController {
 		}
 		models.put("pageSize", PAGE_LENGTH);
 		
-		System.out.println("Factory is " + DarwinoContext.get().getSession().getJsonFactory());
-		
 		return "home.jsp"; //$NON-NLS-1$
 	}
 }
