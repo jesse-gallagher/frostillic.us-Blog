@@ -88,13 +88,14 @@ a {
 }
 
 .post header {
-	border-bottom: 1px dotted rgb(96, 96, 96);
 	position: relative;
 }
 .post header h2 {
 	font-size: 1.5em;
+	font-weight: normal;
 	color: rgb(57, 82, 107);
-	margin-bottom: 0;
+	margin-bottom: 0.25em;
+	border-bottom: 1px solid rgb(200, 200, 200);
 }
 .post header h2 a {
 	color: rgb(57, 82, 107);
@@ -102,7 +103,7 @@ a {
 }
 .post header h3, .comment > h3 {
 	font-size: 0.9em;
-	color: rgb(128, 128, 128);
+	color: dimgrey;
 	margin-top: 0;
 	margin-bottom: 0.5em;
 }
@@ -133,7 +134,7 @@ a {
 
 .meta, .meta a {
 	font-size: 0.9em;
-	color: grey;
+	color: dimgrey;
 }
 
 .post + .post {
@@ -204,13 +205,13 @@ a {
 #pagefooter {
 	grid-area: footer;
 	
-	color: rgb(56, 75, 97);
+	color: rgba(0, 0, 0, 0.9);
 	text-align: center;
 
 	font-size: 0.9em;
 }
 #pagefooter a {
-	color: rgb(56, 75, 97);
+	color: rgba(0, 0, 0, 0.9);
 }
 
 input:invalid {
