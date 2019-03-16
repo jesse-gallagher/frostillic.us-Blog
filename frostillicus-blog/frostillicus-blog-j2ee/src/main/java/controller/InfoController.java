@@ -19,6 +19,7 @@ import bean.DominoBean;
 import bean.UserInfoBean;
 
 import javax.annotation.security.RolesAllowed;
+import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
 import javax.mvc.Controller;
 import javax.mvc.Models;
@@ -32,6 +33,7 @@ import java.util.concurrent.ExecutionException;
 @Path("info")
 @Controller
 @RolesAllowed(UserInfoBean.ROLE_ADMIN)
+@RequestScoped
 public class InfoController {
     @Inject
     Models models;

@@ -18,6 +18,7 @@ package controller;
 import java.time.OffsetDateTime;
 import java.util.UUID;
 
+import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
 import javax.mvc.Controller;
 import javax.ws.rs.DELETE;
@@ -36,6 +37,7 @@ import model.PostRepository;
 
 @Path("/posts/{postId}/comments")
 @Controller
+@RequestScoped
 public class CommentController {
 	@Inject
 	PostRepository posts;

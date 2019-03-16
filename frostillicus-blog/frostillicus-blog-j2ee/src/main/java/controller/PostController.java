@@ -24,6 +24,7 @@ import model.Post;
 import model.util.PostUtil;
 
 import javax.annotation.security.RolesAllowed;
+import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
 import javax.mvc.Controller;
 import javax.servlet.http.HttpServletRequest;
@@ -34,6 +35,7 @@ import java.util.stream.Collectors;
 
 @Path("/posts")
 @Controller
+@RequestScoped
 public class PostController extends AbstractPostListController {
 	@Inject
 	HttpServletRequest request;

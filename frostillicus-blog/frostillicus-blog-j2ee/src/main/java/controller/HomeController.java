@@ -18,6 +18,7 @@ package controller;
 import com.darwino.commons.json.JsonException;
 import com.darwino.commons.util.StringUtil;
 
+import javax.enterprise.context.RequestScoped;
 import javax.mvc.Controller;
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
@@ -27,6 +28,7 @@ import static model.util.PostUtil.PAGE_LENGTH;
 
 @Path("/")
 @Controller
+@RequestScoped
 public class HomeController extends AbstractPostListController {
 	
 	@GET

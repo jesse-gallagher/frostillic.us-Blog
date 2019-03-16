@@ -18,6 +18,7 @@ package controller;
 import java.util.ResourceBundle;
 
 import javax.annotation.security.RolesAllowed;
+import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
 import javax.mvc.Controller;
@@ -35,6 +36,7 @@ import model.LinkRepository;
 @Controller
 @Path("admin")
 @RolesAllowed(UserInfoBean.ROLE_ADMIN)
+@RequestScoped
 public class AdminController {
 	@Inject
 	LinkRepository links;
