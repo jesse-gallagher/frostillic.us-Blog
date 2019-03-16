@@ -124,12 +124,6 @@ a {
 	padding: 0 0.25em;
 	text-decoration: none;
 }
-.post pre {
-	overflow-x: auto;
-	border: 1px solid #ddd;
-	background: #eee;
-	padding: 0.5em;
-}
 
 
 .meta, .meta a {
@@ -227,10 +221,11 @@ input:invalid {
 code, pre {
 	font-family: "Consolas", monospace;
 	background-color: #eee;
-	border: 1px solid #ccc;
+	border: 1px solid #ddd;
 }
 pre {
-	overflow-y: auto;
+	overflow-x: auto;
+	padding: 0.5em;
 }
 pre code {
 	border: 0;
@@ -262,6 +257,7 @@ pre code {
 	#entirety {
 		border: 0;
 		max-width: 100%;
+		grid-template-columns: minmax(0, 1fr);
 	}
 	#pageheader {
 		background-color: rgb(204, 221, 204);
@@ -272,7 +268,7 @@ pre code {
 	}
 
 	.post pre {
-		width: calc(100vw - 2em);
+		width: calc(100vw - 2em - 2px);
 	}
 	
 	.comment {
@@ -291,7 +287,7 @@ pre code {
 		width: 80%;
 		max-width: 1200px;
 		margin: 2em auto;
-		grid-template-columns: minmax(210px, 1fr) 5fr;
+		grid-template-columns: minmax(210px, 1fr) minmax(0, 5fr);
 		grid-template-areas:
 			"header header"
 			"nav    content"
@@ -315,9 +311,6 @@ pre code {
 		margin-left: 3em;
 		max-width: 100%;
 	}
-	.post pre {
-		 max-width: 50vw;
-	 }
 	
 	.comment {
 		grid-template-columns: 52px 6fr 1fr;
