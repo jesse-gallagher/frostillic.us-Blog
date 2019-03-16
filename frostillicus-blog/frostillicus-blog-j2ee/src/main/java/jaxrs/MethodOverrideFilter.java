@@ -63,7 +63,7 @@ public class MethodOverrideFilter implements ContainerRequestFilter {
 	}
 
 	private boolean isReadable(ContainerRequestContext requestContext) {
-		if(!"POST".equals(requestContext.getMethod())) {
+		if(!"POST".equals(requestContext.getMethod())) { //$NON-NLS-1$
 			return false;
 		}
 

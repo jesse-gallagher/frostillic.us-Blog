@@ -70,16 +70,21 @@ public class AtomPubAPI {
 			Element collection = DomUtil.createElement(workspace, "collection"); //$NON-NLS-1$
 			collection.setAttribute("href", resolveUrl(BLOG_ID)); //$NON-NLS-1$
 			DomUtil.createElement(collection, "atom:title", "Entries"); //$NON-NLS-1$ //$NON-NLS-2$
-			Element categories = DomUtil.createElement(collection, "categories");
-			categories.setAttribute("href", resolveUrl(BLOG_ID, "categories"));
+			Element categories = DomUtil.createElement(collection, "categories"); //$NON-NLS-1$
+			categories.setAttribute("href", resolveUrl(BLOG_ID, "categories")); //$NON-NLS-1$ //$NON-NLS-2$
 		}
 
 		// Media collection
 		{
-			Element collection = DomUtil.createElement(workspace, "collection");
-			collection.setAttribute("href", resolveUrl(BLOG_ID, MediaResource.PATH));
-			DomUtil.createElement(collection, "atom:title", "Pictures");
-			Stream.of("image/png", "image/jpeg", "image/gif", "image/webp").forEach(type -> DomUtil.createElement(collection, "accept", type));
+			Element collection = DomUtil.createElement(workspace, "collection"); //$NON-NLS-1$
+			collection.setAttribute("href", resolveUrl(BLOG_ID, MediaResource.PATH)); //$NON-NLS-1$
+			DomUtil.createElement(collection, "atom:title", "Pictures"); //$NON-NLS-1$ //$NON-NLS-2$
+			Stream.of(
+				"image/png", //$NON-NLS-1$
+				"image/jpeg", //$NON-NLS-1$
+				"image/gif", //$NON-NLS-1$
+				"image/webp" //$NON-NLS-1$
+			).forEach(type -> DomUtil.createElement(collection, "accept", type)); //$NON-NLS-1$
 		}
 
 		return DomUtil.getXMLString(xml);

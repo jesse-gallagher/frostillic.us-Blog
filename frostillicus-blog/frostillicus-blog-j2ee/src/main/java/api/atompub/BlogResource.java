@@ -89,15 +89,15 @@ public class BlogResource {
         // Add a nav link
         List<SyndLink> links = new ArrayList<>();
         SyndLink first = new SyndLinkImpl();
-        first.setRel("first");
+        first.setRel("first"); //$NON-NLS-1$
         first.setHref(resolveUrl(AtomPubAPI.BLOG_ID));
         links.add(first);
 
         if(start + PAGE_LENGTH < PostUtil.getPostCount()) {
             // Then add nav links
             SyndLink next = new SyndLinkImpl();
-            next.setRel("next");
-            next.setHref(resolveUrl(AtomPubAPI.BLOG_ID) + "?start=" + (start + PAGE_LENGTH));
+            next.setRel("next"); //$NON-NLS-1$
+            next.setHref(resolveUrl(AtomPubAPI.BLOG_ID) + "?start=" + (start + PAGE_LENGTH)); //$NON-NLS-1$
             links.add(next);
         }
         feed.setLinks(links);
@@ -193,7 +193,7 @@ public class BlogResource {
         feed.setEntries(Arrays.asList(entry));
         String feedXml = new SyndFeedOutput().outputString(feed);
         Document feedDoc = DomUtil.createDocument(feedXml);
-        Node entryElement = XPathUtil.node(feedDoc, "/*[name()='feed']/*[name()='entry']");
+        Node entryElement = XPathUtil.node(feedDoc, "/*[name()='feed']/*[name()='entry']"); //$NON-NLS-1$
 
         return DomUtil.getXMLString(entryElement, false, true);
     }
@@ -207,18 +207,18 @@ public class BlogResource {
     private void updatePost(Post post, Document xml) throws XPathExpressionException {
         // TODO convert to ROME
 
-        String title = XPathUtil.node(xml,"/*[name()='entry']/*[name()='title']").getTextContent();
-        String body = XPathUtil.node(xml, "/*[name()='entry']/*[name()='content']").getTextContent();
-        NodeList tagsNodes = XPathUtil.nodes(xml,"/*[name()='entry']/*[name()='category']");
+        String title = XPathUtil.node(xml,"/*[name()='entry']/*[name()='title']").getTextContent(); //$NON-NLS-1$
+        String body = XPathUtil.node(xml, "/*[name()='entry']/*[name()='content']").getTextContent(); //$NON-NLS-1$
+        NodeList tagsNodes = XPathUtil.nodes(xml,"/*[name()='entry']/*[name()='category']"); //$NON-NLS-1$
         List<String> tags = IntStream.range(0, tagsNodes.getLength())
                 .mapToObj(tagsNodes::item)
                 .map(Element.class::cast)
-                .map(el -> el.getAttribute("term"))
+                .map(el -> el.getAttribute("term")) //$NON-NLS-1$
                 .collect(Collectors.toList());
 
-        boolean posted = !"no".equals(XPathUtil.node(xml, "*[name()='entry']/*[name()='app:control']/*[name()='app:draft']").getTextContent());
+        boolean posted = !"no".equals(XPathUtil.node(xml, "*[name()='entry']/*[name()='app:control']/*[name()='app:draft']").getTextContent()); //$NON-NLS-1$ //$NON-NLS-2$
         if(StringUtil.isEmpty(post.getName())) {
-            post.setName(StringUtil.toString(title).toLowerCase().replaceAll("\\s+", "-"));
+            post.setName(StringUtil.toString(title).toLowerCase().replaceAll("\\s+", "-")); //$NON-NLS-1$ //$NON-NLS-2$
         }
         post.setTitle(title);
         post.setBodyMarkdown(body);

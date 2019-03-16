@@ -32,7 +32,7 @@ public class AppDatabaseDef extends DatabaseFactoryImpl {
 	public static final String STORE_POSTS = "posts"; //$NON-NLS-1$
 	public static final String STORE_COMMENTS = "comments"; //$NON-NLS-1$
 	public static final String STORE_CONFIG = "config"; //$NON-NLS-1$
-	public static final String STORE_MEDIA = "media";
+	public static final String STORE_MEDIA = "media"; //$NON-NLS-1$
 	
 	// The list  of instances is defined through a property for the DB
 	public static String[] getInstances() {

@@ -29,7 +29,7 @@ public class DominoBean {
     static {
         boolean isDomino;
         try {
-            Class.forName("lotus.domino.NotesThread");
+            Class.forName("lotus.domino.NotesThread"); //$NON-NLS-1$
             isDomino = true;
         } catch(Throwable t) {
             isDomino = false;
@@ -52,7 +52,7 @@ public class DominoBean {
                 spawnCount++;
             }
             try {
-                return new NotesThread(runnable, "DominoThreadFactory Thread " + spawnCount);
+                return new NotesThread(runnable, "DominoThreadFactory Thread " + spawnCount); //$NON-NLS-1$
             } catch(Throwable t) {
                 throw new RuntimeException(t);
             }

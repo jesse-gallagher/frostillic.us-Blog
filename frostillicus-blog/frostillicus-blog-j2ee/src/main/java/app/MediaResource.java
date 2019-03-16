@@ -30,7 +30,7 @@ import javax.ws.rs.core.*;
 
 @Path(MediaResource.PATH)
 public class MediaResource {
-    public static final String PATH = "media";
+    public static final String PATH = "media"; //$NON-NLS-1$
 
     @Inject
     Database database;

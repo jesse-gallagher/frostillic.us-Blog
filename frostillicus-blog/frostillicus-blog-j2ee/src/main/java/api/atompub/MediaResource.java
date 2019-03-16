@@ -48,7 +48,7 @@ import java.util.ResourceBundle;
 @Path(AtomPubAPI.BASE_PATH + "/{blogId}/" + MediaResource.PATH)
 @RolesAllowed(UserInfoBean.ROLE_ADMIN)
 public class MediaResource {
-    public static final String PATH = "media";
+    public static final String PATH = "media"; //$NON-NLS-1$
 
     @Inject
     @Named("translation")
@@ -67,13 +67,13 @@ public class MediaResource {
     @Produces("application/atom+xml")
     public String list() throws JsonException {
         org.w3c.dom.Document xml = DomUtil.createDocument();
-        Element feed = DomUtil.createRootElement(xml, "feed");
-        feed.setAttribute("xmlns", "http://www.w3.org/2005/Atom");
+        Element feed = DomUtil.createRootElement(xml, "feed"); //$NON-NLS-1$
+        feed.setAttribute("xmlns", "http://www.w3.org/2005/Atom"); //$NON-NLS-1$ //$NON-NLS-2$
 
         Store store = database.getStore(AppDatabaseDef.STORE_MEDIA);
         store.openCursor().findDocuments(doc -> {
-            Element entry = DomUtil.createElement(feed, "entry");
-            entry.setAttribute("xmlns", "http://www.w3.org/2005/Atom");
+            Element entry = DomUtil.createElement(feed, "entry"); //$NON-NLS-1$
+            entry.setAttribute("xmlns", "http://www.w3.org/2005/Atom"); //$NON-NLS-1$ //$NON-NLS-2$
             populateAtomXml(entry, doc);
             return true;
         });
@@ -85,13 +85,13 @@ public class MediaResource {
     @Produces("application/atom+xml")
     public Response uploadMedia(byte[] media) throws JsonException, URISyntaxException {
         String contentType = request.getContentType();
-        String name = request.getHeader("Slug");
+        String name = request.getHeader("Slug"); //$NON-NLS-1$
 
         // TODO make sure it's not already there
         // This could use the name as the UNID, but it's kind of nice having a "real" UNID behind the scenes
         Store store = database.getStore(AppDatabaseDef.STORE_MEDIA);
         Document doc = store.newDocument();
-        doc.set("name", name);
+        doc.set("name", name); //$NON-NLS-1$
         doc.createAttachment(name, new ByteArrayContent(media, contentType));
         doc.save();
 
@@ -120,36 +120,36 @@ public class MediaResource {
 
     private String toAtomXml(Document doc) {
         org.w3c.dom.Document xml = DomUtil.createDocument();
-        Element entry = DomUtil.createRootElement(xml, "entry");
-        entry.setAttribute("xmlns", "http://www.w3.org/2005/Atom");
+        Element entry = DomUtil.createRootElement(xml, "entry"); //$NON-NLS-1$
+        entry.setAttribute("xmlns", "http://www.w3.org/2005/Atom"); //$NON-NLS-1$ //$NON-NLS-2$
         populateAtomXml(entry, doc);
         return DomUtil.getXMLString(xml);
     }
 
     @SneakyThrows
     private void populateAtomXml(Element entry, Document doc) {
-        DomUtil.createElement(entry, "title", doc.getString("name"));
-        DomUtil.createElement(entry, "id", doc.getUnid());
-        DomUtil.createElement(entry, "updated", DateTimeISO8601.formatISO8601(doc.getLastModificationDate().getTime()));
-        Element author = DomUtil.createElement(entry, "author");
-        DomUtil.createElement(author, "name", doc.getCreationUser());
-        Element summary = DomUtil.createElement(entry, "summary");
-        summary.setAttribute("type", "text");
+        DomUtil.createElement(entry, "title", doc.getString("name")); //$NON-NLS-1$ //$NON-NLS-2$
+        DomUtil.createElement(entry, "id", doc.getUnid()); //$NON-NLS-1$
+        DomUtil.createElement(entry, "updated", DateTimeISO8601.formatISO8601(doc.getLastModificationDate().getTime())); //$NON-NLS-1$
+        Element author = DomUtil.createElement(entry, "author"); //$NON-NLS-1$
+        DomUtil.createElement(author, "name", doc.getCreationUser()); //$NON-NLS-1$
+        Element summary = DomUtil.createElement(entry, "summary"); //$NON-NLS-1$
+        summary.setAttribute("type", "text"); //$NON-NLS-1$ //$NON-NLS-2$
 
         Attachment att = doc.getAttachments()[0];
-        Element content = DomUtil.createElement(entry, "content");
-        content.setAttribute("type", att.getMimeType());
+        Element content = DomUtil.createElement(entry, "content"); //$NON-NLS-1$
+        content.setAttribute("type", att.getMimeType()); //$NON-NLS-1$
 
-        String nameEnc = URLEncoder.encode(doc.getString("name"), StandardCharsets.UTF_8.name());
+        String nameEnc = URLEncoder.encode(doc.getString("name"), StandardCharsets.UTF_8.name()); //$NON-NLS-1$
         String path = PathUtil.concat(MediaResource.PATH, doc.getUnid(), nameEnc);
-        content.setAttribute("src", path);
+        content.setAttribute("src", path); //$NON-NLS-1$
 
-        Element editMediaLink = DomUtil.createElement(entry, "link");
-        editMediaLink.setAttribute("edit-media", resolveUrl(AtomPubAPI.BLOG_ID, PATH, doc.getUnid(), nameEnc));
+        Element editMediaLink = DomUtil.createElement(entry, "link"); //$NON-NLS-1$
+        editMediaLink.setAttribute("edit-media", resolveUrl(AtomPubAPI.BLOG_ID, PATH, doc.getUnid(), nameEnc)); //$NON-NLS-1$
 
-        Element editLink = DomUtil.createElement(entry, "link");
-        editLink.setAttribute("rel", "edit");
-        editMediaLink.setAttribute("edit-media", resolveUrl(AtomPubAPI.BLOG_ID, PATH, doc.getUnid()));
+        Element editLink = DomUtil.createElement(entry, "link"); //$NON-NLS-1$
+        editLink.setAttribute("rel", "edit"); //$NON-NLS-1$ //$NON-NLS-2$
+        editMediaLink.setAttribute("edit-media", resolveUrl(AtomPubAPI.BLOG_ID, PATH, doc.getUnid())); //$NON-NLS-1$
     }
 
     private String resolveUrl(String... parts) {

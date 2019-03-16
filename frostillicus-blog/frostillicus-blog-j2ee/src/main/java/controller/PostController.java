@@ -69,9 +69,9 @@ public class PostController extends AbstractPostListController {
 	@GET
 	@Path("{year}/{month}")
 	public String listByMonth(@PathParam("year") int year, @PathParam("month") int month, @QueryParam("start") String startParam) {
-		String monthQuery = String.format("%04d-%02d", year, month);
-		models.put("posts", posts.findByMonth(monthQuery));
-		return "posts-list.jsp";
+		String monthQuery = String.format("%04d-%02d", year, month); //$NON-NLS-1$
+		models.put("posts", posts.findByMonth(monthQuery)); //$NON-NLS-1$
+		return "posts-list.jsp"; //$NON-NLS-1$
 	}
 	
 	@GET
@@ -158,13 +158,13 @@ public class PostController extends AbstractPostListController {
 		Post post = posts.findPost(postId).orElseThrow(() -> new IllegalArgumentException("Unable to find post matching ID " + postId)); //$NON-NLS-1$
 		posts.deleteById(post.getId());
 
-		String referer = request.getHeader("Referer");
+		String referer = request.getHeader("Referer"); //$NON-NLS-1$
 		if(StringUtil.isNotEmpty(referer) && !referer.toLowerCase().contains(postId.toLowerCase())) {
 			// TODO make this more robust?
 			String context = request.getContextPath();
 			int contextIndex = referer.indexOf(context);
 			if(contextIndex > -1) {
-				return "redirect:" + referer.substring(contextIndex + context.length());
+				return "redirect:" + referer.substring(contextIndex + context.length()); //$NON-NLS-1$
 			}
 		}
 		return "redirect:posts"; //$NON-NLS-1$
@@ -186,7 +186,7 @@ public class PostController extends AbstractPostListController {
 
 	private void updatePost(Post post, String bodyMarkdown, String tags, String title, String thread) {
 		if(StringUtil.isEmpty(post.getName())) {
-			post.setName(StringUtil.toString(title).toLowerCase().replaceAll("\\s+", "-"));
+			post.setName(StringUtil.toString(title).toLowerCase().replaceAll("\\s+", "-")); //$NON-NLS-1$ //$NON-NLS-2$
 		}
 		post.setTitle(title);
 		post.setBodyMarkdown(bodyMarkdown);

@@ -49,7 +49,7 @@ public enum PostUtil {
         Store store = database.getStore(AppDatabaseDef.STORE_POSTS);
         store.openCursor()
                 .query(JsonObject.of("form", Post.class.getSimpleName())) //$NON-NLS-1$
-                .extract(JsonObject.of("posted", "posted"))
+                .extract(JsonObject.of("posted", "posted")) //$NON-NLS-1$ //$NON-NLS-2$
                 .find(entry -> {
                     String posted = entry.getString("posted"); //$NON-NLS-1$
                     if(posted != null && posted.length() >= 7) {
@@ -83,7 +83,7 @@ public enum PostUtil {
         JsonArray tags = (JsonArray)database.getStore(AppDatabaseDef.STORE_POSTS).getTags(Integer.MAX_VALUE, true);
         return tags.stream()
                 .map(JsonObject.class::cast)
-                .map(tag -> tag.getAsString("name"))
+                .map(tag -> tag.getAsString("name")) //$NON-NLS-1$
                 .map(StringUtil::toString)
                 .collect(Collectors.toList());
     }

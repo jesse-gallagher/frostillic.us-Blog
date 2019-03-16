@@ -46,16 +46,16 @@ public class InfoController {
     public String get() throws ExecutionException, InterruptedException {
         Map<Object, Object> info = new LinkedHashMap<>();
 
-        info.put("Domino Version", dominoInfo.getVersion());
-        info.put("Java VM", System.getProperty("java.vm.info"));
-        info.put("Servlet Version", req.getServletContext().getMajorVersion() + "." + req.getServletContext().getMinorVersion());
-        info.put("Protocol", req.getProtocol());
-        info.put("Server Info", req.getServletContext().getServerInfo());
-        info.put("Server Name", dominoInfo.getServerName());
-        info.put("Remote IP", req.getRemoteHost());
+        info.put("Domino Version", dominoInfo.getVersion()); //$NON-NLS-1$
+        info.put("Java VM", System.getProperty("java.vm.info")); //$NON-NLS-1$ //$NON-NLS-2$
+        info.put("Servlet Version", req.getServletContext().getMajorVersion() + "." + req.getServletContext().getMinorVersion()); //$NON-NLS-1$ //$NON-NLS-2$
+        info.put("Protocol", req.getProtocol()); //$NON-NLS-1$
+        info.put("Server Info", req.getServletContext().getServerInfo()); //$NON-NLS-1$
+        info.put("Server Name", dominoInfo.getServerName()); //$NON-NLS-1$
+        info.put("Remote IP", req.getRemoteHost()); //$NON-NLS-1$
 
-        models.put("info", info);
+        models.put("info", info); //$NON-NLS-1$
 
-        return "info.jsp";
+        return "info.jsp"; //$NON-NLS-1$
     }
 }

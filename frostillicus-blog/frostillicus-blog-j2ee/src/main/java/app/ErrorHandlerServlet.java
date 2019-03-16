@@ -32,17 +32,17 @@ public class ErrorHandlerServlet extends HttpServlet {
 
 	@Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        resp.setContentType("text/html; charset=utf-8");
+        resp.setContentType("text/html; charset=utf-8"); //$NON-NLS-1$
         try (PrintWriter writer = resp.getWriter()) {
             String bodyHtml;
-            try(InputStream is = getClass().getResourceAsStream("/WEB-INF/error.html")) {
+            try(InputStream is = getClass().getResourceAsStream("/WEB-INF/error.html")) { //$NON-NLS-1$
                 bodyHtml = StreamUtil.readString(is);
             }
 
-            bodyHtml = bodyHtml.replace("${CONTEXT_PATH}", req.getContextPath())
-                .replace("${ERROR_MESSAGE}", String.valueOf(req.getAttribute(ERROR_MESSAGE)))
-                .replace("${ERROR_STATUS_CODE}", String.valueOf(req.getAttribute(ERROR_STATUS_CODE)))
-                .replace("${ERROR_EXCEPTION_TYPE}", String.valueOf(req.getAttribute(ERROR_EXCEPTION_TYPE)));
+            bodyHtml = bodyHtml.replace("${CONTEXT_PATH}", req.getContextPath()) //$NON-NLS-1$
+                .replace("${ERROR_MESSAGE}", String.valueOf(req.getAttribute(ERROR_MESSAGE))) //$NON-NLS-1$
+                .replace("${ERROR_STATUS_CODE}", String.valueOf(req.getAttribute(ERROR_STATUS_CODE))) //$NON-NLS-1$
+                .replace("${ERROR_EXCEPTION_TYPE}", String.valueOf(req.getAttribute(ERROR_EXCEPTION_TYPE))); //$NON-NLS-1$
 
             Throwable t = (Throwable)req.getAttribute(ERROR_EXCEPTION);
             if(t != null) {
@@ -50,10 +50,10 @@ public class ErrorHandlerServlet extends HttpServlet {
                     try(PrintWriter p = new PrintWriter(w)) {
                         t.printStackTrace(p);
                     }
-                    bodyHtml = bodyHtml.replace("${ERROR_STACK_TRACE}", w.toString());
+                    bodyHtml = bodyHtml.replace("${ERROR_STACK_TRACE}", w.toString()); //$NON-NLS-1$
                 }
             } else {
-                bodyHtml = bodyHtml.replace("${ERROR_STACK_TRACE}", "");
+                bodyHtml = bodyHtml.replace("${ERROR_STACK_TRACE}", ""); //$NON-NLS-1$ //$NON-NLS-2$
             }
 
             writer.write(bodyHtml);

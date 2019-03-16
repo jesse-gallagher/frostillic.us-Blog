@@ -34,15 +34,15 @@ public abstract class AbstractPostListController {
     protected String maybeList(String startParam) throws JsonException {
         int start = PostUtil.parseStartParam(startParam);
         if(start > -1) {
-            models.put("posts", posts.homeList(start, PAGE_LENGTH));
-            models.put("start", start);
-            models.put("pageSize", PAGE_LENGTH);
+            models.put("posts", posts.homeList(start, PAGE_LENGTH)); //$NON-NLS-1$
+            models.put("start", start); //$NON-NLS-1$
+            models.put("pageSize", PAGE_LENGTH); //$NON-NLS-1$
 
             int total = start + PAGE_LENGTH;
             if(total >= PostUtil.getPostCount()) {
-                models.put("endOfLine", true);
+                models.put("endOfLine", true); //$NON-NLS-1$
             } else {
-                models.put("endOfLine", false);
+                models.put("endOfLine", false); //$NON-NLS-1$
             }
             return "home.jsp"; //$NON-NLS-1$
         } else {

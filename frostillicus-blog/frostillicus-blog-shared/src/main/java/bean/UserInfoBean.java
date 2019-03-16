@@ -31,18 +31,18 @@ import lombok.SneakyThrows;
 @RequestScoped
 @Named("userInfo")
 public class UserInfoBean {
-	public static final String ROLE_ADMIN = "Admin";
+	public static final String ROLE_ADMIN = "Admin"; //$NON-NLS-1$
 	
 	@Inject @Named("darwinoContext")
 	DarwinoContext context;
 	
 	@SneakyThrows
 	public String getImageUrl(String userName) {
-		return StringUtil.format("$darwino-social/users/users/{0}/content/photo", URLEncoder.encode(userName, "UTF-8")); //$NON-NLS-1$
+		return StringUtil.format("$darwino-social/users/users/{0}/content/photo", URLEncoder.encode(userName, "UTF-8")); //$NON-NLS-1$ //$NON-NLS-2$
 	}
 	
 	public boolean isAdmin() {
-		return context.getUser().hasRole(ROLE_ADMIN); //$NON-NLS-1$
+		return context.getUser().hasRole(ROLE_ADMIN);
 	}
 	
 	public boolean isAnonymous() {
