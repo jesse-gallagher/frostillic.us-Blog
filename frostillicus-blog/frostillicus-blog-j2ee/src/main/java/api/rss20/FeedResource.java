@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package controller;
+package api.rss20;
 
 import java.sql.Date;
 import java.util.Arrays;
@@ -42,7 +42,7 @@ import model.Post;
 import model.PostRepository;
 
 @Path("/feed.xml")
-public class FeedController {
+public class FeedResource {
 	@Inject
 	PostRepository posts;
 	@Inject @Named("translation")
