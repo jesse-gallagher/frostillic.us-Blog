@@ -24,7 +24,7 @@ import org.jnosql.artemis.Id;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import util.BooleanYNConverter;
+import model.util.BooleanYNConverter;
 
 @Entity @Data @NoArgsConstructor
 public class Link {
