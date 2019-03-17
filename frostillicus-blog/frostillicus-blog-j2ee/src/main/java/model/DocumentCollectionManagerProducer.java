@@ -63,4 +63,10 @@ public class DocumentCollectionManagerProducer {
 	public DarwinoDocumentCollectionManager getConfigManager() {
 		return managerFactory.get(AppDatabaseDef.STORE_CONFIG);
 	}
+	
+	@Produces
+	@Database(value=DatabaseType.DOCUMENT, provider=AppDatabaseDef.STORE_MEDIA)
+	public DarwinoDocumentCollectionManager getMediaManager() {
+		return managerFactory.get(AppDatabaseDef.STORE_MEDIA);
+	}
 }
