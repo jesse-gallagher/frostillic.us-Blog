@@ -20,8 +20,8 @@ import java.util.Optional;
 
 import org.darwino.jnosql.artemis.extension.DarwinoRepository;
 import org.darwino.jnosql.artemis.extension.RepositoryProvider;
-import org.jnosql.artemis.Param;
-import org.jnosql.artemis.Query;
+import jakarta.nosql.mapping.Param;
+import jakarta.nosql.mapping.Query;
 
 import darwino.AppDatabaseDef;
 

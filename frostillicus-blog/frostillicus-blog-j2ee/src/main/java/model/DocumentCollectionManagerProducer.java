@@ -20,20 +20,19 @@ import javax.enterprise.context.ApplicationScoped;
 import javax.enterprise.inject.Produces;
 
 import org.darwino.jnosql.diana.driver.DarwinoDocumentCollectionManager;
-import org.darwino.jnosql.diana.driver.DarwinoDocumentCollectionManagerFactory;
 import org.darwino.jnosql.diana.driver.DarwinoDocumentConfiguration;
-import org.jnosql.artemis.Database;
-import org.jnosql.artemis.DatabaseType;
-import org.jnosql.diana.api.document.DocumentCollectionManagerFactory;
-import org.jnosql.diana.api.document.DocumentConfiguration;
+import jakarta.nosql.mapping.Database;
+import jakarta.nosql.mapping.DatabaseType;
+import jakarta.nosql.document.DocumentCollectionManagerFactory;
+import jakarta.nosql.document.DocumentConfiguration;
 
 import darwino.AppDatabaseDef;
 
 @ApplicationScoped
 public class DocumentCollectionManagerProducer {
 
-	private DocumentConfiguration<DarwinoDocumentCollectionManagerFactory> configuration;
-	private DocumentCollectionManagerFactory<DarwinoDocumentCollectionManager> managerFactory;
+	private DocumentConfiguration configuration;
+	private DocumentCollectionManagerFactory managerFactory;
 	
 	@PostConstruct
 	public void init() {

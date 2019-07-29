@@ -23,8 +23,8 @@ import org.darwino.jnosql.artemis.extension.JSQL;
 import org.darwino.jnosql.artemis.extension.RepositoryProvider;
 import org.darwino.jnosql.artemis.extension.Search;
 import org.darwino.jnosql.artemis.extension.StoredCursor;
-import org.jnosql.artemis.Param;
-import org.jnosql.artemis.Query;
+import jakarta.nosql.mapping.Param;
+import jakarta.nosql.mapping.Query;
 
 import darwino.AppDatabaseDef;
 

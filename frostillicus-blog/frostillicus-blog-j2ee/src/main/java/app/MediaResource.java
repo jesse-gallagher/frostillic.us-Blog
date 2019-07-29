@@ -27,7 +27,7 @@ import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.core.*;
 
-import org.darwino.jnosql.diana.attachment.EntityAttachment;
+import org.jnosql.diana.driver.attachment.EntityAttachment;
 
 @Path(MediaResource.PATH)
 public class MediaResource {

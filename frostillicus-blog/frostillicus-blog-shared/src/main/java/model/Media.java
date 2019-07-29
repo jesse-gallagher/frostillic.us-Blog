@@ -3,11 +3,11 @@ package model;
 import java.util.Date;
 import java.util.List;
 
-import org.darwino.jnosql.diana.attachment.EntityAttachment;
 import org.darwino.jnosql.diana.driver.EntityConverter;
-import org.jnosql.artemis.Column;
-import org.jnosql.artemis.Entity;
-import org.jnosql.artemis.Id;
+import jakarta.nosql.mapping.Column;
+import jakarta.nosql.mapping.Entity;
+import jakarta.nosql.mapping.Id;
+import org.jnosql.diana.driver.attachment.EntityAttachment;
 
 import com.darwino.jsonstore.Document;
 

@@ -18,10 +18,10 @@ package model;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.darwino.jnosql.artemis.extension.converter.ISOOffsetDateTimeConverter;
-import org.jnosql.artemis.Column;
-import org.jnosql.artemis.Convert;
-import org.jnosql.artemis.Entity;
-import org.jnosql.artemis.Id;
+import jakarta.nosql.mapping.Column;
+import jakarta.nosql.mapping.Convert;
+import jakarta.nosql.mapping.Entity;
+import jakarta.nosql.mapping.Id;
 
 import javax.enterprise.inject.spi.CDI;
 import javax.validation.constraints.NotNull;

@@ -15,7 +15,7 @@
  */
 package model.util;
 
-import org.jnosql.artemis.AttributeConverter;
+import jakarta.nosql.mapping.AttributeConverter;
 
 public class BooleanYNConverter implements AttributeConverter<Boolean, String> {
 

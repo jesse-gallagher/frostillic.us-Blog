@@ -38,7 +38,7 @@
 
 		<maven-version>3.3.9</maven-version>
 		<java-version>1.8</java-version>
-		<jnosql-version>0.0.9-SNAPSHOT</jnosql-version>
+		<jnosql-version>0.1.0-SNAPSHOT</jnosql-version>
 		<weld-version>2.4.8.Final</weld-version>
 		<resteasy-version>4.0.0.Beta6</resteasy-version>
 	</properties>

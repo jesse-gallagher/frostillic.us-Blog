@@ -17,10 +17,10 @@ package model;
 
 import javax.validation.constraints.NotEmpty;
 
-import org.jnosql.artemis.Column;
-import org.jnosql.artemis.Convert;
-import org.jnosql.artemis.Entity;
-import org.jnosql.artemis.Id;
+import jakarta.nosql.mapping.Column;
+import jakarta.nosql.mapping.Convert;
+import jakarta.nosql.mapping.Entity;
+import jakarta.nosql.mapping.Id;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;
