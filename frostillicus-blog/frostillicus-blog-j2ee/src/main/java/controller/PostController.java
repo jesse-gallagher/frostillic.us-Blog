@@ -86,6 +86,7 @@ public class PostController extends AbstractPostListController {
 	
 	@GET
 	@Path("new")
+	@RolesAllowed(UserInfoBean.ROLE_ADMIN)
 	public String compose() {
 		models.put("post", new Post()); //$NON-NLS-1$
 
