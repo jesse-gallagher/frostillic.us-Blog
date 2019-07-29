@@ -99,7 +99,7 @@
 		<dependency>
 			<groupId>com.ibm.xsp</groupId>
 			<artifactId>com.ibm.notes.java.api.win32.linux</artifactId>
-			<version>9.0.1.20140404-1000</version>
+			<version>[9.0.1,)</version>
 			<classifier>Notes</classifier>
 			<scope>provided</scope>
 		</dependency>
