@@ -55,13 +55,13 @@ public class PostController extends AbstractPostListController {
 		if(StringUtil.isNotEmpty(maybeList)) {
 			return maybeList;
 		} else {
-			Map<Integer, Collection<Integer>> months = new TreeMap<>();
+			Map<Integer, Collection<Integer>> months = new TreeMap<>(Comparator.reverseOrder());
 			for(String month : PostUtil.getPostMonths()) {
 				int dash = month.indexOf('-');
 				int y = Integer.parseInt(month.substring(0, dash));
 				int m = Integer.parseInt(month.substring(dash+1), 10);
 
-				months.computeIfAbsent(y, year -> new TreeSet<>()).add(m);
+				months.computeIfAbsent(y, year -> new TreeSet<>(Comparator.reverseOrder())).add(m);
 			}
 			models.put("months", months); //$NON-NLS-1$
 			return "posts-months.jsp"; //$NON-NLS-1$
