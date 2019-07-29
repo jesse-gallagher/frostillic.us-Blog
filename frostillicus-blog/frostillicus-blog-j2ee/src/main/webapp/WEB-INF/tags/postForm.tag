@@ -33,7 +33,7 @@
 	<input type="text" name="thread" id="thread" value="${pageScope.value.thread}"/>
 
 	<label for="bodyMarkdown">${translation.bodyLabel}</label>
-	<textarea name="bodyMarkdown" id="bodyMarkdown">${empty pageScope.value.bodyMarkdown ? pageScope.value.bodyHtml : pageScope.value.bodyMarkdown}"</textarea>
+	<textarea name="bodyMarkdown" id="bodyMarkdown">${empty pageScope.value.bodyMarkdown ? pageScope.value.bodyHtml : pageScope.value.bodyMarkdown}</textarea>
 		
 	<input type="submit" value="${translation.savePost}"/>
 	<c:if test="${pageScope.edit}">
