@@ -33,9 +33,9 @@ a {
 	
 	border: 1px solid black;
 	
-	font-family: "Georgia", serif;
+	font-family: -apple-system, "San Francisco", "Segoe UI", serif;
 	line-height: 1.3;
-	font-size: 14px;
+	font-size: 15px;
 	word-wrap: break-word;
 	hyphens: auto;
 	-webkit-hyphens: auto;
@@ -91,7 +91,7 @@ a {
 	position: relative;
 }
 .post header h2 {
-	font-size: 1.5em;
+	font-size: 1.8em;
 	font-weight: normal;
 	color: rgb(57, 82, 107);
 	margin-bottom: 0.25em;
@@ -154,8 +154,22 @@ a {
 }
 .post img {
 	max-width: 100%;
+}
+.post img:not([width]) {
 	width: auto;
+}
+.post img:not([height]) {
 	height: auto;
+}
+.post h2 {
+	font-weight: normal;
+	font-size: 2em;
+	margin-bottom: 0;
+}
+.post h3 {
+	font-weight: normal;
+	font-size: 1.6em;
+	margin-bottom: 0;
 }
 
 .comments {
