@@ -29,7 +29,7 @@
 		
 		<link rel="shortcut icon" href="${pageContext.request.contextPath}/img/icon.png" />
 		<link rel="apple-touch-icon" href="${pageContext.request.contextPath}/img/icon.png" />
-		<link rel="alternate" href="${pageContext.request.contextPath}/feed.xml" type="application/rss+xml" title="frostillic.us &gt; Feed">
+		<link rel="alternate" href="${uriInfoBean.requestUri.resolve('feed.xml')}" type="application/rss+xml" title="frostillic.us &gt; Feed">
 		<link rel="stylesheet" href="${pageContext.request.contextPath}/css/style.css" />
 		<link rel="stylesheet" href="${pageContext.request.contextPath}/css/forms.css" />
 		<link rel="stylesheet" href="${pageContext.request.contextPath}/css/tabs.css" />
