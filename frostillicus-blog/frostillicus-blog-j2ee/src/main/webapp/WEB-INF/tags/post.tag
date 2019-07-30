@@ -52,7 +52,7 @@
 					<li>${fn:escapeXml(threadEntry.title)}</li>
 				</c:if>
 				<c:if test="${pageScope.value.id != threadEntry.id}">
-					<li><a href="posts/${threadEntry.postedYear}/${threadEntry.postedMonth+1}/${threadEntry.postedDay}/${threadEntry.slug}">${fn:escapeXml(threadEntry.title)}</a></li>
+					<li><a href="posts/${threadEntry.postedYear}/${threadEntry.postedMonth}/${threadEntry.postedDay}/${threadEntry.slug}">${fn:escapeXml(threadEntry.title)}</a></li>
 				</c:if>
 			</c:forEach>
 		</ol>
@@ -89,7 +89,7 @@
 	</c:if>
 	<c:if test="${pageScope.comments == null}">
 		<div class="meta">
-			<a href="posts/${pageScope.value.postedYear}/${pageScope.value.postedMonth+1}/${pageScope.value.postedDay}/${pageScope.value.slug}#comments">
+			<a href="posts/${pageScope.value.postedYear}/${pageScope.value.postedMonth}/${pageScope.value.postedDay}/${pageScope.value.slug}#comments">
 				${pageScope.value.commentCount} Comment${pageScope.value.commentCount == 1 ? '' : 's'}
 			</a>
 		</div>
