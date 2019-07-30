@@ -21,6 +21,7 @@ import com.darwino.commons.json.JsonException;
 import com.darwino.commons.util.StringUtil;
 import model.CommentRepository;
 import model.Post;
+import model.Post.Status;
 import model.util.PostUtil;
 
 import javax.annotation.security.RolesAllowed;
@@ -97,10 +98,15 @@ public class PostController extends AbstractPostListController {
 	@POST
 	@Consumes({ MediaType.MULTIPART_FORM_DATA, MediaType.APPLICATION_FORM_URLENCODED })
 	@RolesAllowed(UserInfoBean.ROLE_ADMIN)
-	public String create(@FormParam("title") String title, @FormParam("bodyMarkdown") String bodyMarkdown, @FormParam("tags") String tags, @FormParam("thread") String thread) {
+	public String create(
+			@FormParam("title") String title,
+			@FormParam("bodyMarkdown") String bodyMarkdown,
+			@FormParam("tags") String tags,
+			@FormParam("thread") String thread,
+			@FormParam("status") String status) {
 		Post post = PostUtil.createPost();
 		post.setPostedBy(userInfo.getDn());
-		updatePost(post, bodyMarkdown, tags, title, thread);
+		updatePost(post, bodyMarkdown, tags, title, thread, status);
 		posts.save(post);
 		
 		return "redirect:posts/" + post.getPostId(); //$NON-NLS-1$
@@ -137,10 +143,16 @@ public class PostController extends AbstractPostListController {
 	@PUT
 	@Path("{postId}")
 	@RolesAllowed(UserInfoBean.ROLE_ADMIN)
-	public String update(@PathParam("postId") String postId, @FormParam("title") String title, @FormParam("bodyMarkdown") String bodyMarkdown, @FormParam("tags") String tags, @FormParam("thread") String thread) {
+	public String update(
+			@PathParam("postId") String postId,
+			@FormParam("title") String title,
+			@FormParam("bodyMarkdown") String bodyMarkdown,
+			@FormParam("tags") String tags,
+			@FormParam("thread") String thread,
+			@FormParam("status") String status) {
 		Post post = posts.findPost(postId)
 				.orElseThrow(() -> new IllegalArgumentException("Unable to find post matching ID " + postId)); //$NON-NLS-1$
-		updatePost(post, bodyMarkdown, tags, title, thread);
+		updatePost(post, bodyMarkdown, tags, title, thread, status);
 
 		posts.save(post);
 
@@ -187,7 +199,7 @@ public class PostController extends AbstractPostListController {
 	// * Internal utility methods
 	// *******************************************************************************
 
-	private void updatePost(Post post, String bodyMarkdown, String tags, String title, String thread) {
+	private void updatePost(Post post, String bodyMarkdown, String tags, String title, String thread, String status) {
 		if(StringUtil.isEmpty(post.getName())) {
 			post.setName(StringUtil.toString(title).toLowerCase().replaceAll("\\s+", "-")); //$NON-NLS-1$ //$NON-NLS-2$
 		}
@@ -195,6 +207,7 @@ public class PostController extends AbstractPostListController {
 		post.setBodyMarkdown(bodyMarkdown);
 		post.setBodyHtml(markdown.toHtml(bodyMarkdown));
 		post.setThread(thread);
+		post.setStatus(Status.valueFor(status));
 		post.setTags(
 				tags == null ? Collections.emptyList() :
 						Arrays.stream(tags.split(",")) //$NON-NLS-1$

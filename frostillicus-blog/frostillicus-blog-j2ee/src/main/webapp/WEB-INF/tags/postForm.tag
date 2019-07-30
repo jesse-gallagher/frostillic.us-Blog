@@ -31,6 +31,12 @@
 
 	<label for="thread">${translation.threadLabel}</label>
 	<input type="text" name="thread" id="thread" value="${pageScope.value.thread}"/>
+	
+	<label for="status">${translation.statusLabel}</label>
+	<div class='radio-group'>
+		<input type="radio" name="status" ${pageScope.value.status == 'Draft' or empty pageScope.value.status ? 'checked="checked"' : ''} value="Draft" /> ${translation.draft}
+		<input type="radio" name="status" ${pageScope.value.status == 'Posted' ? 'checked="checked"' : ''} value="Posted" /> ${translation.posted}
+	</div>
 
 	<label for="bodyMarkdown">${translation.bodyLabel}</label>
 	<textarea name="bodyMarkdown" id="bodyMarkdown">${empty pageScope.value.bodyMarkdown ? pageScope.value.bodyHtml : pageScope.value.bodyMarkdown}</textarea>

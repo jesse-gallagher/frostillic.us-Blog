@@ -18,6 +18,9 @@ package model;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.darwino.jnosql.artemis.extension.converter.ISOOffsetDateTimeConverter;
+
+import com.darwino.commons.util.StringUtil;
+
 import jakarta.nosql.mapping.Column;
 import jakarta.nosql.mapping.Convert;
 import jakarta.nosql.mapping.Entity;
@@ -33,7 +36,16 @@ import java.util.List;
 @Entity @Data @NoArgsConstructor
 public class Post {
 	public enum Status {
-		Posted, Draft
+		Posted, Draft;
+		
+		public static Status valueFor(String optionalName) {
+			for(Status status : values()) {
+				if(StringUtil.equalsIgnoreCase(status.name(), optionalName)) {
+					return status;
+				}
+			}
+			return Draft;
+		}
 	}
 	
 	@Id @Column private String id;
