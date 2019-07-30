@@ -109,33 +109,26 @@ public class PostController extends AbstractPostListController {
 		updatePost(post, bodyMarkdown, tags, title, thread, status);
 		posts.save(post);
 		
-		return "redirect:posts/" + post.getPostId(); //$NON-NLS-1$
+		return "redirect:posts/" + post.getSlug(); //$NON-NLS-1$
 	}
 
 	@GET
 	@Path("{postId}")
 	public String show(@PathParam("postId") String postId) {
-		// IDs are often stored as lowercased UNIDs
 		Post post = posts.findPost(postId)
 				.orElseThrow(() -> new IllegalArgumentException("Unable to find post matching ID " + postId)); //$NON-NLS-1$
-		if(post.getStatus() == Status.Draft && !userInfo.isAdmin()) {
-			throw new NotFoundException();
-		}
 		
-		models.put("post", post); //$NON-NLS-1$
-		
-		if(userInfo.isAdmin()) {
-			models.put("comments", comments.findByPostIdAdmin(post.getPostId())); //$NON-NLS-1$
-		} else {
-			models.put("comments", comments.findByPostId(post.getPostId())); //$NON-NLS-1$
-		}
-
-		return "post.jsp"; //$NON-NLS-1$
+		return showPost(post);
 	}
 	
 	@GET
 	@Path("{year}/{month}/{day}/{postId}")
-	public String showByDate(@PathParam("postId") String postId) {
+	public String showByDate(@PathParam("year") int year, @PathParam("month") int month, @PathParam("day") int day, @PathParam("postId") String postId) {
+		Post post = posts.findPost(postId)
+				.orElseThrow(() -> new IllegalArgumentException("Unable to find post matching ID " + postId)); //$NON-NLS-1$
+		if(!post.matchesPostedDate(year, month, day)) {
+			throw new NotFoundException();
+		}
 		return show(postId);
 	}
 	
@@ -164,7 +157,7 @@ public class PostController extends AbstractPostListController {
 
 		posts.save(post);
 
-		return "redirect:posts/" + post.getPostId(); //$NON-NLS-1$
+		return "redirect:posts/" + post.getSlug(); //$NON-NLS-1$
 	}
 	
 	@DELETE
@@ -209,7 +202,18 @@ public class PostController extends AbstractPostListController {
 
 	private void updatePost(Post post, String bodyMarkdown, String tags, String title, String thread, String status) {
 		if(StringUtil.isEmpty(post.getName())) {
-			post.setName(StringUtil.toString(title).toLowerCase().replaceAll("\\s+", "-")); //$NON-NLS-1$ //$NON-NLS-2$
+			String baseName = StringUtil.toString(title).toLowerCase().replaceAll("\\s+", "-"); //$NON-NLS-1$ //$NON-NLS-2$
+			int dedupe = 1;
+			String name = baseName;
+			
+			Optional<Post> existing = posts.findByName(name);
+			String id = post.getId();
+			while(existing.isPresent() && (StringUtil.isEmpty(id) || !StringUtil.equals(id, existing.get().getId()))) {
+				name = baseName + ++dedupe;
+				existing = posts.findByName(name);
+			}
+			
+			post.setName(name);
 		}
 		post.setTitle(title);
 		post.setBodyMarkdown(bodyMarkdown);
@@ -223,5 +227,21 @@ public class PostController extends AbstractPostListController {
 					.filter(StringUtil::isNotEmpty)
 					.collect(Collectors.toList())
 		);
+	}
+	
+	private String showPost(Post post) {
+		if(post.getStatus() == Status.Draft && !userInfo.isAdmin()) {
+			throw new NotFoundException();
+		}
+		
+		models.put("post", post); //$NON-NLS-1$
+		
+		if(userInfo.isAdmin()) {
+			models.put("comments", comments.findByPostIdAdmin(post.getPostId())); //$NON-NLS-1$
+		} else {
+			models.put("comments", comments.findByPostId(post.getPostId())); //$NON-NLS-1$
+		}
+
+		return "post.jsp"; //$NON-NLS-1$
 	}
 }

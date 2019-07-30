@@ -58,4 +58,6 @@ public interface PostRepository extends DarwinoRepository<Post, String> {
 	
 	@JSQL("select unid from posts where $.form='Post' and $.thread=:thread order by $.posted")
 	List<Post> findByThread(@Param("thread") String thread);
+	
+	Optional<Post> findByName(String name);
 }

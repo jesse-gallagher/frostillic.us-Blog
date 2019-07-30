@@ -24,7 +24,7 @@
 <%@taglib prefix="t" tagdir="/WEB-INF/tags" %>
 <article class="post post-${pageScope.value.status}">
 	<header>
-		<h2><a href="posts/${pageScope.value.postedYear}/${pageScope.value.postedMonth}/${pageScope.value.postedDay}/${pageScope.value.postId}">${pageScope.value.title}</a></h2>
+		<h2><a href="posts/${pageScope.value.postedYear}/${pageScope.value.postedMonth}/${pageScope.value.postedDay}/${pageScope.value.slug}">${pageScope.value.title}</a></h2>
 		<h3><fmt:formatDate value="${pageScope.value.postedDate}" type="BOTH" dateStyle="MEDIUM" timeStyle="SHORT" /></h3>
 		<c:if test="${not empty pageScope.value.tags}">
 			<div class="meta">
@@ -37,8 +37,8 @@
 		
 		<c:if test="${userInfo.admin}">
 			<div class="admin">
-				<a class="edit" href="posts/${pageScope.value.postedYear}/${pageScope.value.postedMonth}/${pageScope.value.postedDay}/${pageScope.value.postId}/edit">${translation.editButton}</a>
-				<form method="POST" action="posts/${pageScope.value.postId}">
+				<a class="edit" href="posts/${pageScope.value.postedYear}/${pageScope.value.postedMonth}/${pageScope.value.postedDay}/${pageScope.value.slug}/edit">${translation.editButton}</a>
+				<form method="POST" action="posts/${pageScope.value.slug}">
 					<input type="submit" class="delete" value="${translation.deleteButton}" onclick="return confirm('${translation.postDeleteConfirm}')" />
 					<input type="hidden" name="_method" value="DELETE" />
 				</form>
@@ -52,7 +52,7 @@
 					<li>${fn:escapeXml(threadEntry.title)}</li>
 				</c:if>
 				<c:if test="${pageScope.value.id != threadEntry.id}">
-					<li><a href="posts/${threadEntry.postedYear}/${threadEntry.postedMonth+1}/${threadEntry.postedDay}/${threadEntry.postId}">${fn:escapeXml(threadEntry.title)}</a></li>
+					<li><a href="posts/${threadEntry.postedYear}/${threadEntry.postedMonth+1}/${threadEntry.postedDay}/${threadEntry.slug}">${fn:escapeXml(threadEntry.title)}</a></li>
 				</c:if>
 			</c:forEach>
 		</ol>
@@ -67,7 +67,7 @@
 				<t:comment value="${comment}"/>
 			</c:forEach>
 			
-			<form action="posts/${pageScope.value.postId}/comments" method="POST">
+			<form action="posts/${pageScope.value.slug}/comments" method="POST">
 				<fieldset class="new-comment crud">
 					<legend>${translation.newComment}</legend>
 					
@@ -89,7 +89,7 @@
 	</c:if>
 	<c:if test="${pageScope.comments == null}">
 		<div class="meta">
-			<a href="posts/${pageScope.value.postedYear}/${pageScope.value.postedMonth+1}/${pageScope.value.postedDay}/${pageScope.value.postId}#comments">
+			<a href="posts/${pageScope.value.postedYear}/${pageScope.value.postedMonth+1}/${pageScope.value.postedDay}/${pageScope.value.slug}#comments">
 				${pageScope.value.commentCount} Comment${pageScope.value.commentCount == 1 ? '' : 's'}
 			</a>
 		</div>

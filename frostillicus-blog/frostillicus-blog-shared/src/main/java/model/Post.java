@@ -88,6 +88,18 @@ public class Post {
 		return Date.from(posted.toInstant());
 	}
 	
+	public boolean matchesPostedDate(int year, int month, int day) {
+		return year == getPostedYear() && month == getPostedMonth() && day == getPostedDay();
+	}
+	
+	public String getSlug() {
+		if(StringUtil.isEmpty(name)) {
+			return id;
+		} else {
+			return name;
+		}
+	}
+	
 	public List<Post> getThreadInfo() {
 		return CDI.current().select(PostRepository.class).get().findByThread(getThread());
 	}
