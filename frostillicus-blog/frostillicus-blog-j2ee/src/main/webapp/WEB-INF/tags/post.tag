@@ -61,32 +61,30 @@
 		${pageScope.value.bodyHtml}
 	</div>
 	
-	<c:if test="${not empty pageScope.comments or (pageScope.comments != null && userInfo.admin)}">
+	<c:if test="${pageScope.comments != null}">
 		<section class="comments" id="comments">
 			<c:forEach items="${pageScope.comments}" var="comment">
 				<t:comment value="${comment}"/>
 			</c:forEach>
 			
-			<c:if test="${userInfo.admin}">
-				<form action="posts/${pageScope.value.postId}/comments" method="POST">
-					<fieldset class="new-comment crud">
-						<legend>${translation.newComment}</legend>
-						
-						<label for="postedBy">${translation.authorLabel}</label>
-						<input type="text" name="postedBy" id="postedBy" required="required"
-							value="${userInfo.anonymous ? '' : userInfo.cn}"/>
-						
-						<label for="postedByEmail">${translation.emailLabel}</label>
-						<input type="email" name="postedByEmail" id="postedByEmail" required="required"
-							value="${userInfo.anonymous ? '' : userInfo.emailAddress}"/>
-						
-						<label for="bodyMarkdown">${translation.bodyLabel}</label>
-						<textarea name="bodyMarkdown" id="bodyMarkdown" required="required"></textarea>
-						
-						<input type="submit" value="${translation.postComment}"/>
-					</fieldset>
-				</form>
-			</c:if>
+			<form action="posts/${pageScope.value.postId}/comments" method="POST">
+				<fieldset class="new-comment crud">
+					<legend>${translation.newComment}</legend>
+					
+					<label for="postedBy">${translation.authorLabel}</label>
+					<input type="text" name="postedBy" id="postedBy" required="required"
+						value="${userInfo.anonymous ? '' : userInfo.cn}"/>
+					
+					<label for="postedByEmail">${translation.emailLabel}</label>
+					<input type="email" name="postedByEmail" id="postedByEmail" required="required"
+						value="${userInfo.anonymous ? '' : userInfo.emailAddress}"/>
+					
+					<label for="bodyMarkdown">${translation.bodyLabel}</label>
+					<textarea name="bodyMarkdown" id="bodyMarkdown" required="required"></textarea>
+					
+					<input type="submit" value="${translation.postComment}"/>
+				</fieldset>
+			</form>
 		</section>
 	</c:if>
 	<c:if test="${pageScope.comments == null}">

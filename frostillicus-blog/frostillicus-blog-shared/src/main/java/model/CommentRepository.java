@@ -19,9 +19,9 @@ import java.util.List;
 import java.util.Optional;
 
 import org.darwino.jnosql.artemis.extension.DarwinoRepository;
+import org.darwino.jnosql.artemis.extension.JSQL;
 import org.darwino.jnosql.artemis.extension.RepositoryProvider;
 import jakarta.nosql.mapping.Param;
-import jakarta.nosql.mapping.Query;
 
 import darwino.AppDatabaseDef;
 
@@ -29,6 +29,9 @@ import darwino.AppDatabaseDef;
 public interface CommentRepository extends DarwinoRepository<Comment, String> {
 	Optional<Comment> findByCommentId(String commentId);
 
-	@Query("select * from Comment where postId=@postId order by posted asc")
+	@JSQL("select unid from comments where $.form='Comment' and $.postId=:postId and $.akismetspam='false' order by $.posted asc")
 	List<Comment> findByPostId(@Param("postId") String postId);
+	
+	@JSQL("select unid from comments where $.form='Comment' and $.postId=:postId order by $.posted asc")
+	List<Comment> findByPostIdAdmin(@Param("postId") String postId);
 }

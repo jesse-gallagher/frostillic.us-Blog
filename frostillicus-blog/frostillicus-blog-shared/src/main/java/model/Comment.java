@@ -40,6 +40,10 @@ public class Comment {
 	@Column("postedByUrl") private String postedByUrl;
 	@Column("bodyMarkdown") private String bodyMarkdown;
 	@Column("bodyHtml") @NotEmpty private String bodyHtml;
+	@Column("http_referer") private String httpReferer;
+	@Column("http_user_agent") private String httpUserAgent;
+	@Column("remote_addr") private String httpRemoteAddr;
+	@Column("akismetspam") private boolean akismetSpam;
 
 	public Date getPostedDate() {
 		return Date.from(posted.toInstant());

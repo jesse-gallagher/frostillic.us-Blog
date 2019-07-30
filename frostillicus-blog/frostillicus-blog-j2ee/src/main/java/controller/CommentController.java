@@ -18,9 +18,11 @@ package controller;
 import java.time.OffsetDateTime;
 import java.util.UUID;
 
+import javax.annotation.security.RolesAllowed;
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
 import javax.mvc.Controller;
+import javax.servlet.http.HttpServletRequest;
 import javax.ws.rs.DELETE;
 import javax.ws.rs.FormParam;
 import javax.ws.rs.POST;
@@ -30,7 +32,9 @@ import javax.ws.rs.PathParam;
 import org.jsoup.Jsoup;
 import org.jsoup.safety.Whitelist;
 
+import bean.AkismetBean;
 import bean.MarkdownBean;
+import bean.UserInfoBean;
 import model.Comment;
 import model.CommentRepository;
 import model.PostRepository;
@@ -39,6 +43,9 @@ import model.PostRepository;
 @Controller
 @RequestScoped
 public class CommentController {
+	private static final String GENERIC_USER = "frostillic.us Blog Commenter"; //$NON-NLS-1$
+	private static final String GENERIC_EMAIL = "comment@frostillic.us"; //$NON-NLS-1$
+	
 	@Inject
 	PostRepository posts;
 	@Inject
@@ -46,6 +53,11 @@ public class CommentController {
 	
 	@Inject
 	MarkdownBean markdown;
+	@Inject
+	AkismetBean akismet;
+	
+	@Inject
+	HttpServletRequest request;
 	
 	@POST
 	public String create(
@@ -53,8 +65,12 @@ public class CommentController {
 			@FormParam("postedBy") String postedBy,
 			@FormParam("bodyMarkdown") String bodyMarkdown,
 			@FormParam("postedByEmail") String postedByEmail
-			) {
+			) throws Exception {
 		posts.findPost(postId).orElseThrow(() -> new IllegalArgumentException("Unable to find post matching ID " + postId)); //$NON-NLS-1$
+		
+		String remoteAddr = request.getRemoteAddr();
+		String userAgent = request.getHeader("User-Agent"); //$NON-NLS-1$
+		String referrer = request.getHeader("Referer"); //$NON-NLS-1$
 		
 		Comment comment = new Comment();
 		comment.setCommentId(UUID.randomUUID().toString());
@@ -63,6 +79,12 @@ public class CommentController {
 		comment.setPostedBy(postedBy);
 		comment.setPostedByEmail(postedByEmail);
 		comment.setBodyMarkdown(bodyMarkdown);
+		comment.setHttpRemoteAddr(remoteAddr);
+		comment.setHttpUserAgent(userAgent);
+		comment.setHttpReferer(referrer);
+		
+		boolean spam = akismet.checkComment(remoteAddr, userAgent, referrer, "", AkismetBean.TYPE_COMMENT, GENERIC_USER, GENERIC_EMAIL, "", bodyMarkdown); //$NON-NLS-1$ //$NON-NLS-2$
+		comment.setAkismetSpam(spam);
 		
 		String html = markdown.toHtml(bodyMarkdown);
 		html = Jsoup.clean(html, Whitelist.basicWithImages());
@@ -75,6 +97,7 @@ public class CommentController {
 	
 	@DELETE
 	@Path("{commentId}")
+	@RolesAllowed(UserInfoBean.ROLE_ADMIN)
 	public String delete(@PathParam("postId") String postId, @PathParam("commentId") String commentId) {
 		Comment comment = comments.findByCommentId(commentId).orElseThrow(() -> new IllegalArgumentException("Unable to find comment matching ID " + commentId)); //$NON-NLS-1$
 		comments.deleteById(comment.getId());

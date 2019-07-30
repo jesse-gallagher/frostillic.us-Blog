@@ -19,7 +19,7 @@
 <%@attribute name="value" required="true" type="model.Comment" %>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
-<article class="comment">
+<article class="comment ${pageScope.value.akismetSpam ? 'spam' : ''}">
 	<img class="photo" src="${userInfo.getImageUrl(pageScope.value.postedByEmail)}" alt="${translation.commenterPhoto}"/>
 	<h3>
 		${pageScope.value.postedBy}

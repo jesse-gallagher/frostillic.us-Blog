@@ -194,6 +194,10 @@ a {
 .comment {
 	display: grid;
 }
+.comment.spam {
+	background: rgba(250, 251, 63, 0.2);
+	padding: 0.5em 1em;
+}
 .comment + .comment {
 	margin-top: 1em;
 }

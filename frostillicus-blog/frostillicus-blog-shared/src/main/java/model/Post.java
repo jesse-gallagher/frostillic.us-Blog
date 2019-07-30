@@ -21,6 +21,7 @@ import org.darwino.jnosql.artemis.extension.converter.ISOOffsetDateTimeConverter
 
 import com.darwino.commons.util.StringUtil;
 
+import bean.UserInfoBean;
 import jakarta.nosql.mapping.Column;
 import jakarta.nosql.mapping.Convert;
 import jakarta.nosql.mapping.Entity;
@@ -64,7 +65,13 @@ public class Post {
 	@Column private String modifiedBy;
 	
 	public int getCommentCount() {
-		return CDI.current().select(CommentRepository.class).get().findByPostId(getPostId()).size();
+		CommentRepository comments = CDI.current().select(CommentRepository.class).get();
+		UserInfoBean userInfo = CDI.current().select(UserInfoBean.class).get();
+		if(userInfo.isAdmin()) {
+			return comments.findByPostIdAdmin(getPostId()).size();
+		} else {
+			return comments.findByPostId(getPostId()).size();
+		}
 	}
 	
 	public int getPostedYear() {

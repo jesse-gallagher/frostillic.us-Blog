@@ -120,7 +120,11 @@ public class PostController extends AbstractPostListController {
 				.orElseThrow(() -> new IllegalArgumentException("Unable to find post matching ID " + postId)); //$NON-NLS-1$
 		models.put("post", post); //$NON-NLS-1$
 		
-		models.put("comments", comments.findByPostId(post.getPostId())); //$NON-NLS-1$
+		if(userInfo.isAdmin()) {
+			models.put("comments", comments.findByPostIdAdmin(post.getPostId())); //$NON-NLS-1$
+		} else {
+			models.put("comments", comments.findByPostId(post.getPostId())); //$NON-NLS-1$
+		}
 
 		return "post.jsp"; //$NON-NLS-1$
 	}
@@ -209,11 +213,11 @@ public class PostController extends AbstractPostListController {
 		post.setThread(thread);
 		post.setStatus(Status.valueFor(status));
 		post.setTags(
-				tags == null ? Collections.emptyList() :
-						Arrays.stream(tags.split(",")) //$NON-NLS-1$
-								.map(String::trim)
-								.filter(StringUtil::isNotEmpty)
-								.collect(Collectors.toList())
+			tags == null ? Collections.emptyList() :
+				Arrays.stream(tags.split(",")) //$NON-NLS-1$
+					.map(String::trim)
+					.filter(StringUtil::isNotEmpty)
+					.collect(Collectors.toList())
 		);
 	}
 }

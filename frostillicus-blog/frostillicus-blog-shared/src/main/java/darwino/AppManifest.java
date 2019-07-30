@@ -76,4 +76,9 @@ public class AppManifest extends DarwinoManifest {
 	public ExtensionRegistry getExtensionRegistry() {
 		return new AppDBBusinessLogic();
 	}
+	
+	@Override
+	public String getConfigId() {
+		return AppDatabaseDef.DATABASE_NAME;
+	}
 }

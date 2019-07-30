@@ -17,6 +17,11 @@
 			<artifactId>javaee-api</artifactId>
 			<scope>provided</scope>
 		</dependency>
+		<dependency>
+			<groupId>org.eclipse.microprofile.config</groupId>
+			<artifactId>microprofile-config-api</artifactId>
+			<scope>provided</scope>
+		</dependency>
 		
 		<dependency>
 			<groupId>javax.mvc</groupId>
@@ -55,7 +60,7 @@
 		</dependency>
 		<dependency>
 			<groupId>com.darwino</groupId>
-			<artifactId>dwo-jre-j2ee-jsonp</artifactId>
+			<artifactId>dwo-jre-j2ee-mpconfig</artifactId>
 			<version>${DARWINO_VERSION}</version>
 		</dependency>
 
