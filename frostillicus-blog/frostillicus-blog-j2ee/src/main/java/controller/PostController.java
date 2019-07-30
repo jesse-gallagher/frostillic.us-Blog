@@ -118,6 +118,10 @@ public class PostController extends AbstractPostListController {
 		// IDs are often stored as lowercased UNIDs
 		Post post = posts.findPost(postId)
 				.orElseThrow(() -> new IllegalArgumentException("Unable to find post matching ID " + postId)); //$NON-NLS-1$
+		if(post.getStatus() == Status.Draft && !userInfo.isAdmin()) {
+			throw new NotFoundException();
+		}
+		
 		models.put("post", post); //$NON-NLS-1$
 		
 		if(userInfo.isAdmin()) {
