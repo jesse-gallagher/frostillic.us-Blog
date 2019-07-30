@@ -36,31 +36,21 @@ public enum PostUtil {
     ;
     public static final int PAGE_LENGTH = 10;
 
-    public static int getPostCount() throws JsonException {
+    public static int getPostCount(boolean includeDrafts) throws JsonException {
         Database database = CDI.current().select(Database.class).get();
         Store store = database.getStore(AppDatabaseDef.STORE_POSTS);
         return store.openCursor()
-                .query(JsonObject.of("form", Post.class.getSimpleName())) //$NON-NLS-1$
+                .query(composePostQuery(includeDrafts)) //$NON-NLS-1$
                 .count();
     }
 
     public static Collection<String> getPostMonths(boolean includeDrafts) throws JsonException {
         Collection<String> months = new TreeSet<>();
-        
-        JsonObject query = JsonObject.of("form", Post.class.getSimpleName()); //$NON-NLS-1$
-        if(!includeDrafts) {
-        		query = JsonObject.of(BaseParser.Op.AND.getValue(), JsonArray.of(
-        			query,
-        			JsonObject.of(BaseParser.Op.NOT.getValue(),
-        				JsonObject.of("status", Status.Draft.name()) //$NON-NLS-1$
-        			)
-        		));
-        }
 
         Database database = CDI.current().select(Database.class).get();
         Store store = database.getStore(AppDatabaseDef.STORE_POSTS);
         store.openCursor()
-                .query(query)
+                .query(composePostQuery(includeDrafts))
                 .extract(JsonObject.of("posted", "posted")) //$NON-NLS-1$ //$NON-NLS-2$
                 .find(entry -> {
                     String posted = entry.getString("posted"); //$NON-NLS-1$
@@ -112,5 +102,18 @@ public enum PostUtil {
             start = -1;
         }
         return start;
+    }
+    
+    private static JsonObject composePostQuery(boolean includeDrafts) {
+    	JsonObject query = JsonObject.of("form", Post.class.getSimpleName()); //$NON-NLS-1$
+        if(!includeDrafts) {
+        		query = JsonObject.of(BaseParser.Op.AND.getValue(), JsonArray.of(
+        			query,
+        			JsonObject.of(BaseParser.Op.NOT.getValue(),
+        				JsonObject.of("status", Status.Draft.name()) //$NON-NLS-1$
+        			)
+        		));
+        }
+        return query;
     }
 }

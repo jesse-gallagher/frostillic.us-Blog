@@ -48,7 +48,7 @@ public abstract class AbstractPostListController {
             models.put("pageSize", PAGE_LENGTH); //$NON-NLS-1$
 
             int total = start + PAGE_LENGTH;
-            if(total >= PostUtil.getPostCount()) {
+            if(total >= PostUtil.getPostCount(userInfo.isAdmin())) {
                 models.put("endOfLine", true); //$NON-NLS-1$
             } else {
                 models.put("endOfLine", false); //$NON-NLS-1$

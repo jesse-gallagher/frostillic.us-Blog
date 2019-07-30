@@ -84,7 +84,7 @@ public class BlogResource {
 
         // Figure out the starting point
         int start = Math.max(PostUtil.parseStartParam(startParam), 0);
-        List<Post> result = posts.homeList(start, PAGE_LENGTH);
+        List<Post> result = posts.homeListAdmin(start, PAGE_LENGTH);
 
         // Add a nav link
         List<SyndLink> links = new ArrayList<>();
@@ -93,7 +93,7 @@ public class BlogResource {
         first.setHref(resolveUrl(AtomPubAPI.BLOG_ID));
         links.add(first);
 
-        if(start + PAGE_LENGTH < PostUtil.getPostCount()) {
+        if(start + PAGE_LENGTH < PostUtil.getPostCount(true)) {
             // Then add nav links
             SyndLink next = new SyndLinkImpl();
             next.setRel("next"); //$NON-NLS-1$
