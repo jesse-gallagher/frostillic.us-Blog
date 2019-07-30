@@ -216,7 +216,7 @@ public class BlogResource {
                 .map(el -> el.getAttribute("term")) //$NON-NLS-1$
                 .collect(Collectors.toList());
 
-        boolean posted = !"no".equals(XPathUtil.node(xml, "*[name()='entry']/*[name()='app:control']/*[name()='app:draft']").getTextContent()); //$NON-NLS-1$ //$NON-NLS-2$
+        boolean posted = !"yes".equals(XPathUtil.node(xml, "*[name()='entry']/*[name()='app:control']/*[name()='app:draft']").getTextContent()); //$NON-NLS-1$ //$NON-NLS-2$
         if(StringUtil.isEmpty(post.getName())) {
             post.setName(StringUtil.toString(title).toLowerCase().replaceAll("\\s+", "-")); //$NON-NLS-1$ //$NON-NLS-2$
         }
