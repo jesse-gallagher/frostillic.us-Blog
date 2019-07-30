@@ -200,8 +200,9 @@ public class PostController extends AbstractPostListController {
 	// * Internal utility methods
 	// *******************************************************************************
 
-	private void updatePost(Post post, String bodyMarkdown, String tags, String title, String thread, String status) {
-		if(StringUtil.isEmpty(post.getName())) {
+	private void updatePost(Post post, String bodyMarkdown, String tags, String title, String thread, String statusParam) {
+		Status status = Status.valueFor(statusParam);
+		if(StringUtil.isEmpty(post.getName()) && status == Status.Posted) {
 			String baseName = StringUtil.toString(title).toLowerCase().replaceAll("\\s+", "-"); //$NON-NLS-1$ //$NON-NLS-2$
 			int dedupe = 1;
 			String name = baseName;
@@ -219,7 +220,7 @@ public class PostController extends AbstractPostListController {
 		post.setBodyMarkdown(bodyMarkdown);
 		post.setBodyHtml(markdown.toHtml(bodyMarkdown));
 		post.setThread(thread);
-		post.setStatus(Status.valueFor(status));
+		post.setStatus(status);
 		post.setTags(
 			tags == null ? Collections.emptyList() :
 				Arrays.stream(tags.split(",")) //$NON-NLS-1$
