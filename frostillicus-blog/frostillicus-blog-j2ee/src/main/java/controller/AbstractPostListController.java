@@ -16,6 +16,9 @@
 package controller;
 
 import com.darwino.commons.json.JsonException;
+
+import bean.UserInfoBean;
+import model.Post;
 import model.PostRepository;
 import model.util.PostUtil;
 
@@ -24,17 +27,23 @@ import javax.mvc.Models;
 
 import static model.util.PostUtil.PAGE_LENGTH;
 
+import java.util.List;
+
 public abstract class AbstractPostListController {
     @Inject
     Models models;
 
     @Inject
     PostRepository posts;
+    
+    @Inject
+    UserInfoBean userInfo;
 
     protected String maybeList(String startParam) throws JsonException {
         int start = PostUtil.parseStartParam(startParam);
         if(start > -1) {
-            models.put("posts", posts.homeList(start, PAGE_LENGTH)); //$NON-NLS-1$
+        		List<Post> homeList = userInfo.isAdmin() ? posts.homeListAdmin(start, PAGE_LENGTH) : posts.homeList(start, PAGE_LENGTH);
+            models.put("posts", homeList); //$NON-NLS-1$
             models.put("start", start); //$NON-NLS-1$
             models.put("pageSize", PAGE_LENGTH); //$NON-NLS-1$
 

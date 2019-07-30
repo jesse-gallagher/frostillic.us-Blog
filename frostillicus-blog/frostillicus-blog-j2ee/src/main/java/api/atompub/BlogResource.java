@@ -28,11 +28,11 @@ import com.rometools.rome.feed.synd.*;
 import com.rometools.rome.io.FeedException;
 import com.rometools.rome.io.SyndFeedOutput;
 import model.Post;
+import model.Post.Status;
 import model.PostRepository;
 import model.util.PostUtil;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
-import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
 import javax.annotation.security.RolesAllowed;
@@ -101,13 +101,22 @@ public class BlogResource {
             links.add(next);
         }
         feed.setLinks(links);
+        
+        	Document output = new SyndFeedOutput().outputW3CDom(feed);
+        	Element target = output.getDocumentElement();
 
+        result.stream()
+            .map(post -> {
+        			try {
+					return toAtomXml(post);
+				} catch (XPathExpressionException | FeedException e) {
+					throw new RuntimeException(e);
+				}
+            })
+            .map(e -> output.importNode(e, true))
+            .forEach(target::appendChild);
 
-        feed.setEntries(result.stream()
-                .map(this::toEntry)
-                .collect(Collectors.toList()));
-
-        return new SyndFeedOutput().outputString(feed);
+        return DomUtil.getXMLString(output);
     }
 
     @POST
@@ -126,7 +135,7 @@ public class BlogResource {
     @Produces("application/atom+xml")
     public String getEntry(@PathParam("entryId") String postId) throws FeedException, XPathExpressionException {
         Post post = posts.findPost(postId).orElseThrow(() -> new IllegalArgumentException("Unable to find post matching ID " + postId)); //$NON-NLS-1$
-        return toAtomXml(post);
+        return DomUtil.getXMLString(toAtomXml(post), false, true);
     }
 
     @PUT
@@ -182,20 +191,24 @@ public class BlogResource {
         edit.setRel("edit"); //$NON-NLS-1$
         entry.setLinks(Arrays.asList(read, edit));
 
-
         return entry;
     }
 
-    private String toAtomXml(Post post) throws FeedException, XPathExpressionException {
+    private Element toAtomXml(Post post) throws FeedException, XPathExpressionException {
         SyndEntry entry = toEntry(post);
         SyndFeed feed = new SyndFeedImpl();
         feed.setFeedType("atom_1.0"); //$NON-NLS-1$
         feed.setEntries(Arrays.asList(entry));
-        String feedXml = new SyndFeedOutput().outputString(feed);
-        Document feedDoc = DomUtil.createDocument(feedXml);
-        Node entryElement = XPathUtil.node(feedDoc, "/*[name()='feed']/*[name()='entry']"); //$NON-NLS-1$
+        Document feedDoc = new SyndFeedOutput().outputW3CDom(feed);
+        Element entryElement = (Element)XPathUtil.node(feedDoc, "/*[name()='feed']/*[name()='entry']"); //$NON-NLS-1$
 
-        return DomUtil.getXMLString(entryElement, false, true);
+        	if(post.getStatus() == Status.Draft) {
+        		Element control = DomUtil.createElement(entryElement, "app:control"); //$NON-NLS-1$
+        		control.setAttribute("xmlns:app", "http://www.w3.org/2007/app"); //$NON-NLS-1$ //$NON-NLS-2$
+        		DomUtil.createElement(control, "app:draft", "yes"); //$NON-NLS-1$ //$NON-NLS-2$
+        	}
+
+        return entryElement;
     }
 
     private SyndCategory toCategory(String tag) {

@@ -18,7 +18,11 @@ package controller;
 import com.darwino.commons.json.JsonException;
 import com.darwino.commons.util.StringUtil;
 
+import bean.UserInfoBean;
+import model.Post;
+
 import javax.enterprise.context.RequestScoped;
+import javax.inject.Inject;
 import javax.mvc.Controller;
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
@@ -26,16 +30,22 @@ import javax.ws.rs.QueryParam;
 
 import static model.util.PostUtil.PAGE_LENGTH;
 
+import java.util.List;
+
 @Path("/")
 @Controller
 @RequestScoped
 public class HomeController extends AbstractPostListController {
 	
+	@Inject
+	UserInfoBean userInfo;
+	
 	@GET
 	public String get(@QueryParam("start") String startParam) throws JsonException {
 		String maybeList = maybeList(startParam);
 		if(StringUtil.isEmpty(maybeList)) {
-			models.put("posts", posts.homeList()); //$NON-NLS-1$
+    		List<Post> homeList = userInfo.isAdmin() ? posts.homeListAdmin() : posts.homeList();
+			models.put("posts", homeList); //$NON-NLS-1$
 			models.put("start", 0); //$NON-NLS-1$
 		}
 		models.put("pageSize", PAGE_LENGTH); //$NON-NLS-1$

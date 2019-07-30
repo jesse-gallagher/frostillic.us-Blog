@@ -24,7 +24,6 @@ import org.darwino.jnosql.artemis.extension.RepositoryProvider;
 import org.darwino.jnosql.artemis.extension.Search;
 import org.darwino.jnosql.artemis.extension.StoredCursor;
 import jakarta.nosql.mapping.Param;
-import jakarta.nosql.mapping.Query;
 
 import darwino.AppDatabaseDef;
 
@@ -45,11 +44,17 @@ public interface PostRepository extends DarwinoRepository<Post, String> {
 	@Search(orderBy="posted desc")
 	List<Post> search(String query);
 	
-	@Query("select * from Post limit 10 order by posted desc")
+	@JSQL("select unid from posts where $.form='Post' and not $.status='Draft' order by $.posted desc limit 10")
 	List<Post> homeList();
+	
+	@JSQL("select unid from posts where $.form='Post' order by $.posted desc limit 10")
+	List<Post> homeListAdmin();
+
+	@JSQL("select unid from posts where $.form='Post' and not $.status='Draft' order by $.posted desc")
+	List<Post> homeList(@Param("skip") int skip, @Param("limit") int limit);
 
 	@JSQL("select unid from posts where $.form='Post' order by $.posted desc")
-	List<Post> homeList(@Param("skip") int skip, @Param("limit") int limit);
+	List<Post> homeListAdmin(@Param("skip") int skip, @Param("limit") int limit);
 	
 	@JSQL("select unid from posts where $.form='Post' and $.thread=:thread order by $.posted")
 	List<Post> findByThread(@Param("thread") String thread);

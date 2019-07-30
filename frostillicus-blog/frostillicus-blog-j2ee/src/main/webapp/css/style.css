@@ -88,6 +88,11 @@ a {
 	text-align: justify;
 }
 
+.post.post-Draft {
+	background: rgba(250, 251, 63, 0.2);
+	padding: 0.5em 1em;
+}
+
 .post header {
 	position: relative;
 }

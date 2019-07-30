@@ -56,7 +56,7 @@ public class PostController extends AbstractPostListController {
 			return maybeList;
 		} else {
 			Map<Integer, Collection<Integer>> months = new TreeMap<>(Comparator.reverseOrder());
-			for(String month : PostUtil.getPostMonths()) {
+			for(String month : PostUtil.getPostMonths(userInfo.isAdmin())) {
 				int dash = month.indexOf('-');
 				int y = Integer.parseInt(month.substring(0, dash));
 				int m = Integer.parseInt(month.substring(dash+1), 10);
