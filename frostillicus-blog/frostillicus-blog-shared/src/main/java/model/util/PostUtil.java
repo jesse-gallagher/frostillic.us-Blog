@@ -40,7 +40,7 @@ public enum PostUtil {
         Database database = CDI.current().select(Database.class).get();
         Store store = database.getStore(AppDatabaseDef.STORE_POSTS);
         return store.openCursor()
-                .query(composePostQuery(includeDrafts)) //$NON-NLS-1$
+                .query(composePostQuery(includeDrafts))
                 .count();
     }
 

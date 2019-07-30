@@ -94,7 +94,7 @@ public class Post {
 	
 	public String getSlug() {
 		if(StringUtil.isEmpty(name)) {
-			return id;
+			return postId;
 		} else {
 			return name;
 		}

@@ -67,7 +67,7 @@
 				<t:comment value="${comment}"/>
 			</c:forEach>
 			
-			<form action="posts/${pageScope.value.slug}/comments" method="POST">
+			<form action="posts/${pageScope.value.postId}/comments" method="POST">
 				<fieldset class="new-comment crud">
 					<legend>${translation.newComment}</legend>
 					

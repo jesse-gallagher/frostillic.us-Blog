@@ -19,6 +19,8 @@ import bean.MarkdownBean;
 import bean.UserInfoBean;
 import com.darwino.commons.json.JsonException;
 import com.darwino.commons.util.StringUtil;
+
+import model.Comment;
 import model.CommentRepository;
 import model.Post;
 import model.Post.Status;
@@ -172,7 +174,11 @@ public class PostController extends AbstractPostListController {
 	@RolesAllowed(UserInfoBean.ROLE_ADMIN)
 	public String delete(@PathParam("postId") String postId) {
 		Post post = posts.findPost(postId).orElseThrow(() -> new IllegalArgumentException("Unable to find post matching ID " + postId)); //$NON-NLS-1$
+		String id = post.getPostId();
 		posts.deleteById(post.getId());
+		comments.deleteById(comments.findByPostId(id).stream()
+			.map(Comment::getId)
+			.collect(Collectors.toList()));
 
 		String referer = request.getHeader("Referer"); //$NON-NLS-1$
 		if(StringUtil.isNotEmpty(referer) && !referer.toLowerCase().contains(postId.toLowerCase())) {
