@@ -74,32 +74,10 @@
 				<scope>import</scope>
 				<type>pom</type>
 			</dependency>
-			
 			<dependency>
-				<groupId>org.jboss.resteasy</groupId>
-				<artifactId>resteasy-cdi</artifactId>
-				<version>${resteasy-version}</version>
-			</dependency>
-			<dependency>
-				<groupId>org.jboss.resteasy</groupId>
-				<artifactId>resteasy-servlet-initializer</artifactId>
-				<version>${resteasy-version}</version>
-			</dependency>
-			<dependency>
-				<groupId>org.jboss.resteasy</groupId>
-				<artifactId>resteasy-validator-provider-11</artifactId>
-				<version>${resteasy-version}</version>
-			</dependency>
-
-			<dependency>
-				<groupId>org.hibernate</groupId>
-				<artifactId>hibernate-validator</artifactId>
-				<version>6.1.0.Alpha6</version>
-			</dependency>
-			<dependency>
-				<groupId>org.glassfish</groupId>
-				<artifactId>javax.el</artifactId>
-				<version>3.0.1-b11</version>
+				<groupId>javax.el</groupId>
+				<artifactId>javax.el-api</artifactId>
+				<version>3.0.0</version>
 			</dependency>
 			<dependency>
 				<groupId>javax.servlet</groupId>

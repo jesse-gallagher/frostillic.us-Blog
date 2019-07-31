@@ -157,60 +157,6 @@
 				</dependency>
 			</dependencies>
 		</profile>
-	
-		<profile>
-			<id>tomcat</id>
-			<activation>
-				<activeByDefault>false</activeByDefault>
-			</activation>
-			
-			<dependencies>
-<!-- 				<dependency> -->
-<!-- 					<groupId>javax</groupId> -->
-<!-- 					<artifactId>javaee-api</artifactId> -->
-<!-- 					<scope>compile</scope> -->
-<!-- 				</dependency> -->
-		        
-				<dependency>
-					<groupId>org.eclipse.krazo</groupId>
-					<artifactId>krazo-core</artifactId>
-				</dependency>
-		
-				<dependency>
-					<groupId>org.mvc-spec.ozark</groupId>
-					<artifactId>ozark-resteasy</artifactId>
-				</dependency>
-				<dependency>
-					<groupId>org.jboss.weld.servlet</groupId>
-					<artifactId>weld-servlet</artifactId>
-					<version>${weld-version}</version>
-				</dependency>
-			
-				<dependency>
-					<groupId>org.jboss.resteasy</groupId>
-					<artifactId>resteasy-cdi</artifactId>
-				</dependency>
-			
-				<dependency>
-					<groupId>org.jboss.resteasy</groupId>
-					<artifactId>resteasy-servlet-initializer</artifactId>
-				</dependency>
-				
-				<dependency>
-					<groupId>org.jboss.resteasy</groupId>
-					<artifactId>resteasy-validator-provider-11</artifactId>
-				</dependency>
-			
-				<dependency>
-					<groupId>org.hibernate.validator</groupId>
-					<artifactId>hibernate-validator</artifactId>
-				</dependency>
-				<dependency>
-					<groupId>javax.servlet</groupId>
-					<artifactId>jstl</artifactId>
-				</dependency>
-			</dependencies>
-		</profile>
 	</profiles>
 	
 </project>
