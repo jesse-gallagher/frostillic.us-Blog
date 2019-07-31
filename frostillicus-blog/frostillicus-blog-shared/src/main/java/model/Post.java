@@ -69,6 +69,9 @@ public class Post {
 	@Column private String modifiedBy;
 	
 	static void querySave(@Observes EntityPrePersist entity) {
+		if(!(entity.getValue() instanceof Post)) {
+			return;
+		}
 		Post post = (Post)entity.getValue();
 		
 		// Auto-generate a slug if not already present
