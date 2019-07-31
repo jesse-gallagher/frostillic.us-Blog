@@ -75,7 +75,12 @@
 					<input type="text" name="postedBy" id="postedBy" required="required"
 						value="${userInfo.anonymous ? '' : userInfo.cn}"/>
 					
-					<label for="postedByEmail">${translation.emailLabel}</label>
+					<label for="postedByEmail">
+						<span class="tooltip">
+							${translation.emailLabel}
+							<span class="tooltip-text">${translation.emailLegal}</span>
+						</span>
+					</label>
 					<input type="email" name="postedByEmail" id="postedByEmail" required="required"
 						value="${userInfo.anonymous ? '' : userInfo.emailAddress}"/>
 					
@@ -83,6 +88,12 @@
 					<textarea name="bodyMarkdown" id="bodyMarkdown" required="required"></textarea>
 					
 					<input type="submit" value="${translation.postComment}"/>
+					<div class="legal">
+						<span class="tooltip">
+							${translation.commentLegalLabel}
+							<span class="tooltip-text">${translation.commentLegal}</span>
+						</span>
+					</div>
 				</fieldset>
 			</form>
 		</section>

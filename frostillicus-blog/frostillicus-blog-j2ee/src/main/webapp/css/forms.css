@@ -35,6 +35,9 @@
 .new-comment.crud textarea {
 	height: 5em;
 }
+.crud .legal {
+	font-size: 80%;
+}
 
 .crud-list {
 	display: table;

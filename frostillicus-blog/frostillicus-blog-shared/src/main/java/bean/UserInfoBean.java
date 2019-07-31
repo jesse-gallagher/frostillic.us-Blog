@@ -38,7 +38,8 @@ public class UserInfoBean {
 	
 	@SneakyThrows
 	public String getImageUrl(String userName) {
-		return StringUtil.format("$darwino-social/users/users/{0}/content/photo", URLEncoder.encode(userName, "UTF-8")); //$NON-NLS-1$ //$NON-NLS-2$
+		String md5 = StringUtil.md5Hex(StringUtil.toString(userName).toLowerCase());
+		return StringUtil.format("$darwino-social/users/users/{0}/content/photo", URLEncoder.encode(md5, "UTF-8")); //$NON-NLS-1$ //$NON-NLS-2$
 	}
 	
 	public boolean isAdmin() {

@@ -33,6 +33,7 @@
 		<link rel="stylesheet" href="${pageContext.request.contextPath}/css/style.css" />
 		<link rel="stylesheet" href="${pageContext.request.contextPath}/css/forms.css" />
 		<link rel="stylesheet" href="${pageContext.request.contextPath}/css/tabs.css" />
+		<link rel="stylesheet" href="${pageContext.request.contextPath}/css/tooltips.css" />
 		
 		<script type="text/javascript" src="${pageContext.request.contextPath}/js/turbolinks.js"></script>
 		
@@ -45,7 +46,7 @@
 			</header>
 			<nav id="pagenav">
 				<header class="authorinfo">
-					<img src="$darwino-social/users/users/cn%3DJesse Gallagher%2Co%3DFrost/content/photo" class="photo" alt="${translation.authorPhoto}"/>
+					<img src="${userInfo.getImageUrl(translation.authorEmail)}" class="photo" alt="${translation.authorPhoto}"/>
 				</header>
 				<ul class="sitenav">
 					<li><a href="${pageContext.request.contextPath}/">${translation.home}</a></li>
