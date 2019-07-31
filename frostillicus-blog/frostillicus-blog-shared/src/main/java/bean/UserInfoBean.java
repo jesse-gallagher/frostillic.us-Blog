@@ -25,6 +25,7 @@ import com.darwino.commons.security.acl.User;
 import com.darwino.commons.security.acl.UserException;
 import com.darwino.commons.util.StringUtil;
 import com.darwino.platform.DarwinoContext;
+import com.darwino.platform.DarwinoHttpConstants;
 
 import lombok.SneakyThrows;
 
@@ -39,7 +40,7 @@ public class UserInfoBean {
 	@SneakyThrows
 	public String getImageUrl(String userName) {
 		String md5 = StringUtil.md5Hex(StringUtil.toString(userName).toLowerCase());
-		return StringUtil.format("$darwino-social/users/users/{0}/content/photo", URLEncoder.encode(md5, "UTF-8")); //$NON-NLS-1$ //$NON-NLS-2$
+		return StringUtil.format(DarwinoHttpConstants.SOCIAL_USERS_PATH + "/users/{0}/content/photo", URLEncoder.encode(md5, "UTF-8")); //$NON-NLS-1$ //$NON-NLS-2$
 	}
 	
 	public boolean isAdmin() {
