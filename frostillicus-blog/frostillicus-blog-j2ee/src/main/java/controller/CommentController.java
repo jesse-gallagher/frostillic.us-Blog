@@ -83,8 +83,10 @@ public class CommentController {
 		comment.setHttpUserAgent(userAgent);
 		comment.setHttpReferer(referrer);
 		
-		boolean spam = akismet.checkComment(remoteAddr, userAgent, referrer, "", AkismetBean.TYPE_COMMENT, GENERIC_USER, GENERIC_EMAIL, "", bodyMarkdown); //$NON-NLS-1$ //$NON-NLS-2$
-		comment.setAkismetSpam(spam);
+		if(akismet.isValid()) {
+			boolean spam = akismet.checkComment(remoteAddr, userAgent, referrer, "", AkismetBean.TYPE_COMMENT, GENERIC_USER, GENERIC_EMAIL, "", bodyMarkdown); //$NON-NLS-1$ //$NON-NLS-2$
+			comment.setAkismetSpam(spam);
+		}
 		
 		String html = markdown.toHtml(bodyMarkdown);
 		html = Jsoup.clean(html, Whitelist.basicWithImages());

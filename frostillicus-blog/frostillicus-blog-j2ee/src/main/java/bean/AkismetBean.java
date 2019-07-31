@@ -60,13 +60,17 @@ public class AkismetBean {
 	public static final String TYPE_COMMENT = "comment"; //$NON-NLS-1$
 
 	@Inject
-	@ConfigProperty(name=AppDatabaseDef.DATABASE_NAME+".akismet-api-key")
+	@ConfigProperty(name=AppDatabaseDef.DATABASE_NAME+".akismet-api-key", defaultValue="")
 	@Getter @Setter
 	private String apiKey;
 	@Inject
-	@ConfigProperty(name=AppDatabaseDef.DATABASE_NAME+".akismet-blog")
+	@ConfigProperty(name=AppDatabaseDef.DATABASE_NAME+".akismet-blog", defaultValue="")
 	@Getter @Setter
 	private String blog;
+	
+	public boolean isValid() {
+		return StringUtil.isNotEmpty(this.apiKey) && StringUtil.isNotEmpty(this.blog);
+	}
 
 	public boolean verifyKey() throws Exception {
 		if(StringUtil.isEmpty(this.apiKey)) { throw new IllegalArgumentException("apiKey is empty"); } //$NON-NLS-1$
