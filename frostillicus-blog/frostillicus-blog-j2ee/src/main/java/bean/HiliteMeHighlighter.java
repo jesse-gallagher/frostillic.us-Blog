@@ -14,7 +14,7 @@ import lombok.SneakyThrows;
 @ApplicationScoped
 public class HiliteMeHighlighter implements SyntaxHighlighter {
 	
-	interface HiliteMeService {
+	public interface HiliteMeService {
 		@POST
 		String highlight(
 			@FormParam("code") String code,
