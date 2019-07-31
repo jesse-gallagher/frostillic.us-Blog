@@ -163,6 +163,7 @@ a {
 }
 .post img {
 	max-width: 100%;
+	height: auto;
 }
 .post img:not([width]) {
 	width: auto;
@@ -254,9 +255,13 @@ pre {
 	overflow-x: auto;
 	padding: 0.5em;
 }
-pre code {
+pre code, .hilite-me pre {
 	border: 0;
+	padding: 0;
 	background-color: transparent;
+}
+.hilite-me {
+	font-size: 13px;
 }
 
 .posts-older-newer {
