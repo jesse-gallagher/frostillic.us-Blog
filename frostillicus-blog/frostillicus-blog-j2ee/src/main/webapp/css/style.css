@@ -107,11 +107,14 @@ a {
 	color: rgb(57, 82, 107);
 	text-decoration: none;
 }
-.post header h3, .comment > h3 {
+.post header h3, .post .comment > h3 {
 	font-size: 0.9em;
 	color: dimgrey;
 	margin-top: 0;
 	margin-bottom: 0.5em;
+}
+.post .comment > h3 {
+	font-size: 1.2em;
 }
 
 .post header > .admin {
