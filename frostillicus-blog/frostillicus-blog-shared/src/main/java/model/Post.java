@@ -23,7 +23,6 @@ import org.darwino.jnosql.artemis.extension.converter.ISOOffsetDateTimeConverter
 import com.darwino.commons.util.StringUtil;
 
 import bean.MarkdownBean;
-import bean.UserInfoBean;
 import jakarta.nosql.mapping.Column;
 import jakarta.nosql.mapping.Convert;
 import jakarta.nosql.mapping.Entity;
@@ -69,14 +68,14 @@ public class Post {
 	@Column @Convert(ISOOffsetDateTimeConverter.class) private OffsetDateTime modified;
 	@Column private String modifiedBy;
 	
-	void querySave(@Observes EntityPrePersist entity) {
+	static void querySave(@Observes EntityPrePersist entity) {
 		Post post = (Post)entity.getValue();
 		
 		// Auto-generate a slug if not already present
-		if(StringUtil.isEmpty(post.getName()) && status == Status.Posted) {
+		if(StringUtil.isEmpty(post.getName()) && post.getStatus() == Status.Posted) {
 			PostRepository posts = CDI.current().select(PostRepository.class).get();
 			
-			String baseName = StringUtil.toString(title).toLowerCase().replaceAll("\\s+", "-"); //$NON-NLS-1$ //$NON-NLS-2$
+			String baseName = StringUtil.toString(post.getTitle()).toLowerCase().replaceAll("\\s+", "-"); //$NON-NLS-1$ //$NON-NLS-2$
 			int dedupe = 1;
 			String name = baseName;
 			
@@ -92,7 +91,7 @@ public class Post {
 		
 		// Update the calculated HTML body
 		MarkdownBean markdown = CDI.current().select(MarkdownBean.class).get();
-		post.setBodyHtml(markdown.toHtml(bodyMarkdown));
+		post.setBodyHtml(markdown.toHtml(StringUtil.toString(post.getBodyMarkdown())));
 	}
 	
 	// *******************************************************************************
@@ -101,7 +100,6 @@ public class Post {
 	
 	public int getCommentCount() {
 		CommentRepository comments = CDI.current().select(CommentRepository.class).get();
-		UserInfoBean userInfo = CDI.current().select(UserInfoBean.class).get();
 		return comments.findByPostId(getPostId()).size();
 	}
 	
