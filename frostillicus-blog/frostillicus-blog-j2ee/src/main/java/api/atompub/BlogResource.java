@@ -15,7 +15,6 @@
  */
 package api.atompub;
 
-import bean.MarkdownBean;
 import bean.UserInfoBean;
 
 import com.darwino.commons.json.JsonException;
@@ -69,9 +68,6 @@ public class BlogResource {
     @Inject
     Session darwinoSession;
 
-    @Inject
-    MarkdownBean markdown;
-
     @GET
     @Produces("application/atom+xml")
     public String get(@QueryParam("start") String startParam) throws FeedException, JsonException {
@@ -84,7 +80,7 @@ public class BlogResource {
 
         // Figure out the starting point
         int start = Math.max(PostUtil.parseStartParam(startParam), 0);
-        List<Post> result = posts.homeListAdmin(start, PAGE_LENGTH);
+        List<Post> result = posts.homeList(start, PAGE_LENGTH);
 
         // Add a nav link
         List<SyndLink> links = new ArrayList<>();
@@ -93,7 +89,7 @@ public class BlogResource {
         first.setHref(resolveUrl(AtomPubAPI.BLOG_ID));
         links.add(first);
 
-        if(start + PAGE_LENGTH < PostUtil.getPostCount(true)) {
+        if(start + PAGE_LENGTH < PostUtil.getPostCount()) {
             // Then add nav links
             SyndLink next = new SyndLinkImpl();
             next.setRel("next"); //$NON-NLS-1$
@@ -230,12 +226,8 @@ public class BlogResource {
                 .collect(Collectors.toList());
 
         boolean posted = !"yes".equals(XPathUtil.node(xml, "*[name()='entry']/*[name()='app:control']/*[name()='app:draft']").getTextContent()); //$NON-NLS-1$ //$NON-NLS-2$
-        if(StringUtil.isEmpty(post.getName())) {
-            post.setName(StringUtil.toString(title).toLowerCase().replaceAll("\\s+", "-")); //$NON-NLS-1$ //$NON-NLS-2$
-        }
         post.setTitle(title);
         post.setBodyMarkdown(body);
-        post.setBodyHtml(markdown.toHtml(body));
         post.setTags(tags);
         post.setStatus(posted ? Post.Status.Posted : Post.Status.Draft);
         post.setPosted(OffsetDateTime.now());

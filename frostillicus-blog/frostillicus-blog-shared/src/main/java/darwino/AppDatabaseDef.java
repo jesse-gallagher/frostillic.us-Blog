@@ -25,9 +25,11 @@ import com.darwino.jsonstore.meta._DatabaseACL;
 import com.darwino.jsonstore.meta._FtSearch;
 import com.darwino.jsonstore.meta._Store;
 
+import bean.UserInfoBean;
+
 public class AppDatabaseDef extends DatabaseFactoryImpl {
 
-	public static final int DATABASE_VERSION	= 11;
+	public static final int DATABASE_VERSION	= 12;
 	public static final String DATABASE_NAME	= "frostillicus_blog"; //$NON-NLS-1$
 	public static final String STORE_POSTS = "posts"; //$NON-NLS-1$
 	public static final String STORE_COMMENTS = "comments"; //$NON-NLS-1$
@@ -57,10 +59,10 @@ public class AppDatabaseDef extends DatabaseFactoryImpl {
 			return null;
 		}
 		_Database db = new _Database(DATABASE_NAME, "frostillic.us Blog", DATABASE_VERSION); //$NON-NLS-1$
-		db.setDocumentSecurity(Database.DOCSEC_NOTESLIKE | Database.DOCSEC_INCLUDE);
+		db.setDocumentSecurity(Database.DOCSEC_NOTESLIKE | Database.DOCSEC_INCLUDE | Database.DOCSEC_DYNAMIC);
 		
 		_DatabaseACL acl = new _DatabaseACL();
-		acl.addRole("admin", _DatabaseACL.ROLE_MANAGE); //$NON-NLS-1$
+		acl.addRole(UserInfoBean.ROLE_ADMIN, _DatabaseACL.ROLE_MANAGE);
 		acl.addAnonymous(_DatabaseACL.ROLE_AUTHOR);
 		acl.addUser("anonymous", _DatabaseACL.ROLE_READER); //$NON-NLS-1$
 		db.setACL(acl);

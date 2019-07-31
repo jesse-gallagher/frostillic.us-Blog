@@ -15,7 +15,6 @@
  */
 package controller;
 
-import bean.MarkdownBean;
 import bean.UserInfoBean;
 import com.darwino.commons.json.JsonException;
 import com.darwino.commons.util.StringUtil;
@@ -45,9 +44,6 @@ public class PostController extends AbstractPostListController {
 
 	@Inject
 	CommentRepository comments;
-	
-	@Inject
-	MarkdownBean markdown;
 
 	@Inject
 	UserInfoBean userInfo;
@@ -59,7 +55,7 @@ public class PostController extends AbstractPostListController {
 			return maybeList;
 		} else {
 			Map<Integer, Collection<Integer>> months = new TreeMap<>(Comparator.reverseOrder());
-			for(String month : PostUtil.getPostMonths(userInfo.isAdmin())) {
+			for(String month : PostUtil.getPostMonths()) {
 				int dash = month.indexOf('-');
 				int y = Integer.parseInt(month.substring(0, dash));
 				int m = Integer.parseInt(month.substring(dash+1), 10);
@@ -198,7 +194,14 @@ public class PostController extends AbstractPostListController {
 	@GET
 	@Path("search")
 	public String search(@QueryParam("q") String query) {
-		models.put("posts", posts.search(query)); //$NON-NLS-1$
+		// TODO handle this in the query or cursor itself
+		List<Post> found = posts.search(query);
+		if(!userInfo.isAdmin()) {
+			found = found.stream()
+				.filter(p -> p.getStatus() == Status.Posted)
+				.collect(Collectors.toList());
+		}
+		models.put("posts", found); //$NON-NLS-1$
 		return "search.jsp"; //$NON-NLS-1$
 	}
 	
@@ -208,23 +211,8 @@ public class PostController extends AbstractPostListController {
 
 	private void updatePost(Post post, String bodyMarkdown, String tags, String title, String thread, String statusParam) {
 		Status status = Status.valueFor(statusParam);
-		if(StringUtil.isEmpty(post.getName()) && status == Status.Posted) {
-			String baseName = StringUtil.toString(title).toLowerCase().replaceAll("\\s+", "-"); //$NON-NLS-1$ //$NON-NLS-2$
-			int dedupe = 1;
-			String name = baseName;
-			
-			Optional<Post> existing = posts.findByName(name);
-			String id = post.getId();
-			while(existing.isPresent() && (StringUtil.isEmpty(id) || !StringUtil.equals(id, existing.get().getId()))) {
-				name = baseName + ++dedupe;
-				existing = posts.findByName(name);
-			}
-			
-			post.setName(name);
-		}
 		post.setTitle(title);
 		post.setBodyMarkdown(bodyMarkdown);
-		post.setBodyHtml(markdown.toHtml(bodyMarkdown));
 		post.setThread(thread);
 		post.setStatus(status);
 		post.setTags(
@@ -237,17 +225,8 @@ public class PostController extends AbstractPostListController {
 	}
 	
 	private String showPost(Post post) {
-		if(post.getStatus() == Status.Draft && !userInfo.isAdmin()) {
-			throw new NotFoundException();
-		}
-		
 		models.put("post", post); //$NON-NLS-1$
-		
-		if(userInfo.isAdmin()) {
-			models.put("comments", comments.findByPostIdAdmin(post.getPostId())); //$NON-NLS-1$
-		} else {
-			models.put("comments", comments.findByPostId(post.getPostId())); //$NON-NLS-1$
-		}
+		models.put("comments", comments.findByPostId(post.getPostId())); //$NON-NLS-1$
 
 		return "post.jsp"; //$NON-NLS-1$
 	}

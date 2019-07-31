@@ -15,9 +15,15 @@
  */
 package darwino;
 
+import com.darwino.commons.json.JsonObject;
+import com.darwino.commons.json.query.parser.BaseParser;
+import com.darwino.commons.util.StringUtil;
 import com.darwino.jsonstore.extensions.DefaultExtensionRegistry;
 import com.darwino.jsonstore.impl.DarwinoInfCursorFactory;
 import com.darwino.jsonstore.local.DefaultDatabaseACLFactory;
+
+import bean.UserInfoBean;
+import model.Post;
 
 /**
  * Database Business logic - event handlers.
@@ -25,15 +31,27 @@ import com.darwino.jsonstore.local.DefaultDatabaseACLFactory;
 public  class AppDBBusinessLogic extends DefaultExtensionRegistry {
 	
 	public AppDBBusinessLogic() {
-		// Add here the database events to register to the JSON store
-//		registerDocumentEvents("<My Database Id>", "<My Store Id>", new DocumentEvents() {
-//			@Override
-//			public void querySaveDocument(Document doc) throws JsonException {
-//			}
-//		});
-
-		// Use a query factory
 		setQueryFactory(new DarwinoInfCursorFactory(getClass()));
 		setDatabaseACLFactory(new DefaultDatabaseACLFactory());
+		
+		setDynamicSecurity((database, store) -> {
+			switch(StringUtil.toString(store)) {
+			case AppDatabaseDef.STORE_POSTS:
+				if(!database.getUserContext().hasRole(UserInfoBean.ROLE_ADMIN)) {
+					return JsonObject.of("status", //$NON-NLS-1$
+						JsonObject.of(BaseParser.Op.NE.getValue(), Post.Status.Draft.name())
+					).toString();
+				}
+				break;
+			case AppDatabaseDef.STORE_COMMENTS:
+				if(!database.getUserContext().hasRole(UserInfoBean.ROLE_ADMIN)) {
+					return JsonObject.of("akismetspam", //$NON-NLS-1$
+						JsonObject.of(BaseParser.Op.NE.getValue(), true)
+					).toString();
+				}
+				break;
+			}
+			return null;
+		});
 	}
 }
