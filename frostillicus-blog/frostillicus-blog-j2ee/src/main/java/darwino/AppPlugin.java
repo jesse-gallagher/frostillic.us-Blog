@@ -19,9 +19,8 @@ import java.util.List;
 
 import com.darwino.commons.platform.beans.ManagedBeansExtension;
 import com.darwino.commons.platform.properties.PropertiesExtension;
+import com.darwino.j2ee.platform.DefaultWebBeanExtension;
 import com.darwino.j2ee.platform.DefaultWebPropertiesExtension;
-
-import darwino.beans.HomeDirBeanExtension;
 
 
 /**
@@ -36,7 +35,7 @@ public class AppPlugin extends AppBasePlugin {
 	@Override
 	public void findExtensions(Class<?> serviceClass, List<Object> extensions) {
 		if(serviceClass==ManagedBeansExtension.class) {
-			extensions.add(new HomeDirBeanExtension());
+			extensions.add(new DefaultWebBeanExtension());
 		} else if(serviceClass==PropertiesExtension.class) {
 			extensions.add(new DefaultWebPropertiesExtension());
 		}
