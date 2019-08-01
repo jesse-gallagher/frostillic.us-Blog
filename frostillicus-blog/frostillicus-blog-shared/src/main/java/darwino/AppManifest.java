@@ -57,7 +57,7 @@ public class AppManifest extends DarwinoManifest {
 	
 	@Override
 	public String getMainPageUrl() {
-		return "mobile/index.html"; //$NON-NLS-1$
+		return "/"; //$NON-NLS-1$
 	}
 	
 	@Override
