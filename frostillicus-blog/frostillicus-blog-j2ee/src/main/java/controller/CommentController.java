@@ -25,6 +25,7 @@ import javax.mvc.Controller;
 import javax.servlet.http.HttpServletRequest;
 import javax.ws.rs.DELETE;
 import javax.ws.rs.FormParam;
+import javax.ws.rs.NotFoundException;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
@@ -66,7 +67,7 @@ public class CommentController {
 			@FormParam("bodyMarkdown") String bodyMarkdown,
 			@FormParam("postedByEmail") String postedByEmail
 			) throws Exception {
-		posts.findPost(postId).orElseThrow(() -> new IllegalArgumentException("Unable to find post matching ID " + postId)); //$NON-NLS-1$
+		posts.findPost(postId).orElseThrow(() -> new NotFoundException("Unable to find post matching ID " + postId)); //$NON-NLS-1$
 		
 		String remoteAddr = request.getRemoteAddr();
 		String userAgent = request.getHeader("User-Agent"); //$NON-NLS-1$
@@ -101,7 +102,7 @@ public class CommentController {
 	@Path("{commentId}")
 	@RolesAllowed(UserInfoBean.ROLE_ADMIN)
 	public String delete(@PathParam("postId") String postId, @PathParam("commentId") String commentId) {
-		Comment comment = comments.findByCommentId(commentId).orElseThrow(() -> new IllegalArgumentException("Unable to find comment matching ID " + commentId)); //$NON-NLS-1$
+		Comment comment = comments.findByCommentId(commentId).orElseThrow(() -> new NotFoundException("Unable to find comment matching ID " + commentId)); //$NON-NLS-1$
 		comments.deleteById(comment.getId());
 		return "redirect:posts/" + postId; //$NON-NLS-1$
 	}

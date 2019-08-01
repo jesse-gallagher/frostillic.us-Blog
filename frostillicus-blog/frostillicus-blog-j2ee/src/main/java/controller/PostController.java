@@ -114,7 +114,7 @@ public class PostController extends AbstractPostListController {
 	@Path("{postId}")
 	public String show(@PathParam("postId") String postId) {
 		Post post = posts.findPost(postId)
-				.orElseThrow(() -> new IllegalArgumentException("Unable to find post matching ID " + postId)); //$NON-NLS-1$
+				.orElseThrow(() -> new NotFoundException("Unable to find post matching ID " + postId)); //$NON-NLS-1$
 		
 		return showPost(post);
 	}
@@ -123,7 +123,7 @@ public class PostController extends AbstractPostListController {
 	@Path("{year}/{month}/{day}/{postId}")
 	public String showByDate(@PathParam("year") int year, @PathParam("month") int month, @PathParam("day") int day, @PathParam("postId") String postId) {
 		Post post = posts.findPost(postId)
-				.orElseThrow(() -> new IllegalArgumentException("Unable to find post matching ID " + postId)); //$NON-NLS-1$
+				.orElseThrow(() -> new NotFoundException("Unable to find post matching ID " + postId)); //$NON-NLS-1$
 		if(!post.matchesPostedDate(year, month, day)) {
 			throw new NotFoundException();
 		}
@@ -134,7 +134,7 @@ public class PostController extends AbstractPostListController {
 	@Path("{year}/{month}/{day}/{postId}/edit")
 	@RolesAllowed(UserInfoBean.ROLE_ADMIN)
 	public String edit(@PathParam("postId") String postId) {
-		Post post = posts.findPost(postId).orElseThrow(() -> new IllegalArgumentException("Unable to find post matching ID " + postId)); //$NON-NLS-1$
+		Post post = posts.findPost(postId).orElseThrow(() -> new NotFoundException("Unable to find post matching ID " + postId)); //$NON-NLS-1$
 		models.put("post", post); //$NON-NLS-1$
 		return "post-edit.jsp"; //$NON-NLS-1$
 	}
@@ -150,7 +150,7 @@ public class PostController extends AbstractPostListController {
 			@FormParam("thread") String thread,
 			@FormParam("status") String status) {
 		Post post = posts.findPost(postId)
-				.orElseThrow(() -> new IllegalArgumentException("Unable to find post matching ID " + postId)); //$NON-NLS-1$
+				.orElseThrow(() -> new NotFoundException("Unable to find post matching ID " + postId)); //$NON-NLS-1$
 		updatePost(post, bodyMarkdown, tags, title, thread, status);
 
 		posts.save(post);
@@ -169,7 +169,7 @@ public class PostController extends AbstractPostListController {
 	@Path("{postId}")
 	@RolesAllowed(UserInfoBean.ROLE_ADMIN)
 	public String delete(@PathParam("postId") String postId) {
-		Post post = posts.findPost(postId).orElseThrow(() -> new IllegalArgumentException("Unable to find post matching ID " + postId)); //$NON-NLS-1$
+		Post post = posts.findPost(postId).orElseThrow(() -> new NotFoundException("Unable to find post matching ID " + postId)); //$NON-NLS-1$
 		String id = post.getPostId();
 		posts.deleteById(post.getId());
 		comments.deleteById(comments.findByPostId(id).stream()

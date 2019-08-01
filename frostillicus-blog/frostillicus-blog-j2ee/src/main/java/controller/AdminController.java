@@ -25,6 +25,7 @@ import javax.mvc.Controller;
 import javax.ws.rs.DELETE;
 import javax.ws.rs.FormParam;
 import javax.ws.rs.GET;
+import javax.ws.rs.NotFoundException;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
@@ -57,7 +58,7 @@ public class AdminController {
 			@FormParam("name") String name,
 			@FormParam("url") String url
 		) {
-		Link link = links.findById(linkId).orElseThrow(() -> new IllegalArgumentException("Unable to find link matching ID " + linkId)); //$NON-NLS-1$
+		Link link = links.findById(linkId).orElseThrow(() -> new NotFoundException("Unable to find link matching ID " + linkId)); //$NON-NLS-1$
 		link.setVisible("Y".equals(visible)); //$NON-NLS-1$
 		link.setCategory(category);
 		link.setName(name);
