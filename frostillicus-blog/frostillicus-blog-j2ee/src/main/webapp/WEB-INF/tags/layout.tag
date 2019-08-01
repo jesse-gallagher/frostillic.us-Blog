@@ -35,7 +35,7 @@
 		<link rel="stylesheet" href="${pageContext.request.contextPath}/css/tabs.css" />
 		<link rel="stylesheet" href="${pageContext.request.contextPath}/css/tooltips.css" />
 		
-		<script type="text/javascript" src="${pageContext.request.contextPath}/js/turbolinks.js"></script>
+		<script type="text/javascript" src="${pageContext.request.contextPath}/webjars/turbolinks/5.2.0/dist/turbolinks.js"></script>
 		
 		<title>${translation.appTitle}</title>
 	</head>

@@ -169,7 +169,7 @@
 	</servlet-mapping>
 	<servlet-mapping>
 		<servlet-name>FilesServlet</servlet-name>
-		<url-pattern>/js/*</url-pattern>
+		<url-pattern>/webjars/*</url-pattern>
 	</servlet-mapping>
 	
 	<error-page>
