@@ -100,6 +100,11 @@
 			</dependency>
 			
 			<dependency>
+				<groupId>com.zaxxer</groupId>
+				<artifactId>HikariCP-java6</artifactId>
+				<version>2.3.13</version>
+			</dependency>
+			<dependency>
 				<groupId>org.projectlombok</groupId>
 				<artifactId>lombok</artifactId>
 				<version>1.18.8</version>
@@ -108,6 +113,21 @@
 				<groupId>com.atlassian.commonmark</groupId>
 				<artifactId>commonmark</artifactId>
 				<version>0.13.0</version>
+			</dependency>
+			<dependency>
+				<groupId>com.rometools</groupId>
+				<artifactId>rome</artifactId>
+				<version>1.12.1</version>
+			</dependency>
+			<dependency>
+				<groupId>org.jsoup</groupId>
+				<artifactId>jsoup</artifactId>
+				<version>1.12.1</version>
+			</dependency>
+			<dependency>
+				<groupId>org.webjars.npm</groupId>
+				<artifactId>turbolinks</artifactId>
+				<version>5.2.0</version>
 			</dependency>
 		</dependencies>
 	</dependencyManagement>
