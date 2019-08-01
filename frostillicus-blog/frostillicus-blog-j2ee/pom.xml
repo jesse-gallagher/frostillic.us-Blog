@@ -117,14 +117,6 @@
 			<groupId>org.webjars.npm</groupId>
 			<artifactId>turbolinks</artifactId>
 		</dependency>
-
-		<dependency>
-			<groupId>com.ibm.xsp</groupId>
-			<artifactId>com.ibm.notes.java.api.win32.linux</artifactId>
-			<version>[9.0.1,)</version>
-			<classifier>Notes</classifier>
-			<scope>provided</scope>
-		</dependency>
     </dependencies>
 
 	<build>
