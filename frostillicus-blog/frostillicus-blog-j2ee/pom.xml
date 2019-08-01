@@ -70,16 +70,6 @@
 		</dependency>
 
 		<dependency>
-			<groupId>com.darwino</groupId>
-			<artifactId>dwo-jre-jdbc-pool-hikaricp</artifactId>
-			<version>${DARWINO_VERSION}</version>
-		</dependency>
-		<dependency>
-			<groupId>com.zaxxer</groupId>
-			<artifactId>HikariCP-java6</artifactId>
-		</dependency>
-
-		<dependency>
 			<groupId>frostillicus.blog</groupId>
 			<artifactId>frostillicus-blog-shared</artifactId>
 			<version>${project.version}</version>
