@@ -82,6 +82,11 @@
 			<artifactId>dwo-jre-j2ee-mpconfig</artifactId>
 			<version>${DARWINO_VERSION}</version>
 		</dependency>
+		<dependency>
+			<groupId>com.darwino</groupId>
+			<artifactId>dwo-jre-cdi</artifactId>
+			<version>${DARWINO_VERSION}</version>
+		</dependency>
 
 		<dependency>
 			<groupId>frostillicus.blog</groupId>
