@@ -29,10 +29,10 @@ import static javax.servlet.RequestDispatcher.*;
 @WebServlet(name="ErrorHandler", urlPatterns="/errorHandler")
 public class ErrorHandlerServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-
+	
 	@Override
-    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        resp.setContentType("text/html; charset=utf-8"); //$NON-NLS-1$
+	protected void service(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		resp.setContentType("text/html; charset=utf-8"); //$NON-NLS-1$
         try (PrintWriter writer = resp.getWriter()) {
             String bodyHtml;
             try(InputStream is = getClass().getResourceAsStream("/WEB-INF/error.html")) { //$NON-NLS-1$
@@ -58,5 +58,5 @@ public class ErrorHandlerServlet extends HttpServlet {
 
             writer.write(bodyHtml);
         }
-    }
+	}
 }
