@@ -30,4 +30,3 @@ The compiled distribution of this project contains the following 3rd-party code:
 15. JDOM 2.0.6, which is copyright 2000-2015 Jason Hunter, licensed under a BSD/Apache-alike license, and available from https://mvnrepository.com/artifact/org.jdom/jdom2/2.0.6
 16. The SLF4J API 1.7.10, which is licensed under the MIT license and available from https://mvnrepository.com/artifact/org.slf4j/slf4j-api/1.7.10
 17. SnakeYAML 1.24, which is licensed under the Apache 2.0 license and available from https://mvnrepository.com/artifact/org.yaml/snakeyaml/1.24
-18. The PostgreSQL JDBC driver 42.2.6, which is licensed under the BSD 2-clause license and available from https://mvnrepository.com/artifact/org.postgresql/postgresql/42.2.6
