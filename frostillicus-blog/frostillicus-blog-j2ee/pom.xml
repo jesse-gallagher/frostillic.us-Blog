@@ -135,6 +135,12 @@
 					<groupId>com.darwino</groupId>
 					<artifactId>dwo-jre-jdbc-drivers-postgresql</artifactId>
 					<version>${DARWINO_VERSION}</version>
+					<exclusions>
+						<exclusion>
+							<groupId>org.postgresql</groupId>
+							<artifactId>postgresql</artifactId>
+						</exclusion>
+					</exclusions>
 				</dependency>
 			</dependencies>
 		</profile>
