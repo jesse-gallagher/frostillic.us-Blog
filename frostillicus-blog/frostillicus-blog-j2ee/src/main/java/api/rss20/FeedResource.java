@@ -29,6 +29,7 @@ import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
+import javax.ws.rs.core.StreamingOutput;
 import javax.ws.rs.core.UriInfo;
 
 import org.w3c.dom.Document;
@@ -63,7 +64,7 @@ public class FeedResource {
 	
 	@GET
 	@Produces("application/rss+xml")
-	public String get() throws FeedException {
+	public StreamingOutput get() throws FeedException {
 		SyndFeed feed = new SyndFeedImpl();
 		feed.setFeedType("rss_2.0"); //$NON-NLS-1$
 		feed.setTitle(translation.getString("appTitle")); //$NON-NLS-1$
@@ -84,7 +85,7 @@ public class FeedResource {
 		
 		Document result = new SyndFeedOutput().outputW3CDom(feed);
 		result.getDocumentElement().setAttribute("xml:base", uriInfo.getBaseUri().toString()); //$NON-NLS-1$
-		return DomUtil.getXMLString(result, false, true);
+		return out -> DomUtil.serialize(out, result, false, true);
 	}
 	
 	@SneakyThrows
