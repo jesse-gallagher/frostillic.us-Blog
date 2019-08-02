@@ -29,7 +29,7 @@ import com.darwino.j2ee.platform.DefaultWebPropertiesExtension;
 public class AppPlugin extends AppBasePlugin {
 	
 	public AppPlugin() {
-		super("frostillic.us J2EE Application"); //$NON-NLS-1$
+		super("frostillic.us Jakarta EE Application"); //$NON-NLS-1$
 	}
 
 	@Override
