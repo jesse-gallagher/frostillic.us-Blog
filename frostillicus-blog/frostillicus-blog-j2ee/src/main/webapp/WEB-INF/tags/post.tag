@@ -67,10 +67,10 @@
 				<t:comment value="${comment}"/>
 			</c:forEach>
 			
-			<form action="posts/${pageScope.value.postId}/comments" method="POST">
-				<fieldset class="new-comment crud">
-					<legend>${translation.newComment}</legend>
+			<fieldset>
+				<legend>${translation.newComment}</legend>
 					
+				<form action="posts/${pageScope.value.postId}/comments" method="POST" class="new-comment crud">
 					<label for="postedBy">${translation.authorLabel}</label>
 					<input type="text" name="postedBy" id="postedBy" required="required"
 						value="${userInfo.anonymous ? '' : userInfo.cn}"/>
@@ -94,8 +94,8 @@
 							<span class="tooltip-text">${translation.commentLegal}</span>
 						</span>
 					</div>
-				</fieldset>
-			</form>
+				</form>
+			</fieldset>
 		</section>
 	</c:if>
 	<c:if test="${pageScope.comments == null}">
