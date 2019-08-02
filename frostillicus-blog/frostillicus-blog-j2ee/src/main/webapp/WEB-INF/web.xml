@@ -1,8 +1,25 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xmlns="http://java.sun.com/xml/ns/javaee" xmlns:web="http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd"
-	xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd"
-	version="3.0" metadata-complete="true">
+<!--
+
+    Copyright © 2012-2019 Jesse Gallagher
+
+    Licensed under the Apache License, Version 2.0 (the "License");
+    you may not use this file except in compliance with the License.
+    You may obtain a copy of the License at
+
+        http://www.apache.org/licenses/LICENSE-2.0
+
+    Unless required by applicable law or agreed to in writing, software
+    distributed under the License is distributed on an "AS IS" BASIS,
+    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+    See the License for the specific language governing permissions and
+    limitations under the License.
+
+-->
+<web-app xmlns="http://xmlns.jcp.org/xml/ns/javaee"
+	  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	  xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_4_0.xsd"
+	  version="4.0" metadata-complete="false">
 	
 	<display-name>frostillic.us Blog</display-name>
 					
@@ -11,7 +28,6 @@
     	<param-name>dwo-auto-deploy-jsonstore</param-name>
     	<param-value>${frostillicus_blog.auto-deploy-jsonstore=true}</param-value>
     </context-param>
-
 
 	<context-param>
     	<param-name>dwo-sync-enabled</param-name>
@@ -57,22 +73,22 @@
 	<!-- Application initialization -->
 	<listener>
 	    <listener-class>
-			frostillicus.blog.app.AppContextListener        
-	    </listener-class>
+            darwino.AppContextListener
+        </listener-class>
 	</listener>
 
 		
 	<!--  Filter for Gzip -->
 	<!--  Note that a GZIP filter should not be applied twice in case of FORWARD -->
 	<!--  This filter should then be added first -->
-	<filter>
-    	<filter-name>GZipFilter</filter-name>
-    	<filter-class>com.darwino.j2ee.servlet.gzip.GZipServletFilter</filter-class>
-	</filter>
-	<filter-mapping>
-    	<filter-name>GZipFilter</filter-name>
-    	<url-pattern>/*</url-pattern>
-    </filter-mapping>
+ 	<!--<filter>-->
+     	<!--<filter-name>GZipFilter</filter-name>-->
+     	<!--<filter-class>com.darwino.j2ee.servlet.gzip.GZipServletFilter</filter-class>-->
+ 	<!--</filter>-->
+ 	<!--<filter-mapping>-->
+     	<!--<filter-name>GZipFilter</filter-name>-->
+     	<!--<url-pattern>/*</url-pattern>-->
+     <!--</filter-mapping>-->
 	
 		
 	<!--  Filter for custom authentication -->
@@ -84,7 +100,28 @@
         <init-param>
         	<param-name>modes</param-name>
             <param-value>FORM,BASIC</param-value>
-        </init-param>   		
+        </init-param>
+        <init-param>
+        	<param-name>login-param</param-name>
+        	<param-value>login</param-value>
+        </init-param>
+        <init-param>
+        	<param-name>logout-param</param-name>
+        	<param-value>logout</param-value>
+        </init-param>
+        <!-- for WebSphere -->
+        <init-param>
+        	<param-name>seek-bare-params</param-name>
+        	<param-value>true</param-value>
+        </init-param>
+        <init-param>
+        	<param-name>auth-required</param-name>
+        	<param-value>false</param-value>
+        </init-param>
+        <init-param>
+        	<param-name>login-form</param-name>
+        	<param-value>/WEB-INF/login.html</param-value>
+        </init-param>
     </filter>
 	<filter-mapping>
     	<filter-name>DarwinoAuthentication</filter-name>
@@ -102,20 +139,6 @@
     	<filter-name>DarwinoApplication</filter-name>
     	<url-pattern>/*</url-pattern>
 	</filter-mapping>
-	
-	<!--  CORS filter for the JsonStore -->
-<!-- 	
-	<filter>
-    	<filter-name>Cors</filter-name>
-    	<filter-class>com.darwino.j2ee.servlet.cors.CORSFilter</filter-class>
-	</filter>
-	<filter-mapping>
-    	<filter-name>Cors</filter-name>
-    	<url-pattern>/.darwino-jstore/*</url-pattern>
-    	<dispatcher>REQUEST</dispatcher>
-    	<dispatcher>FORWARD</dispatcher>
-    </filter-mapping>
--->    
 
 	<!-- Filter for $darwino-xxx URLs rewritting -->
 	<!--  This filter must be before the services or resources filters, to make sure that the URL is processed before reaching them -->
@@ -128,77 +151,28 @@
     	<url-pattern>/*</url-pattern>
 	</filter-mapping>
 	
-	<!--  Filter for publishing the Darwino Services -->
-	<filter>
-    	<filter-name>DarwinoServices</filter-name>
-    	<filter-class>frostillicus.blog.app.AppServiceDispatcher</filter-class>
-	</filter>
-	<filter-mapping>
-    	<filter-name>DarwinoServices</filter-name>
-    	<url-pattern>/*</url-pattern>
-    	<!-- DarwinoRewriting can trigger a forward  -->
-    	<dispatcher>REQUEST</dispatcher>
-    	<dispatcher>FORWARD</dispatcher>
-   </filter-mapping>
-				
-	<!--  Mapping for web resources -->
-	<!--  Mapping to /* prevents the <welcome-file-list> to be honored. To work it around, the servlet -->
-	<!--  has an optional welcome-file parameter. -->
-	<!--  The other solution is to map a subpath, like /mobile/* -->
-	<servlet-mapping>
-		<servlet-name>FilesServlet</servlet-name>
-		<url-pattern>/*</url-pattern>
-		<!-- <url-pattern>/mobile/*</url-pattern> -->
-	</servlet-mapping>
+	<!--
+		Pass known static folders through to the Darwino files servlet, ignoring the JAX-RS app
+	-->
 	<servlet>
 		<display-name>Default Files Servlet</display-name>
 		<servlet-name>FilesServlet</servlet-name>
 		<servlet-class>com.darwino.j2ee.servlet.resources.DarwinoAppResourcesServlet</servlet-class>
-		<!-- The welcome page should me managed by the service as it intercept /* -->
-		<init-param>
-			<param-name>welcome-file</param-name>
-			<param-value>/index.html</param-value>
-		</init-param>
 	</servlet>
+	<servlet-mapping>
+		<servlet-name>FilesServlet</servlet-name>
+		<url-pattern>/css/*</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>FilesServlet</servlet-name>
+		<url-pattern>/img/*</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>FilesServlet</servlet-name>
+		<url-pattern>/webjars/*</url-pattern>
+	</servlet-mapping>
 	
-		
-	<!-- Welcome pages -->
-	<!-- Done at the resource service level
-  	<welcome-file-list>
-    	<welcome-file>index.html</welcome-file>
-  	</welcome-file-list>
- 	-->
- 	
- 	
-	<!-- Enable this to use the J2EE CONTAINER security -->
-	<!-- 
-		At least the following resource must be protected for mobile access
-		This is used by the device to access the current user information based on the authenticated principal.
-		Not having this resource protected would result to an anonymous user returned to the mobile.
-		Note that the security layer can also be provided by a custon filter instead of the web application server. 
-	 -->
-<!-- 	
-	<security-role>
-		<role-name>user</role-name>
-	</security-role>
-	<security-constraint>
-		<web-resource-collection>
-			<web-resource-name>ApplicationRoot</web-resource-name>
-			<url-pattern>/*</url-pattern>
-		</web-resource-collection>
-		<web-resource-collection>
-			<web-resource-name>MobileService</web-resource-name>
-			<url-pattern>/.darwino-mobile/*</url-pattern>
-		</web-resource-collection>
- 		<auth-constraint>
-			<role-name>user</role-name>
-		</auth-constraint>
-	</security-constraint>
-
-	<login-config>
-		<auth-method>BASIC</auth-method>
-		<realm-name>frostillicus_blog</realm-name>
-	</login-config>
- -->
-   	  	
+	<error-page>
+		<location>/errorHandler</location>
+	</error-page>
 </web-app>

@@ -2,3 +2,8 @@
 ehthumbs.db
 Icon?
 Thumbs.db
+
+.vscode/
+
+.idea/
+*.iml

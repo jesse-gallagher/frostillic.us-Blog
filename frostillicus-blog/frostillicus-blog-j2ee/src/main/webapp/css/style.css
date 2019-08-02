@@ -1,0 +1,369 @@
+/**
+ * Copyright © 2012-2019 Jesse Gallagher
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+* {
+	box-sizing: border-box;
+}
+ 
+body, html {
+	background-color: rgb(56, 83, 136);
+	padding: 0;
+	margin: 0;
+}
+a {
+	color: rgb(51, 85, 136);
+}
+
+#entirety {
+	display: grid;
+	grid-gap: 0;
+	grid-template-areas: "header" "nav" "content" "footer";
+	
+	border: 1px solid black;
+	
+	font-family: -apple-system, "San Francisco", "Segoe UI", serif;
+	line-height: 1.3;
+	font-size: 15px;
+}
+
+#pageheader {
+	grid-area: header;
+	font-size: 2em;
+}
+#pageheader a {
+	text-decoration: none;
+	color: black;
+}
+
+#pagenav {
+	grid-area: nav;
+	
+	background-color: rgb(238, 238, 221);
+	padding: 0.5em;
+	
+	color: rgb(101, 101, 84);
+	font-size: 0.95em;
+	line-height: 1.7em;
+}
+#pagenav ul[title]:before {
+	content: attr(title);
+	display: block;
+	width: 100%;
+	border-bottom: 1px dotted rgb(101, 101, 84);
+}
+#pagenav li {
+	display: inline;
+}
+#pagenav a {
+	display: list-item;
+	list-style-type: square;
+}
+#pagenav .photo {
+	width: 128px;
+	max-width: 100%;
+	display: block;
+	margin: 0 auto;
+}
+
+#pagebody {
+	grid-area: content;
+	
+	background-color: white;
+	padding: 1em;
+}
+
+.post.post-Draft {
+	background: rgba(250, 251, 63, 0.2);
+	padding: 0.5em 1em;
+}
+
+.post header {
+	position: relative;
+}
+.post header h2 {
+	font-size: 1.8em;
+	font-weight: normal;
+	color: rgb(57, 82, 107);
+	margin-bottom: 0.25em;
+	border-bottom: 1px solid rgb(200, 200, 200);
+}
+.post header h2 a {
+	color: rgb(57, 82, 107);
+	text-decoration: none;
+}
+.post header h3, .post .comment > h3 {
+	font-size: 0.9em;
+	color: dimgrey;
+	margin-top: 0;
+	margin-bottom: 0.5em;
+}
+.post .comment > h3 {
+	font-size: 1.2em;
+}
+
+.post header > .admin {
+	position: absolute;
+	top: 0;
+	right: 0;
+}
+.post .admin form {
+	display: inline;
+}
+.post .admin input[type='submit'], .post .admin a {
+	border: 0;
+	background: transparent;
+	font-size: 1em;
+	display: inline-block;
+	padding: 0 0.25em;
+	text-decoration: none;
+}
+
+
+.meta, .meta a {
+	font-size: 0.9em;
+	color: dimgrey;
+}
+
+.post + .post {
+	margin-top: 2em;
+}
+
+.post .thread {
+	border: 1px solid lightblue;
+	padding: 0;
+	padding-bottom: 0.5em;
+}
+.post .thread:before {
+	display: block;
+	content: attr(title);
+	padding: 0.5em;
+	border-bottom: 1px solid lightblue;
+	background-color: rgba(0, 0, 128, 0.05);
+	margin-bottom: 0.5em;
+}
+.post .thread li {
+	margin-left: 3em;
+	line-height: 1.4;
+}
+.post img {
+	max-width: 100%;
+	height: auto;
+}
+.post img:not([width]) {
+	width: auto;
+}
+.post img:not([height]) {
+	height: auto;
+}
+.post h2 {
+	font-weight: normal;
+	font-size: 2em;
+	margin-bottom: 0;
+}
+.post h3 {
+	font-weight: normal;
+	font-size: 1.6em;
+	margin-bottom: 0;
+}
+
+.comments {
+	margin-top: 2em;
+}
+.comments:before {
+	content: "Comments";
+	font-size: 1.2em;
+	font-weight: bold;
+	color: #888;
+	border-bottom: 1px solid #ddd;
+	margin-bottom: 1em;
+	display: block;
+}
+
+.comment {
+	display: grid;
+}
+.comment.spam {
+	background: rgba(250, 251, 63, 0.2);
+	padding: 0.5em 1em;
+}
+.comment + .comment {
+	margin-top: 1em;
+}
+
+.comment .photo {
+	grid-area: photo;
+	max-width: 48px;
+}
+.comment > h3 {
+	grid-area: title;
+}
+.comment > .admin {
+	grid-area: admin;
+	text-align: right;
+}
+.comment > .comment-body {
+	grid-area: content;
+}
+.comment > .comment-body p:first-child {
+	margin-top: 0;
+}
+
+#pagefooter {
+	grid-area: footer;
+	
+	color: rgba(0, 0, 0, 0.9);
+	text-align: center;
+
+	font-size: 0.9em;
+}
+#pagefooter a {
+	color: rgba(0, 0, 0, 0.9);
+}
+
+input:invalid {
+	border-color: red;
+}
+
+.admin-console {
+	border: 0;
+	width: 100%;
+	height: 900px;
+}
+
+code, pre {
+	font-family: "Consolas", monospace;
+	background-color: #eee;
+	border: 1px solid #ddd;
+}
+pre {
+	overflow-x: auto;
+	padding: 0.5em;
+}
+pre code, .hilite-me pre {
+	border: 0;
+	padding: 0;
+	background-color: transparent;
+}
+.hilite-me {
+	font-size: 13px;
+}
+
+.posts-older-newer {
+	display: grid;
+	grid-template-columns: 1fr 1fr;
+	grid-template-areas: "newer older";
+}
+.posts-older-newer .newer {
+	grid-area: newer;
+	text-align: left;
+}
+.posts-older-newer .newer:before {
+	content: "<< ";
+}
+.posts-older-newer .older {
+	grid-area: older;
+	text-align: right;
+}
+.posts-older-newer .older::after {
+	content: " >>";
+}
+
+/* Don't word break in most cases, but allow it for prime offenders */
+code, .comment .comment-body {
+	word-wrap: break-word;
+	hyphens: auto;
+	-webkit-hyphens: auto;
+	word-break: break-all;
+}
+
+@media (max-width: 699px) {
+	#entirety {
+		border: 0;
+		max-width: 100%;
+		grid-template-columns: minmax(0, 1fr);
+	}
+	#pageheader {
+		background-color: rgb(204, 221, 204);
+	}
+	#pagefooter {
+		padding: 0.5em;
+		background-color: rgb(111, 149, 208);
+	}
+
+	.post pre {
+		width: calc(100vw - 2em - 2px);
+	}
+	
+	.comment {
+		grid-template-columns: 5fr 1fr;
+		grid-template-areas:
+			"title admin"
+			"content content";
+	}
+	
+	.comment .photo {
+		display: none;
+	}
+}
+@media (min-width : 700px) {
+	#entirety {
+		width: 80%;
+		max-width: 1200px;
+		margin: 2em auto;
+		grid-template-columns: minmax(210px, 1fr) minmax(0, 5fr);
+		grid-template-areas:
+			"header header"
+			"nav    content"
+			"nav    content"
+			"footer footer";
+	}
+	#pageheader {
+		display: grid;
+		grid-template-columns: minmax(210px, 1fr) 5fr;
+		grid-template-areas: "padding link";
+		background-color: rgb(187, 204, 187);
+	}
+	#pageheader a {
+		grid-area: link;
+		display: block;
+		padding: 0.5em;
+		background-color: rgb(204, 221, 204);
+	}
+	
+	.post .body {
+		margin-left: 3em;
+		max-width: 100%;
+	}
+	
+	.comment {
+		grid-template-columns: 52px 6fr 1fr;
+		grid-template-areas:
+			"photo title admin"
+			"photo content content";
+	}
+	
+	#pagefooter {
+		display: grid;
+		grid-template-columns: minmax(210px, 1fr) 5fr;
+		grid-template-areas: "padding text";
+		background-color: rgb(105, 140, 182);
+	}
+	#pagefooter p {
+		grid-area: text;
+		padding: 0.5em;
+		background-color: rgb(111, 149, 208);
+		margin: 0;
+	}
+}

@@ -1,0 +1,115 @@
+/**
+ * Copyright © 2012-2019 Jesse Gallagher
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+/*
+	Derived from "Tabs with CSS3 and HTML5 only", written by
+	César Gabriel, licensed under the MIT license, and
+	available from https://codepen.io/CesarGabriel/pen/nLhAa
+*/
+
+/*
+Example use:
+	<div class="tab-container">
+		<input type="radio" id="tab1" name="tab-group" checked="checked" />
+		<label for="tab1">Tab 1</label>
+		<input type="radio" id="tab2" name="tab-group" />
+		<label for="tab2">Tab 2</label>
+		<input type="radio" id="tab3" name="tab-group" />
+		<label for="tab3">Tab 3</label>
+		<div class="tabs">
+			<div class="tab">
+				I'm tab 1
+			</div>
+			<div class="tab">
+				I'm tab 2
+			</div>
+			<div class="tab">
+				I'm tab 3
+			</div>
+		</div>
+	</div>
+*/
+
+.tab-container > input[type='radio'] {
+	height: 2.5em;
+	visibility: hidden;
+}
+
+/* labels are used as the tabs themselves */
+.tab-container > label {
+	background: #f9f9f9;
+	border-radius: 0.25em 0.25em 0 0;
+	color: #888;
+	cursor: pointer;
+	display: block;
+	float: left;
+	font-size: 1em;
+	height: 2.5em;
+	line-height: 2.5em;
+	margin-right: 0.25em;
+	padding: 0 1.5em;
+	text-align: center;
+}
+.tab-container > input[type='radio']:hover + label {
+	background: #ddd;
+	color: #666;
+}
+.tab-container > input[type='radio']:checked + label {
+	background: white;
+	border: 1px solid #ccc;
+	border-bottom: 0;
+	color: #444;
+	position: relative;
+	z-index: 6;
+	transition: 0.1s;
+	top: 1px;
+}
+
+/* Container for the tabs themselves */
+.tab-container > .tabs {
+	background: white;
+	border: 1px solid #ccc;
+	border-radius: 0 0.25em 0.25em 0.25em;
+	min-height: 5em;
+	position: relative;
+	width: 100%;
+	z-index: 5;
+	clear: left;
+}
+
+/* An individual tab */
+.tab-container > .tabs > .tab {
+	display: none;
+	padding: 1.5em;
+	z-index: -100;
+	
+	transition: all linear 0.1s;
+}
+
+/* Display tabs when selected */
+/* Support up to 10 tabs, since I don't know of a way to do this generically in pure CSS */
+.tab-container > input[type='radio']:nth-of-type(1):checked ~ .tabs > .tab:nth-child(1),
+.tab-container > input[type='radio']:nth-of-type(2):checked ~ .tabs > .tab:nth-child(2),
+.tab-container > input[type='radio']:nth-of-type(3):checked ~ .tabs > .tab:nth-child(3),
+.tab-container > input[type='radio']:nth-of-type(4):checked ~ .tabs > .tab:nth-child(4),
+.tab-container > input[type='radio']:nth-of-type(5):checked ~ .tabs > .tab:nth-child(5),
+.tab-container > input[type='radio']:nth-of-type(6):checked ~ .tabs > .tab:nth-child(6),
+.tab-container > input[type='radio']:nth-of-type(7):checked ~ .tabs > .tab:nth-child(7),
+.tab-container > input[type='radio']:nth-of-type(8):checked ~ .tabs > .tab:nth-child(8),
+.tab-container > input[type='radio']:nth-of-type(9):checked ~ .tabs > .tab:nth-child(9),
+.tab-container > input[type='radio']:nth-of-type(10):checked ~ .tabs > .tab:nth-child(10) {
+	display: block;
+	z-index: 100;
+}

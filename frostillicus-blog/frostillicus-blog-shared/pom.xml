@@ -4,7 +4,7 @@
 	<parent>
 		<groupId>frostillicus.blog</groupId>
 		<artifactId>frostillicus-blog</artifactId>
-		<version>0.0.1-SNAPSHOT</version>
+		<version>2.0.0</version>
 	</parent>
 	<artifactId>frostillicus-blog-shared</artifactId>
 	
@@ -16,18 +16,74 @@
 		</dependency>
 		<dependency>
 			<groupId>com.darwino</groupId>
-			<artifactId>dwo-jsonstore-services</artifactId>
-			<version>${DARWINO_VERSION}</version>
-		</dependency>
-		<dependency>
-			<groupId>com.darwino</groupId>
 			<artifactId>dwo-services-social</artifactId>
 			<version>${DARWINO_VERSION}</version>
 		</dependency>
+		
+		<!-- General utilities -->
+		<dependency>
+			<groupId>org.projectlombok</groupId>
+			<artifactId>lombok</artifactId>
+			<scope>provided</scope>
+		</dependency>
+		<dependency>
+			<groupId>com.atlassian.commonmark</groupId>
+			<artifactId>commonmark</artifactId>
+		</dependency>
+
+
+        <dependency>
+            <groupId>javax.enterprise</groupId>
+            <artifactId>cdi-api</artifactId>
+            <scope>provided</scope>
+        </dependency>
+		<dependency>
+			<groupId>javax.validation</groupId>
+			<artifactId>validation-api</artifactId>
+			<scope>provided</scope>
+		</dependency>
+		
+		<!--
+			JNoSQL
+		 -->
+		<dependency>
+			<groupId>org.jnosql.artemis</groupId>
+			<artifactId>artemis-core</artifactId>
+			<version>${jnosql-version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.jnosql.artemis</groupId>
+			<artifactId>artemis-document</artifactId>
+			<version>${jnosql-version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.jnosql.artemis</groupId>
+			<artifactId>artemis-validation</artifactId>
+			<version>${jnosql-version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.darwino</groupId>
+			<artifactId>darwino-jnosql-diana-driver</artifactId>
+			<version>${jnosql-version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.darwino</groupId>
+			<artifactId>darwino-jnosql-artemis-extension</artifactId>
+			<version>${jnosql-version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.jnosql.diana</groupId>
+			<artifactId>diana-document</artifactId>
+			<version>${jnosql-version}</version>
+		</dependency>
+		
+		<!--
+			Bean Validation 
+		 -->
+		<dependency>
+			<groupId>javax.el</groupId>
+			<artifactId>javax.el-api</artifactId>
+			<scope>provided</scope>
+		</dependency>
 	</dependencies>
-	
-	<build>
-		<plugins>
-		</plugins>
-	</build>
 </project>
