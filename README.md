@@ -27,3 +27,23 @@ If the database connection is set up via JNDI, then the Darwino bean should be c
 </bean>
 ```
 
+### Open Liberty Notes
+
+To run on Open Liberty or WLP, the following feature set is required at minimum:
+
+```xml
+<features>
+    <feature>appSecurity-3.0</feature>
+    <feature>beanValidation-2.0</feature>
+    <feature>cdi-2.0</feature>
+    <feature>jaxrs-2.1</feature>
+    <feature>servlet-4.0</feature>
+    <feature>jsonb-1.0</feature>
+    <feature>jsp-2.3</feature>
+    
+    <feature>mpConfig-1.3</feature>
+    <feature>mpRestClient-1.3</feature>
+</features>
+```
+
+For JNDI database use, "jdbc-4-2" and "jndi-1.0" are also required. Alternatively, the "javaee-8.0" and "microprofile-3.0" features will cover everything.
