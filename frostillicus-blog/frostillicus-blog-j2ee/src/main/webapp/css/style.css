@@ -280,6 +280,13 @@ pre code, .hilite-me pre {
 	content: " >>";
 }
 
+/* Don't word break in most cases, but allow it for prime offenders */
+code, .comment .comment-body {
+	word-wrap: break-word;
+	hyphens: auto;
+	-webkit-hyphens: auto;
+	word-break: break-all;
+}
 
 @media (max-width: 699px) {
 	#entirety {
