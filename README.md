@@ -12,6 +12,7 @@ The application requires a Java EE 8 and MicroProfile 3.0 container - it should 
   - It also assumes the presence of the PostgreSQL JDBC driver on the global classpath
 - The application uses Akismet for comment spam detection, and this should be configured with the `frostillicus_blog.akismet-api-key` and `frostillicus_blog.akismet-blog` properties in "darwino.properties" or any location known to the MicroProfile Config API
 - The Darwino debug console (for admin users) can be enabled by setting the `frostillicus_blog.dwo-runtime-debug-enable` property to `true` in "darwino.properties"
+- By default, the RSS feed uses the base URL from "translation.properties" in the j2ee project, but this can be overridden to use the incoming request information by setting `frostillicus_blog.rss-request-urls` to `true` in "darwino.properties"
 
 ### JNDI Notes
 

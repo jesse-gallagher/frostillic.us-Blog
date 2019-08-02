@@ -32,6 +32,7 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.StreamingOutput;
 import javax.ws.rs.core.UriInfo;
 
+import org.eclipse.microprofile.config.inject.ConfigProperty;
 import org.w3c.dom.Document;
 
 import com.darwino.commons.util.PathUtil;
@@ -47,6 +48,7 @@ import com.rometools.rome.feed.synd.SyndImageImpl;
 import com.rometools.rome.io.FeedException;
 import com.rometools.rome.io.SyndFeedOutput;
 
+import darwino.AppDatabaseDef;
 import lombok.SneakyThrows;
 import model.Post;
 import model.PostRepository;
@@ -61,35 +63,45 @@ public class FeedResource {
 	ServletContext servletContext;
 	@Context
 	UriInfo uriInfo;
+
+	@Inject
+	@ConfigProperty(name=AppDatabaseDef.DATABASE_NAME+".rss-request-urls", defaultValue="false")
+	private boolean rssRequestUrls;
 	
 	@GET
 	@Produces("application/rss+xml")
 	public StreamingOutput get() throws FeedException {
+		String baseUrl;
+		if(rssRequestUrls) {
+			baseUrl = uriInfo.getBaseUri().toString();
+		} else {
+			baseUrl = translation.getString("baseUrl"); //$NON-NLS-1$
+		}
+		
 		SyndFeed feed = new SyndFeedImpl();
 		feed.setFeedType("rss_2.0"); //$NON-NLS-1$
 		feed.setTitle(translation.getString("appTitle")); //$NON-NLS-1$
 		feed.setDescription(translation.getString("appDescription")); //$NON-NLS-1$
-//		feed.setLink(translation.getString("baseUrl")); //$NON-NLS-1$
-		feed.setLink(uriInfo.getBaseUri().toString());
+		feed.setLink(baseUrl);
 		
 		SyndImage icon = new SyndImageImpl();
-		icon.setUrl(PathUtil.concat(uriInfo.getBaseUri().toString(), "img/icon.png", '/')); //$NON-NLS-1$
+		icon.setUrl(PathUtil.concat(baseUrl, servletContext.getContextPath(), "img/icon.png")); //$NON-NLS-1$
 		icon.setTitle(translation.getString("appTitle")); //$NON-NLS-1$
-		icon.setLink(uriInfo.getBaseUri().toString());
+		icon.setLink(baseUrl);
 		feed.setIcon(icon);
 		feed.setImage(icon);
 		
 		feed.setEntries(posts.homeList().stream()
-			.map(this::toEntry)
+			.map(post -> toEntry(post, baseUrl))
 			.collect(Collectors.toList()));
 		
 		Document result = new SyndFeedOutput().outputW3CDom(feed);
-		result.getDocumentElement().setAttribute("xml:base", uriInfo.getBaseUri().toString()); //$NON-NLS-1$
+		result.getDocumentElement().setAttribute("xml:base", baseUrl); //$NON-NLS-1$
 		return out -> DomUtil.serialize(out, result, false, true);
 	}
 	
 	@SneakyThrows
-	private SyndEntry toEntry(Post post) {
+	private SyndEntry toEntry(Post post, String baseUrl) {
 		SyndEntry entry = new SyndEntryImpl();
 		
 		String author = post.getPostedBy();
@@ -105,8 +117,7 @@ public class FeedResource {
 		entry.setAuthor(author);
 		
 		entry.setTitle(post.getTitle());
-//		entry.setLink(translation.getString("baseUrl") + servletContext.getContextPath() + "/posts/" + post.getPostedYear() + "/" + post.getPostedMonth() + "/" + post.getPostedDay() + "/" + post.getSlug()); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$ //$NON-NLS-4$ //$NON-NLS-5$
-		entry.setLink(PathUtil.concat(uriInfo.getBaseUri().toString(), "posts", '/') + "/" + post.getPostedYear() + "/" + post.getPostedMonth() + "/" + post.getPostedDay() + "/" + post.getSlug()); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$ //$NON-NLS-4$ //$NON-NLS-5$
+		entry.setLink(PathUtil.concat(baseUrl, servletContext.getContextPath(), "posts") + "/" + post.getPostedYear() + "/" + post.getPostedMonth() + "/" + post.getPostedDay() + "/" + post.getSlug()); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$ //$NON-NLS-4$ //$NON-NLS-5$
 		entry.setPublishedDate(Date.from(post.getPosted().toInstant()));
 		SyndContent content = new SyndContentImpl();
 		content.setType(MediaType.TEXT_HTML);
