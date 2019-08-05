@@ -24,7 +24,9 @@ import javax.enterprise.context.RequestScoped;
 import javax.mvc.Controller;
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
+import javax.ws.rs.Produces;
 import javax.ws.rs.QueryParam;
+import javax.ws.rs.core.MediaType;
 
 import static model.util.PostUtil.PAGE_LENGTH;
 
@@ -36,6 +38,7 @@ import java.util.List;
 public class HomeController extends AbstractPostListController {
 	
 	@GET
+	@Produces(MediaType.TEXT_HTML)
 	public String get(@QueryParam("start") String startParam) throws JsonException {
 		String maybeList = maybeList(startParam);
 		if(StringUtil.isEmpty(maybeList)) {

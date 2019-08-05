@@ -29,6 +29,8 @@ import javax.ws.rs.NotFoundException;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
+import javax.ws.rs.Produces;
+import javax.ws.rs.core.MediaType;
 
 import bean.UserInfoBean;
 import model.Link;
@@ -45,6 +47,7 @@ public class AdminController {
 	ResourceBundle translation;
 	
 	@GET
+	@Produces(MediaType.TEXT_HTML)
 	public String show() {
 		return "admin.jsp"; //$NON-NLS-1$
 	}
@@ -86,6 +89,7 @@ public class AdminController {
 	
 	@GET
 	@Path("console")
+	@Produces(MediaType.TEXT_HTML)
 	public String showConsole() {
 		return "admin-console.jsp"; //$NON-NLS-1$
 	}
