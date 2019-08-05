@@ -49,6 +49,7 @@ public class PostController extends AbstractPostListController {
 	UserInfoBean userInfo;
 	
 	@GET
+	@Produces(MediaType.TEXT_HTML)
 	public String list(@QueryParam("start") String startParam) throws JsonException {
 		String maybeList = maybeList(startParam);
 		if(StringUtil.isNotEmpty(maybeList)) {
@@ -69,6 +70,7 @@ public class PostController extends AbstractPostListController {
 
 	@GET
 	@Path("{year}/{month}")
+	@Produces(MediaType.TEXT_HTML)
 	public String listByMonth(@PathParam("year") int year, @PathParam("month") int month, @QueryParam("start") String startParam) {
 		String monthQuery = String.format("%04d-%02d", year, month); //$NON-NLS-1$
 		models.put("posts", posts.findByMonth(monthQuery)); //$NON-NLS-1$
@@ -77,6 +79,7 @@ public class PostController extends AbstractPostListController {
 	
 	@GET
 	@Path("tag/{tag}")
+	@Produces(MediaType.TEXT_HTML)
 	public String byTag(@PathParam("tag") String tag) {
 		models.put("tag", tag); //$NON-NLS-1$
 		models.put("posts", posts.findByTag(tag)); //$NON-NLS-1$
@@ -85,6 +88,7 @@ public class PostController extends AbstractPostListController {
 	
 	@GET
 	@Path("new")
+	@Produces(MediaType.TEXT_HTML)
 	@RolesAllowed(UserInfoBean.ROLE_ADMIN)
 	public String compose() {
 		models.put("post", new Post()); //$NON-NLS-1$
@@ -112,6 +116,7 @@ public class PostController extends AbstractPostListController {
 
 	@GET
 	@Path("{postId}")
+	@Produces(MediaType.TEXT_HTML)
 	public String show(@PathParam("postId") String postId) {
 		Post post = posts.findPost(postId)
 				.orElseThrow(() -> new NotFoundException("Unable to find post matching ID " + postId)); //$NON-NLS-1$
@@ -121,6 +126,7 @@ public class PostController extends AbstractPostListController {
 	
 	@GET
 	@Path("{year}/{month}/{day}/{postId}")
+	@Produces(MediaType.TEXT_HTML)
 	public String showByDate(@PathParam("year") int year, @PathParam("month") int month, @PathParam("day") int day, @PathParam("postId") String postId) {
 		Post post = posts.findPost(postId)
 				.orElseThrow(() -> new NotFoundException("Unable to find post matching ID " + postId)); //$NON-NLS-1$
@@ -132,6 +138,7 @@ public class PostController extends AbstractPostListController {
 	
 	@GET
 	@Path("{year}/{month}/{day}/{postId}/edit")
+	@Produces(MediaType.TEXT_HTML)
 	@RolesAllowed(UserInfoBean.ROLE_ADMIN)
 	public String edit(@PathParam("postId") String postId) {
 		Post post = posts.findPost(postId).orElseThrow(() -> new NotFoundException("Unable to find post matching ID " + postId)); //$NON-NLS-1$
@@ -193,6 +200,7 @@ public class PostController extends AbstractPostListController {
 	// *******************************************************************************
 	@GET
 	@Path("search")
+	@Produces(MediaType.TEXT_HTML)
 	public String search(@QueryParam("q") String query) {
 		// TODO handle this in the query or cursor itself
 		List<Post> found = posts.search(query);
