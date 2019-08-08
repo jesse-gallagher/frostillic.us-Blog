@@ -48,3 +48,10 @@ To run on Open Liberty or WLP, the following feature set is required at minimum:
 ```
 
 For JNDI database use, "jdbc-4-2" and "jndi-1.0" are also required. Alternatively, the "javaee-8.0" and "microprofile-3.0" features will cover everything.
+
+The app can get very chatty in Liberty, spitting out stack traces when a post ID isn't found and periodically when something in the stack tries to set a header after the fact. This chatter can be reduced by ignoring a couple message codes in the server.xml:
+
+```xml
+<logging hideMessage="SRVE0315E,SRVE0777E,SRVE8115W,SRVE8094W"/>
+```
+
