@@ -67,6 +67,7 @@ public class Post {
 	@Column private String name;
 	@Column @Convert(ISOOffsetDateTimeConverter.class) private OffsetDateTime modified;
 	@Column private String modifiedBy;
+	@Column private boolean hasGoneLive;
 	
 	static void querySave(@Observes EntityPrePersist entity) {
 		if(!(entity.getValue() instanceof Post)) {
@@ -97,6 +98,14 @@ public class Post {
 		// Update the calculated HTML body
 		MarkdownBean markdown = CDI.current().select(MarkdownBean.class).get();
 		post.setBodyHtml(markdown.toHtml(StringUtil.toString(post.getBodyMarkdown())));
+		
+		// Set the posted time if this is the first time it's posted or has gone live
+		if(post.posted == null || (post.status == Status.Posted && !post.hasGoneLive)) {
+			post.setPosted(OffsetDateTime.now());
+		}
+		if(post.status == Status.Posted && !post.hasGoneLive) {
+			post.setHasGoneLive(true);
+		}
 	}
 	
 	// *******************************************************************************

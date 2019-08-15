@@ -230,7 +230,6 @@ public class BlogResource {
         post.setBodyMarkdown(body);
         post.setTags(tags);
         post.setStatus(posted ? Post.Status.Posted : Post.Status.Draft);
-        post.setPosted(OffsetDateTime.now());
         posts.save(post);
     }
 
