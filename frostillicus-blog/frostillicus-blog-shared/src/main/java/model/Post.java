@@ -17,10 +17,12 @@ package model;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import model.util.UtilDateOffsetConverter;
 
 import org.darwino.jnosql.artemis.extension.converter.ISOOffsetDateTimeConverter;
 
 import com.darwino.commons.util.StringUtil;
+import com.darwino.jsonstore.Document;
 
 import bean.MarkdownBean;
 import jakarta.nosql.mapping.Column;
@@ -65,7 +67,7 @@ public class Post {
 	@Column private String thread;
 	@Column private Status status;
 	@Column private String name;
-	@Column @Convert(ISOOffsetDateTimeConverter.class) private OffsetDateTime modified;
+	@Column(Document.SYSTEM_META_MDATE) @Convert(UtilDateOffsetConverter.class) private OffsetDateTime modified;
 	@Column private String modifiedBy;
 	@Column private boolean hasGoneLive;
 	@Column private boolean isConflict;
