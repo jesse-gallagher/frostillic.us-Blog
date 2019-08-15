@@ -16,6 +16,7 @@
 package api.atompub;
 
 import bean.UserInfoBean;
+import controller.PostController;
 
 import com.darwino.commons.json.JsonException;
 import com.darwino.commons.util.PathUtil;
@@ -181,7 +182,8 @@ public class BlogResource {
 
         // Add links
         SyndLink read = new SyndLinkImpl();
-        read.setHref(resolveUrl(AtomPubAPI.BLOG_ID, post.getPostId()));
+        String postsRoot = PostController.class.getAnnotation(Path.class).value();
+        read.setHref(resolveUrlRoot(postsRoot, post.getPostId()));
         SyndLink edit = new SyndLinkImpl();
         edit.setHref(resolveUrl(AtomPubAPI.BLOG_ID, post.getPostId()));
         edit.setRel("edit"); //$NON-NLS-1$
@@ -236,6 +238,14 @@ public class BlogResource {
     private String resolveUrl(String... parts) {
         URI baseUri = uriInfo.getBaseUri();
         String uri = PathUtil.concat(baseUri.toString(), AtomPubAPI.BASE_PATH);
+        for(String part : parts) {
+            uri = PathUtil.concat(uri, part);
+        }
+        return uri;
+    }
+    private String resolveUrlRoot(String... parts) {
+        URI baseUri = uriInfo.getBaseUri();
+        String uri = baseUri.toString();
         for(String part : parts) {
             uri = PathUtil.concat(uri, part);
         }
