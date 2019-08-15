@@ -44,6 +44,7 @@ public class Comment {
 	@Column("http_user_agent") private String httpUserAgent;
 	@Column("remote_addr") private String httpRemoteAddr;
 	@Column("akismetspam") private boolean akismetSpam;
+	@Column private boolean isConflict;
 
 	public Date getPostedDate() {
 		return Date.from(posted.toInstant());

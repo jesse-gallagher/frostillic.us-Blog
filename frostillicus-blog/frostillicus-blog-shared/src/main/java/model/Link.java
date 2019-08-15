@@ -33,4 +33,5 @@ public class Link {
 	@Column("link_url") @NotEmpty private String url;
 	@Column("link_name") @NotEmpty private String name;
 	@Column("link_visible") @Convert(BooleanYNConverter.class) private boolean visible;
+	@Column private boolean isConflict;
 }

@@ -68,6 +68,7 @@ public class Post {
 	@Column @Convert(ISOOffsetDateTimeConverter.class) private OffsetDateTime modified;
 	@Column private String modifiedBy;
 	@Column private boolean hasGoneLive;
+	@Column private boolean isConflict;
 	
 	static void querySave(@Observes EntityPrePersist entity) {
 		if(!(entity.getValue() instanceof Post)) {
