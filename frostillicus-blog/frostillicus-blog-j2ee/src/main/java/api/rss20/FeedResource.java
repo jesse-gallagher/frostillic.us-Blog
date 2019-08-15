@@ -36,6 +36,7 @@ import org.eclipse.microprofile.config.inject.ConfigProperty;
 import org.w3c.dom.Document;
 
 import com.darwino.commons.util.PathUtil;
+import com.darwino.commons.util.StringUtil;
 import com.darwino.commons.xml.DomUtil;
 import com.rometools.rome.feed.synd.SyndContent;
 import com.rometools.rome.feed.synd.SyndContentImpl;
@@ -119,10 +120,17 @@ public class FeedResource {
 		entry.setTitle(post.getTitle());
 		entry.setLink(PathUtil.concat(baseUrl, servletContext.getContextPath(), "posts") + "/" + post.getPostedYear() + "/" + post.getPostedMonth() + "/" + post.getPostedDay() + "/" + post.getSlug()); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$ //$NON-NLS-4$ //$NON-NLS-5$
 		entry.setPublishedDate(Date.from(post.getPosted().toInstant()));
+		
+		String summary = post.getSummary();
 		SyndContent content = new SyndContentImpl();
-		content.setType(MediaType.TEXT_HTML);
-		// TODO consider parsing and manipulating the HTML to have a base for images
-		content.setValue(post.getBodyHtml());
+		if(StringUtil.isNotEmpty(summary)) {
+			content.setType(MediaType.TEXT_PLAIN);
+			content.setValue(summary);
+		} else {
+			content.setType(MediaType.TEXT_HTML);
+			// TODO consider parsing and manipulating the HTML to have a base for images
+			content.setValue(post.getBodyHtml());
+		}
 		entry.setContents(Arrays.asList(content));
 		
 		return entry;

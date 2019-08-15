@@ -69,6 +69,7 @@ public class Post {
 	@Column private String modifiedBy;
 	@Column private boolean hasGoneLive;
 	@Column private boolean isConflict;
+	@Column private String summary;
 	
 	static void querySave(@Observes EntityPrePersist entity) {
 		if(!(entity.getValue() instanceof Post)) {
