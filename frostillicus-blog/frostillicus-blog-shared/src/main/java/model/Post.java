@@ -78,7 +78,9 @@ public class Post {
 		if(StringUtil.isEmpty(post.getName()) && post.getStatus() == Status.Posted) {
 			PostRepository posts = CDI.current().select(PostRepository.class).get();
 			
-			String baseName = StringUtil.toString(post.getTitle()).toLowerCase().replaceAll("\\s+", "-"); //$NON-NLS-1$ //$NON-NLS-2$
+			String baseName = StringUtil.toString(post.getTitle()).toLowerCase()
+					.replaceAll("[^\\w]", "-") //$NON-NLS-1$ //$NON-NLS-2$
+					.replaceAll("--+", "-"); //$NON-NLS-1$ //$NON-NLS-2$
 			int dedupe = 1;
 			String name = baseName;
 			
