@@ -32,7 +32,7 @@ import lombok.SneakyThrows;
 @RequestScoped
 @Named("userInfo")
 public class UserInfoBean {
-	public static final String ROLE_ADMIN = "Admin"; //$NON-NLS-1$
+	public static final String ROLE_ADMIN = "admin"; //$NON-NLS-1$
 	
 	@Inject @Named("darwinoContext")
 	DarwinoContext context;

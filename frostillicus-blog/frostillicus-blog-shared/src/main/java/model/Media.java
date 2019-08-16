@@ -36,4 +36,5 @@ public class Media {
 	@Column(EntityConverter.ATTACHMENT_FIELD) private List<EntityAttachment> attachments;
 	@Column(Document.SYSTEM_META_MDATE) private Date lastModificationDate;
 	@Column(Document.SYSTEM_META_CUSER) private String creationUser;
+	@Column private boolean isConflict;
 }

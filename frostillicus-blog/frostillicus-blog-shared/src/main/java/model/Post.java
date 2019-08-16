@@ -17,10 +17,12 @@ package model;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import model.util.UtilDateOffsetConverter;
 
 import org.darwino.jnosql.artemis.extension.converter.ISOOffsetDateTimeConverter;
 
 import com.darwino.commons.util.StringUtil;
+import com.darwino.jsonstore.Document;
 
 import bean.MarkdownBean;
 import jakarta.nosql.mapping.Column;
@@ -65,8 +67,11 @@ public class Post {
 	@Column private String thread;
 	@Column private Status status;
 	@Column private String name;
-	@Column @Convert(ISOOffsetDateTimeConverter.class) private OffsetDateTime modified;
+	@Column(Document.SYSTEM_META_MDATE) @Convert(UtilDateOffsetConverter.class) private OffsetDateTime modified;
 	@Column private String modifiedBy;
+	@Column private boolean hasGoneLive;
+	@Column private boolean isConflict;
+	@Column private String summary;
 	
 	static void querySave(@Observes EntityPrePersist entity) {
 		if(!(entity.getValue() instanceof Post)) {
@@ -78,7 +83,9 @@ public class Post {
 		if(StringUtil.isEmpty(post.getName()) && post.getStatus() == Status.Posted) {
 			PostRepository posts = CDI.current().select(PostRepository.class).get();
 			
-			String baseName = StringUtil.toString(post.getTitle()).toLowerCase().replaceAll("\\s+", "-"); //$NON-NLS-1$ //$NON-NLS-2$
+			String baseName = StringUtil.toString(post.getTitle()).toLowerCase()
+					.replaceAll("[^\\w]", "-") //$NON-NLS-1$ //$NON-NLS-2$
+					.replaceAll("--+", "-"); //$NON-NLS-1$ //$NON-NLS-2$
 			int dedupe = 1;
 			String name = baseName;
 			
@@ -95,6 +102,14 @@ public class Post {
 		// Update the calculated HTML body
 		MarkdownBean markdown = CDI.current().select(MarkdownBean.class).get();
 		post.setBodyHtml(markdown.toHtml(StringUtil.toString(post.getBodyMarkdown())));
+		
+		// Set the posted time if this is the first time it's posted or has gone live
+		if(post.posted == null || (post.status == Status.Posted && !post.hasGoneLive)) {
+			post.setPosted(OffsetDateTime.now());
+		}
+		if(post.status == Status.Posted && !post.hasGoneLive) {
+			post.setHasGoneLive(true);
+		}
 	}
 	
 	// *******************************************************************************

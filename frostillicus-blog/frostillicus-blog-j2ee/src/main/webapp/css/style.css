@@ -301,6 +301,31 @@ code, .comment .comment-body {
 		padding: 0.5em;
 		background-color: rgb(111, 149, 208);
 	}
+	
+	/* Nav bar toggle */
+	.mobile-nav {
+		cursor: pointer;
+		-webkit-appearance: none;
+		-moz-appearance: none;
+		appearance: none;
+		background-color: rgba(0, 0, 0, 0.5);
+		display: inline-block;
+		width: 20px;
+		height: 20px;
+		
+		-webkit-clip-path: polygon(50% 0%, 0% 100%, 100% 100%);
+		clip-path: polygon(50% 0%, 0% 100%, 100% 100%);
+		transform: rotate(90deg);
+		transition: ease 300ms;
+	}
+	.mobile-nav:checked {
+		transform: rotate(180deg);
+		transition: ease 300ms;
+	}
+	
+	.mobile-nav:not(:checked) ~ * {
+		display: none !important;
+	}
 
 	.post pre {
 		width: calc(100vw - 2em - 2px);
@@ -317,7 +342,7 @@ code, .comment .comment-body {
 		display: none;
 	}
 }
-@media (min-width : 700px) {
+@media (min-width: 700px) {
 	#entirety {
 		width: 80%;
 		max-width: 1200px;
@@ -340,6 +365,10 @@ code, .comment .comment-body {
 		display: block;
 		padding: 0.5em;
 		background-color: rgb(204, 221, 204);
+	}
+	
+	.mobile-nav {
+		display: none;
 	}
 	
 	.post .body {

@@ -15,6 +15,7 @@
  */
 package darwino;
 
+import com.darwino.commons.json.JsonArray;
 import com.darwino.commons.json.JsonObject;
 import com.darwino.commons.json.query.parser.BaseParser;
 import com.darwino.commons.util.StringUtil;
@@ -35,23 +36,33 @@ public  class AppDBBusinessLogic extends DefaultExtensionRegistry {
 		setDatabaseACLFactory(new DefaultDatabaseACLFactory());
 		
 		setDynamicSecurity((database, store) -> {
+			// Hide all conflict documents outright
+			JsonObject result = JsonObject.of("isConflict", false); //$NON-NLS-1$
+			
+			// Require admin access for draft posts and spam comments
 			switch(StringUtil.toString(store)) {
 			case AppDatabaseDef.STORE_POSTS:
 				if(!database.getUserContext().hasRole(UserInfoBean.ROLE_ADMIN)) {
-					return JsonObject.of("status", //$NON-NLS-1$
-						JsonObject.of(BaseParser.Op.NE.getValue(), Post.Status.Draft.name())
-					).toString();
+					result = JsonObject.of(BaseParser.Op.AND.getValue(), JsonArray.of(
+						result,
+						JsonObject.of("status", //$NON-NLS-1$
+							JsonObject.of(BaseParser.Op.NE.getValue(), Post.Status.Draft.name())
+						)
+					));
 				}
 				break;
 			case AppDatabaseDef.STORE_COMMENTS:
 				if(!database.getUserContext().hasRole(UserInfoBean.ROLE_ADMIN)) {
-					return JsonObject.of("akismetspam", //$NON-NLS-1$
-						JsonObject.of(BaseParser.Op.NE.getValue(), true)
-					).toString();
+					result = JsonObject.of(BaseParser.Op.AND.getValue(), JsonArray.of(
+						result,
+						JsonObject.of("akismetspam", //$NON-NLS-1$
+								JsonObject.of(BaseParser.Op.NE.getValue(), true)
+							)
+					));
 				}
 				break;
 			}
-			return null;
+			return result.toString();
 		});
 	}
 }

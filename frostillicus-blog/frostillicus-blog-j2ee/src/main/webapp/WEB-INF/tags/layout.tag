@@ -45,6 +45,7 @@
 				<a href="${pageContext.request.contextPath}">${translation.appTitle}</a>
 			</header>
 			<nav id="pagenav">
+				<input type="checkbox" id="navbar-toggle" class="mobile-nav" aria-hidden="true"/>
 				<header class="authorinfo">
 					<img src="${userInfo.getImageUrl(translation.authorEmail)}" class="photo" alt="${translation.authorPhoto}"/>
 				</header>
