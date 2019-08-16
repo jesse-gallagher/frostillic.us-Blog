@@ -106,11 +106,11 @@ public class FeedResource {
 		SyndEntry entry = new SyndEntryImpl();
 		
 		String author = post.getPostedBy();
-		if(author != null && author.startsWith("cn=")) { //$NON-NLS-1$
+		if(author != null && author.toLowerCase().startsWith("cn=")) { //$NON-NLS-1$
 			LdapName name = new LdapName(author);
 			for(int i = name.size()-1; i >= 0; i--) {
 				String bit = name.get(i);
-				if(bit.startsWith("cn=")) { //$NON-NLS-1$
+				if(bit.toLowerCase().startsWith("cn=")) { //$NON-NLS-1$
 					author = bit.substring(3);
 				}
 			}
