@@ -19,8 +19,10 @@ import java.util.List;
 
 import com.darwino.commons.platform.beans.ManagedBeansExtension;
 import com.darwino.commons.platform.properties.PropertiesExtension;
+import com.darwino.commons.security.acl.UserProvider;
 import com.darwino.j2ee.platform.DefaultWebBeanExtension;
 import com.darwino.j2ee.platform.DefaultWebPropertiesExtension;
+import com.darwino.social.gravatar.GravatarUserProvider;
 
 
 /**
@@ -38,6 +40,10 @@ public class AppPlugin extends AppBasePlugin {
 			extensions.add(new DefaultWebBeanExtension());
 		} else if(serviceClass==PropertiesExtension.class) {
 			extensions.add(new DefaultWebPropertiesExtension());
+		} else if(serviceClass==UserProvider.class) {
+			GravatarUserProvider g = new GravatarUserProvider();
+			g.setImageSize(256);
+			extensions.add(g);
 		}
 	}
 }
