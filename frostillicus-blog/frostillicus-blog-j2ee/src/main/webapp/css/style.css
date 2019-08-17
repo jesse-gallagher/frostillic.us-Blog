@@ -116,9 +116,7 @@ a {
 }
 
 .post header > .admin {
-	position: absolute;
-	top: 0;
-	right: 0;
+	float: right;
 }
 .post .admin form {
 	display: inline;

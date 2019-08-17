@@ -24,6 +24,16 @@
 <%@taglib prefix="t" tagdir="/WEB-INF/tags" %>
 <article class="post post-${pageScope.value.status}">
 	<header>
+		<c:if test="${userInfo.admin}">
+			<div class="admin">
+				<a class="edit" href="posts/${pageScope.value.postedYear}/${pageScope.value.postedMonth}/${pageScope.value.postedDay}/${pageScope.value.slug}/edit">${translation.editButton}</a>
+				<form method="POST" action="posts/${pageScope.value.slug}">
+					<input type="submit" class="delete" value="${translation.deleteButton}" onclick="return confirm('${translation.postDeleteConfirm}')" />
+					<input type="hidden" name="_method" value="DELETE" />
+				</form>
+			</div>
+		</c:if>
+		
 		<h2><a href="posts/${pageScope.value.postedYear}/${pageScope.value.postedMonth}/${pageScope.value.postedDay}/${pageScope.value.slug}">${fn:escapeXml(pageScope.value.title)}</a></h2>
 		<h3><fmt:formatDate value="${pageScope.value.postedDate}" type="BOTH" dateStyle="MEDIUM" timeStyle="SHORT" /></h3>
 		<c:if test="${not empty pageScope.value.tags}">
@@ -32,16 +42,6 @@
 				<c:forEach items="${pageScope.value.tags}" var="tag">
 					<a href="posts/tag/${encoder.urlEncode(tag)}">${fn:escapeXml(tag)}</a>
 				</c:forEach>	
-			</div>
-		</c:if>
-		
-		<c:if test="${userInfo.admin}">
-			<div class="admin">
-				<a class="edit" href="posts/${pageScope.value.postedYear}/${pageScope.value.postedMonth}/${pageScope.value.postedDay}/${pageScope.value.slug}/edit">${translation.editButton}</a>
-				<form method="POST" action="posts/${pageScope.value.slug}">
-					<input type="submit" class="delete" value="${translation.deleteButton}" onclick="return confirm('${translation.postDeleteConfirm}')" />
-					<input type="hidden" name="_method" value="DELETE" />
-				</form>
 			</div>
 		</c:if>
 	</header>
