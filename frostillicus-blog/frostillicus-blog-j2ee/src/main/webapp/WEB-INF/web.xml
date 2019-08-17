@@ -122,6 +122,10 @@
         	<param-name>login-form</param-name>
         	<param-value>/WEB-INF/login.html</param-value>
         </init-param>
+        <init-param>
+        		<param-name>sessionToken</param-name>
+        		<param-value>false</param-value>
+        </init-param>
     </filter>
 	<filter-mapping>
     	<filter-name>DarwinoAuthentication</filter-name>
