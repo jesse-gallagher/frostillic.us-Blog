@@ -42,6 +42,9 @@
 	opacity: 0;
 	transition: 0.3s;
 }
+.tooltip .tooltip-text a {
+	color: rgb(200, 200, 200);
+}
 
 .tooltip:hover .tooltip-text {
 	visibility: visible;
