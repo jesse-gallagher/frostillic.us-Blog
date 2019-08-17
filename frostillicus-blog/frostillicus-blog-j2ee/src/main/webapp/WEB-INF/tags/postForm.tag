@@ -24,13 +24,13 @@
 <%@taglib prefix="t" tagdir="/WEB-INF/tags" %>
 <form name="form" action="posts/${pageScope.edit ? post.id : ''}" method="post" class="crud">
 	<label for="title">${translation.titleLabel}</label>
-	<input type="text" name="title" id="title" required="required" autofocus="autofocus" value="${pageScope.value.title}" />
+	<input type="text" name="title" id="title" required="required" autofocus="autofocus" value="${fn:escapeXml(pageScope.value.title)}" />
 	
 	<label for="tags">${translation.tagsLabel}</label>
-	<input type="text" name="tags" id="tags" value="${fn:join(pageScope.value.tags.toArray(),', ')}"/>
+	<input type="text" name="tags" id="tags" value="${fn:escapeXml(fn:join(pageScope.value.tags.toArray(),', '))}"/>
 
 	<label for="thread">${translation.threadLabel}</label>
-	<input type="text" name="thread" id="thread" value="${pageScope.value.thread}"/>
+	<input type="text" name="thread" id="thread" value="${fn:escapeXml(pageScope.value.thread)}"/>
 	
 	<label for="status">${translation.statusLabel}</label>
 	<div class='radio-group'>
@@ -39,7 +39,7 @@
 	</div>
 
 	<label for="bodyMarkdown">${translation.bodyLabel}</label>
-	<textarea name="bodyMarkdown" id="bodyMarkdown">${empty pageScope.value.bodyMarkdown ? pageScope.value.bodyHtml : pageScope.value.bodyMarkdown}</textarea>
+	<textarea name="bodyMarkdown" id="bodyMarkdown">${fn:escapeXml(empty pageScope.value.bodyMarkdown ? pageScope.value.bodyHtml : pageScope.value.bodyMarkdown)}</textarea>
 		
 	<input type="submit" value="${translation.savePost}"/>
 	<c:if test="${pageScope.edit}">

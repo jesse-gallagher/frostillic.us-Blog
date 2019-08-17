@@ -24,13 +24,13 @@
 <%@taglib prefix="t" tagdir="/WEB-INF/tags" %>
 <article class="post post-${pageScope.value.status}">
 	<header>
-		<h2><a href="posts/${pageScope.value.postedYear}/${pageScope.value.postedMonth}/${pageScope.value.postedDay}/${pageScope.value.slug}">${pageScope.value.title}</a></h2>
+		<h2><a href="posts/${pageScope.value.postedYear}/${pageScope.value.postedMonth}/${pageScope.value.postedDay}/${pageScope.value.slug}">${fn:escapeXml(pageScope.value.title)}</a></h2>
 		<h3><fmt:formatDate value="${pageScope.value.postedDate}" type="BOTH" dateStyle="MEDIUM" timeStyle="SHORT" /></h3>
 		<c:if test="${not empty pageScope.value.tags}">
 			<div class="meta">
 				${translation.tagsLabel}
 				<c:forEach items="${pageScope.value.tags}" var="tag">
-					<a href="posts/tag/${tag}">${tag}</a>
+					<a href="posts/tag/${encoder.urlEncode(tag)}">${fn:escapeXml(tag)}</a>
 				</c:forEach>	
 			</div>
 		</c:if>
@@ -46,7 +46,7 @@
 		</c:if>
 	</header>
 	<c:if test="${not empty pageScope.value.thread}">
-		<ol class="thread" title="${pageScope.value.thread}">
+		<ol class="thread" title="${fn:escapeXml(pageScope.value.thread)}">
 			<c:forEach items="${pageScope.value.threadInfo}" var="threadEntry">
 				<c:if test="${pageScope.value.id == threadEntry.id}">
 					<li>${fn:escapeXml(threadEntry.title)}</li>

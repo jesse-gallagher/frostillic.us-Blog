@@ -19,10 +19,11 @@
 <%@attribute name="value" required="true" type="model.Comment" %>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <article class="comment ${pageScope.value.akismetSpam ? 'spam' : ''}">
 	<img class="photo" src="${userInfo.getImageUrl(pageScope.value.postedByEmail)}" alt="${translation.commenterPhoto}"/>
 	<h3>
-		${pageScope.value.postedBy}
+		${fn:escapeXml(pageScope.value.postedBy)}
 		-
 		<fmt:formatDate value="${pageScope.value.postedDate}" type="both" dateStyle="medium" timeStyle="short" />
 	</h3>
