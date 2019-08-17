@@ -4,7 +4,7 @@
 
 	<groupId>frostillicus.blog</groupId>
 	<artifactId>frostillicus-blog</artifactId>
-	<version>2.1.0</version>
+	<version>2.2.0</version>
 	<packaging>pom</packaging>
 
 	<name>frostillic.us Blog App</name>
@@ -123,6 +123,12 @@
 				<groupId>org.webjars.npm</groupId>
 				<artifactId>turbolinks</artifactId>
 				<version>5.2.0</version>
+			</dependency>
+			
+			<dependency>
+				<groupId>org.junit.jupiter</groupId>
+				<artifactId>junit-jupiter-engine</artifactId>
+				<version>5.5.1</version>
 			</dependency>
 		</dependencies>
 	</dependencyManagement>

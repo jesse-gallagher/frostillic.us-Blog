@@ -4,7 +4,7 @@
 	<parent>
 		<groupId>frostillicus.blog</groupId>
 		<artifactId>frostillicus-blog</artifactId>
-		<version>2.1.0</version>
+		<version>2.2.0</version>
 	</parent>
 	<artifactId>frostillicus-blog-shared</artifactId>
 	
@@ -84,6 +84,13 @@
 			<groupId>javax.el</groupId>
 			<artifactId>javax.el-api</artifactId>
 			<scope>provided</scope>
+		</dependency>
+		
+		
+		<dependency>
+			<groupId>org.junit.jupiter</groupId>
+			<artifactId>junit-jupiter-engine</artifactId>
+			<scope>test</scope>
 		</dependency>
 	</dependencies>
 </project>

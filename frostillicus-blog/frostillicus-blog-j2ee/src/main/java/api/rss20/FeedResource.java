@@ -22,7 +22,6 @@ import java.util.stream.Collectors;
 
 import javax.inject.Inject;
 import javax.inject.Named;
-import javax.naming.ldap.LdapName;
 import javax.servlet.ServletContext;
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
@@ -53,6 +52,7 @@ import darwino.AppDatabaseDef;
 import lombok.SneakyThrows;
 import model.Post;
 import model.PostRepository;
+import model.util.PostUtil;
 
 @Path("/feed.xml")
 public class FeedResource {
@@ -105,16 +105,7 @@ public class FeedResource {
 	private SyndEntry toEntry(Post post, String baseUrl) {
 		SyndEntry entry = new SyndEntryImpl();
 		
-		String author = post.getPostedBy();
-		if(author != null && author.toLowerCase().startsWith("cn=")) { //$NON-NLS-1$
-			LdapName name = new LdapName(author);
-			for(int i = name.size()-1; i >= 0; i--) {
-				String bit = name.get(i);
-				if(bit.toLowerCase().startsWith("cn=")) { //$NON-NLS-1$
-					author = bit.substring(3);
-				}
-			}
-		}
+		String author = PostUtil.toCn(post.getPostedBy());
 		entry.setAuthor(author);
 		
 		entry.setTitle(post.getTitle());

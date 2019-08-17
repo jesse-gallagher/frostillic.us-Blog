@@ -202,14 +202,7 @@ public class PostController extends AbstractPostListController {
 	@Path("search")
 	@Produces(MediaType.TEXT_HTML)
 	public String search(@QueryParam("q") String query) {
-		// TODO handle this in the query or cursor itself
-		List<Post> found = posts.search(query);
-		if(!userInfo.isAdmin()) {
-			found = found.stream()
-				.filter(p -> p.getStatus() == Status.Posted)
-				.collect(Collectors.toList());
-		}
-		models.put("posts", found); //$NON-NLS-1$
+		models.put("posts", posts.search(query)); //$NON-NLS-1$
 		return "search.jsp"; //$NON-NLS-1$
 	}
 	
