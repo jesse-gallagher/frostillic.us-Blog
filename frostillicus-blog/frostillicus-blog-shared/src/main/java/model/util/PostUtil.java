@@ -22,11 +22,11 @@ import com.darwino.commons.util.StringUtil;
 import com.darwino.jsonstore.Database;
 import com.darwino.jsonstore.Store;
 import darwino.AppDatabaseDef;
-import lombok.SneakyThrows;
 import model.Post;
 import model.PostRepository;
 
 import javax.enterprise.inject.spi.CDI;
+import javax.naming.InvalidNameException;
 import javax.naming.ldap.LdapName;
 
 import java.time.OffsetDateTime;
@@ -107,24 +107,26 @@ public enum PostUtil {
     
     /**
      * Extracts the common name from the provided distinguished name, or returns
-     * the original value if the argument is not a DN.
+     * the original value if the argument is not a valid DN.
      * 
      * @param dn the LDAP-format distinguished name
      * @return the common name component
      * @since 2.2.0
      */
-    @SneakyThrows
     public static String toCn(String dn) {
-		if(dn != null && dn.contains("=")) { //$NON-NLS-1$
-			LdapName name = new LdapName(dn);
-			for(int i = name.size()-1; i >= 0; i--) {
-				String bit = name.get(i);
-				if(bit.toLowerCase().startsWith("cn=")) { //$NON-NLS-1$
-					return bit.substring(3);
+		if(StringUtil.isNotEmpty(dn)) {
+			try {
+				LdapName name = new LdapName(dn);
+				for(int i = name.size()-1; i >= 0; i--) {
+					String bit = name.get(i);
+					if(bit.toLowerCase().startsWith("cn=")) { //$NON-NLS-1$
+						return bit.substring(3);
+					}
 				}
+			} catch(InvalidNameException e) {
+				return dn;
 			}
-			return StringUtil.EMPTY_STRING;
 		}
-		return StringUtil.toString(dn);
+		return StringUtil.EMPTY_STRING;
     }
 }
