@@ -362,6 +362,11 @@ code, .comment .comment-body {
 		padding: 0.5em;
 		background-color: rgb(204, 221, 204);
 	}
+	#pagenav > .sidebar-content {
+		position: -webkit-sticky;
+		position: sticky;
+		top: 0.5em;
+	}
 	
 	.mobile-nav {
 		display: none;

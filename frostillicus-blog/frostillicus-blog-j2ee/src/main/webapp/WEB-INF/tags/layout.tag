@@ -46,40 +46,42 @@
 			</header>
 			<nav id="pagenav">
 				<input type="checkbox" id="navbar-toggle" class="mobile-nav" aria-hidden="true"/>
-				<header class="authorinfo">
-					<img src="${userInfo.getImageUrl(translation.authorEmail)}" class="photo" alt="${translation.authorPhoto}"/>
-				</header>
-				<ul class="sitenav">
-					<li><a href="${pageContext.request.contextPath}/">${translation.home}</a></li>
-					<li><a href="posts">${translation.archive}</a></li>
-					<c:if test="${darwinoSession.user.anonymous}">
-						<li data-turbolinks="false"><a href="?login">${translation.logIn}</a></li>
-					</c:if>
-					<c:if test="${not darwinoSession.user.anonymous}">
-						<li data-turbolinks="false"><a href="?logout">${translation.logOut}</a></li>
-					</c:if>
-				</ul>
-				
-				<form action="posts/search" method="GET" class="inline-search">
-					<input class="search" name="q" id="quick-search" aria-label="${translation.quickSearch}"/>
-					<button type="submit">${translation.searchButton}</button>
-				</form>
-				
-				<c:forEach items="${links.byCategory}" var="cat">
-					<ul title="${cat.key}">
-						<c:forEach items="${cat.value}" var="link">
-							<li><a href="${link.url}">${link.name}</a></li>
-						</c:forEach>
+				<div class="sidebar-content">
+					<header class="authorinfo">
+						<img src="${userInfo.getImageUrl(translation.authorEmail)}" class="photo" alt="${translation.authorPhoto}"/>
+					</header>
+					<ul class="sitenav">
+						<li><a href="${pageContext.request.contextPath}/">${translation.home}</a></li>
+						<li><a href="posts">${translation.archive}</a></li>
+						<c:if test="${darwinoSession.user.anonymous}">
+							<li data-turbolinks="false"><a href="?login">${translation.logIn}</a></li>
+						</c:if>
+						<c:if test="${not darwinoSession.user.anonymous}">
+							<li data-turbolinks="false"><a href="?logout">${translation.logOut}</a></li>
+						</c:if>
 					</ul>
-				</c:forEach>
-				
-				<c:if test="${userInfo.admin}">
-					<ul title="${translation.admin}">
-						<li><a href="admin">${translation.adminPanel}</a></li>
-						<li><a href="admin/console">${translation.adminConsole}</a></li>
-						<li><a href="posts/new">${translation.newPost}</a></li>
-					</ul>
-				</c:if>
+					
+					<form action="posts/search" method="GET" class="inline-search">
+						<input class="search" name="q" id="quick-search" aria-label="${translation.quickSearch}"/>
+						<button type="submit">${translation.searchButton}</button>
+					</form>
+					
+					<c:forEach items="${links.byCategory}" var="cat">
+						<ul title="${cat.key}">
+							<c:forEach items="${cat.value}" var="link">
+								<li><a href="${link.url}">${link.name}</a></li>
+							</c:forEach>
+						</ul>
+					</c:forEach>
+					
+					<c:if test="${userInfo.admin}">
+						<ul title="${translation.admin}">
+							<li><a href="admin">${translation.adminPanel}</a></li>
+							<li><a href="admin/console">${translation.adminConsole}</a></li>
+							<li><a href="posts/new">${translation.newPost}</a></li>
+						</ul>
+					</c:if>
+				</div>
 			</nav>
 			<main id="pagebody">
 				<c:if test="${not empty redirectMessages}">
