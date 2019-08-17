@@ -15,10 +15,17 @@
  */
 package app;
 
+import java.util.Collections;
+import java.util.Map;
+
+import javax.mvc.security.Csrf;
 import javax.ws.rs.ApplicationPath;
 import javax.ws.rs.core.Application;
 
 @ApplicationPath("/")
 public class JAXRSConfiguration extends Application {
-	
+	@Override
+	public Map<String, Object> getProperties() {
+		return Collections.singletonMap(Csrf.CSRF_PROTECTION, Csrf.CsrfOptions.OFF);
+	}
 }
