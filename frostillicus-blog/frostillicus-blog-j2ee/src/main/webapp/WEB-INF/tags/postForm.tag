@@ -22,7 +22,7 @@
 <%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <%@taglib prefix="t" tagdir="/WEB-INF/tags" %>
-<form name="form" action="posts/${pageScope.edit ? post.id : ''}" method="post" class="crud">
+<form name="form" action="posts/${pageScope.edit ? post.id : ''}" method="post" class="crud" enctype="multipart/form-data">
 	<label for="title">${translation.titleLabel}</label>
 	<input type="text" name="title" id="title" required="required" autofocus="autofocus" value="${fn:escapeXml(pageScope.value.title)}" />
 	

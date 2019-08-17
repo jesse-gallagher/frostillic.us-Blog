@@ -70,7 +70,7 @@
 			<fieldset>
 				<legend>${translation.newComment}</legend>
 					
-				<form action="posts/${pageScope.value.postId}/comments" method="POST" class="new-comment crud">
+				<form action="posts/${pageScope.value.postId}/comments" method="POST" class="new-comment crud" enctype="multipart/form-data">
 					<label for="postedBy">${translation.authorLabel}</label>
 					<input type="text" name="postedBy" id="postedBy" required="required"
 						value="${userInfo.anonymous ? '' : userInfo.cn}"/>

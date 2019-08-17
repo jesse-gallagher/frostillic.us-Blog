@@ -73,13 +73,20 @@ public class MethodOverrideFilter implements ContainerRequestFilter {
 		}
 
 		MediaType mediaType = requestContext.getMediaType();
-		return MediaType.APPLICATION_FORM_URLENCODED_TYPE.equals(mediaType) || MediaType.MULTIPART_FORM_DATA_TYPE.equals(mediaType);
+		return MediaType.APPLICATION_FORM_URLENCODED_TYPE.isCompatible(mediaType) || MediaType.MULTIPART_FORM_DATA_TYPE.isCompatible(mediaType);
 	}
 
 	private Form getFormData(ContainerRequestContext requestContext) throws IOException {
-		ByteArrayInputStream is = copy(requestContext.getEntityStream());
-		Form form = providers.getMessageBodyReader(Form.class, Form.class, new Annotation[0], requestContext.getMediaType())
-				.readFrom(Form.class, Form.class, new Annotation[0], requestContext.getMediaType(), null, is);
+		InputStream is;
+		MediaType mediaType = requestContext.getMediaType();
+		if(MediaType.MULTIPART_FORM_DATA_TYPE.isCompatible(mediaType)) {
+			is = requestContext.getEntityStream();
+		} else {
+			// handle this a bit differently to avoid downstream trouble with this type
+			is = copy(requestContext.getEntityStream());
+		}
+		Form form = providers.getMessageBodyReader(Form.class, Form.class, new Annotation[0], mediaType)
+				.readFrom(Form.class, Form.class, new Annotation[0], mediaType, null, is);
 		return form;
 	}
 
