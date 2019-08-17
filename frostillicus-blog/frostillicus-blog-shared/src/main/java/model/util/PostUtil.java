@@ -22,10 +22,13 @@ import com.darwino.commons.util.StringUtil;
 import com.darwino.jsonstore.Database;
 import com.darwino.jsonstore.Store;
 import darwino.AppDatabaseDef;
+import lombok.SneakyThrows;
 import model.Post;
 import model.PostRepository;
 
 import javax.enterprise.inject.spi.CDI;
+import javax.naming.ldap.LdapName;
+
 import java.time.OffsetDateTime;
 import java.util.*;
 import java.util.stream.Collectors;
@@ -100,5 +103,28 @@ public enum PostUtil {
             start = -1;
         }
         return start;
+    }
+    
+    /**
+     * Extracts the common name from the provided distinguished name, or returns
+     * the original value if the argument is not a DN.
+     * 
+     * @param dn the LDAP-format distinguished name
+     * @return the common name component
+     * @since 2.2.0
+     */
+    @SneakyThrows
+    public static String toCn(String dn) {
+		if(dn != null && dn.contains("=")) { //$NON-NLS-1$
+			LdapName name = new LdapName(dn);
+			for(int i = name.size()-1; i >= 0; i--) {
+				String bit = name.get(i);
+				if(bit.toLowerCase().startsWith("cn=")) { //$NON-NLS-1$
+					return bit.substring(3);
+				}
+			}
+			return StringUtil.EMPTY_STRING;
+		}
+		return StringUtil.toString(dn);
     }
 }

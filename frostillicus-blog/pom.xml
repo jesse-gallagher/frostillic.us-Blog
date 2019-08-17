@@ -124,6 +124,12 @@
 				<artifactId>turbolinks</artifactId>
 				<version>5.2.0</version>
 			</dependency>
+			
+			<dependency>
+				<groupId>org.junit.jupiter</groupId>
+				<artifactId>junit-jupiter-engine</artifactId>
+				<version>5.5.1</version>
+			</dependency>
 		</dependencies>
 	</dependencyManagement>
 	
