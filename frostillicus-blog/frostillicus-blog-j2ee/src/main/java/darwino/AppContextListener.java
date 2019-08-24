@@ -17,17 +17,14 @@ package darwino;
 
 import javax.servlet.ServletContext;
 import javax.servlet.ServletContextEvent;
+import javax.servlet.annotation.WebListener;
 
 import com.darwino.commons.json.JsonException;
 import com.darwino.j2ee.application.AbstractDarwinoContextListener;
 import com.darwino.j2ee.application.BackgroundServletSynchronizationExecutor;
 import com.darwino.j2ee.application.DarwinoJ2EEApplication;
 
-/**
- * Servlet listener for initializing the application.
- * 
- * @author Philippe Riand
- */
+@WebListener
 public class AppContextListener extends AbstractDarwinoContextListener {
 	
 	private BackgroundServletSynchronizationExecutor syncExecutor; 
