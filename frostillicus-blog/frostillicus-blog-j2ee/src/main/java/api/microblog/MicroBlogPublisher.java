@@ -51,12 +51,12 @@ public class MicroBlogPublisher {
 				log.fine("Logging MicroPost " + event.getPost()); //$NON-NLS-1$
 			}
 			
-			// Do this async since we don't want to fail the whole operation if there's a downstream issue.
+			// Do this async since we don't want to fail or hold up the whole operation if there's a downstream issue.
 			// TODO keep track of success so we can re-post down the line
 			exec.submit(() -> {
 				try {
 					MicroPost post = event.getPost();
-
+					
 					Map<String, String> auth = Collections.singletonMap(HttpHeaders.AUTHORIZATION, "Bearer " + apiKey); //$NON-NLS-1$
 					Map<String, String> content = new HashMap<>();
 					content.put("h", EntryType.entry.name()); //$NON-NLS-1$
