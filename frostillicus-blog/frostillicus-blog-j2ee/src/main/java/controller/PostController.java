@@ -149,6 +149,7 @@ public class PostController extends AbstractPostListController {
 	@PUT
 	@Path("{postId}")
 	@RolesAllowed(UserInfoBean.ROLE_ADMIN)
+	@Consumes({ MediaType.MULTIPART_FORM_DATA, MediaType.APPLICATION_FORM_URLENCODED })
 	public String update(
 			@PathParam("postId") String postId,
 			@FormParam("title") String title,
