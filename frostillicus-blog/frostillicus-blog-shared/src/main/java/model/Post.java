@@ -17,6 +17,8 @@ package model;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import model.event.PostEvent;
+import model.event.PostEvent.Type;
 import model.util.UtilDateOffsetConverter;
 
 import org.darwino.jnosql.artemis.extension.converter.ISOOffsetDateTimeConverter;
@@ -31,8 +33,10 @@ import jakarta.nosql.mapping.Entity;
 import jakarta.nosql.mapping.EntityPrePersist;
 import jakarta.nosql.mapping.Id;
 
+import javax.enterprise.event.Event;
 import javax.enterprise.event.Observes;
 import javax.enterprise.inject.spi.CDI;
+import javax.inject.Inject;
 import javax.validation.constraints.NotNull;
 import java.time.OffsetDateTime;
 import java.time.temporal.ChronoField;
@@ -73,7 +77,9 @@ public class Post {
 	@Column private boolean isConflict;
 	@Column private String summary;
 	
-	static void querySave(@Observes EntityPrePersist entity) {
+	@Inject private Event<PostEvent> postEvent;
+	
+	void querySave(@Observes EntityPrePersist entity) {
 		if(!(entity.getValue() instanceof Post)) {
 			return;
 		}
@@ -109,6 +115,10 @@ public class Post {
 		}
 		if(post.status == Status.Posted && !post.hasGoneLive) {
 			post.setHasGoneLive(true);
+			
+			postEvent.fire(new PostEvent(this, Type.PUBLISH));
+		} else if(post.status == Status.Posted) {
+			postEvent.fire(new PostEvent(this, Type.UPDATE));
 		}
 	}
 	

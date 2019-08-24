@@ -68,4 +68,12 @@ public class DocumentCollectionManagerProducer {
 	public DarwinoDocumentCollectionManager getMediaManager() {
 		return managerFactory.get(AppDatabaseDef.STORE_MEDIA);
 	}
+	/**
+	 * @since 2.3.0
+	 */
+	@Produces
+	@Database(value=DatabaseType.DOCUMENT, provider=AppDatabaseDef.STORE_MICROPOSTS)
+	public DarwinoDocumentCollectionManager getMicroPostManager() {
+		return managerFactory.get(AppDatabaseDef.STORE_MICROPOSTS);
+	}
 }
