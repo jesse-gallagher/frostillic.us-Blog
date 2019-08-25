@@ -76,7 +76,7 @@ public class FeedResource {
 		if(rssRequestUrls) {
 			baseUrl = uriInfo.getBaseUri().toString();
 		} else {
-			baseUrl = translation.getString("baseUrl"); //$NON-NLS-1$
+			baseUrl = PathUtil.concat(translation.getString("baseUrl"), servletContext.getContextPath()); //$NON-NLS-1$
 		}
 		
 		SyndFeed feed = new SyndFeedImpl();
@@ -86,7 +86,7 @@ public class FeedResource {
 		feed.setLink(baseUrl);
 		
 		SyndImage icon = new SyndImageImpl();
-		icon.setUrl(PathUtil.concat(baseUrl, servletContext.getContextPath(), "img/icon.png")); //$NON-NLS-1$
+		icon.setUrl(PathUtil.concat(baseUrl, "img/icon.png")); //$NON-NLS-1$
 		icon.setTitle(translation.getString("appTitle")); //$NON-NLS-1$
 		icon.setLink(baseUrl);
 		feed.setIcon(icon);
@@ -109,7 +109,7 @@ public class FeedResource {
 		entry.setAuthor(author);
 		
 		entry.setTitle(post.getTitle());
-		entry.setLink(PathUtil.concat(baseUrl, servletContext.getContextPath(), "posts") + "/" + post.getPostedYear() + "/" + post.getPostedMonth() + "/" + post.getPostedDay() + "/" + post.getSlug()); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$ //$NON-NLS-4$ //$NON-NLS-5$
+		entry.setLink(PathUtil.concat(baseUrl, "posts") + "/" + post.getPostedYear() + "/" + post.getPostedMonth() + "/" + post.getPostedDay() + "/" + post.getSlug()); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$ //$NON-NLS-4$ //$NON-NLS-5$
 		entry.setPublishedDate(Date.from(post.getPosted().toInstant()));
 		
 		String summary = post.getSummary();
