@@ -19,7 +19,7 @@ import com.darwino.commons.xml.DomUtil;
 import api.atompub.AtomPubAPI;
 
 @Path("/rsd.xml")
-public class ReallySimpleDiscoveryAPI {
+public class ReallySimpleDiscoveryResource {
 	
 	@Inject @Named("translation")
 	ResourceBundle translation;
