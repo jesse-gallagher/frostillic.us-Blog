@@ -35,6 +35,8 @@
 		<link rel="stylesheet" href="${pageContext.request.contextPath}/css/tabs.css" />
 		<link rel="stylesheet" href="${pageContext.request.contextPath}/css/tooltips.css" />
 		
+		<link rel="EditURI" type="application/rsd+xml" href="${uriInfoBean.requestUri.resolve('rsd.xml')}" />
+		
 		<script type="text/javascript" src="${pageContext.request.contextPath}/webjars/turbolinks/5.2.0/dist/turbolinks.js"></script>
 		
 		<title>${translation.appTitle}</title>
