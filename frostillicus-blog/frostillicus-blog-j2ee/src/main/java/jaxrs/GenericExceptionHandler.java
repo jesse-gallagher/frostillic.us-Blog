@@ -16,18 +16,24 @@
 package jaxrs;
 
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.PrintWriter;
 import java.io.StringWriter;
 
 import javax.inject.Inject;
+import javax.mvc.Controller;
 import javax.mvc.Models;
 import javax.servlet.http.HttpServletRequest;
 import javax.ws.rs.NotFoundException;
+import javax.ws.rs.container.ResourceInfo;
 import javax.ws.rs.core.Context;
+import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.Response.Status;
 import javax.ws.rs.ext.ExceptionMapper;
 import javax.ws.rs.ext.Provider;
+
+import com.darwino.commons.util.io.StreamUtil;
 
 /**
  * @author Jesse Gallagher
@@ -37,11 +43,23 @@ public class GenericExceptionHandler implements ExceptionMapper<Throwable> {
 	@Context
 	private HttpServletRequest req;
 	
+	@Context
+	private ResourceInfo resourceInfo;
+	
 	@Inject
 	private Models models;
 	
 	@Override
 	public Response toResponse(Throwable t) {
+		// If we're in an MVC context, send an MVC-style response
+		if(isMvcRequest()) {
+			return mvcResponse(t);
+		} else {
+			return servletResponse(t);
+		}
+	}
+	
+	private Response mvcResponse(Throwable t) {
 		Status status;
 		if(t instanceof NotFoundException) {
 			status = Status.NOT_FOUND;
@@ -63,8 +81,59 @@ public class GenericExceptionHandler implements ExceptionMapper<Throwable> {
 		
         // TODO customize for non-HTML requests
 		return Response.status(status)
+        		.type(MediaType.TEXT_HTML)
+        		.encoding("UTF-8") //$NON-NLS-1$
 			.entity("error.jsp") //$NON-NLS-1$
 			.build();
 	}
+	
+	private Response servletResponse(Throwable t) {
+		Status status;
+		if(t instanceof NotFoundException) {
+			status = Status.NOT_FOUND;
+		} else {
+			status = Status.INTERNAL_SERVER_ERROR;
+		}
+		
+        String bodyHtml;
+        try(InputStream is = getClass().getResourceAsStream("/WEB-INF/error.html")) { //$NON-NLS-1$
+            bodyHtml = StreamUtil.readString(is);
+        } catch(IOException e) {
+        		e.printStackTrace();
+        		bodyHtml = "";
+        }
 
+        bodyHtml = bodyHtml.replace("${CONTEXT_PATH}", req.getContextPath()) //$NON-NLS-1$
+            .replace("${ERROR_MESSAGE}", t.getLocalizedMessage()) //$NON-NLS-1$
+            .replace("${ERROR_STATUS_CODE}", String.valueOf(status.getStatusCode())) //$NON-NLS-1$
+            .replace("${ERROR_EXCEPTION_TYPE}", String.valueOf(t.getClass().getName())); //$NON-NLS-1$
+
+        try(StringWriter w = new StringWriter()) {
+            try(PrintWriter p = new PrintWriter(w)) {
+                t.printStackTrace(p);
+            }
+            bodyHtml = bodyHtml.replace("${ERROR_STACK_TRACE}", w.toString()); //$NON-NLS-1$
+        } catch(IOException e) {
+        		e.printStackTrace();
+        }
+        
+        return Response.status(status)
+        		.type(MediaType.TEXT_HTML)
+        		.encoding("UTF-8") //$NON-NLS-1$
+        		.entity(bodyHtml)
+        		.build();
+	}
+
+	private boolean isMvcRequest() {
+		if(resourceInfo == null) {
+			return false;
+		}
+		if(resourceInfo.getResourceClass() != null && resourceInfo.getResourceClass().isAnnotationPresent(Controller.class)) {
+			return true;
+		}
+		if(resourceInfo.getResourceMethod() != null && resourceInfo.getResourceMethod().isAnnotationPresent(Controller.class)) {
+			return true;
+		}
+		return false;
+	}
 }
