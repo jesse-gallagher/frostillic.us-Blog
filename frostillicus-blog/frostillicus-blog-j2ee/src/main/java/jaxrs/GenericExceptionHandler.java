@@ -96,8 +96,8 @@ public class GenericExceptionHandler implements ExceptionMapper<Throwable> {
         		bodyHtml = ""; //$NON-NLS-1$
         }
 
-        bodyHtml = bodyHtml.replace("${CONTEXT_PATH}", req.getContextPath()) //$NON-NLS-1$
-            .replace("${ERROR_MESSAGE}", t.getLocalizedMessage()) //$NON-NLS-1$
+        bodyHtml = bodyHtml.replace("${CONTEXT_PATH}", String.valueOf(req.getContextPath())) //$NON-NLS-1$
+            .replace("${ERROR_MESSAGE}", String.valueOf(t.getLocalizedMessage())) //$NON-NLS-1$
             .replace("${ERROR_STATUS_CODE}", String.valueOf(status.getStatusCode())) //$NON-NLS-1$
             .replace("${ERROR_EXCEPTION_TYPE}", String.valueOf(t.getClass().getName())); //$NON-NLS-1$
 
