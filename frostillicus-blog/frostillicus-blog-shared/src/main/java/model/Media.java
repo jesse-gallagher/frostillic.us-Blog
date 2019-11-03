@@ -22,7 +22,7 @@ import org.darwino.jnosql.diana.driver.EntityConverter;
 import jakarta.nosql.mapping.Column;
 import jakarta.nosql.mapping.Entity;
 import jakarta.nosql.mapping.Id;
-import org.jnosql.diana.driver.attachment.EntityAttachment;
+import org.eclipse.jnosql.diana.driver.attachment.EntityAttachment;
 
 import com.darwino.jsonstore.Document;
 

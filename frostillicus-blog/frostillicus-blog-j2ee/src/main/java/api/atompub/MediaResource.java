@@ -24,7 +24,7 @@ import lombok.SneakyThrows;
 import model.Media;
 import model.MediaRepository;
 
-import org.jnosql.diana.driver.attachment.EntityAttachment;
+import org.eclipse.jnosql.diana.driver.attachment.EntityAttachment;
 import org.w3c.dom.Element;
 
 import javax.annotation.security.RolesAllowed;
