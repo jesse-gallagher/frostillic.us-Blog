@@ -15,14 +15,15 @@
     limitations under the License.
 
 --%>
+<%@page contentType="text/html" pageEncoding="UTF-8" trimDirectiveWhitespaces="true" session="false" %>
 <!DOCTYPE html>
 <html lang="en-us">
 	<head>
 		<meta http-equiv="x-ua-compatible" content="ie=edge">
 		<meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no" />
 		
-		<link rel="shortcut icon" href="${CONTEXT_PATH}/icon.png" />
-		<link rel="apple-touch-icon" href="${CONTEXT_PATH}/icon.png" />
+		<link rel="shortcut icon" href="${CONTEXT_PATH}/img/icon.png" />
+		<link rel="apple-touch-icon" href="${CONTEXT_PATH}/img/icon.png" />
 		<link rel="stylesheet" href="${CONTEXT_PATH}/css/style.css" />
 		<link rel="stylesheet" href="${CONTEXT_PATH}/css/forms.css" />
 		
