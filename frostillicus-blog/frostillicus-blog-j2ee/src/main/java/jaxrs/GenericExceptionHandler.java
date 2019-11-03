@@ -33,6 +33,8 @@ import javax.ws.rs.core.Response.Status;
 import javax.ws.rs.ext.ExceptionMapper;
 import javax.ws.rs.ext.Provider;
 
+import org.eclipse.krazo.engine.Viewable;
+
 import com.darwino.commons.util.io.StreamUtil;
 
 /**
@@ -83,7 +85,7 @@ public class GenericExceptionHandler implements ExceptionMapper<Throwable> {
 		return Response.status(status)
         		.type(MediaType.TEXT_HTML)
         		.encoding("UTF-8") //$NON-NLS-1$
-			.entity("error.jsp") //$NON-NLS-1$
+			.entity(new Viewable("error.jsp")) //$NON-NLS-1$
 			.build();
 	}
 	
