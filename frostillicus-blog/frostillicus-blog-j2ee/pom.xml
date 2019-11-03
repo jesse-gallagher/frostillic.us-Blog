@@ -27,8 +27,8 @@
 
 	<dependencies>
 		<dependency>
-			<groupId>javax</groupId>
-			<artifactId>javaee-api</artifactId>
+			<groupId>jakarta.platform</groupId>
+			<artifactId>jakarta.jakartaee-api</artifactId>
 			<scope>provided</scope>
 		</dependency>
 		<dependency>
@@ -163,10 +163,6 @@
 					<groupId>org.eclipse.krazo</groupId>
 					<artifactId>krazo-core</artifactId>
 				</dependency>
-				<dependency>
-					<groupId>javax.servlet</groupId>
-					<artifactId>jstl</artifactId>
-				</dependency>
 			</dependencies>
 		</profile>
 		
@@ -180,10 +176,6 @@
 				<dependency>
 					<groupId>org.eclipse.krazo</groupId>
 					<artifactId>krazo-cxf</artifactId>
-				</dependency>
-				<dependency>
-					<groupId>javax.servlet</groupId>
-					<artifactId>jstl</artifactId>
 				</dependency>
 			</dependencies>
 		</profile>
