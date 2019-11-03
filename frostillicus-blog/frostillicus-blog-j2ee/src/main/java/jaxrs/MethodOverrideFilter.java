@@ -68,7 +68,7 @@ public class MethodOverrideFilter implements ContainerRequestFilter {
 		}
 
 		// requestContext.hasEntity() is oddly unreliable - Liberty says false with a URL-encoded form post
-		if(requestContext.getLength() < 1) {
+		if(!(requestContext.hasEntity() || requestContext.getLength() > 0)) {
 			return false;
 		}
 
