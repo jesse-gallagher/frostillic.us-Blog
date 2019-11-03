@@ -43,6 +43,6 @@
 		
 	<input type="submit" value="${translation.savePost}"/>
 	<c:if test="${pageScope.edit}">
-		<input type="hidden" name="_method" value="PUT" />
+		<input type="hidden" name="_httpmethod" value="PUT" />
 	</c:if>
 </form>

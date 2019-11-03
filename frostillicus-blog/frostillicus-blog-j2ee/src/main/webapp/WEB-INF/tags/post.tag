@@ -27,9 +27,9 @@
 		<c:if test="${userInfo.admin}">
 			<div class="admin">
 				<a class="edit" href="posts/${pageScope.value.postedYear}/${pageScope.value.postedMonth}/${pageScope.value.postedDay}/${pageScope.value.slug}/edit">${translation.editButton}</a>
-				<form method="POST" action="posts/${pageScope.value.slug}">
+				<form method="POST" action="posts/${pageScope.value.slug}" enctype="multipart/form-data">
 					<input type="submit" class="delete" value="${translation.deleteButton}" onclick="return confirm('${translation.postDeleteConfirm}')" />
-					<input type="hidden" name="_method" value="DELETE" />
+					<input type="hidden" name="_httpmethod" value="DELETE" />
 				</form>
 			</div>
 		</c:if>

@@ -35,7 +35,7 @@
 						<label></label>
 					</div>
 					<c:forEach items="${links.all}" var="link">
-						<form method="POST" action="admin/links/${link.id}" accept-charset="UTF-8">
+						<form method="POST" action="admin/links/${link.id}" accept-charset="UTF-8" enctype="multipart/form-data">
 							<!-- TODO see if there's a way to ditch the "span"s. They're there to act as table cells -->
 							<span>
 								<input type="checkbox" name="visible" value="Y" ${link.visible ? 'checked="checked"' : ''} />
@@ -51,7 +51,7 @@
 							</span>
 							<div class="actions">
 								<input type="submit" name="submit" value="${translation.saveButton}" onclick="return confirm('${translation.linkSaveConfirm}')"/>
-								<button type="submit" name="_method" value="DELETE" onclick="return confirm('${translation.linkDeleteConfirm}')">${translation.deleteButton}</button>
+								<button type="submit" name="_httpmethod" value="DELETE" onclick="return confirm('${translation.linkDeleteConfirm}')">${translation.deleteButton}</button>
 							</div>
 						</form>
 					</c:forEach>
