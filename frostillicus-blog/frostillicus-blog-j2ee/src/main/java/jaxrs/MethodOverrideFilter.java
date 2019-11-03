@@ -69,14 +69,10 @@ public class MethodOverrideFilter implements ContainerRequestFilter {
 
 		// requestContext.hasEntity() is oddly unreliable - Liberty says false with a URL-encoded form post
 		if(!(requestContext.hasEntity() || requestContext.getLength() > 0)) {
-			System.out.println("entity? " + requestContext.hasEntity());
-			System.out.println("length? " + requestContext.getLength());
 			return false;
 		}
 
 		MediaType mediaType = requestContext.getMediaType();
-		System.out.println("type: " + mediaType);
-		System.out.println("compat? " + (MediaType.APPLICATION_FORM_URLENCODED_TYPE.isCompatible(mediaType) || MediaType.MULTIPART_FORM_DATA_TYPE.isCompatible(mediaType)));
 		return MediaType.APPLICATION_FORM_URLENCODED_TYPE.isCompatible(mediaType) || MediaType.MULTIPART_FORM_DATA_TYPE.isCompatible(mediaType);
 	}
 
