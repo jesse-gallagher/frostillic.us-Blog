@@ -169,6 +169,24 @@
 				</dependency>
 			</dependencies>
 		</profile>
+		
+		<profile>
+			<id>cxf</id>
+			<activation>
+				<activeByDefault>true</activeByDefault>
+			</activation>
+			
+			<dependencies>
+				<dependency>
+					<groupId>org.eclipse.krazo</groupId>
+					<artifactId>krazo-cxf</artifactId>
+				</dependency>
+				<dependency>
+					<groupId>javax.servlet</groupId>
+					<artifactId>jstl</artifactId>
+				</dependency>
+			</dependencies>
+		</profile>
 	</profiles>
 	
 </project>
