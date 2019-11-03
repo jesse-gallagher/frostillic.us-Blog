@@ -36,6 +36,11 @@ public  class AppDBBusinessLogic extends DefaultExtensionRegistry {
 		setDatabaseACLFactory(new DefaultDatabaseACLFactory());
 		
 		setDynamicSecurity((database, store) -> {
+			// No restrictions for System
+			if(database.getUserContext().hasUserId("_SystemUser_")) { //$NON-NLS-1$
+				return null;
+			}
+			
 			// Hide all conflict documents outright
 			JsonObject result = JsonObject.of("isConflict", false); //$NON-NLS-1$
 			
