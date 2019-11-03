@@ -109,7 +109,7 @@ public enum HttpUtil {
 		return response.toString();
 	}
 	
-	private static KeyStore loadKeyStore(String name) throws KeyStoreException, NoSuchAlgorithmException, CertificateException, IOException {
+	public static KeyStore loadKeyStore(String name) throws KeyStoreException, NoSuchAlgorithmException, CertificateException, IOException {
 		KeyStore keystore = KeyStore.getInstance("JKS"); //$NON-NLS-1$
 		try(InputStream is = HttpUtil.class.getResourceAsStream("/" + name + ".jks")) { //$NON-NLS-1$ //$NON-NLS-2$
 			keystore.load(is, name.toCharArray());

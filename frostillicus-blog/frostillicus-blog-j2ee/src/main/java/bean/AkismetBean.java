@@ -15,6 +15,8 @@
  */
 package bean;
 
+import java.net.URI;
+import java.security.KeyStore;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
@@ -25,9 +27,11 @@ import javax.inject.Named;
 import javax.ws.rs.core.HttpHeaders;
 
 import org.eclipse.microprofile.config.inject.ConfigProperty;
+import org.eclipse.microprofile.rest.client.RestClientBuilder;
 
 import com.darwino.commons.util.StringUtil;
 
+import api.akismet.Akismet11Client;
 import darwino.AppDatabaseDef;
 import lombok.Getter;
 import lombok.Setter;
@@ -39,6 +43,7 @@ public class AkismetBean {
 	public static final String USER_AGENT = "frostillic.us/2.0 Akismet/2.0"; //$NON-NLS-1$
 	public static final String REQUEST_PROTOCOL = "https"; //$NON-NLS-1$
 	public static final String BASE_HOST = "rest.akismet.com"; //$NON-NLS-1$
+	public static final String BASE_PATH = "rest.akismet.com/1.1"; //$NON-NLS-1$
 	public static final String VERIFY_KEY_URL = "rest.akismet.com/1.1/verify-key"; //$NON-NLS-1$
 	public static final String COMMENT_CHECK_URL = "rest.akismet.com/1.1/comment-check"; //$NON-NLS-1$
 	public static final String TYPE_COMMENT = "comment"; //$NON-NLS-1$
@@ -73,6 +78,15 @@ public class AkismetBean {
 		if(StringUtil.isEmpty(this.apiKey)) { throw new IllegalArgumentException("apiKey is empty"); } //$NON-NLS-1$
 		if(StringUtil.isEmpty(this.blog)) { throw new IllegalArgumentException("blog is key"); } //$NON-NLS-1$
 
+//		// TODO move to MicroProfile REST Client when the keystore options work in Liberty
+//		KeyStore keystore = HttpUtil.loadKeyStore("akismet");
+//		Akismet11Client client = RestClientBuilder.newBuilder()
+//			.baseUri(new URI(REQUEST_PROTOCOL + "://" + this.apiKey + "." + Akismet11Client.BASE_HOST))
+//			.trustStore(keystore)
+//			.build(Akismet11Client.class);
+//		
+//		return client.checkComment(this.blog, remoteAddress, userAgent, referrer, permalink, commentType, author, authorEmail, authorURL, content);
+
 		Map<String, String> params = new HashMap<String, String>();
 		params.put("blog", this.blog); //$NON-NLS-1$
 		params.put("user_ip", remoteAddress); //$NON-NLS-1$
@@ -85,7 +99,6 @@ public class AkismetBean {
 		params.put("comment_author_url", authorURL); //$NON-NLS-1$
 		params.put("comment_content", content); //$NON-NLS-1$
 
-		// TODO move to MicroProfile REST Client when the keystore options work in Liberty
 		String response = HttpUtil.doPost(REQUEST_PROTOCOL + "://" + this.apiKey + "." + COMMENT_CHECK_URL, "akismet", Collections.singletonMap(HttpHeaders.USER_AGENT, USER_AGENT), params); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
 
 		return response.equals("true"); //$NON-NLS-1$
