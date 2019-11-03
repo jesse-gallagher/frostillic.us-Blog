@@ -47,17 +47,17 @@
 			JNoSQL
 		 -->
 		<dependency>
-			<groupId>org.jnosql.artemis</groupId>
+			<groupId>org.eclipse.jnosql.artemis</groupId>
 			<artifactId>artemis-core</artifactId>
 			<version>${jnosql-version}</version>
 		</dependency>
 		<dependency>
-			<groupId>org.jnosql.artemis</groupId>
+			<groupId>org.eclipse.jnosql.artemis</groupId>
 			<artifactId>artemis-document</artifactId>
 			<version>${jnosql-version}</version>
 		</dependency>
 		<dependency>
-			<groupId>org.jnosql.artemis</groupId>
+			<groupId>org.eclipse.jnosql.artemis</groupId>
 			<artifactId>artemis-validation</artifactId>
 			<version>${jnosql-version}</version>
 		</dependency>
@@ -72,7 +72,7 @@
 			<version>${jnosql-version}</version>
 		</dependency>
 		<dependency>
-			<groupId>org.jnosql.diana</groupId>
+			<groupId>org.eclipse.jnosql.diana</groupId>
 			<artifactId>diana-document</artifactId>
 			<version>${jnosql-version}</version>
 		</dependency>
