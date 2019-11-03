@@ -93,7 +93,7 @@ public class GenericExceptionHandler implements ExceptionMapper<Throwable> {
             bodyHtml = StreamUtil.readString(is);
         } catch(IOException e) {
         		e.printStackTrace();
-        		bodyHtml = "";
+        		bodyHtml = ""; //$NON-NLS-1$
         }
 
         bodyHtml = bodyHtml.replace("${CONTEXT_PATH}", req.getContextPath()) //$NON-NLS-1$
