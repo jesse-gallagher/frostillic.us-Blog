@@ -25,6 +25,7 @@ import javax.mvc.Controller;
 import javax.mvc.Models;
 import javax.servlet.http.HttpServletRequest;
 import javax.ws.rs.NotFoundException;
+import javax.ws.rs.WebApplicationException;
 import javax.ws.rs.container.ResourceInfo;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
@@ -62,12 +63,7 @@ public class GenericExceptionHandler implements ExceptionMapper<Throwable> {
 	}
 	
 	private Response mvcResponse(Throwable t) {
-		Status status;
-		if(t instanceof NotFoundException) {
-			status = Status.NOT_FOUND;
-		} else {
-			status = Status.INTERNAL_SERVER_ERROR;
-		}
+		Status status = getStatus(t);
 		
 		models.put("ERROR_MESSAGE", t.getLocalizedMessage()); //$NON-NLS-1$
 		models.put("CONTEXT_PATH", req.getContextPath()); //$NON-NLS-1$
@@ -83,19 +79,14 @@ public class GenericExceptionHandler implements ExceptionMapper<Throwable> {
 		
         // TODO customize for non-HTML requests
 		return Response.status(status)
-        		.type(MediaType.TEXT_HTML)
-        		.encoding("UTF-8") //$NON-NLS-1$
+    		.type(MediaType.TEXT_HTML)
+    		.encoding("UTF-8") //$NON-NLS-1$
 			.entity(new Viewable("error.jsp")) //$NON-NLS-1$
 			.build();
 	}
 	
 	private Response servletResponse(Throwable t) {
-		Status status;
-		if(t instanceof NotFoundException) {
-			status = Status.NOT_FOUND;
-		} else {
-			status = Status.INTERNAL_SERVER_ERROR;
-		}
+		Status status = getStatus(t);
 		
         String bodyHtml;
         try(InputStream is = getClass().getResourceAsStream("/WEB-INF/error.html")) { //$NON-NLS-1$
@@ -137,5 +128,17 @@ public class GenericExceptionHandler implements ExceptionMapper<Throwable> {
 			return true;
 		}
 		return false;
+	}
+	
+	private Status getStatus(Throwable t) {
+		Status status;
+		if(t instanceof NotFoundException) {
+			status = Status.NOT_FOUND;
+		} else if(t instanceof WebApplicationException) {
+			status = Status.fromStatusCode(((WebApplicationException)t).getResponse().getStatus());
+		} else {
+			status = Status.INTERNAL_SERVER_ERROR;
+		}
+		return status;
 	}
 }
