@@ -27,10 +27,25 @@
 
 	<dependencies>
 		<dependency>
-			<groupId>jakarta.platform</groupId>
-			<artifactId>jakarta.jakartaee-api</artifactId>
+			<groupId>jakarta.servlet</groupId>
+			<artifactId>jakarta.servlet-api</artifactId>
 			<scope>provided</scope>
 		</dependency>
+        <dependency>
+            <groupId>jakarta.enterprise</groupId>
+            <artifactId>jakarta.enterprise.cdi-api</artifactId>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+			<groupId>jakarta.ws.rs</groupId>
+			<artifactId>jakarta.ws.rs-api</artifactId>
+			<scope>provided</scope>
+        </dependency>
+        <dependency>
+			<groupId>jakarta.json.bind</groupId>
+			<artifactId>jakarta.json.bind-api</artifactId>
+			<scope>provided</scope>
+        </dependency>
 		<dependency>
 			<groupId>org.eclipse.microprofile.config</groupId>
 			<artifactId>microprofile-config-api</artifactId>
