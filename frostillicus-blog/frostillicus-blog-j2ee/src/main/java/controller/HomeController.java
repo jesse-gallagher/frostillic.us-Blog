@@ -21,6 +21,7 @@ import com.darwino.commons.util.StringUtil;
 import model.Post;
 
 import javax.enterprise.context.RequestScoped;
+import javax.inject.Inject;
 import javax.mvc.Controller;
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
@@ -37,9 +38,16 @@ import java.util.List;
 @RequestScoped
 public class HomeController extends AbstractPostListController {
 	
+	@Inject PostController postController;
+	
 	@GET
 	@Produces(MediaType.TEXT_HTML)
-	public String get(@QueryParam("start") String startParam) throws JsonException {
+	public String get(@QueryParam("start") String startParam, @QueryParam("p") String postId) throws JsonException {
+		if(StringUtil.isNotEmpty(postId)) {
+			// Support for very-old-style "?p=foo" URLs
+			return postController.show(postId);
+		}
+		
 		String maybeList = maybeList(startParam);
 		if(StringUtil.isEmpty(maybeList)) {
     		List<Post> homeList = posts.homeList();
