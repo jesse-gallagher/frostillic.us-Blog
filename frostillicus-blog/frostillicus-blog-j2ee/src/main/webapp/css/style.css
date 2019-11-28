@@ -114,6 +114,9 @@ a {
 .post .comment > h3 {
 	font-size: 1.2em;
 }
+.post .body {
+	overflow-x: auto;
+}
 
 .post header > .admin {
 	float: right;
@@ -211,6 +214,7 @@ a {
 }
 .comment > .comment-body {
 	grid-area: content;
+	overflow-x: auto;
 }
 .comment > .comment-body p:first-child {
 	margin-top: 0;
@@ -247,6 +251,9 @@ pre {
 	overflow-x: auto;
 	padding: 0.5em;
 }
+code {
+	white-space: nowrap;
+}
 pre code, .hilite-me pre {
 	border: 0;
 	padding: 0;
@@ -274,14 +281,6 @@ pre code, .hilite-me pre {
 }
 .posts-older-newer .older::after {
 	content: " >>";
-}
-
-/* Don't word break in most cases, but allow it for prime offenders */
-code, .comment .comment-body {
-	word-wrap: break-word;
-	hyphens: auto;
-	-webkit-hyphens: auto;
-	word-break: break-all;
 }
 
 @media (max-width: 699px) {
