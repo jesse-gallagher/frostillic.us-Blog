@@ -326,6 +326,10 @@ code, .comment .comment-body {
 	.post pre {
 		width: calc(100vw - 2em - 2px);
 	}
+	/* Cancel out for Hilite.me code blocks */
+	.post .hilite-me pre {
+		width: inherit;
+	}
 	
 	.comment {
 		grid-template-columns: 5fr 1fr;
