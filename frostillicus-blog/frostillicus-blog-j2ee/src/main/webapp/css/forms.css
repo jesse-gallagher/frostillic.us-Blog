@@ -26,11 +26,11 @@
 	border: 1px solid grey;
 	box-shadow: inset 0 0 0.25em lightgrey;
 }
-.crud textarea {
-	resize: vertical;
-	height: 20em;
-	font-family: "Consolas", monospace;
-	font-size: 13px;
+.crud input[type='text']:focus, .crud input[type='email']:focus, .crud textarea:focus,
+.crud-list input[type='text']:focus, .crud-list input[type='email']:focus, .crud-list textarea:focus
+.crud textarea:focus {
+	border-color: lightblue;
+	box-shadow: inset 0 0 0.25em lightblue;
 }
 .new-comment.crud textarea {
 	height: 5em;
@@ -87,6 +87,9 @@
 	margin: 0;
 	width: 1.5em;
 	background: transparent;
+}
+.inline-search [type='submit']:focus {
+	outline: 1px solid lightblue;
 }
 .inline-search label {
 	display: none;
