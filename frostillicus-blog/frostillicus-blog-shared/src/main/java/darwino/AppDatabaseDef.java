@@ -29,7 +29,7 @@ import bean.UserInfoBean;
 
 public class AppDatabaseDef extends DatabaseFactoryImpl {
 
-	public static final int DATABASE_VERSION	= 16;
+	public static final int DATABASE_VERSION	= 17;
 	public static final String DATABASE_NAME	= "frostillicus_blog"; //$NON-NLS-1$
 	public static final String STORE_POSTS = "posts"; //$NON-NLS-1$
 	public static final String STORE_COMMENTS = "comments"; //$NON-NLS-1$
@@ -39,6 +39,8 @@ public class AppDatabaseDef extends DatabaseFactoryImpl {
 	public static final String STORE_MICROPOSTS = "microposts"; //$NON-NLS-1$
 	/** @since 2.3.0 */
 	public static final String STORE_TOKENS = "tokens"; //$NON-NLS-1$
+	/** @since 2.3.0 */
+	public static final String STORE_WEBMENTIONS = "webmentions"; //$NON-NLS-1$
 	
 	// The list  of instances is defined through a property for the DB
 	public static String[] getInstances() {
@@ -89,18 +91,11 @@ public class AppDatabaseDef extends DatabaseFactoryImpl {
 			_FtSearch ft = comments.setFTSearch(new _FtSearch());
 			ft.setFields("$"); //$NON-NLS-1$
 		}
-		{
-			db.addStore(STORE_CONFIG);
-		}
-		{
-			db.addStore(STORE_MEDIA);
-		}
-		{
-			db.addStore(STORE_MICROPOSTS);
-		}
-		{
-			db.addStore(STORE_TOKENS);
-		}
+		db.addStore(STORE_CONFIG);
+		db.addStore(STORE_MEDIA);
+		db.addStore(STORE_MICROPOSTS);
+		db.addStore(STORE_TOKENS);
+		db.addStore(STORE_WEBMENTIONS);
 
 		return db;
 	}

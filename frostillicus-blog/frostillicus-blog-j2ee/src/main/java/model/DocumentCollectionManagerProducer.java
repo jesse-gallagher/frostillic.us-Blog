@@ -86,4 +86,13 @@ public class DocumentCollectionManagerProducer {
 	public DarwinoDocumentCollectionManager getAccessTokenManager() {
 		return managerFactory.get(AppDatabaseDef.STORE_TOKENS);
 	}
+	
+	/**
+	 * @since 2.3.0
+	 */
+	@Produces
+	@Database(value=DatabaseType.DOCUMENT, provider=AppDatabaseDef.STORE_WEBMENTIONS)
+	public DarwinoDocumentCollectionManager getWebmentionManager() {
+		return managerFactory.get(AppDatabaseDef.STORE_WEBMENTIONS);
+	}
 }

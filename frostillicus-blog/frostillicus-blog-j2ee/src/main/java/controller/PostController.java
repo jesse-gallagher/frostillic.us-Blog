@@ -35,10 +35,12 @@ import javax.ws.rs.core.MediaType;
 import java.util.*;
 import java.util.stream.Collectors;
 
-@Path("/posts")
+@Path(PostController.PATH)
 @Controller
 @RequestScoped
 public class PostController extends AbstractPostListController {
+	public static final String PATH = "/posts"; //$NON-NLS-1$
+	
 	@Inject
 	HttpServletRequest request;
 

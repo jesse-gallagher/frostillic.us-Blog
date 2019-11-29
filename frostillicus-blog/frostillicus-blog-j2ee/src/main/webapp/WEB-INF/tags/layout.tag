@@ -37,6 +37,7 @@
 		<link rel="alternate" href="${uriInfoBean.requestUri.resolve('feed.json')}" type="application/json" title="frostillic.us &gt; Feed (JSON Feed)">
 		<link rel="alternate" href="${uriInfoBean.requestUri.resolve('feed.xml')}" type="application/rss+xml" title="frostillic.us &gt; Feed (RSS 2.0)">
 		<link rel="EditURI" type="application/rsd+xml" href="${uriInfoBean.requestUri.resolve('rsd.xml')}" />
+		<link rel="webmention" href="${uriInfoBean.requestUri.resolve('webmention')}" />
 		
 		<script type="text/javascript" src="${pageContext.request.contextPath}/webjars/turbolinks/5.2.0/dist/turbolinks.js"></script>
 		
