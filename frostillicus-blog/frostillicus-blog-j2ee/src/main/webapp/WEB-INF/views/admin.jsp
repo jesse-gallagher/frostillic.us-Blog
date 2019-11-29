@@ -32,6 +32,7 @@
 						<label>${translation.category}</label>
 						<label>${translation.name}</label>
 						<label>${translation.url}</label>
+						<label>${translation.linkRel}</label>
 						<label></label>
 					</div>
 					<c:forEach items="${links.all}" var="link">
@@ -48,6 +49,9 @@
 							</span>
 							<span>
 								<input type="text" name="url" value="${link.url}"/>
+							</span>
+							<span>
+								<input type="text" name="rel" value="${link.rel}"/>
 							</span>
 							<div class="actions">
 								<input type="submit" name="submit" value="${translation.saveButton}" onclick="return confirm('${translation.linkSaveConfirm}')"/>

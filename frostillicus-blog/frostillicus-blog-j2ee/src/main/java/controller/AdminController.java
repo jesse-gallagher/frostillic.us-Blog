@@ -73,13 +73,15 @@ public class AdminController {
 			@FormParam("visible") String visible,
 			@FormParam("category") String category,
 			@FormParam("name") String name,
-			@FormParam("url") String url
+			@FormParam("url") String url,
+			@FormParam("rel") String rel
 		) {
 		Link link = links.findById(linkId).orElseThrow(() -> new NotFoundException("Unable to find link matching ID " + linkId)); //$NON-NLS-1$
 		link.setVisible("Y".equals(visible)); //$NON-NLS-1$
 		link.setCategory(category);
 		link.setName(name);
 		link.setUrl(url);
+		link.setRel(rel);
 		links.save(link);
 		return "redirect:admin"; //$NON-NLS-1$
 	}
