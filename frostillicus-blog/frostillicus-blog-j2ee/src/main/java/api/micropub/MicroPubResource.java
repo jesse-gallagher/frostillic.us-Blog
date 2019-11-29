@@ -81,6 +81,7 @@ public class MicroPubResource {
 	@Consumes(MediaType.APPLICATION_FORM_URLENCODED)
 	public Response createUrlEncoded(
 		@FormParam("h") EntityType entityType,
+		@FormParam("name") String name,
 		@FormParam("content") String content,
 		@FormParam("category") String category,
 		@FormParam("category[]") List<String> categories,
@@ -89,6 +90,7 @@ public class MicroPubResource {
 		switch(entityType) {
 		case entry:
 			MicroPost microPost = new MicroPost();
+			microPost.setName(name);
 			microPost.setContent(content);
 			microPost = microPosts.save(microPost);
 			
