@@ -1,9 +1,10 @@
-package servlet;
+package security;
 
 import java.io.IOException;
 import java.util.Collections;
 import java.util.Map;
 
+import javax.security.enterprise.credential.Credential;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -34,7 +35,7 @@ import lombok.SneakyThrows;
 public class AccessTokenAuthHandler extends AbstractAuthHandler {
 	
 	@AllArgsConstructor
-	public static class AccessTokenAuthenticator extends HttpClient.Authenticator {
+	public static class AccessTokenAuthenticator extends HttpClient.Authenticator implements Credential {
 		private static final long serialVersionUID = 1L;
 		
 		private final @Getter String token;
@@ -76,8 +77,11 @@ public class AccessTokenAuthHandler extends AbstractAuthHandler {
 	}
 
 	@Override
-	public Authenticator readAuthentication(HttpServletRequest httpRequest, HttpServletResponse httpResponse)
+	public AccessTokenAuthenticator readAuthentication(HttpServletRequest httpRequest, HttpServletResponse httpResponse)
 			throws IOException, ServletException {
+		if(!hasAuthenticationInfo(httpRequest)) {
+			return null;
+		}
 		String tokenVal = httpRequest.getHeader(HttpBase.HEADER_AUTHORIZATION).substring("Bearer ".length()); //$NON-NLS-1$
 		AccessTokenAuthenticator auth = new AccessTokenAuthenticator(tokenVal);
 		if(StringUtil.isNotEmpty(auth.getDn())) {

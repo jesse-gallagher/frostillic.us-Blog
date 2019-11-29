@@ -3,20 +3,16 @@ package api.micropub;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URI;
-import java.util.Arrays;
 import java.util.List;
-import java.util.Map;
 import java.util.ResourceBundle;
 
 import javax.annotation.security.RolesAllowed;
-import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
 import javax.servlet.ServletContext;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.FormParam;
 import javax.ws.rs.GET;
-import javax.ws.rs.NotAuthorizedException;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
@@ -30,8 +26,6 @@ import org.eclipse.microprofile.config.inject.ConfigProperty;
 
 import com.darwino.commons.util.PathUtil;
 import com.darwino.commons.util.StringUtil;
-import com.darwino.commons.util.io.StreamUtil;
-import com.darwino.platform.DarwinoContext;
 
 import api.rsd.RSDService;
 import bean.UserInfoBean;
@@ -48,6 +42,7 @@ import model.MicroPostRepository;
  */
 @Path(MicroPubResource.BASE_PATH)
 @RSDService(name="Micropub", basePath=MicroPubResource.BASE_PATH, preferred=false)
+@RolesAllowed(UserInfoBean.ROLE_ADMIN)
 public class MicroPubResource {
 	public static final String BASE_PATH = "micropub"; //$NON-NLS-1$
 	
@@ -74,8 +69,6 @@ public class MicroPubResource {
 	@GET
 	@Produces(MediaType.APPLICATION_JSON)
 	public void get(@QueryParam("q") String info) {
-		checkAuth();
-		
 		switch(StringUtil.toString(info)) {
 		case "q": //$NON-NLS-1$
 			break;
@@ -93,8 +86,6 @@ public class MicroPubResource {
 		@FormParam("category[]") List<String> categories,
 		InputStream catchall
 	) throws IOException {
-		checkAuth();
-		
 		switch(entityType) {
 		case entry:
 			MicroPost microPost = new MicroPost();
@@ -111,14 +102,5 @@ public class MicroPubResource {
 			return Response.created(URI.create(PathUtil.concat(baseUrl, MicroPostController.PATH, microPost.getPostId()))).build();
 		}
 		return Response.noContent().build();
-	}
-	
-	// Can't use @RolesAllowed here yet, since that is enforced by the container and not Darwino,
-	//   and so doesn't work with the Darwino AuthHandler. I'm not sure why my custom one doesn't
-	//   work the same way that Basic and form auth do, though.
-	private void checkAuth() {
-		if(!DarwinoContext.get().getUser().getRoles().contains(UserInfoBean.ROLE_ADMIN)) {
-			throw new NotAuthorizedException(Response.status(Response.Status.UNAUTHORIZED).build());
-		}
 	}
 }

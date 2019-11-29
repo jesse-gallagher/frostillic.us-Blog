@@ -47,6 +47,10 @@
 			<scope>provided</scope>
         </dependency>
 		<dependency>
+			<groupId>jakarta.security.enterprise</groupId>
+			<artifactId>jakarta.security.enterprise-api</artifactId>
+		</dependency>
+		<dependency>
 			<groupId>org.eclipse.microprofile.config</groupId>
 			<artifactId>microprofile-config-api</artifactId>
 			<scope>provided</scope>
@@ -87,11 +91,11 @@
 			<artifactId>dwo-commons-runtime-debug-script</artifactId>
 			<version>${DARWINO_VERSION}</version>
 		</dependency>
-		<dependency>
-			<groupId>com.darwino</groupId>
-			<artifactId>dwo-jre-j2ee-security</artifactId>
-			<version>${DARWINO_VERSION}</version>
-		</dependency>
+<!-- 		<dependency> -->
+<!-- 			<groupId>com.darwino</groupId> -->
+<!-- 			<artifactId>dwo-jre-j2ee-security</artifactId> -->
+<!-- 			<version>${DARWINO_VERSION}</version> -->
+<!-- 		</dependency> -->
 		<dependency>
 			<groupId>com.darwino</groupId>
 			<artifactId>dwo-jre-j2ee-mpconfig</artifactId>
