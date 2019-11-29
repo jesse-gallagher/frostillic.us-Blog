@@ -49,6 +49,12 @@
 		<dependency>
 			<groupId>jakarta.security.enterprise</groupId>
 			<artifactId>jakarta.security.enterprise-api</artifactId>
+			<scope>provided</scope>
+		</dependency>
+		<dependency>
+			<groupId>jakarta.mail</groupId>
+			<artifactId>jakarta.mail-api</artifactId>
+			<scope>provided</scope>
 		</dependency>
 		<dependency>
 			<groupId>org.eclipse.microprofile.config</groupId>

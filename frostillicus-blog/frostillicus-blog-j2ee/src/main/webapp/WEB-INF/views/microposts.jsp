@@ -24,13 +24,14 @@
 	<fieldset>
 		<legend>${translation.newMicroPost}</legend>
 			
-		<form action="microposts" method="POST" class="crud" enctype="multipart/form-data">
+		<form action="micropub" method="POST" class="crud" enctype="multipart/form-data">
 			<label for="name">${translation.name}</label>
 			<input type="text" name="name" id="name"/>
 			
 			<label for="content">${translation.bodyLabel}</label>
 			<textarea name="content" id="content" required="required"></textarea>
 			
+			<input type="hidden" name="h" value="entry" />
 			<input type="submit" value="${translation.post}"/>
 		</form>
 	</fieldset>

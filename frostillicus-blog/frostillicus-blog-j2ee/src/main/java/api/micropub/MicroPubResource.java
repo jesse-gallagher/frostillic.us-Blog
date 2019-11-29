@@ -1,7 +1,6 @@
 package api.micropub;
 
 import java.io.IOException;
-import java.io.InputStream;
 import java.net.URI;
 import java.util.List;
 import java.util.ResourceBundle;
@@ -9,16 +8,19 @@ import java.util.ResourceBundle;
 import javax.annotation.security.RolesAllowed;
 import javax.inject.Inject;
 import javax.inject.Named;
+import javax.mail.BodyPart;
 import javax.servlet.ServletContext;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.FormParam;
 import javax.ws.rs.GET;
+import javax.ws.rs.HeaderParam;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
+import javax.ws.rs.core.Request;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.UriInfo;
 
@@ -27,6 +29,7 @@ import org.eclipse.microprofile.config.inject.ConfigProperty;
 import com.darwino.commons.util.PathUtil;
 import com.darwino.commons.util.StringUtil;
 
+import api.micropub.MicroPubClient.EntryType;
 import api.rsd.RSDService;
 import bean.UserInfoBean;
 import controller.MicroPostController;
@@ -46,9 +49,6 @@ import model.MicroPostRepository;
 public class MicroPubResource {
 	public static final String BASE_PATH = "micropub"; //$NON-NLS-1$
 	
-	public enum EntityType {
-		entry
-	}
 	public enum EntityAction {
 		delete, undelete
 	}
@@ -59,6 +59,8 @@ public class MicroPubResource {
 	ServletContext servletContext;
 	@Context
 	UriInfo uriInfo;
+	@Context
+	Request request;
 	@Inject
 	MicroPostRepository microPosts;
 
@@ -80,13 +82,36 @@ public class MicroPubResource {
 	@POST
 	@Consumes(MediaType.APPLICATION_FORM_URLENCODED)
 	public Response createUrlEncoded(
-		@FormParam("h") EntityType entityType,
+		@FormParam("h") EntryType entityType,
+		@FormParam("name") String name,
+		@FormParam("content") String content,
+		@FormParam("category") String category,
+		@FormParam("category[]") List<String> categories
+	) throws IOException {
+		return Response.created(create(entityType, name, content, category, categories)).build();
+	}
+	
+	@POST
+	@Consumes(MediaType.MULTIPART_FORM_DATA)
+	public Response createFormData(
+		@FormParam("h") EntryType entityType,
 		@FormParam("name") String name,
 		@FormParam("content") String content,
 		@FormParam("category") String category,
 		@FormParam("category[]") List<String> categories,
-		InputStream catchall
-	) throws IOException {
+		@FormParam("file") BodyPart image,
+		@HeaderParam("Accept") String accept
+	) {
+		URI uri = create(entityType, name, content, category, categories);
+		Response.ResponseBuilder builder = Response.created(uri);
+		if(StringUtil.isNotEmpty(accept) && accept.startsWith("text/html")) { //$NON-NLS-1$
+			// Special support for browsers
+			builder.header("Refresh", "0; url=" + uri); //$NON-NLS-1$ //$NON-NLS-2$
+		}
+		return builder.build();
+	}
+	
+	private URI create(EntryType entityType, String name, String content, String category, List<String> categories) {
 		switch(entityType) {
 		case entry:
 			MicroPost microPost = new MicroPost();
@@ -101,8 +126,8 @@ public class MicroPubResource {
 				baseUrl = PathUtil.concat(translation.getString("baseUrl"), servletContext.getContextPath()); //$NON-NLS-1$
 			}
 			
-			return Response.created(URI.create(PathUtil.concat(baseUrl, MicroPostController.PATH, microPost.getPostId()))).build();
+			return URI.create(PathUtil.concat(baseUrl, MicroPostController.PATH, microPost.getPostId()));
 		}
-		return Response.noContent().build();
+		throw new IllegalArgumentException("Unable to create entity of type " + entityType);
 	}
 }
