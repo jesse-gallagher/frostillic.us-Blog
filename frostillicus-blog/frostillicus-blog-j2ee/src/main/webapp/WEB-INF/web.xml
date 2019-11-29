@@ -91,7 +91,7 @@
    		<filter-class>com.darwino.j2ee.servlet.authentication.AuthenticationFilter</filter-class>    
         <init-param>
         	<param-name>modes</param-name>
-            <param-value>FORM,BASIC</param-value>
+            <param-value>FORM,servlet.AccessTokenAuthHandler,BASIC</param-value>
         </init-param>
         <init-param>
         	<param-name>login-param</param-name>

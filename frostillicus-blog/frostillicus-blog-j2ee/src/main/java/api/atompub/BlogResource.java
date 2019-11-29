@@ -51,7 +51,7 @@ import java.util.*;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
-@Path(AtomPubAPI.BASE_PATH + "/{blogId}")
+@Path(AtomPubResource.BASE_PATH + "/{blogId}")
 @RolesAllowed(UserInfoBean.ROLE_ADMIN)
 public class BlogResource {
     public static final int PAGE_LENGTH = 100;
@@ -77,7 +77,7 @@ public class BlogResource {
         feed.setTitle(translation.getString("appTitle")); //$NON-NLS-1$
         feed.setDescription(translation.getString("appDescription")); //$NON-NLS-1$
         feed.setLink(translation.getString("baseUrl")); //$NON-NLS-1$
-        feed.setUri(resolveUrl(AtomPubAPI.BLOG_ID));
+        feed.setUri(resolveUrl(AtomPubResource.BLOG_ID));
 
         // Figure out the starting point
         int start = Math.max(PostUtil.parseStartParam(startParam), 0);
@@ -87,14 +87,14 @@ public class BlogResource {
         List<SyndLink> links = new ArrayList<>();
         SyndLink first = new SyndLinkImpl();
         first.setRel("first"); //$NON-NLS-1$
-        first.setHref(resolveUrl(AtomPubAPI.BLOG_ID));
+        first.setHref(resolveUrl(AtomPubResource.BLOG_ID));
         links.add(first);
 
         if(start + PAGE_LENGTH < PostUtil.getPostCount()) {
             // Then add nav links
             SyndLink next = new SyndLinkImpl();
             next.setRel("next"); //$NON-NLS-1$
-            next.setHref(resolveUrl(AtomPubAPI.BLOG_ID) + "?start=" + (start + PAGE_LENGTH)); //$NON-NLS-1$
+            next.setHref(resolveUrl(AtomPubResource.BLOG_ID) + "?start=" + (start + PAGE_LENGTH)); //$NON-NLS-1$
             links.add(next);
         }
         feed.setLinks(links);
@@ -124,7 +124,7 @@ public class BlogResource {
         post.setPostedBy(darwinoSession.getUser().getDn());
         updatePost(post, xml);
 
-        return Response.created(new URI(resolveUrl(AtomPubAPI.BLOG_ID, post.getPostId()))).entity(toAtomXml(post)).build();
+        return Response.created(new URI(resolveUrl(AtomPubResource.BLOG_ID, post.getPostId()))).entity(toAtomXml(post)).build();
     }
 
     @GET
@@ -190,7 +190,7 @@ public class BlogResource {
         String postsRoot = PostController.class.getAnnotation(Path.class).value();
         read.setHref(resolveUrlRoot(postsRoot, post.getPostId()));
         SyndLink edit = new SyndLinkImpl();
-        edit.setHref(resolveUrl(AtomPubAPI.BLOG_ID, post.getPostId()));
+        edit.setHref(resolveUrl(AtomPubResource.BLOG_ID, post.getPostId()));
         edit.setRel("edit"); //$NON-NLS-1$
         entry.setLinks(Arrays.asList(read, edit));
 
@@ -244,7 +244,7 @@ public class BlogResource {
 
     private String resolveUrl(String... parts) {
         URI baseUri = uriInfo.getBaseUri();
-        String uri = PathUtil.concat(baseUri.toString(), AtomPubAPI.BASE_PATH);
+        String uri = PathUtil.concat(baseUri.toString(), AtomPubResource.BASE_PATH);
         for(String part : parts) {
             uri = PathUtil.concat(uri, part);
         }

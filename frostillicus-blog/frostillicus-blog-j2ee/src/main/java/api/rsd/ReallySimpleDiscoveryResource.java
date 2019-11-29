@@ -16,6 +16,7 @@
 package api.rsd;
 
 import java.util.ResourceBundle;
+import java.util.Set;
 
 import javax.inject.Inject;
 import javax.inject.Named;
@@ -25,16 +26,19 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.UriInfo;
 
-import org.w3c.dom.Element;
+import org.reflections.Reflections;
 import org.w3c.dom.Document;
+import org.w3c.dom.Element;
 
 import com.darwino.commons.util.PathUtil;
 import com.darwino.commons.xml.DomUtil;
 
-import api.atompub.AtomPubAPI;
+import api.atompub.AtomPubResource;
 
 @Path("/rsd.xml")
 public class ReallySimpleDiscoveryResource {
+	
+	private static final Set<Class<?>> serviceClasses = new Reflections("api").getTypesAnnotatedWith(RSDService.class); //$NON-NLS-1$
 	
 	@Inject @Named("translation")
 	ResourceBundle translation;
@@ -57,12 +61,15 @@ public class ReallySimpleDiscoveryResource {
 		DomUtil.createElement(service, "homePageLink", uriInfo.getBaseUri().toString()); //$NON-NLS-1$
 		
 		Element apis = DomUtil.createElement(service, "apis"); //$NON-NLS-1$
-		{
-			Element atompub = DomUtil.createElement(apis, "api"); //$NON-NLS-1$
-			atompub.setAttribute("name", "Atom"); //$NON-NLS-1$ //$NON-NLS-2$
-			atompub.setAttribute("preferred", "true"); //$NON-NLS-1$ //$NON-NLS-2$
-			atompub.setAttribute("apiLink", PathUtil.concat(uriInfo.getBaseUri().toString(), AtomPubAPI.BASE_PATH)); //$NON-NLS-1$
-		}
+		serviceClasses.forEach(clazz -> {
+			RSDService def = clazz.getAnnotation(RSDService.class);
+			
+			Element api = DomUtil.createElement(apis, "api"); //$NON-NLS-1$
+			api.setAttribute("name", def.name()); //$NON-NLS-1$
+			api.setAttribute("preferred", String.valueOf(def.preferred())); //$NON-NLS-1$
+			api.setAttribute("apiLink", PathUtil.concat(uriInfo.getBaseUri().toString(), def.basePath())); //$NON-NLS-1$
+			api.setAttribute("blogID", AtomPubResource.BLOG_ID); //$NON-NLS-1$
+		});
 		
 		return doc;
 	}

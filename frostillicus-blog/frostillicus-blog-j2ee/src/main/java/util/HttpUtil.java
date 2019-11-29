@@ -37,6 +37,8 @@ import javax.net.ssl.SSLContext;
 import javax.net.ssl.SSLSocketFactory;
 import javax.net.ssl.TrustManagerFactory;
 
+import com.darwino.commons.util.StringUtil;
+
 /**
  * Contains shorthand HTTP utilities to use until I can figure out how to use
  * custom keystores with the MicroProfile REST Client API properly.
@@ -87,7 +89,9 @@ public enum HttpUtil {
 			}
 			requestContent.append(URLEncoder.encode(key, "UTF-8")); //$NON-NLS-1$
 			requestContent.append('=');
-			requestContent.append(URLEncoder.encode(content.get(key), "UTF-8")); //$NON-NLS-1$
+			if(StringUtil.isNotEmpty(content.get(key))) {
+				requestContent.append(URLEncoder.encode(content.get(key), "UTF-8")); //$NON-NLS-1$
+			}
 		}
 
 		// Generate the content and write it into the request

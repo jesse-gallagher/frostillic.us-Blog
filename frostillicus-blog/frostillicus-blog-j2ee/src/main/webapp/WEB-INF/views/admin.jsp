@@ -23,7 +23,7 @@
 		<input type="radio" id="tab2" name="tab-group" checked="checked" />
 		<label for="tab2">${translation.links}</label>
 		<input type="radio" id="tab1" name="tab-group" />
-		<label for="tab1">${translation.generalSettings}</label>
+		<label for="tab1">${translation.accessTokens}</label>
 		<div class="tabs">
 			<div class="tab">
 				<div class="links crud-list">
@@ -63,7 +63,37 @@
 				</div>
 			</div>
 			<div class="tab">
-				General Settings
+				<div class="tokens crud-list">
+					<div class="header">
+						<label>${translation.userName}</label>
+						<label>${translation.name}</label>
+						<label>${translation.token}</label>
+						<label></label>
+					</div>
+					<c:forEach items="${accessTokens.all}" var="token">
+						<form method="POST" action="admin/tokens/${token.id}" accept-charset="UTF-8" enctype="multipart/form-data">
+							<!-- TODO see if there's a way to ditch the "span"s. They're there to act as table cells -->
+							<span>
+								<input type="text" name="userName" value="${token.userName}"/>
+							</span>
+							<span>
+								<input type="text" name="name" value="${token.name}"/>
+							</span>
+							<span>
+								<input type="text" name="token" value="${token.token}"/>
+							</span>
+							<div class="actions">
+								<input type="submit" name="submit" value="${translation.saveButton}" onclick="return confirm('${translation.tokenSaveConfirm}')"/>
+								<button type="submit" name="_httpmethod" value="DELETE" onclick="return confirm('${translation.tokenDeleteConfirm}')">${translation.deleteButton}</button>
+							</div>
+						</form>
+					</c:forEach>
+					<div class="footer">
+						<form method="POST" action="admin/tokens/new">
+							<button type="submit">${translation.addButton}</button>
+						</form>
+					</div>
+				</div>
 			</div>
 		</div>
 	</div>

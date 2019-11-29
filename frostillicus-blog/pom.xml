@@ -110,6 +110,11 @@
 				<artifactId>turbolinks</artifactId>
 				<version>5.2.0</version>
 			</dependency>
+			<dependency>
+				<groupId>org.reflections</groupId>
+				<artifactId>reflections</artifactId>
+				<version>0.9.11</version>
+			</dependency>
 			
 			<dependency>
 				<groupId>org.junit.jupiter</groupId>

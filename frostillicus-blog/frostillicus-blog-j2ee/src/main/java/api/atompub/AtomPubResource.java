@@ -18,6 +18,7 @@ package api.atompub;
 import com.darwino.commons.util.PathUtil;
 import com.darwino.commons.xml.DomUtil;
 
+import api.rsd.RSDService;
 import bean.UserInfoBean;
 import darwino.AppDatabaseDef;
 import org.w3c.dom.Document;
@@ -37,9 +38,10 @@ import java.net.URI;
 import java.util.ResourceBundle;
 import java.util.stream.Stream;
 
-@Path(AtomPubAPI.BASE_PATH)
+@Path(AtomPubResource.BASE_PATH)
 @RolesAllowed(UserInfoBean.ROLE_ADMIN)
-public class AtomPubAPI {
+@RSDService(name="AtomPub", basePath=AtomPubResource.BASE_PATH, preferred=false)
+public class AtomPubResource {
 	public static final String BASE_PATH = "atompub"; //$NON-NLS-1$
 	
 	public static final String BLOG_ID = AppDatabaseDef.DATABASE_NAME;

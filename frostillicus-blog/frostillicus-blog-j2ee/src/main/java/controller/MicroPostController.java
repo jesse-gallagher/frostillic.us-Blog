@@ -31,11 +31,12 @@ import bean.UserInfoBean;
 import model.MicroPost;
 import model.MicroPostRepository;
 
-@Path("/microposts")
+@Path(MicroPostController.PATH)
 @RolesAllowed(UserInfoBean.ROLE_ADMIN)
 @Controller
 @RequestScoped
 public class MicroPostController {
+	public static final String PATH = "/microposts"; //$NON-NLS-1$
 	
 	@Inject Models models;
 	@Inject MicroPostRepository microPosts;

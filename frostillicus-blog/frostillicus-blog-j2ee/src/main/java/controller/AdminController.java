@@ -16,6 +16,7 @@
 package controller;
 
 import java.util.ResourceBundle;
+import java.util.UUID;
 
 import javax.annotation.security.RolesAllowed;
 import javax.enterprise.context.RequestScoped;
@@ -32,7 +33,12 @@ import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
+import com.darwino.commons.json.JsonException;
+import com.darwino.jsonstore.Session;
+
 import bean.UserInfoBean;
+import model.AccessToken;
+import model.AccessTokenRepository;
 import model.Link;
 import model.LinkRepository;
 
@@ -43,14 +49,22 @@ import model.LinkRepository;
 public class AdminController {
 	@Inject
 	LinkRepository links;
+	@Inject
+	AccessTokenRepository tokens;
 	@Inject @Named("translation")
 	ResourceBundle translation;
+	@Inject
+	Session session;
 	
 	@GET
 	@Produces(MediaType.TEXT_HTML)
 	public String show() {
 		return "admin.jsp"; //$NON-NLS-1$
 	}
+	
+	// *******************************************************************************
+	// * Links
+	// *******************************************************************************
 	
 	@POST
 	@Path("links/{linkId}")
@@ -86,6 +100,48 @@ public class AdminController {
 		links.save(link);
 		return "redirect:admin"; //$NON-NLS-1$
 	}
+	
+	// *******************************************************************************
+	// * Access Tokens
+	// *******************************************************************************
+	
+	@POST
+	@Path("tokens/{tokenId}")
+	public String updateToken(
+			@PathParam("tokenId") String tokenId,
+			@FormParam("userName") String userName,
+			@FormParam("name") String name,
+			@FormParam("token") String token
+		) {
+		AccessToken accessToken = tokens.findById(tokenId).orElseThrow(() -> new NotFoundException("Unable to find token matching ID " + tokenId)); //$NON-NLS-1$
+		accessToken.setUserName(userName);
+		accessToken.setName(name);
+		accessToken.setToken(token);
+		tokens.save(accessToken);
+		return "redirect:admin"; //$NON-NLS-1$
+	}
+	
+	@DELETE
+	@Path("tokens/{tokenId}")
+	public String deleteToken(@PathParam("tokenId") String tokenId) {
+		tokens.deleteById(tokenId);
+		return "redirect:admin"; //$NON-NLS-1$
+	}
+	
+	@POST
+	@Path("tokens/new")
+	public String createToken() throws JsonException {
+		AccessToken token = new AccessToken();
+		token.setUserName(session.getUser().getDn());
+		token.setName("New Token"); //$NON-NLS-1$
+		token.setToken(UUID.randomUUID().toString());
+		tokens.save(token);
+		return "redirect:admin"; //$NON-NLS-1$
+	}
+	
+	// *******************************************************************************
+	// * Admin console
+	// *******************************************************************************
 	
 	@GET
 	@Path("console")

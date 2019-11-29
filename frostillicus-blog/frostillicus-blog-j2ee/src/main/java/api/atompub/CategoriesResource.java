@@ -28,7 +28,7 @@ import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 
-@Path(AtomPubAPI.BASE_PATH + "/{blogId}/categories")
+@Path(AtomPubResource.BASE_PATH + "/{blogId}/categories")
 @RolesAllowed(UserInfoBean.ROLE_ADMIN)
 public class CategoriesResource {
     @GET

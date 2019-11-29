@@ -45,7 +45,7 @@ import java.nio.charset.StandardCharsets;
 import java.util.Arrays;
 import java.util.ResourceBundle;
 
-@Path(AtomPubAPI.BASE_PATH + "/{blogId}/" + MediaResource.PATH)
+@Path(AtomPubResource.BASE_PATH + "/{blogId}/" + MediaResource.PATH)
 @RolesAllowed(UserInfoBean.ROLE_ADMIN)
 public class MediaResource {
     public static final String PATH = "media"; //$NON-NLS-1$
@@ -95,7 +95,7 @@ public class MediaResource {
         // Force update of metadata fields
         media = mediaRepository.findById(media.getId()).get();
 
-        return Response.created(new URI(resolveUrl(AtomPubAPI.BLOG_ID, PATH, media.getId()))).entity(toAtomXml(media)).build();
+        return Response.created(new URI(resolveUrl(AtomPubResource.BLOG_ID, PATH, media.getId()))).entity(toAtomXml(media)).build();
     }
 
     @GET
@@ -142,16 +142,16 @@ public class MediaResource {
         content.setAttribute("src", path); //$NON-NLS-1$
 
         Element editMediaLink = DomUtil.createElement(entry, "link"); //$NON-NLS-1$
-        editMediaLink.setAttribute("edit-media", resolveUrl(AtomPubAPI.BLOG_ID, PATH, media.getId(), nameEnc)); //$NON-NLS-1$
+        editMediaLink.setAttribute("edit-media", resolveUrl(AtomPubResource.BLOG_ID, PATH, media.getId(), nameEnc)); //$NON-NLS-1$
 
         Element editLink = DomUtil.createElement(entry, "link"); //$NON-NLS-1$
         editLink.setAttribute("rel", "edit"); //$NON-NLS-1$ //$NON-NLS-2$
-        editMediaLink.setAttribute("edit-media", resolveUrl(AtomPubAPI.BLOG_ID, PATH, media.getId())); //$NON-NLS-1$
+        editMediaLink.setAttribute("edit-media", resolveUrl(AtomPubResource.BLOG_ID, PATH, media.getId())); //$NON-NLS-1$
     }
 
     private String resolveUrl(String... parts) {
         URI baseUri = uriInfo.getBaseUri();
-        String uri = PathUtil.concat(baseUri.toString(), AtomPubAPI.BASE_PATH);
+        String uri = PathUtil.concat(baseUri.toString(), AtomPubResource.BASE_PATH);
         for(String part : parts) {
             uri = PathUtil.concat(uri, part);
         }
