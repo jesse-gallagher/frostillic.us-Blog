@@ -261,6 +261,7 @@ pre code, .hilite-me pre {
 	border: 0;
 	padding: 0;
 	background-color: transparent;
+	white-space: pre;
 }
 .hilite-me {
 	font-size: 13px;
