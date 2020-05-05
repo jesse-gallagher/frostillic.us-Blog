@@ -71,12 +71,7 @@ public enum HttpUtil {
 		conn.setDoOutput(true);
 		
 		if(conn instanceof HttpsURLConnection) {
-			TrustManagerFactory tmf = TrustManagerFactory.getInstance(TrustManagerFactory.getDefaultAlgorithm());
-			tmf.init(loadKeyStore(keyStoreName));
-			KeyManagerFactory kmf = KeyManagerFactory.getInstance(KeyManagerFactory.getDefaultAlgorithm());
-			kmf.init(loadKeyStore(keyStoreName), "akismet".toCharArray()); //$NON-NLS-1$
-			SSLContext sslCtx = SSLContext.getInstance("TLS"); //$NON-NLS-1$
-			sslCtx.init(kmf.getKeyManagers(), tmf.getTrustManagers(), null);
+			SSLContext sslCtx = buildSslContext(keyStoreName);
 			SSLSocketFactory sf = sslCtx.getSocketFactory();
 			((HttpsURLConnection)conn).setSSLSocketFactory(sf);
 		}
@@ -111,6 +106,16 @@ public enum HttpUtil {
 		reader.close();
 
 		return response.toString();
+	}
+	
+	public static SSLContext buildSslContext(String keyStoreName) throws NoSuchAlgorithmException, KeyStoreException, CertificateException, IOException, UnrecoverableKeyException, KeyManagementException {
+		TrustManagerFactory tmf = TrustManagerFactory.getInstance(TrustManagerFactory.getDefaultAlgorithm());
+		tmf.init(loadKeyStore(keyStoreName));
+		KeyManagerFactory kmf = KeyManagerFactory.getInstance(KeyManagerFactory.getDefaultAlgorithm());
+		kmf.init(loadKeyStore(keyStoreName), "akismet".toCharArray()); //$NON-NLS-1$
+		SSLContext sslCtx = SSLContext.getInstance("TLS"); //$NON-NLS-1$
+		sslCtx.init(kmf.getKeyManagers(), tmf.getTrustManagers(), null);
+		return sslCtx;
 	}
 	
 	public static KeyStore loadKeyStore(String name) throws KeyStoreException, NoSuchAlgorithmException, CertificateException, IOException {
