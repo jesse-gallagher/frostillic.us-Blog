@@ -72,6 +72,7 @@ public class MicroBlogPublisher {
 				try {
 					MicroPost post = event.getPost();
 					
+					// TODO switch to MicroProfile REST Client when it supports the keystore
 					Map<String, String> auth = Collections.singletonMap(HttpHeaders.AUTHORIZATION, "Bearer " + apiKey); //$NON-NLS-1$
 					Map<String, String> content = new HashMap<>();
 					content.put("h", EntryType.entry.name()); //$NON-NLS-1$
