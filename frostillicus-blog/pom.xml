@@ -30,7 +30,7 @@
 	</modules>
 
 	<properties>
-		<DARWINO_VERSION>2.5.1-SNAPSHOT</DARWINO_VERSION>
+		<DARWINO_VERSION>2.5.1</DARWINO_VERSION>
 
 		<maven.compiler.source>1.8</maven.compiler.source>
 		<maven.compiler.target>1.8</maven.compiler.target>
