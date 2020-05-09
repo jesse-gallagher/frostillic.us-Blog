@@ -67,22 +67,22 @@
 			<dependency>
 				<groupId>javax.mvc</groupId>
 				<artifactId>javax.mvc-api</artifactId>
-				<version>1.0-pfd</version>
+				<version>1.0.0</version>
 			</dependency>
 			<dependency>
 				<groupId>org.eclipse.krazo</groupId>
 				<artifactId>krazo-core</artifactId>
-				<version>1.0.0-Beta1</version>
+				<version>1.0.0</version>
 			</dependency>
 			<dependency>
 				<groupId>org.eclipse.krazo</groupId>
 				<artifactId>krazo-resteasy</artifactId>
-				<version>1.0.0-Beta1</version>
+				<version>1.0.0</version>
 			</dependency>
 			<dependency>
 				<groupId>org.eclipse.krazo</groupId>
 				<artifactId>krazo-cxf</artifactId>
-				<version>1.0.0-Beta1</version>
+				<version>1.0.0</version>
 			</dependency>
 			
 			<dependency>
