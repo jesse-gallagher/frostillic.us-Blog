@@ -54,208 +54,211 @@ import java.util.stream.IntStream;
 @Path(AtomPubResource.BASE_PATH + "/{blogId}")
 @RolesAllowed(UserInfoBean.ROLE_ADMIN)
 public class BlogResource {
-    public static final int PAGE_LENGTH = 100;
+	public static final int PAGE_LENGTH = 100;
 
-    @Inject
-    @Named("translation")
-    ResourceBundle translation;
+	@Inject
+	@Named("translation")
+	ResourceBundle translation;
 
-    @Context
-    UriInfo uriInfo;
+	@Context
+	UriInfo uriInfo;
 
-    @Inject
-    PostRepository posts;
+	@Inject
+	PostRepository posts;
 
-    @Inject
-    Session darwinoSession;
+	@Inject
+	Session darwinoSession;
 
-    @GET
-    @Produces("application/atom+xml")
-    public String get(@QueryParam("start") String startParam) throws FeedException, JsonException {
-        SyndFeed feed = new SyndFeedImpl();
-        feed.setFeedType("atom_1.0"); //$NON-NLS-1$
-        feed.setTitle(translation.getString("appTitle")); //$NON-NLS-1$
-        feed.setDescription(translation.getString("appDescription")); //$NON-NLS-1$
-        feed.setLink(translation.getString("baseUrl")); //$NON-NLS-1$
-        feed.setUri(resolveUrl(AtomPubResource.BLOG_ID));
+	@GET
+	@Produces("application/atom+xml")
+	public String get(@QueryParam("start") String startParam) throws FeedException, JsonException {
+		SyndFeed feed = new SyndFeedImpl();
+		feed.setFeedType("atom_1.0"); //$NON-NLS-1$
+		feed.setTitle(translation.getString("appTitle")); //$NON-NLS-1$
+		feed.setDescription(translation.getString("appDescription")); //$NON-NLS-1$
+		feed.setLink(translation.getString("baseUrl")); //$NON-NLS-1$
+		feed.setUri(resolveUrl(AtomPubResource.BLOG_ID));
 
-        // Figure out the starting point
-        int start = Math.max(PostUtil.parseStartParam(startParam), 0);
-        List<Post> result = posts.homeList(start, PAGE_LENGTH);
+		// Figure out the starting point
+		int start = Math.max(PostUtil.parseStartParam(startParam), 0);
+		List<Post> result = posts.homeList(start, PAGE_LENGTH);
 
-        // Add a nav link
-        List<SyndLink> links = new ArrayList<>();
-        SyndLink first = new SyndLinkImpl();
-        first.setRel("first"); //$NON-NLS-1$
-        first.setHref(resolveUrl(AtomPubResource.BLOG_ID));
-        links.add(first);
+		// Add a nav link
+		List<SyndLink> links = new ArrayList<>();
+		SyndLink first = new SyndLinkImpl();
+		first.setRel("first"); //$NON-NLS-1$
+		first.setHref(resolveUrl(AtomPubResource.BLOG_ID));
+		links.add(first);
 
-        if(start + PAGE_LENGTH < PostUtil.getPostCount()) {
-            // Then add nav links
-            SyndLink next = new SyndLinkImpl();
-            next.setRel("next"); //$NON-NLS-1$
-            next.setHref(resolveUrl(AtomPubResource.BLOG_ID) + "?start=" + (start + PAGE_LENGTH)); //$NON-NLS-1$
-            links.add(next);
-        }
-        feed.setLinks(links);
-        
-        	Document output = new SyndFeedOutput().outputW3CDom(feed);
-        	Element target = output.getDocumentElement();
+		if (start + PAGE_LENGTH < PostUtil.getPostCount()) {
+			// Then add nav links
+			SyndLink next = new SyndLinkImpl();
+			next.setRel("next"); //$NON-NLS-1$
+			next.setHref(resolveUrl(AtomPubResource.BLOG_ID) + "?start=" + (start + PAGE_LENGTH)); //$NON-NLS-1$
+			links.add(next);
+		}
+		feed.setLinks(links);
 
-        result.stream()
-            .map(post -> {
-        			try {
-					return toAtomXml(post);
-				} catch (XPathExpressionException | FeedException e) {
-					throw new RuntimeException(e);
-				}
-            })
-            .map(e -> output.importNode(e, true))
-            .forEach(target::appendChild);
+		Document output = new SyndFeedOutput().outputW3CDom(feed);
+		Element target = output.getDocumentElement();
 
-        return DomUtil.getXMLString(output);
-    }
+		result.stream().map(post -> {
+			try {
+				return toAtomXml(post);
+			} catch (XPathExpressionException | FeedException e) {
+				throw new RuntimeException(e);
+			}
+		}).map(e -> output.importNode(e, true)).forEach(target::appendChild);
 
-    @POST
-    @Produces("application/atom+xml")
-    public Response post(Document xml) throws XPathExpressionException, JsonException, URISyntaxException, FeedException {
+		return DomUtil.getXMLString(output);
+	}
 
-        Post post = PostUtil.createPost();
-        post.setPostedBy(darwinoSession.getUser().getDn());
-        updatePost(post, xml);
+	@POST
+	@Produces("application/atom+xml")
+	public Response post(Document xml)
+			throws XPathExpressionException, JsonException, URISyntaxException, FeedException {
 
-        return Response.created(new URI(resolveUrl(AtomPubResource.BLOG_ID, post.getPostId()))).entity(toAtomXml(post)).build();
-    }
+		Post post = PostUtil.createPost();
+		post.setPostedBy(darwinoSession.getUser().getDn());
+		updatePost(post, xml);
 
-    @GET
-    @Path("{entryId}")
-    @Produces("application/atom+xml")
-    public String getEntry(@PathParam("entryId") String postId) throws FeedException, XPathExpressionException {
-        Post post = posts.findPost(postId).orElseThrow(() -> new IllegalArgumentException("Unable to find post matching ID " + postId)); //$NON-NLS-1$
-        return DomUtil.getXMLString(toAtomXml(post), false, true);
-    }
+		return Response.created(new URI(resolveUrl(AtomPubResource.BLOG_ID, post.getPostId()))).entity(toAtomXml(post))
+				.build();
+	}
 
-    @PUT
-    @Path("{entryId}")
-    public Response updateEntry(@PathParam("entryId") String postId, Document xml) throws XPathExpressionException {
-        Post post = posts.findPost(postId).orElseThrow(() -> new IllegalArgumentException("Unable to find post matching ID " + postId)); //$NON-NLS-1$
-        updatePost(post, xml);
-        return Response.ok().build();
-    }
+	@GET
+	@Path("{entryId}")
+	@Produces("application/atom+xml")
+	public String getEntry(@PathParam("entryId") String postId) throws FeedException, XPathExpressionException {
+		Post post = posts.findPost(postId)
+				.orElseThrow(() -> new IllegalArgumentException("Unable to find post matching ID " + postId)); //$NON-NLS-1$
+		return DomUtil.getXMLString(toAtomXml(post), false, true);
+	}
 
-    @DELETE
-    @Path("{entryId}")
-    public Response deleteEntry(@PathParam("entryId") String postId) {
-        // TODO figure out why this doesn't work with existing posts. I imagine it's to do with Darwino's treatment of editors
-        Post post = posts.findPost(postId).orElseThrow(() -> new IllegalArgumentException("Unable to find post matching ID " + postId)); //$NON-NLS-1$
-        posts.deleteById(post.getId());
-        return Response.ok().build();
-    }
+	@PUT
+	@Path("{entryId}")
+	public Response updateEntry(@PathParam("entryId") String postId, Document xml) throws XPathExpressionException {
+		Post post = posts.findPost(postId)
+				.orElseThrow(() -> new IllegalArgumentException("Unable to find post matching ID " + postId)); //$NON-NLS-1$
+		updatePost(post, xml);
+		return Response.ok().build();
+	}
 
-    private SyndEntry toEntry(Post post) {
-        SyndEntry entry = new SyndEntryImpl();
-        entry.setAuthor(post.getPostedBy());
-        entry.setTitle(post.getTitle());
-        entry.setPublishedDate(Date.from(post.getPosted().toInstant()));
-        OffsetDateTime mod = post.getModified();
-        entry.setUpdatedDate(mod == null ? entry.getPublishedDate() : Date.from(mod.toInstant()));
-        	
-        	SyndContent description = new SyndContentImpl();
-        	description.setType(MediaType.TEXT_PLAIN);
-        	description.setValue(StringUtil.toString(post.getSummary()));
-        	entry.setDescription(description);
+	@DELETE
+	@Path("{entryId}")
+	public Response deleteEntry(@PathParam("entryId") String postId) {
+		// TODO figure out why this doesn't work with existing posts. I imagine it's to
+		// do with Darwino's treatment of editors
+		Post post = posts.findPost(postId)
+				.orElseThrow(() -> new IllegalArgumentException("Unable to find post matching ID " + postId)); //$NON-NLS-1$
+		posts.deleteById(post.getId());
+		return Response.ok().build();
+	}
 
-        List<SyndContent> contents = new ArrayList<>();
+	private SyndEntry toEntry(Post post) {
+		SyndEntry entry = new SyndEntryImpl();
+		entry.setAuthor(post.getPostedBy());
+		entry.setTitle(post.getTitle());
+		entry.setPublishedDate(Date.from(post.getPosted().toInstant()));
+		OffsetDateTime mod = post.getModified();
+		entry.setUpdatedDate(mod == null ? entry.getPublishedDate() : Date.from(mod.toInstant()));
 
-        String bodyMarkdown = post.getBodyMarkdown();
+		SyndContent description = new SyndContentImpl();
+		description.setType(MediaType.TEXT_PLAIN);
+		description.setValue(StringUtil.toString(post.getSummary()));
+		entry.setDescription(description);
 
-        if(StringUtil.isNotEmpty(bodyMarkdown)) {
-            SyndContent markdown = new SyndContentImpl();
-            markdown.setType("text/markdown"); //$NON-NLS-1$
-            markdown.setValue(bodyMarkdown);
-            contents.add(markdown);
-        } else {
-            SyndContent content = new SyndContentImpl();
-            content.setType(MediaType.TEXT_HTML);
-            content.setValue(post.getBodyHtml());
-            contents.add(content);
-        }
+		List<SyndContent> contents = new ArrayList<>();
 
-        entry.setContents(contents);
+		String bodyMarkdown = post.getBodyMarkdown();
 
-        entry.setCategories(post.getTags().stream().map(this::toCategory).collect(Collectors.toList()));
+		if (StringUtil.isNotEmpty(bodyMarkdown)) {
+			SyndContent markdown = new SyndContentImpl();
+			markdown.setType("text/markdown"); //$NON-NLS-1$
+			markdown.setValue(bodyMarkdown);
+			contents.add(markdown);
+		} else {
+			SyndContent content = new SyndContentImpl();
+			content.setType(MediaType.TEXT_HTML);
+			content.setValue(post.getBodyHtml());
+			contents.add(content);
+		}
 
-        // Add links
-        SyndLink read = new SyndLinkImpl();
-        String postsRoot = PostController.class.getAnnotation(Path.class).value();
-        read.setHref(resolveUrlRoot(postsRoot, post.getPostId()));
-        SyndLink edit = new SyndLinkImpl();
-        edit.setHref(resolveUrl(AtomPubResource.BLOG_ID, post.getPostId()));
-        edit.setRel("edit"); //$NON-NLS-1$
-        entry.setLinks(Arrays.asList(read, edit));
+		entry.setContents(contents);
 
-        return entry;
-    }
+		entry.setCategories(post.getTags().stream().map(this::toCategory).collect(Collectors.toList()));
 
-    private Element toAtomXml(Post post) throws FeedException, XPathExpressionException {
-        SyndEntry entry = toEntry(post);
-        SyndFeed feed = new SyndFeedImpl();
-        feed.setFeedType("atom_1.0"); //$NON-NLS-1$
-        feed.setEntries(Arrays.asList(entry));
-        Document feedDoc = new SyndFeedOutput().outputW3CDom(feed);
-        Element entryElement = (Element)XPathUtil.node(feedDoc, "/*[name()='feed']/*[name()='entry']"); //$NON-NLS-1$
+		// Add links
+		SyndLink read = new SyndLinkImpl();
+		String postsRoot = PostController.class.getAnnotation(Path.class).value();
+		read.setHref(resolveUrlRoot(postsRoot, post.getPostId()));
+		SyndLink edit = new SyndLinkImpl();
+		edit.setHref(resolveUrl(AtomPubResource.BLOG_ID, post.getPostId()));
+		edit.setRel("edit"); //$NON-NLS-1$
+		entry.setLinks(Arrays.asList(read, edit));
 
-        	if(post.getStatus() == Status.Draft) {
-        		Element control = DomUtil.createElement(entryElement, "app:control"); //$NON-NLS-1$
-        		control.setAttribute("xmlns:app", "http://www.w3.org/2007/app"); //$NON-NLS-1$ //$NON-NLS-2$
-        		DomUtil.createElement(control, "app:draft", "yes"); //$NON-NLS-1$ //$NON-NLS-2$
-        	}
+		return entry;
+	}
 
-        return entryElement;
-    }
+	private Element toAtomXml(Post post) throws FeedException, XPathExpressionException {
+		SyndEntry entry = toEntry(post);
+		SyndFeed feed = new SyndFeedImpl();
+		feed.setFeedType("atom_1.0"); //$NON-NLS-1$
+		feed.setEntries(Arrays.asList(entry));
+		Document feedDoc = new SyndFeedOutput().outputW3CDom(feed);
+		Element entryElement = (Element) XPathUtil.node(feedDoc, "/*[name()='feed']/*[name()='entry']"); //$NON-NLS-1$
 
-    private SyndCategory toCategory(String tag) {
-        SyndCategory cat = new SyndCategoryImpl();
-        cat.setName(tag);
-        return cat;
-    }
+		if (post.getStatus() == Status.Draft) {
+			Element control = DomUtil.createElement(entryElement, "app:control"); //$NON-NLS-1$
+			control.setAttribute("xmlns:app", "http://www.w3.org/2007/app"); //$NON-NLS-1$ //$NON-NLS-2$
+			DomUtil.createElement(control, "app:draft", "yes"); //$NON-NLS-1$ //$NON-NLS-2$
+		}
 
-    private void updatePost(Post post, Document xml) throws XPathExpressionException {
-        // TODO convert to ROME
+		return entryElement;
+	}
 
-        String title = XPathUtil.node(xml,"/*[name()='entry']/*[name()='title']").getTextContent(); //$NON-NLS-1$
-        String body = XPathUtil.node(xml, "/*[name()='entry']/*[name()='content']").getTextContent(); //$NON-NLS-1$
-        String summary = XPathUtil.node(xml, "/*[name()='entry']/*[name()='summary']").getTextContent(); //$NON-NLS-1$
-        NodeList tagsNodes = XPathUtil.nodes(xml,"/*[name()='entry']/*[name()='category']"); //$NON-NLS-1$
-        List<String> tags = IntStream.range(0, tagsNodes.getLength())
-                .mapToObj(tagsNodes::item)
-                .map(Element.class::cast)
-                .map(el -> el.getAttribute("term")) //$NON-NLS-1$
-                .collect(Collectors.toList());
+	private SyndCategory toCategory(String tag) {
+		SyndCategory cat = new SyndCategoryImpl();
+		cat.setName(tag);
+		return cat;
+	}
 
-        boolean posted = !"yes".equals(XPathUtil.node(xml, "*[name()='entry']/*[name()='app:control']/*[name()='app:draft']").getTextContent()); //$NON-NLS-1$ //$NON-NLS-2$
-        post.setTitle(title);
-        post.setBodyMarkdown(body);
-        post.setSummary(summary);
-        post.setTags(tags);
-        post.setStatus(posted ? Post.Status.Posted : Post.Status.Draft);
-        posts.save(post);
-    }
+	private void updatePost(Post post, Document xml) throws XPathExpressionException {
+		// TODO convert to ROME
 
-    private String resolveUrl(String... parts) {
-        URI baseUri = uriInfo.getBaseUri();
-        String uri = PathUtil.concat(baseUri.toString(), AtomPubResource.BASE_PATH);
-        for(String part : parts) {
-            uri = PathUtil.concat(uri, part);
-        }
-        return uri;
-    }
-    private String resolveUrlRoot(String... parts) {
-        URI baseUri = uriInfo.getBaseUri();
-        String uri = baseUri.toString();
-        for(String part : parts) {
-            uri = PathUtil.concat(uri, part);
-        }
-        return uri;
-    }
+		String title = XPathUtil.node(xml, "/*[name()='entry']/*[name()='title']").getTextContent(); //$NON-NLS-1$
+		String body = XPathUtil.node(xml, "/*[name()='entry']/*[name()='content']").getTextContent(); //$NON-NLS-1$
+		String summary = XPathUtil.node(xml, "/*[name()='entry']/*[name()='summary']").getTextContent(); //$NON-NLS-1$
+		NodeList tagsNodes = XPathUtil.nodes(xml, "/*[name()='entry']/*[name()='category']"); //$NON-NLS-1$
+		List<String> tags = IntStream.range(0, tagsNodes.getLength()).mapToObj(tagsNodes::item).map(Element.class::cast)
+				.map(el -> el.getAttribute("term")) //$NON-NLS-1$
+				.collect(Collectors.toList());
+
+		boolean posted = !"yes".equals(XPathUtil //$NON-NLS-1$
+				.node(xml, "*[name()='entry']/*[name()='app:control']/*[name()='app:draft']").getTextContent()); //$NON-NLS-1$
+		post.setTitle(title);
+		post.setBodyMarkdown(body);
+		post.setSummary(summary);
+		post.setTags(tags);
+		post.setStatus(posted ? Post.Status.Posted : Post.Status.Draft);
+		posts.save(post);
+	}
+
+	private String resolveUrl(String... parts) {
+		URI baseUri = uriInfo.getBaseUri();
+		String uri = PathUtil.concat(baseUri.toString(), AtomPubResource.BASE_PATH);
+		for (String part : parts) {
+			uri = PathUtil.concat(uri, part);
+		}
+		return uri;
+	}
+
+	private String resolveUrlRoot(String... parts) {
+		URI baseUri = uriInfo.getBaseUri();
+		String uri = baseUri.toString();
+		for (String part : parts) {
+			uri = PathUtil.concat(uri, part);
+		}
+		return uri;
+	}
 }
