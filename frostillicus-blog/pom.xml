@@ -32,14 +32,14 @@
 	<properties>
 		<DARWINO_VERSION>2.6.0-SNAPSHOT</DARWINO_VERSION>
 
-		<maven.compiler.source>1.8</maven.compiler.source>
-		<maven.compiler.target>1.8</maven.compiler.target>
+		<maven.compiler.source>11</maven.compiler.source>
+		<maven.compiler.target>11</maven.compiler.target>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 
 		<maven-version>3.3.9</maven-version>
-		<java-version>1.8</java-version>
+		<java-version>${maven.compiler.target}</java-version>
 		<jnosql-version>0.1.0-SNAPSHOT</jnosql-version>
 	</properties>
 	
@@ -65,30 +65,30 @@
 			</dependency>
 			
 			<dependency>
-				<groupId>javax.mvc</groupId>
-				<artifactId>javax.mvc-api</artifactId>
-				<version>1.0.0</version>
+				<groupId>jakarta.mvc</groupId>
+				<artifactId>jakarta.mvc-api</artifactId>
+				<version>1.1.0</version>
 			</dependency>
 			<dependency>
 				<groupId>org.eclipse.krazo</groupId>
 				<artifactId>krazo-core</artifactId>
-				<version>1.0.0</version>
+				<version>1.1.0</version>
 			</dependency>
 			<dependency>
 				<groupId>org.eclipse.krazo</groupId>
 				<artifactId>krazo-resteasy</artifactId>
-				<version>1.0.0</version>
+				<version>1.1.0</version>
 			</dependency>
 			<dependency>
 				<groupId>org.eclipse.krazo</groupId>
 				<artifactId>krazo-cxf</artifactId>
-				<version>1.0.0</version>
+				<version>1.1.0</version>
 			</dependency>
 			
 			<dependency>
 				<groupId>org.projectlombok</groupId>
 				<artifactId>lombok</artifactId>
-				<version>1.18.10</version>
+				<version>1.18.16</version>
 			</dependency>
 			<dependency>
 				<groupId>com.atlassian.commonmark</groupId>
@@ -103,7 +103,7 @@
 			<dependency>
 				<groupId>org.jsoup</groupId>
 				<artifactId>jsoup</artifactId>
-				<version>1.12.1</version>
+				<version>1.13.1</version>
 			</dependency>
 			<dependency>
 				<groupId>org.webjars.npm</groupId>
@@ -113,13 +113,13 @@
 			<dependency>
 				<groupId>org.reflections</groupId>
 				<artifactId>reflections</artifactId>
-				<version>0.9.11</version>
+				<version>0.9.12</version>
 			</dependency>
 			
 			<dependency>
 				<groupId>org.junit.jupiter</groupId>
 				<artifactId>junit-jupiter-engine</artifactId>
-				<version>5.5.1</version>
+				<version>5.7.0</version>
 			</dependency>
 		</dependencies>
 	</dependencyManagement>

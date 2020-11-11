@@ -73,8 +73,8 @@
 		</dependency>
 		
 		<dependency>
-			<groupId>javax.mvc</groupId>
-			<artifactId>javax.mvc-api</artifactId>
+			<groupId>jakarta.mvc</groupId>
+			<artifactId>jakarta.mvc-api</artifactId>
 		</dependency>
 
 		<dependency>
@@ -127,7 +127,6 @@
 		<dependency>
 			<groupId>org.projectlombok</groupId>
 			<artifactId>lombok</artifactId>
-			<scope>provided</scope>
 		</dependency>
 		
 		<!-- RSS generation -->
