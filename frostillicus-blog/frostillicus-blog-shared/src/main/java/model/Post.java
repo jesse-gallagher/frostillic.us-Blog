@@ -48,8 +48,8 @@ import java.util.Optional;
 public class Post {
 	public enum Status {
 		Posted, Draft;
-		
-		public static Status valueFor(String optionalName) {
+
+		public static Status valueFor(final String optionalName) {
 			for(Status status : values()) {
 				if(StringUtil.equalsIgnoreCase(status.name(), optionalName)) {
 					return status;
@@ -58,7 +58,7 @@ public class Post {
 			return Draft;
 		}
 	}
-	
+
 	@Id @Column private String id;
 	@Column private int postIdInt;
 	@Column private String postId;
@@ -76,61 +76,61 @@ public class Post {
 	@Column private boolean hasGoneLive;
 	@Column private boolean isConflict;
 	@Column private String summary;
-	
+
 	@Inject private Event<PostEvent> postEvent;
-	
-	void querySave(@Observes EntityPrePersist entity) {
+
+	void querySave(@Observes final EntityPrePersist entity) {
 		if(!(entity.getValue() instanceof Post)) {
 			return;
 		}
 		Post post = (Post)entity.getValue();
-		
+
 		// Auto-generate a slug if not already present
 		if(StringUtil.isEmpty(post.getName()) && post.getStatus() == Status.Posted) {
 			PostRepository posts = CDI.current().select(PostRepository.class).get();
-			
+
 			String baseName = StringUtil.toString(post.getTitle()).toLowerCase()
 					.replaceAll("[^\\w]", "-") //$NON-NLS-1$ //$NON-NLS-2$
 					.replaceAll("--+", "-"); //$NON-NLS-1$ //$NON-NLS-2$
 			int dedupe = 1;
 			String name = baseName;
-			
+
 			Optional<Post> existing = posts.findByName(name);
 			String id = post.getId();
 			while(existing.isPresent() && (StringUtil.isEmpty(id) || !StringUtil.equals(id, existing.get().getId()))) {
 				name = baseName + ++dedupe;
 				existing = posts.findByName(name);
 			}
-			
+
 			post.setName(name);
 		}
-		
+
 		// Update the calculated HTML body
 		MarkdownBean markdown = CDI.current().select(MarkdownBean.class).get();
 		post.setBodyHtml(markdown.toHtml(StringUtil.toString(post.getBodyMarkdown())));
-		
+
 		// Set the posted time if this is the first time it's posted or has gone live
 		if(post.posted == null || (post.status == Status.Posted && !post.hasGoneLive)) {
 			post.setPosted(OffsetDateTime.now());
 		}
 		if(post.status == Status.Posted && !post.hasGoneLive) {
 			post.setHasGoneLive(true);
-			
+
 			postEvent.fire(new PostEvent(this, Type.PUBLISH));
 		} else if(post.status == Status.Posted) {
 			postEvent.fire(new PostEvent(this, Type.UPDATE));
 		}
 	}
-	
+
 	// *******************************************************************************
 	// * Utility getters
 	// *******************************************************************************
-	
+
 	public int getCommentCount() {
 		CommentRepository comments = CDI.current().select(CommentRepository.class).get();
 		return comments.findByPostId(getPostId()).size();
 	}
-	
+
 	public int getPostedYear() {
 		return posted.get(ChronoField.YEAR);
 	}
@@ -144,11 +144,11 @@ public class Post {
 	public Date getPostedDate() {
 		return Date.from(posted.toInstant());
 	}
-	
-	public boolean matchesPostedDate(int year, int month, int day) {
+
+	public boolean matchesPostedDate(final int year, final int month, final int day) {
 		return year == getPostedYear() && month == getPostedMonth() && day == getPostedDay();
 	}
-	
+
 	public String getSlug() {
 		if(StringUtil.isEmpty(name)) {
 			return postId;
@@ -156,7 +156,7 @@ public class Post {
 			return name;
 		}
 	}
-	
+
 	public List<Post> getThreadInfo() {
 		return CDI.current().select(PostRepository.class).get().findByThread(getThread());
 	}

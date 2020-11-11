@@ -91,7 +91,7 @@ public enum PostUtil {
                 .collect(Collectors.toList());
     }
 
-    public static int parseStartParam(String startParam) {
+    public static int parseStartParam(final String startParam) {
         int start;
         if(StringUtil.isNotEmpty(startParam)) {
             try {
@@ -104,16 +104,16 @@ public enum PostUtil {
         }
         return start;
     }
-    
+
     /**
      * Extracts the common name from the provided distinguished name, or returns
      * the original value if the argument is not a valid DN.
-     * 
+     *
      * @param dn the LDAP-format distinguished name
      * @return the common name component
      * @since 2.2.0
      */
-    public static String toCn(String dn) {
+    public static String toCn(final String dn) {
 		if(StringUtil.isNotEmpty(dn)) {
 			try {
 				LdapName name = new LdapName(dn);

@@ -26,7 +26,7 @@ import javax.ws.rs.core.HttpHeaders;
 /**
  * Accounts for cases where a client sends an empty Accept-Language header,
  * which causes an "invalid locale" exception on CXF.
- * 
+ *
  * @author Jesse Gallagher
  * @since 2.3.0
  * @see <a href="https://github.com/jesse-gallagher/frostillic.us-Blog/issues/79">Issue #79</a>
@@ -36,8 +36,8 @@ import javax.ws.rs.core.HttpHeaders;
 public class EmptyLocaleResolver implements LocaleResolver {
 
 	@Override
-	public Locale resolveLocale(LocaleResolverContext context) {
-		String langHeader = context.getHeaderString(HttpHeaders.ACCEPT_LANGUAGE);
+	public Locale resolveLocale(final LocaleResolverContext context) {
+		var langHeader = context.getHeaderString(HttpHeaders.ACCEPT_LANGUAGE);
 		if("".equals(langHeader)) { //$NON-NLS-1$
 			// Then it's an empty but extant header
 			return Locale.getDefault();

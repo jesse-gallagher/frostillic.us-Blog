@@ -33,24 +33,24 @@ import lombok.SneakyThrows;
 @Named("userInfo")
 public class UserInfoBean {
 	public static final String ROLE_ADMIN = "admin"; //$NON-NLS-1$
-	
+
 	@Inject @Named("darwinoContext")
 	DarwinoContext context;
-	
+
 	@SneakyThrows
-	public String getImageUrl(String userName) {
+	public String getImageUrl(final String userName) {
 		String md5 = StringUtil.md5Hex(StringUtil.toString(userName).toLowerCase());
 		return StringUtil.format(DarwinoHttpConstants.SOCIAL_USERS_PATH + "/users/{0}/content/photo", URLEncoder.encode(md5, "UTF-8")); //$NON-NLS-1$ //$NON-NLS-2$
 	}
-	
+
 	public boolean isAdmin() {
 		return context.getUser().hasRole(ROLE_ADMIN);
 	}
-	
+
 	public boolean isAnonymous() {
 		return context.getUser().isAnonymous();
 	}
-	
+
 	public String getCn() {
 		return context.getUser().getCn();
 	}
@@ -58,7 +58,7 @@ public class UserInfoBean {
 	public String getDn() {
 		return context.getUser().getDn();
 	}
-	
+
 	public String getEmailAddress() throws UserException {
 		Object mail = context.getUser().getAttribute(User.ATTR_EMAIL);
 		return StringUtil.toString(mail);

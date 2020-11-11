@@ -21,54 +21,54 @@ import javax.enterprise.inject.Produces;
 
 import org.darwino.jnosql.diana.driver.DarwinoDocumentCollectionManager;
 import org.darwino.jnosql.diana.driver.DarwinoDocumentConfiguration;
-import jakarta.nosql.mapping.Database;
-import jakarta.nosql.mapping.DatabaseType;
-import jakarta.nosql.document.DocumentCollectionManagerFactory;
-import jakarta.nosql.document.DocumentConfiguration;
 
 import darwino.AppDatabaseDef;
+import jakarta.nosql.document.DocumentCollectionManagerFactory;
+import jakarta.nosql.document.DocumentConfiguration;
+import jakarta.nosql.mapping.Database;
+import jakarta.nosql.mapping.DatabaseType;
 
 @ApplicationScoped
 public class DocumentCollectionManagerProducer {
 
 	private DocumentConfiguration configuration;
 	private DocumentCollectionManagerFactory managerFactory;
-	
+
 	@PostConstruct
 	public void init() {
 		configuration = new DarwinoDocumentConfiguration();
 		managerFactory = configuration.get();
 	}
-	
+
 	@Produces
 	public DarwinoDocumentCollectionManager getManager() {
 		return managerFactory.get(com.darwino.jsonstore.Database.STORE_DEFAULT);
 	}
-	
+
 	@Produces
 	@Database(value=DatabaseType.DOCUMENT, provider=AppDatabaseDef.STORE_POSTS)
 	public DarwinoDocumentCollectionManager getPostsManager() {
 		return managerFactory.get(AppDatabaseDef.STORE_POSTS);
 	}
-	
+
 	@Produces
 	@Database(value=DatabaseType.DOCUMENT, provider=AppDatabaseDef.STORE_COMMENTS)
 	public DarwinoDocumentCollectionManager getCommentsManager() {
 		return managerFactory.get(AppDatabaseDef.STORE_COMMENTS);
 	}
-	
+
 	@Produces
 	@Database(value=DatabaseType.DOCUMENT, provider=AppDatabaseDef.STORE_CONFIG)
 	public DarwinoDocumentCollectionManager getConfigManager() {
 		return managerFactory.get(AppDatabaseDef.STORE_CONFIG);
 	}
-	
+
 	@Produces
 	@Database(value=DatabaseType.DOCUMENT, provider=AppDatabaseDef.STORE_MEDIA)
 	public DarwinoDocumentCollectionManager getMediaManager() {
 		return managerFactory.get(AppDatabaseDef.STORE_MEDIA);
 	}
-	
+
 	/**
 	 * @since 2.3.0
 	 */
@@ -77,7 +77,7 @@ public class DocumentCollectionManagerProducer {
 	public DarwinoDocumentCollectionManager getMicroPostManager() {
 		return managerFactory.get(AppDatabaseDef.STORE_MICROPOSTS);
 	}
-	
+
 	/**
 	 * @since 2.3.0
 	 */
@@ -86,7 +86,7 @@ public class DocumentCollectionManagerProducer {
 	public DarwinoDocumentCollectionManager getAccessTokenManager() {
 		return managerFactory.get(AppDatabaseDef.STORE_TOKENS);
 	}
-	
+
 	/**
 	 * @since 2.3.0
 	 */

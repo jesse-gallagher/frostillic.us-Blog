@@ -15,8 +15,6 @@
  */
 package bean;
 
-import java.net.URI;
-import java.security.KeyStore;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
@@ -27,11 +25,9 @@ import javax.inject.Named;
 import javax.ws.rs.core.HttpHeaders;
 
 import org.eclipse.microprofile.config.inject.ConfigProperty;
-import org.eclipse.microprofile.rest.client.RestClientBuilder;
 
 import com.darwino.commons.util.StringUtil;
 
-import api.akismet.Akismet11Client;
 import darwino.AppDatabaseDef;
 import lombok.Getter;
 import lombok.Setter;
@@ -56,7 +52,7 @@ public class AkismetBean {
 	@ConfigProperty(name=AppDatabaseDef.DATABASE_NAME+".akismet-blog", defaultValue="")
 	@Getter @Setter
 	private String blog;
-	
+
 	public boolean isValid() {
 		return StringUtil.isNotEmpty(this.apiKey) && StringUtil.isNotEmpty(this.blog);
 	}
@@ -65,7 +61,7 @@ public class AkismetBean {
 		if(StringUtil.isEmpty(this.apiKey)) { throw new IllegalArgumentException("apiKey is empty"); } //$NON-NLS-1$
 		if(StringUtil.isEmpty(this.blog)) { throw new IllegalArgumentException("blog is key"); } //$NON-NLS-1$
 
-		Map<String, String> params = new HashMap<String, String>();
+		Map<String, String> params = new HashMap<>();
 		params.put("key", this.apiKey); //$NON-NLS-1$
 		params.put("blog", this.blog); //$NON-NLS-1$
 
@@ -84,10 +80,10 @@ public class AkismetBean {
 //			.baseUri(new URI(REQUEST_PROTOCOL + "://" + this.apiKey + "." + Akismet11Client.BASE_HOST))
 //			.trustStore(keystore)
 //			.build(Akismet11Client.class);
-//		
+//
 //		return client.checkComment(this.blog, remoteAddress, userAgent, referrer, permalink, commentType, author, authorEmail, authorURL, content);
 
-		Map<String, String> params = new HashMap<String, String>();
+		Map<String, String> params = new HashMap<>();
 		params.put("blog", this.blog); //$NON-NLS-1$
 		params.put("user_ip", remoteAddress); //$NON-NLS-1$
 		params.put("user_agent", userAgent); //$NON-NLS-1$

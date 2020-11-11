@@ -34,24 +34,24 @@ import lombok.SneakyThrows;
 
 /**
  * Manages thread executors for async operations.
- * 
+ *
  * @author Jesse Gallagher
  * @since 2.3.0
  */
 public class AsyncManager implements ServletContextListener {
 	public static final ScheduledExecutorService executor = Executors.newSingleThreadScheduledExecutor(DarwinoThread::new);
-	
+
 	public static class DarwinoThread extends Thread {
-		public DarwinoThread(Runnable r) {
+		public DarwinoThread(final Runnable r) {
 			super(r);
 		}
-		
+
 		@Override
 		@SneakyThrows
 		public void run() {
 			User user = new UserImpl("_SystemUser_", "System User", null, null); //$NON-NLS-1$ //$NON-NLS-2$
-			DarwinoJ2EEContext ctx = new DarwinoJ2EEContext(DarwinoJreApplication.get(), null, null, user, new UserContextFactory(), null, DarwinoJreApplication.get().getLocalJsonDBServer().createSystemSession(null));
-			DarwinoJ2EEContextFactory fac = (DarwinoJ2EEContextFactory)Platform.getService(DarwinoContextFactory.class);
+			var ctx = new DarwinoJ2EEContext(DarwinoJreApplication.get(), null, null, user, new UserContextFactory(), null, DarwinoJreApplication.get().getLocalJsonDBServer().createSystemSession(null));
+			var fac = (DarwinoJ2EEContextFactory)Platform.getService(DarwinoContextFactory.class);
 			fac.push(ctx);
 			try {
 				super.run();
@@ -60,9 +60,9 @@ public class AsyncManager implements ServletContextListener {
 			}
 		}
 	}
-	
+
 	@Override
-	public void contextDestroyed(ServletContextEvent sce) {
+	public void contextDestroyed(final ServletContextEvent sce) {
 		executor.shutdown();
 	}
 }

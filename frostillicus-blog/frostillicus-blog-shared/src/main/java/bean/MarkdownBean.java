@@ -39,7 +39,7 @@ public class MarkdownBean {
 	public static interface SyntaxHighlighter {
 		String highlight(String text, String language);
 	}
-	
+
 	/**
 	 * Singleton instance for use outside of CDI environments.
 	 */
@@ -49,38 +49,38 @@ public class MarkdownBean {
 	private HtmlRenderer markdownHtml = HtmlRenderer.builder()
 			.nodeRendererFactory(SyntaxHighligherRenderer::new)
 			.build();
-	
+
 	@Inject
 	private SyntaxHighlighter syntaxHighlighter;
-	
-	public String toHtml(String text) {
+
+	public String toHtml(final String text) {
 		Node parsed = markdown.parse(text);
 		return markdownHtml.render(parsed);
 	}
-	
+
 	private class SyntaxHighligherRenderer extends AbstractVisitor implements NodeRenderer {
 		private final HtmlNodeRendererContext context;
-		
-		public SyntaxHighligherRenderer(HtmlNodeRendererContext context) {
+
+		public SyntaxHighligherRenderer(final HtmlNodeRendererContext context) {
 			this.context = context;
 		}
-		
+
 		@Override
 		public Set<Class<? extends Node>> getNodeTypes() {
 			return Collections.singleton(FencedCodeBlock.class);
 		}
-		
+
 		@Override
-		public void render(Node node) {
+		public void render(final Node node) {
 			node.accept(this);
 		}
-		
+
 		@Override
 		@SneakyThrows
-		public void visit(FencedCodeBlock fencedCodeBlock) {
+		public void visit(final FencedCodeBlock fencedCodeBlock) {
 			HtmlWriter html = context.getWriter();
 			html.line();
-			
+
 			String literal = fencedCodeBlock.getLiteral();
 			Map<String, String> attributes = new LinkedHashMap<>();
 			String info = fencedCodeBlock.getInfo();
@@ -92,7 +92,7 @@ public class MarkdownBean {
 				} else {
 					language = info.substring(0, space);
 				}
-				
+
 				html.tag("div", Collections.singletonMap("class", "hilite-me")); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
 				html.raw(syntaxHighlighter.highlight(literal, language));
 				html.tag("/div"); //$NON-NLS-1$
@@ -107,11 +107,11 @@ public class MarkdownBean {
 			html.line();
 		}
 
-		private Map<String, String> getAttrs(Node node, String tagName) {
+		private Map<String, String> getAttrs(final Node node, final String tagName) {
 			return getAttrs(node, tagName, Collections.<String, String>emptyMap());
 		}
 
-		private Map<String, String> getAttrs(Node node, String tagName, Map<String, String> defaultAttributes) {
+		private Map<String, String> getAttrs(final Node node, final String tagName, final Map<String, String> defaultAttributes) {
 			return context.extendAttributes(node, tagName, defaultAttributes);
 		}
 	}

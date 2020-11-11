@@ -54,7 +54,7 @@ import model.MicroPostRepository;
 
 /**
  * Implements the Micropub API as used by micro.blog.
- * 
+ *
  * @author Jesse Gallagher
  * @since 2.3.0
  */
@@ -63,7 +63,7 @@ import model.MicroPostRepository;
 @RolesAllowed(UserInfoBean.ROLE_ADMIN)
 public class MicroPubResource {
 	public static final String BASE_PATH = "micropub"; //$NON-NLS-1$
-	
+
 	public enum EntityAction {
 		delete, undelete
 	}
@@ -82,10 +82,10 @@ public class MicroPubResource {
 	@Inject
 	@ConfigProperty(name=AppDatabaseDef.DATABASE_NAME+".rss-request-urls", defaultValue="false")
 	private boolean rssRequestUrls;
-	
+
 	@GET
 	@Produces(MediaType.APPLICATION_JSON)
-	public void get(@QueryParam("q") String info) {
+	public void get(@QueryParam("q") final String info) {
 		switch(StringUtil.toString(info)) {
 		case "q": //$NON-NLS-1$
 			break;
@@ -93,54 +93,54 @@ public class MicroPubResource {
 			throw new IllegalArgumentException("Unknown value for q: " + info); //$NON-NLS-1$
 		}
 	}
-	
+
 	@POST
 	@Consumes(MediaType.APPLICATION_FORM_URLENCODED)
 	public Response createUrlEncoded(
-		@FormParam("h") EntryType entityType,
-		@FormParam("name") String name,
-		@FormParam("content") String content,
-		@FormParam("category") String category,
-		@FormParam("category[]") List<String> categories
+		@FormParam("h") final EntryType entityType,
+		@FormParam("name") final String name,
+		@FormParam("content") final String content,
+		@FormParam("category") final String category,
+		@FormParam("category[]") final List<String> categories
 	) throws IOException {
 		return Response.created(create(entityType, name, content, category, categories)).build();
 	}
-	
+
 	@POST
 	@Consumes(MediaType.MULTIPART_FORM_DATA)
 	public Response createFormData(
-		@FormParam("h") EntryType entityType,
-		@FormParam("name") String name,
-		@FormParam("content") String content,
-		@FormParam("category") String category,
-		@FormParam("category[]") List<String> categories,
-		@FormParam("file") BodyPart image,
-		@HeaderParam("Accept") String accept
+		@FormParam("h") final EntryType entityType,
+		@FormParam("name") final String name,
+		@FormParam("content") final String content,
+		@FormParam("category") final String category,
+		@FormParam("category[]") final List<String> categories,
+		@FormParam("file") final BodyPart image,
+		@HeaderParam("Accept") final String accept
 	) {
-		URI uri = create(entityType, name, content, category, categories);
-		Response.ResponseBuilder builder = Response.created(uri);
+		var uri = create(entityType, name, content, category, categories);
+		var builder = Response.created(uri);
 		if(StringUtil.isNotEmpty(accept) && accept.startsWith("text/html")) { //$NON-NLS-1$
 			// Special support for browsers
 			builder.header("Refresh", "0; url=" + uri); //$NON-NLS-1$ //$NON-NLS-2$
 		}
 		return builder.build();
 	}
-	
-	private URI create(EntryType entityType, String name, String content, String category, List<String> categories) {
+
+	private URI create(final EntryType entityType, final String name, final String content, final String category, final List<String> categories) {
 		switch(entityType) {
 		case entry:
-			MicroPost microPost = new MicroPost();
+			var microPost = new MicroPost();
 			microPost.setName(name);
 			microPost.setContent(content);
 			microPost = microPosts.save(microPost);
-			
+
 			String baseUrl;
 			if(rssRequestUrls) {
 				baseUrl = uriInfo.getBaseUri().toString();
 			} else {
 				baseUrl = PathUtil.concat(translation.getString("baseUrl"), servletContext.getContextPath()); //$NON-NLS-1$
 			}
-			
+
 			return URI.create(PathUtil.concat(baseUrl, MicroPostController.PATH, microPost.getPostId()));
 		}
 		throw new IllegalArgumentException("Unable to create entity of type " + entityType);

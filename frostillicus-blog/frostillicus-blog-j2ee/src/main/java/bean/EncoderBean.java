@@ -26,20 +26,20 @@ import lombok.SneakyThrows;
 
 /**
  * This bean is intended to be a JSP utility bean for text encoding.
- * 
+ *
  * @since 2.2.0
  */
 @ApplicationScoped @Named("encoder")
 public class EncoderBean {
-	
+
 	/**
 	 * URL-encodes the provided value, using {@link URLEncoder#encode(String, String)}.
-	 * 
+	 *
 	 * @param value the value to URL-encode
 	 * @return the URL-encoded value
 	 */
 	@SneakyThrows
-	public String urlEncode(String value) {
+	public String urlEncode(final String value) {
 		if(StringUtil.isEmpty(value)) {
 			return StringUtil.EMPTY_STRING;
 		} else {

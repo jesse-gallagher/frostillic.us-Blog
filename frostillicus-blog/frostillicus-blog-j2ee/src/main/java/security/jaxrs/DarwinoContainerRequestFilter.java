@@ -26,7 +26,7 @@ import javax.ws.rs.core.UriInfo;
 import javax.ws.rs.ext.Provider;
 
 /**
- * 
+ *
  * @author Jesse Gallagher
  */
 @Provider
@@ -36,7 +36,7 @@ public class DarwinoContainerRequestFilter implements ContainerRequestFilter {
 	UriInfo uriInfo;
 
 	@Override
-	public void filter(ContainerRequestContext requestContext) throws IOException {
+	public void filter(final ContainerRequestContext requestContext) throws IOException {
 		requestContext.setSecurityContext(new DarwinoJAXRSSecurityContext(uriInfo));
 	}
 

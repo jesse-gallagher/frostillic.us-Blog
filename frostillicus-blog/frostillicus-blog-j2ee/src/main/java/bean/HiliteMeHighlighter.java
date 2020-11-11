@@ -28,7 +28,7 @@ import lombok.SneakyThrows;
 
 @ApplicationScoped
 public class HiliteMeHighlighter implements SyntaxHighlighter {
-	
+
 	public interface HiliteMeService {
 		@POST
 		String highlight(
@@ -41,10 +41,10 @@ public class HiliteMeHighlighter implements SyntaxHighlighter {
 
 	@Override
 	@SneakyThrows
-	public String highlight(String text, String language) {
+	public String highlight(final String text, final String language) {
 		// TODO use embedded Python interpreter?
-		URI apiUri = new URI("http://hilite.me/api"); //$NON-NLS-1$
-		HiliteMeService hiliteMe = RestClientBuilder.newBuilder()
+		var apiUri = new URI("http://hilite.me/api"); //$NON-NLS-1$
+		var hiliteMe = RestClientBuilder.newBuilder()
 			.baseUri(apiUri)
 			.build(HiliteMeService.class);
 		return hiliteMe.highlight(text, language, true, "colorful"); //$NON-NLS-1$

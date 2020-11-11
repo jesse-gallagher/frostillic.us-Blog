@@ -47,18 +47,18 @@ public class MicroPost {
 	@Column @NotEmpty private String content;
 	@Column @NotNull @Convert(ISOOffsetDateTimeConverter.class) private OffsetDateTime posted;
 	@Column private boolean isConflict;
-	
+
 	// TODO attachments
-	
+
 	@Inject
 	Event<MicroPostEvent> microPostEvent;
-	
-	void querySave(@Observes EntityPrePersist event) {
+
+	void querySave(@Observes final EntityPrePersist event) {
 		if(!(event.getValue() instanceof MicroPost)) {
 			return;
 		}
 		MicroPost post = (MicroPost)event.getValue();
-		
+
 		if(StringUtil.isEmpty(post.getPostId())) {
 			post.setPostId(UUID.randomUUID().toString());
 		}
@@ -66,15 +66,15 @@ public class MicroPost {
 			post.setPosted(OffsetDateTime.now());
 		}
 	}
-	
-	void postSave(@Observes EntityPostPersit event) {
+
+	void postSave(@Observes final EntityPostPersit event) {
 		if(!(event.getValue() instanceof MicroPost)) {
 			return;
 		}
 		MicroPost post = (MicroPost)event.getValue();
 		microPostEvent.fire(new MicroPostEvent(post));
 	}
-	
+
 	public Date getPostedDate() {
 		return Date.from(posted.toInstant());
 	}

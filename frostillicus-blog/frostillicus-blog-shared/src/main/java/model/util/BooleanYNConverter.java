@@ -20,12 +20,12 @@ import jakarta.nosql.mapping.AttributeConverter;
 public class BooleanYNConverter implements AttributeConverter<Boolean, String> {
 
 	@Override
-	public String convertToDatabaseColumn(Boolean attribute) {
+	public String convertToDatabaseColumn(final Boolean attribute) {
 		return attribute ? "Y" : "N"; //$NON-NLS-1$ //$NON-NLS-2$
 	}
 
 	@Override
-	public Boolean convertToEntityAttribute(String dbData) {
+	public Boolean convertToEntityAttribute(final String dbData) {
 		return "Y".equals(dbData); //$NON-NLS-1$
 	}
 

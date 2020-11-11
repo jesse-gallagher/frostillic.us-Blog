@@ -27,7 +27,7 @@ import darwino.AppDatabaseDef;
 @RepositoryProvider(AppDatabaseDef.STORE_CONFIG)
 public interface LinkRepository extends DarwinoRepository<Link, String> {
 	Stream<Link> findAll();
-	
+
 	@Query("select * from Link order by category name")
 	List<Link> findAllByCategoryAndName();
 }

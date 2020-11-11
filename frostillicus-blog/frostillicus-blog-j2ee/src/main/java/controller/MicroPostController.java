@@ -33,22 +33,22 @@ import model.MicroPostRepository;
 @RequestScoped
 public class MicroPostController {
 	public static final String PATH = "/microposts"; //$NON-NLS-1$
-	
+
 	@Inject Models models;
 	@Inject MicroPostRepository microPosts;
-	
+
 	@GET
 	public String list() {
 		models.put("posts", microPosts.findAll()); //$NON-NLS-1$
-		
+
 		return "microposts.jsp"; //$NON-NLS-1$
 	}
-	
+
 	@GET
 	@Path("{postId}")
-	public String show(@PathParam("postId") String postId) {
+	public String show(@PathParam("postId") final String postId) {
 		models.put("posts", microPosts.findAll()); //$NON-NLS-1$
-		
+
 		return "microposts.jsp"; //$NON-NLS-1$
 	}
 }

@@ -16,7 +16,6 @@
 package jaxrs;
 
 import java.io.IOException;
-import java.io.InputStream;
 import java.io.PrintWriter;
 import java.io.StringWriter;
 
@@ -45,15 +44,15 @@ import com.darwino.commons.util.io.StreamUtil;
 public class GenericExceptionHandler implements ExceptionMapper<Throwable> {
 	@Context
 	private HttpServletRequest req;
-	
+
 	@Context
 	private ResourceInfo resourceInfo;
-	
+
 	@Inject
 	private Models models;
-	
+
 	@Override
-	public Response toResponse(Throwable t) {
+	public Response toResponse(final Throwable t) {
 		// If we're in an MVC context, send an MVC-style response
 		if(isMvcRequest()) {
 			return mvcResponse(t);
@@ -61,22 +60,22 @@ public class GenericExceptionHandler implements ExceptionMapper<Throwable> {
 			return servletResponse(t);
 		}
 	}
-	
-	private Response mvcResponse(Throwable t) {
-		Status status = getStatus(t);
-		
+
+	private Response mvcResponse(final Throwable t) {
+		var status = getStatus(t);
+
 		models.put("ERROR_MESSAGE", t.getLocalizedMessage()); //$NON-NLS-1$
 		models.put("CONTEXT_PATH", req.getContextPath()); //$NON-NLS-1$
 		models.put("ERROR_STATUS_CODE", status); //$NON-NLS-1$
-        try(StringWriter w = new StringWriter()) {
-            try(PrintWriter p = new PrintWriter(w)) {
+        try(var w = new StringWriter()) {
+            try(var p = new PrintWriter(w)) {
                 t.printStackTrace(p);
             }
             models.put("ERROR_STACK_TRACE", w.toString()); //$NON-NLS-1$
         } catch(IOException e) {
         		// Ignore
         }
-		
+
         // TODO customize for non-HTML requests
 		return Response.status(status)
     		.type(MediaType.TEXT_HTML)
@@ -84,12 +83,12 @@ public class GenericExceptionHandler implements ExceptionMapper<Throwable> {
 			.entity(new Viewable("error.jsp")) //$NON-NLS-1$
 			.build();
 	}
-	
-	private Response servletResponse(Throwable t) {
-		Status status = getStatus(t);
-		
+
+	private Response servletResponse(final Throwable t) {
+		var status = getStatus(t);
+
         String bodyHtml;
-        try(InputStream is = getClass().getResourceAsStream("/WEB-INF/error.html")) { //$NON-NLS-1$
+        try(var is = getClass().getResourceAsStream("/WEB-INF/error.html")) { //$NON-NLS-1$
             bodyHtml = StreamUtil.readString(is);
         } catch(IOException e) {
         		e.printStackTrace();
@@ -101,15 +100,15 @@ public class GenericExceptionHandler implements ExceptionMapper<Throwable> {
             .replace("${ERROR_STATUS_CODE}", String.valueOf(status.getStatusCode())) //$NON-NLS-1$
             .replace("${ERROR_EXCEPTION_TYPE}", String.valueOf(t.getClass().getName())); //$NON-NLS-1$
 
-        try(StringWriter w = new StringWriter()) {
-            try(PrintWriter p = new PrintWriter(w)) {
+        try(var w = new StringWriter()) {
+            try(var p = new PrintWriter(w)) {
                 t.printStackTrace(p);
             }
             bodyHtml = bodyHtml.replace("${ERROR_STACK_TRACE}", w.toString()); //$NON-NLS-1$
         } catch(IOException e) {
         		e.printStackTrace();
         }
-        
+
         return Response.status(status)
         		.type(MediaType.TEXT_HTML)
         		.encoding("UTF-8") //$NON-NLS-1$
@@ -129,8 +128,8 @@ public class GenericExceptionHandler implements ExceptionMapper<Throwable> {
 		}
 		return false;
 	}
-	
-	private Status getStatus(Throwable t) {
+
+	private Status getStatus(final Throwable t) {
 		Status status;
 		if(t instanceof NotFoundException) {
 			status = Status.NOT_FOUND;

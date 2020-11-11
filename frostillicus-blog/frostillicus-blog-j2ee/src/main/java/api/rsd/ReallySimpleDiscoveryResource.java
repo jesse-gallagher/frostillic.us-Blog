@@ -28,7 +28,6 @@ import javax.ws.rs.core.UriInfo;
 
 import org.reflections.Reflections;
 import org.w3c.dom.Document;
-import org.w3c.dom.Element;
 
 import com.darwino.commons.util.PathUtil;
 import com.darwino.commons.xml.DomUtil;
@@ -37,40 +36,40 @@ import api.atompub.AtomPubResource;
 
 @Path("/rsd.xml")
 public class ReallySimpleDiscoveryResource {
-	
+
 	private static final Set<Class<?>> serviceClasses = new Reflections("api").getTypesAnnotatedWith(RSDService.class); //$NON-NLS-1$
-	
+
 	@Inject @Named("translation")
 	ResourceBundle translation;
-	
+
 	@Context
 	UriInfo uriInfo;
-	
+
 	@GET
 	@Produces("application/rsd+xml")
 	public Document get() {
-		Document doc = DomUtil.createDocument();
-		
-		Element rsd = DomUtil.createRootElement(doc, "rsd"); //$NON-NLS-1$
+		var doc = DomUtil.createDocument();
+
+		var rsd = DomUtil.createRootElement(doc, "rsd"); //$NON-NLS-1$
 		rsd.setAttribute("version", "1.0"); //$NON-NLS-1$ //$NON-NLS-2$
 		rsd.setAttribute("xmlns", "http://archipelago.phrasewise.com/rsd"); //$NON-NLS-1$ //$NON-NLS-2$
-		
-		Element service = DomUtil.createElement(rsd, "service"); //$NON-NLS-1$
+
+		var service = DomUtil.createElement(rsd, "service"); //$NON-NLS-1$
 		DomUtil.createElement(service, "engineName", translation.getString("appTitle")); //$NON-NLS-1$ //$NON-NLS-2$
 		DomUtil.createElement(service, "engineLink", translation.getString("baseUrl")); //$NON-NLS-1$ //$NON-NLS-2$
 		DomUtil.createElement(service, "homePageLink", uriInfo.getBaseUri().toString()); //$NON-NLS-1$
-		
-		Element apis = DomUtil.createElement(service, "apis"); //$NON-NLS-1$
+
+		var apis = DomUtil.createElement(service, "apis"); //$NON-NLS-1$
 		serviceClasses.forEach(clazz -> {
-			RSDService def = clazz.getAnnotation(RSDService.class);
-			
-			Element api = DomUtil.createElement(apis, "api"); //$NON-NLS-1$
+			var def = clazz.getAnnotation(RSDService.class);
+
+			var api = DomUtil.createElement(apis, "api"); //$NON-NLS-1$
 			api.setAttribute("name", def.name()); //$NON-NLS-1$
 			api.setAttribute("preferred", String.valueOf(def.preferred())); //$NON-NLS-1$
 			api.setAttribute("apiLink", PathUtil.concat(uriInfo.getBaseUri().toString(), def.basePath())); //$NON-NLS-1$
 			api.setAttribute("blogID", AtomPubResource.BLOG_ID); //$NON-NLS-1$
 		});
-		
+
 		return doc;
 	}
 }

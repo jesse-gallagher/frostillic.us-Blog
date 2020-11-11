@@ -25,14 +25,14 @@ import com.darwino.platform.DarwinoContext;
 import security.DarwinoPrincipal;
 
 /**
- * 
+ *
  * @author Jesse Gallagher
  * @since 2.5.0
  */
 public class DarwinoJAXRSSecurityContext implements SecurityContext {
 	private final UriInfo uriInfo;
-	
-	public DarwinoJAXRSSecurityContext(UriInfo uriInfo) {
+
+	public DarwinoJAXRSSecurityContext(final UriInfo uriInfo) {
 		this.uriInfo = uriInfo;
 	}
 
@@ -42,7 +42,7 @@ public class DarwinoJAXRSSecurityContext implements SecurityContext {
 	}
 
 	@Override
-	public boolean isUserInRole(String role) {
+	public boolean isUserInRole(final String role) {
 		return DarwinoContext.get().getUser().hasRole(role);
 	}
 

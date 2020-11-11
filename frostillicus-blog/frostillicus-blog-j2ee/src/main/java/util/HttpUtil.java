@@ -18,7 +18,6 @@ package util;
 import java.io.BufferedReader;
 import java.io.DataOutputStream;
 import java.io.IOException;
-import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
@@ -34,7 +33,6 @@ import java.util.Map;
 import javax.net.ssl.HttpsURLConnection;
 import javax.net.ssl.KeyManagerFactory;
 import javax.net.ssl.SSLContext;
-import javax.net.ssl.SSLSocketFactory;
 import javax.net.ssl.TrustManagerFactory;
 
 import com.darwino.commons.util.StringUtil;
@@ -42,25 +40,25 @@ import com.darwino.commons.util.StringUtil;
 /**
  * Contains shorthand HTTP utilities to use until I can figure out how to use
  * custom keystores with the MicroProfile REST Client API properly.
- * 
+ *
  * @author Jesse Gallagher
  * @since 2.3.0
  */
 public enum HttpUtil {
 	;
-	
+
 	/**
-	 * 
+	 *
 	 * @param url the URL to POST to
 	 * @param keyStoreName the name of the keystore, which is used both for its ClassLoader path and its password
 	 * @param headers a {@link Map} of headers to set
 	 * @param content a {@link Map} of URL-encoded form params
 	 * @return the body content
 	 */
-	public static String doPost(final String url, String keyStoreName, Map<String, String> headers, final Map<String, String> content) throws IOException, NoSuchAlgorithmException, KeyStoreException, CertificateException, KeyManagementException, UnrecoverableKeyException {
+	public static String doPost(final String url, final String keyStoreName, final Map<String, String> headers, final Map<String, String> content) throws IOException, NoSuchAlgorithmException, KeyStoreException, CertificateException, KeyManagementException, UnrecoverableKeyException {
 		// Create a new POST request
-		URL urlObj = new URL(url);
-		HttpURLConnection conn = (HttpURLConnection)urlObj.openConnection();
+		var urlObj = new URL(url);
+		var conn = (HttpURLConnection)urlObj.openConnection();
 		conn.setRequestMethod("POST"); //$NON-NLS-1$
 		conn.setRequestProperty("Content-Type", "application/x-www-form-urlencoded"); //$NON-NLS-1$ //$NON-NLS-2$
 		for(Map.Entry<String, String> header : headers.entrySet()) {
@@ -69,15 +67,15 @@ public enum HttpUtil {
 		conn.setUseCaches(false);
 		conn.setDoInput(true);
 		conn.setDoOutput(true);
-		
+
 		if(conn instanceof HttpsURLConnection) {
-			SSLContext sslCtx = buildSslContext(keyStoreName);
-			SSLSocketFactory sf = sslCtx.getSocketFactory();
+			var sslCtx = buildSslContext(keyStoreName);
+			var sf = sslCtx.getSocketFactory();
 			((HttpsURLConnection)conn).setSSLSocketFactory(sf);
 		}
 
 		// Generate the content from the parameter map
-		StringBuilder requestContent = new StringBuilder();
+		var requestContent = new StringBuilder();
 		for(String key : content.keySet()) {
 			if(requestContent.length() > 0) {
 				requestContent.append('&');
@@ -90,16 +88,16 @@ public enum HttpUtil {
 		}
 
 		// Generate the content and write it into the request
-		String requestString = requestContent.toString();
+		var requestString = requestContent.toString();
 		conn.setRequestProperty("Content-Length", Integer.toString(requestString.getBytes().length)); //$NON-NLS-1$
-		DataOutputStream wr = new DataOutputStream(conn.getOutputStream());
+		var wr = new DataOutputStream(conn.getOutputStream());
 		wr.writeBytes(requestString);
 		wr.flush();
 		wr.close();
 
-		InputStream is = conn.getInputStream();
-		BufferedReader reader = new BufferedReader(new InputStreamReader(is));
-		StringBuilder response = new StringBuilder();
+		var is = conn.getInputStream();
+		var reader = new BufferedReader(new InputStreamReader(is));
+		var response = new StringBuilder();
 		while(reader.ready()) {
 			response.append((char)reader.read());
 		}
@@ -107,20 +105,20 @@ public enum HttpUtil {
 
 		return response.toString();
 	}
-	
-	public static SSLContext buildSslContext(String keyStoreName) throws NoSuchAlgorithmException, KeyStoreException, CertificateException, IOException, UnrecoverableKeyException, KeyManagementException {
-		TrustManagerFactory tmf = TrustManagerFactory.getInstance(TrustManagerFactory.getDefaultAlgorithm());
+
+	public static SSLContext buildSslContext(final String keyStoreName) throws NoSuchAlgorithmException, KeyStoreException, CertificateException, IOException, UnrecoverableKeyException, KeyManagementException {
+		var tmf = TrustManagerFactory.getInstance(TrustManagerFactory.getDefaultAlgorithm());
 		tmf.init(loadKeyStore(keyStoreName));
-		KeyManagerFactory kmf = KeyManagerFactory.getInstance(KeyManagerFactory.getDefaultAlgorithm());
+		var kmf = KeyManagerFactory.getInstance(KeyManagerFactory.getDefaultAlgorithm());
 		kmf.init(loadKeyStore(keyStoreName), "akismet".toCharArray()); //$NON-NLS-1$
-		SSLContext sslCtx = SSLContext.getInstance("TLS"); //$NON-NLS-1$
+		var sslCtx = SSLContext.getInstance("TLS"); //$NON-NLS-1$
 		sslCtx.init(kmf.getKeyManagers(), tmf.getTrustManagers(), null);
 		return sslCtx;
 	}
-	
-	public static KeyStore loadKeyStore(String name) throws KeyStoreException, NoSuchAlgorithmException, CertificateException, IOException {
-		KeyStore keystore = KeyStore.getInstance("JKS"); //$NON-NLS-1$
-		try(InputStream is = HttpUtil.class.getResourceAsStream("/" + name + ".jks")) { //$NON-NLS-1$ //$NON-NLS-2$
+
+	public static KeyStore loadKeyStore(final String name) throws KeyStoreException, NoSuchAlgorithmException, CertificateException, IOException {
+		var keystore = KeyStore.getInstance("JKS"); //$NON-NLS-1$
+		try(var is = HttpUtil.class.getResourceAsStream("/" + name + ".jks")) { //$NON-NLS-1$ //$NON-NLS-2$
 			keystore.load(is, name.toCharArray());
 		}
 		return keystore;

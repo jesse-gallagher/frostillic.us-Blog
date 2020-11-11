@@ -26,6 +26,6 @@ import darwino.AppDatabaseDef;
 @RepositoryProvider(AppDatabaseDef.STORE_TOKENS)
 public interface AccessTokenRepository extends DarwinoRepository<AccessToken, String> {
 	Stream<AccessToken> findAll();
-	
+
 	Optional<AccessToken> findByToken(String token);
 }

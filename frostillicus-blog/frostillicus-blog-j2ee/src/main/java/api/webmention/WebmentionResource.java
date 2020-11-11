@@ -17,10 +17,8 @@ package api.webmention;
 
 import java.io.IOException;
 import java.time.OffsetDateTime;
-import java.util.Optional;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import javax.inject.Inject;
@@ -37,17 +35,13 @@ import javax.ws.rs.core.Response.Status;
 import javax.ws.rs.core.UriInfo;
 
 import org.jsoup.Jsoup;
-import org.jsoup.nodes.Document;
 
 import com.darwino.commons.util.PathUtil;
-import com.darwino.jsonstore.Database;
-import com.darwino.jsonstore.Store;
 import com.darwino.platform.DarwinoContext;
 
 import app.AsyncManager;
 import controller.PostController;
 import darwino.AppDatabaseDef;
-import model.Post;
 import model.PostRepository;
 import model.Webmention;
 import model.Webmention.Type;
@@ -55,7 +49,7 @@ import model.WebmentionRepository;
 
 /**
  * Resource to handle Webmention requests.
- * 
+ *
  * @author Jesse Gallagher
  * @since 2.3.0
  * @see <a href="https://indieweb.org/webmention-spec">https://indieweb.org/webmention-spec</a>
@@ -63,7 +57,7 @@ import model.WebmentionRepository;
 @Path(WebmentionResource.PATH)
 public class WebmentionResource {
 	public static final String PATH = "webmention"; //$NON-NLS-1$
-	
+
 	private static final Pattern POSTS_MATCHER;
 	static {
 		try {
@@ -73,65 +67,65 @@ public class WebmentionResource {
 			throw t;
 		}
 	}
-	
+
 	@Context
 	UriInfo uriInfo;
-	
+
 	@Inject
 	PostRepository posts;
 	@Inject
 	WebmentionRepository webmentions;
 	@Inject
 	Logger log;
-	
+
 	@POST
 	@Consumes(MediaType.APPLICATION_FORM_URLENCODED)
 	public Response mention(
-		@FormParam("source") @NotEmpty String source,
-		@FormParam("target") @NotEmpty String target,
-		@Context HttpServletRequest request
+		@FormParam("source") @NotEmpty final String source,
+		@FormParam("target") @NotEmpty final String target,
+		@Context final HttpServletRequest request
 	) {
 		// Assume that the incoming URI info must match the target
-		String base = uriInfo.getBaseUri().toString();
+		var base = uriInfo.getBaseUri().toString();
 		if(!target.startsWith(base)) {
 			return error("Target URI must begin with " + base); //$NON-NLS-1$
 		}
-		
-		String path = PathUtil.concat("/", target.substring(base.length())); //$NON-NLS-1$
-		Matcher matcher = POSTS_MATCHER.matcher(path);
+
+		var path = PathUtil.concat("/", target.substring(base.length())); //$NON-NLS-1$
+		var matcher = POSTS_MATCHER.matcher(path);
 		if(matcher.matches()) {
-			String postId = matcher.group(1);
-			Optional<Post> post = posts.findPost(postId);
+			var postId = matcher.group(1);
+			var post = posts.findPost(postId);
 			if(!post.isPresent()) {
 				return error("Unable to find post for ID " + postId); //$NON-NLS-1$
 			}
-			
-			Webmention webmention = webmentions.find(source, Type.Post.name(), post.get().getPostId()).orElseGet(() -> {
+
+			var webmention = webmentions.find(source, Type.Post.name(), post.get().getPostId()).orElseGet(() -> {
 				Webmention result = new Webmention();
 				result.setSource(source);
 				result.setType(Type.Post);
 				result.setTargetId(post.get().getPostId());
 				result.setPosted(OffsetDateTime.now());
-				
+
 				result.setHttpReferer(request.getHeader("Referer")); //$NON-NLS-1$
 				result.setHttpRemoteAddr(request.getRemoteAddr());
 				result.setHttpUserAgent(request.getHeader("User-Agent")); //$NON-NLS-1$
-				
+
 				return webmentions.save(result);
 			});
-			
+
 			AsyncManager.executor.submit(() -> {
 				try {
 					// Use the Darwino API to avoid an NPE in LiberyValidatorProxy on WS Liberty
-					Database database = DarwinoContext.get().getSession().getDatabase(AppDatabaseDef.DATABASE_NAME);
-					Store mentions = database.getStore(AppDatabaseDef.STORE_WEBMENTIONS);
-					com.darwino.jsonstore.Document mention = mentions.loadDocument(webmention.getId());
-					
+					var database = DarwinoContext.get().getSession().getDatabase(AppDatabaseDef.DATABASE_NAME);
+					var mentions = database.getStore(AppDatabaseDef.STORE_WEBMENTIONS);
+					var mention = mentions.loadDocument(webmention.getId());
+
 					try {
-						Document doc = Jsoup.connect(source).get();
-						
+						var doc = Jsoup.connect(source).get();
+
 						// Check to make sure that the target is indeed present
-						boolean isReferenced = doc.select("a[href]").parallelStream() //$NON-NLS-1$
+						var isReferenced = doc.select("a[href]").parallelStream() //$NON-NLS-1$
 							.map(a -> a.attr("href")) //$NON-NLS-1$
 							.map(String::valueOf)
 							.anyMatch(href -> href.startsWith(target));
@@ -152,7 +146,7 @@ public class WebmentionResource {
 						mention.set("verified", 0); //$NON-NLS-1$
 						mention.set("problemCause", e.toString()); //$NON-NLS-1$
 					}
-					
+
 					mention.save();
 				} catch (Throwable t) {
 					t.printStackTrace();
@@ -161,14 +155,14 @@ public class WebmentionResource {
 					}
 				}
 			});
-			
-			return Response.accepted().build();	
+
+			return Response.accepted().build();
 		} else {
 			return error("Unable to match path to entity: " + path); //$NON-NLS-1$
 		}
 	}
-	
-	private Response error(String reason) {
+
+	private Response error(final String reason) {
 		return Response
 			.status(Status.BAD_REQUEST)
 			.type(MediaType.TEXT_PLAIN_TYPE)

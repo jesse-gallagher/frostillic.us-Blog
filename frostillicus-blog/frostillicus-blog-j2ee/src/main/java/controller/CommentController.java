@@ -46,34 +46,34 @@ import model.PostRepository;
 public class CommentController {
 	private static final String GENERIC_USER = "frostillic.us Blog Commenter"; //$NON-NLS-1$
 	private static final String GENERIC_EMAIL = "comment@frostillic.us"; //$NON-NLS-1$
-	
+
 	@Inject
 	PostRepository posts;
 	@Inject
 	CommentRepository comments;
-	
+
 	@Inject
 	MarkdownBean markdown;
 	@Inject
 	AkismetBean akismet;
-	
+
 	@Inject
 	HttpServletRequest request;
-	
+
 	@POST
 	public String create(
-			@PathParam("postId") String postId,
-			@FormParam("postedBy") String postedBy,
-			@FormParam("bodyMarkdown") String bodyMarkdown,
-			@FormParam("postedByEmail") String postedByEmail
+			@PathParam("postId") final String postId,
+			@FormParam("postedBy") final String postedBy,
+			@FormParam("bodyMarkdown") final String bodyMarkdown,
+			@FormParam("postedByEmail") final String postedByEmail
 			) throws Exception {
 		posts.findPost(postId).orElseThrow(() -> new NotFoundException("Unable to find post matching ID " + postId)); //$NON-NLS-1$
-		
-		String remoteAddr = request.getRemoteAddr();
-		String userAgent = request.getHeader("User-Agent"); //$NON-NLS-1$
-		String referrer = request.getHeader("Referer"); //$NON-NLS-1$
-		
-		Comment comment = new Comment();
+
+		var remoteAddr = request.getRemoteAddr();
+		var userAgent = request.getHeader("User-Agent"); //$NON-NLS-1$
+		var referrer = request.getHeader("Referer"); //$NON-NLS-1$
+
+		var comment = new Comment();
 		comment.setCommentId(UUID.randomUUID().toString());
 		comment.setPostId(postId);
 		comment.setPosted(OffsetDateTime.now());
@@ -83,26 +83,26 @@ public class CommentController {
 		comment.setHttpRemoteAddr(remoteAddr);
 		comment.setHttpUserAgent(userAgent);
 		comment.setHttpReferer(referrer);
-		
+
 		if(akismet.isValid()) {
-			boolean spam = akismet.checkComment(remoteAddr, userAgent, referrer, "", AkismetBean.TYPE_COMMENT, GENERIC_USER, GENERIC_EMAIL, "", bodyMarkdown); //$NON-NLS-1$ //$NON-NLS-2$
+			var spam = akismet.checkComment(remoteAddr, userAgent, referrer, "", AkismetBean.TYPE_COMMENT, GENERIC_USER, GENERIC_EMAIL, "", bodyMarkdown); //$NON-NLS-1$ //$NON-NLS-2$
 			comment.setAkismetSpam(spam);
 		}
-		
-		String html = markdown.toHtml(bodyMarkdown);
+
+		var html = markdown.toHtml(bodyMarkdown);
 		html = Jsoup.clean(html, Whitelist.basicWithImages());
 		comment.setBodyHtml(html);
-		
+
 		comments.save(comment);
-		
+
 		return "redirect:posts/" + postId; //$NON-NLS-1$
 	}
-	
+
 	@DELETE
 	@Path("{commentId}")
 	@RolesAllowed(UserInfoBean.ROLE_ADMIN)
-	public String delete(@PathParam("postId") String postId, @PathParam("commentId") String commentId) {
-		Comment comment = comments.findByCommentId(commentId).orElseThrow(() -> new NotFoundException("Unable to find comment matching ID " + commentId)); //$NON-NLS-1$
+	public String delete(@PathParam("postId") final String postId, @PathParam("commentId") final String commentId) {
+		var comment = comments.findByCommentId(commentId).orElseThrow(() -> new NotFoundException("Unable to find comment matching ID " + commentId)); //$NON-NLS-1$
 		comments.deleteById(comment.getId());
 		return "redirect:posts/" + postId; //$NON-NLS-1$
 	}

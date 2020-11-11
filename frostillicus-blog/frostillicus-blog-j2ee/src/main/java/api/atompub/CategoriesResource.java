@@ -15,18 +15,16 @@
  */
 package api.atompub;
 
+import javax.annotation.security.RolesAllowed;
+import javax.ws.rs.GET;
+import javax.ws.rs.Path;
+import javax.ws.rs.Produces;
+
 import com.darwino.commons.json.JsonException;
 import com.darwino.commons.xml.DomUtil;
 
 import bean.UserInfoBean;
 import model.util.PostUtil;
-import org.w3c.dom.Document;
-import org.w3c.dom.Element;
-
-import javax.annotation.security.RolesAllowed;
-import javax.ws.rs.GET;
-import javax.ws.rs.Path;
-import javax.ws.rs.Produces;
 
 @Path(AtomPubResource.BASE_PATH + "/{blogId}/categories")
 @RolesAllowed(UserInfoBean.ROLE_ADMIN)
@@ -34,15 +32,15 @@ public class CategoriesResource {
     @GET
     @Produces("application/atomserv+xml")
     public String list() throws JsonException {
-        Document xml = DomUtil.createDocument();
-        Element service = DomUtil.createRootElement(xml, "app:categories"); //$NON-NLS-1$
+        var xml = DomUtil.createDocument();
+        var service = DomUtil.createRootElement(xml, "app:categories"); //$NON-NLS-1$
         service.setAttribute("xmlns:app", "http://www.w3.org/2007/app"); //$NON-NLS-1$ //$NON-NLS-2$
         service.setAttribute("xmlns:atom", "http://www.w3.org/2005/Atom"); //$NON-NLS-1$ //$NON-NLS-2$
         service.setAttribute("fixed", "no"); //$NON-NLS-1$ //$NON-NLS-2$
 
         PostUtil.getCategories()
             .forEach(tag -> {
-                Element category = DomUtil.createElement(service, "atom:category"); //$NON-NLS-1$
+                var category = DomUtil.createElement(service, "atom:category"); //$NON-NLS-1$
                 category.setAttribute("term", tag); //$NON-NLS-1$
             }
         );

@@ -29,19 +29,19 @@ import com.darwino.social.gravatar.GravatarUserProvider;
  * J2EE Plugin for registering the services.
  */
 public class AppPlugin extends AppBasePlugin {
-	
+
 	public AppPlugin() {
 		super("frostillic.us Jakarta EE Application"); //$NON-NLS-1$
 	}
 
 	@Override
-	public void findExtensions(Class<?> serviceClass, List<Object> extensions) {
+	public void findExtensions(final Class<?> serviceClass, final List<Object> extensions) {
 		if(serviceClass==ManagedBeansExtension.class) {
 			extensions.add(new DefaultWebBeanExtension());
 		} else if(serviceClass==PropertiesExtension.class) {
 			extensions.add(new DefaultWebPropertiesExtension());
 		} else if(serviceClass==UserProvider.class) {
-			GravatarUserProvider g = new GravatarUserProvider();
+			var g = new GravatarUserProvider();
 			g.setImageSize(256);
 			extensions.add(g);
 		}

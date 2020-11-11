@@ -29,25 +29,25 @@ import javax.servlet.http.HttpServletRequest;
 public class UriInfoBean {
     @Inject
 	private HttpServletRequest request;
-	
+
 	public URI getRequestUri() throws URISyntaxException {
 		return new URI(request.getRequestURL().toString()).resolve(request.getContextPath() + "/"); //$NON-NLS-1$
 	}
-	
+
 	/**
 	 * Retrieves the given request query parameter with UTF-8 encoding.
-	 * 
+	 *
 	 * <p>This is needed because the JSP-available {@code param} object uses ISO-8859-1 for incoming
 	 * query string parameters and breaks on non-ASCII values.</p>
-	 * 
+	 *
 	 * @param param the name of the query parameter
 	 * @return the value of the parameter as a UTF-8 string, or {@code null} if the parameter
 	 * 		is not in the URL
 	 * @see <a href="https://forums.adobe.com/thread/2337637">https://forums.adobe.com/thread/2337637</a>
 	 * @since 2.2.0
 	 */
-	public String getParam(String param) {
-		String val = request.getParameter(param);
+	public String getParam(final String param) {
+		var val = request.getParameter(param);
 		if(val == null) {
 			return null;
 		}

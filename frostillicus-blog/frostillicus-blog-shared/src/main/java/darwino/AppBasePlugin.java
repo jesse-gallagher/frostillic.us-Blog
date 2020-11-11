@@ -21,13 +21,13 @@ import com.darwino.commons.platform.impl.PluginImpl;
 
 /**
  * Main plugin class.
- * 
+ *
  * This class is used to register the common plugin services and is meant to be overloaded
  * by an actual implementation (J2EE, Mobile...).
  */
 public abstract class AppBasePlugin extends PluginImpl {
-	
-	public AppBasePlugin(String name) {
+
+	public AppBasePlugin(final String name) {
 		super(name);
 	}
 }

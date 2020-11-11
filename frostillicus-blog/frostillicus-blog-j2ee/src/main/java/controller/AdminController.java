@@ -55,28 +55,28 @@ public class AdminController {
 	ResourceBundle translation;
 	@Inject
 	Session session;
-	
+
 	@GET
 	@Produces(MediaType.TEXT_HTML)
 	public String show() {
 		return "admin.jsp"; //$NON-NLS-1$
 	}
-	
+
 	// *******************************************************************************
 	// * Links
 	// *******************************************************************************
-	
+
 	@POST
 	@Path("links/{linkId}")
 	public String update(
-			@PathParam("linkId") String linkId,
-			@FormParam("visible") String visible,
-			@FormParam("category") String category,
-			@FormParam("name") String name,
-			@FormParam("url") String url,
-			@FormParam("rel") String rel
+			@PathParam("linkId") final String linkId,
+			@FormParam("visible") final String visible,
+			@FormParam("category") final String category,
+			@FormParam("name") final String name,
+			@FormParam("url") final String url,
+			@FormParam("rel") final String rel
 		) {
-		Link link = links.findById(linkId).orElseThrow(() -> new NotFoundException("Unable to find link matching ID " + linkId)); //$NON-NLS-1$
+		var link = links.findById(linkId).orElseThrow(() -> new NotFoundException("Unable to find link matching ID " + linkId)); //$NON-NLS-1$
 		link.setVisible("Y".equals(visible)); //$NON-NLS-1$
 		link.setCategory(category);
 		link.setName(name);
@@ -85,66 +85,66 @@ public class AdminController {
 		links.save(link);
 		return "redirect:admin"; //$NON-NLS-1$
 	}
-	
+
 	@DELETE
 	@Path("links/{linkId}")
-	public String deleteLink(@PathParam("linkId") String linkId) {
+	public String deleteLink(@PathParam("linkId") final String linkId) {
 		links.deleteById(linkId);
 		return "redirect:admin"; //$NON-NLS-1$
 	}
-	
+
 	@POST
 	@Path("links/new")
 	public String createLink() {
-		Link link = new Link();
+		var link = new Link();
 		link.setName("New Link"); //$NON-NLS-1$
 		link.setUrl("http://..."); //$NON-NLS-1$
 		links.save(link);
 		return "redirect:admin"; //$NON-NLS-1$
 	}
-	
+
 	// *******************************************************************************
 	// * Access Tokens
 	// *******************************************************************************
-	
+
 	@POST
 	@Path("tokens/{tokenId}")
 	public String updateToken(
-			@PathParam("tokenId") String tokenId,
-			@FormParam("userName") String userName,
-			@FormParam("name") String name,
-			@FormParam("token") String token
+			@PathParam("tokenId") final String tokenId,
+			@FormParam("userName") final String userName,
+			@FormParam("name") final String name,
+			@FormParam("token") final String token
 		) {
-		AccessToken accessToken = tokens.findById(tokenId).orElseThrow(() -> new NotFoundException("Unable to find token matching ID " + tokenId)); //$NON-NLS-1$
+		var accessToken = tokens.findById(tokenId).orElseThrow(() -> new NotFoundException("Unable to find token matching ID " + tokenId)); //$NON-NLS-1$
 		accessToken.setUserName(userName);
 		accessToken.setName(name);
 		accessToken.setToken(token);
 		tokens.save(accessToken);
 		return "redirect:admin"; //$NON-NLS-1$
 	}
-	
+
 	@DELETE
 	@Path("tokens/{tokenId}")
-	public String deleteToken(@PathParam("tokenId") String tokenId) {
+	public String deleteToken(@PathParam("tokenId") final String tokenId) {
 		tokens.deleteById(tokenId);
 		return "redirect:admin"; //$NON-NLS-1$
 	}
-	
+
 	@POST
 	@Path("tokens/new")
 	public String createToken() throws JsonException {
-		AccessToken token = new AccessToken();
+		var token = new AccessToken();
 		token.setUserName(session.getUser().getDn());
 		token.setName("New Token"); //$NON-NLS-1$
 		token.setToken(UUID.randomUUID().toString());
 		tokens.save(token);
 		return "redirect:admin"; //$NON-NLS-1$
 	}
-	
+
 	// *******************************************************************************
 	// * Admin console
 	// *******************************************************************************
-	
+
 	@GET
 	@Path("console")
 	@Produces(MediaType.TEXT_HTML)

@@ -28,8 +28,8 @@ import javax.ws.rs.ext.Provider;
 @Provider
 public class UTFResponseFilter implements ContainerResponseFilter {
     @Override
-    public void filter(ContainerRequestContext requestContext, ContainerResponseContext responseContext) {
-        String contentType = responseContext.getHeaderString("Content-Type"); //$NON-NLS-1$
+    public void filter(final ContainerRequestContext requestContext, final ContainerResponseContext responseContext) {
+        var contentType = responseContext.getHeaderString("Content-Type"); //$NON-NLS-1$
         if(contentType != null && contentType.startsWith("text/html")) { //$NON-NLS-1$
             // Set it to UTF-8
             responseContext.getHeaders().putSingle("Content-Type", "text/html;charset=UTF-8"); //$NON-NLS-1$ //$NON-NLS-2$

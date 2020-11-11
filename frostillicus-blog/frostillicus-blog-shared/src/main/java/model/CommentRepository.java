@@ -28,7 +28,7 @@ import darwino.AppDatabaseDef;
 @RepositoryProvider(AppDatabaseDef.STORE_COMMENTS)
 public interface CommentRepository extends DarwinoRepository<Comment, String> {
 	Optional<Comment> findByCommentId(String commentId);
-	
+
 	@JSQL("select unid from comments where $.form='Comment' and $.postId=:postId order by $.posted asc")
 	List<Comment> findByPostId(@Param("postId") String postId);
 }

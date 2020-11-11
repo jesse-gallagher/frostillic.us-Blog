@@ -24,7 +24,7 @@ import darwino.AppDatabaseDef;
 
 /**
  * Provides an app logger for CDI injection.
- * 
+ *
  * @author Jesse Gallagher
  * @since 2.3.0
  */

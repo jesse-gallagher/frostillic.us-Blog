@@ -15,10 +15,7 @@
  */
 package controller;
 
-import com.darwino.commons.json.JsonException;
-import com.darwino.commons.util.StringUtil;
-
-import model.Post;
+import static model.util.PostUtil.PAGE_LENGTH;
 
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
@@ -29,33 +26,32 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
 
-import static model.util.PostUtil.PAGE_LENGTH;
-
-import java.util.List;
+import com.darwino.commons.json.JsonException;
+import com.darwino.commons.util.StringUtil;
 
 @Path("/")
 @Controller
 @RequestScoped
 public class HomeController extends AbstractPostListController {
-	
+
 	@Inject PostController postController;
-	
+
 	@GET
 	@Produces(MediaType.TEXT_HTML)
-	public String get(@QueryParam("start") String startParam, @QueryParam("p") String postId) throws JsonException {
+	public String get(@QueryParam("start") final String startParam, @QueryParam("p") final String postId) throws JsonException {
 		if(StringUtil.isNotEmpty(postId)) {
 			// Support for very-old-style "?p=foo" URLs
 			return postController.show(postId);
 		}
-		
-		String maybeList = maybeList(startParam);
+
+		var maybeList = maybeList(startParam);
 		if(StringUtil.isEmpty(maybeList)) {
-    		List<Post> homeList = posts.homeList();
+    		var homeList = posts.homeList();
 			models.put("posts", homeList); //$NON-NLS-1$
 			models.put("start", 0); //$NON-NLS-1$
 		}
 		models.put("pageSize", PAGE_LENGTH); //$NON-NLS-1$
-		
+
 		return "home.jsp"; //$NON-NLS-1$
 	}
 }

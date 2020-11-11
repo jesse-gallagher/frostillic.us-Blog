@@ -21,21 +21,21 @@ import javax.ws.rs.Path;
 
 /**
  * MicroProfile REST Client representation of the Akismet 1.1 API.
- *  
+ *
  * @author Jesse Gallagher
  * @since 2.3.0
  */
 @Path("/1.1")
 public interface Akismet11Client {
 	public static final String BASE_HOST = "rest.akismet.com"; //$NON-NLS-1$
-	
+
 	@Path("verify-key")
 	@POST
 	public String verifyKey(
 		@FormParam("key") String key,
 		@FormParam("blog") String blog
 	);
-	
+
 	@Path("check-comment")
 	@POST
 	public boolean checkComment(

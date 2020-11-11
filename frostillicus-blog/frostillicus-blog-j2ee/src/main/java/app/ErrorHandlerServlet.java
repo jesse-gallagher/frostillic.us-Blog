@@ -15,27 +15,33 @@
  */
 package app;
 
-import com.darwino.commons.util.io.StreamUtil;
+import static javax.servlet.RequestDispatcher.ERROR_EXCEPTION;
+import static javax.servlet.RequestDispatcher.ERROR_EXCEPTION_TYPE;
+import static javax.servlet.RequestDispatcher.ERROR_MESSAGE;
+import static javax.servlet.RequestDispatcher.ERROR_STATUS_CODE;
+
+import java.io.IOException;
+import java.io.PrintWriter;
+import java.io.StringWriter;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.io.*;
 
-import static javax.servlet.RequestDispatcher.*;
+import com.darwino.commons.util.io.StreamUtil;
 
 @WebServlet(name="ErrorHandler", urlPatterns="/errorHandler")
 public class ErrorHandlerServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-	
+
 	@Override
-	protected void service(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+	protected void service(final HttpServletRequest req, final HttpServletResponse resp) throws ServletException, IOException {
 		resp.setContentType("text/html; charset=utf-8"); //$NON-NLS-1$
-        try (PrintWriter writer = resp.getWriter()) {
+        try (var writer = resp.getWriter()) {
             String bodyHtml;
-            try(InputStream is = getClass().getResourceAsStream("/WEB-INF/error.html")) { //$NON-NLS-1$
+            try(var is = getClass().getResourceAsStream("/WEB-INF/error.html")) { //$NON-NLS-1$
                 bodyHtml = StreamUtil.readString(is);
             }
 
@@ -44,10 +50,10 @@ public class ErrorHandlerServlet extends HttpServlet {
                 .replace("${ERROR_STATUS_CODE}", String.valueOf(req.getAttribute(ERROR_STATUS_CODE))) //$NON-NLS-1$
                 .replace("${ERROR_EXCEPTION_TYPE}", String.valueOf(req.getAttribute(ERROR_EXCEPTION_TYPE))); //$NON-NLS-1$
 
-            Throwable t = (Throwable)req.getAttribute(ERROR_EXCEPTION);
+            var t = (Throwable)req.getAttribute(ERROR_EXCEPTION);
             if(t != null) {
-                try(StringWriter w = new StringWriter()) {
-                    try(PrintWriter p = new PrintWriter(w)) {
+                try(var w = new StringWriter()) {
+                    try(var p = new PrintWriter(w)) {
                         t.printStackTrace(p);
                     }
                     bodyHtml = bodyHtml.replace("${ERROR_STACK_TRACE}", w.toString()); //$NON-NLS-1$

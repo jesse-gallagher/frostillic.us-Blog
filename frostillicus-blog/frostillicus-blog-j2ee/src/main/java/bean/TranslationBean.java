@@ -42,14 +42,14 @@ public class TranslationBean {
 	public static class Messages {
 		@Inject
 		HttpServletRequest request;
-		
-		public String format(String key, Object... params) {
-			ResourceBundle translation = CDI.current().select(ResourceBundle.class, NamedLiteral.of("translation")).get(); //$NON-NLS-1$
-			String message = translation.getString(key);
+
+		public String format(final String key, final Object... params) {
+			var translation = CDI.current().select(ResourceBundle.class, NamedLiteral.of("translation")).get(); //$NON-NLS-1$
+			var message = translation.getString(key);
 			return MessageFormat.format(message, params);
 		}
 
-		public String getMonth(int index) {
+		public String getMonth(final int index) {
 			return DateFormatSymbols.getInstance(request.getLocale()).getMonths()[index];
 		}
 	}

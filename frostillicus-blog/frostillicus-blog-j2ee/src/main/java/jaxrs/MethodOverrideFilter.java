@@ -20,7 +20,6 @@ import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.lang.annotation.Annotation;
-import java.util.List;
 
 import javax.ws.rs.container.ContainerRequestContext;
 import javax.ws.rs.container.ContainerRequestFilter;
@@ -44,13 +43,13 @@ public class MethodOverrideFilter implements ContainerRequestFilter {
 	private Providers providers;
 
 	@Override
-	public void filter(ContainerRequestContext requestContext) throws IOException {
+	public void filter(final ContainerRequestContext requestContext) throws IOException {
 		if(isReadable(requestContext)) {
 			String overrideMethod = null;
 
-			Form formData = getFormData(requestContext);
+			var formData = getFormData(requestContext);
 			if(formData != null) {
-				List<String> formVal = formData.asMap().get("_httpmethod"); //$NON-NLS-1$
+				var formVal = formData.asMap().get("_httpmethod"); //$NON-NLS-1$
 				if(formVal != null && !formVal.isEmpty()) {
 					overrideMethod = formVal.get(0);
 				}
@@ -62,7 +61,7 @@ public class MethodOverrideFilter implements ContainerRequestFilter {
 		}
 	}
 
-	private boolean isReadable(ContainerRequestContext requestContext) {
+	private boolean isReadable(final ContainerRequestContext requestContext) {
 		if(!"POST".equals(requestContext.getMethod())) { //$NON-NLS-1$
 			return false;
 		}
@@ -72,28 +71,28 @@ public class MethodOverrideFilter implements ContainerRequestFilter {
 			return false;
 		}
 
-		MediaType mediaType = requestContext.getMediaType();
+		var mediaType = requestContext.getMediaType();
 		return MediaType.APPLICATION_FORM_URLENCODED_TYPE.isCompatible(mediaType) || MediaType.MULTIPART_FORM_DATA_TYPE.isCompatible(mediaType);
 	}
 
-	private Form getFormData(ContainerRequestContext requestContext) throws IOException {
+	private Form getFormData(final ContainerRequestContext requestContext) throws IOException {
 		InputStream is;
-		MediaType mediaType = requestContext.getMediaType();
+		var mediaType = requestContext.getMediaType();
 		if(MediaType.MULTIPART_FORM_DATA_TYPE.isCompatible(mediaType)) {
 			is = requestContext.getEntityStream();
 		} else {
 			// handle this a bit differently to avoid downstream trouble with this type
 			is = copy(requestContext.getEntityStream());
 		}
-		Form form = providers.getMessageBodyReader(Form.class, Form.class, new Annotation[0], mediaType)
+		var form = providers.getMessageBodyReader(Form.class, Form.class, new Annotation[0], mediaType)
 				.readFrom(Form.class, Form.class, new Annotation[0], mediaType, null, is);
 		return form;
 	}
 
-	private ByteArrayInputStream copy(InputStream is) throws IOException {
-		ByteArrayOutputStream baos = new ByteArrayOutputStream();
+	private ByteArrayInputStream copy(final InputStream is) throws IOException {
+		var baos = new ByteArrayOutputStream();
 		StreamUtil.copyStream(is, baos);
-		byte[] data = baos.toByteArray();
+		var data = baos.toByteArray();
 		return new ByteArrayInputStream(data);
 	}
 }

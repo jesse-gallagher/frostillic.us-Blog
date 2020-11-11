@@ -15,47 +15,47 @@
  */
 package darwino;
 
+import javax.servlet.DispatcherType;
+import javax.servlet.annotation.WebFilter;
+
 import com.darwino.commons.services.HttpServiceFactories;
 import com.darwino.commons.services.debug.DebugRestFactory;
 import com.darwino.j2ee.application.DarwinoJ2EEServiceDispatcherFilter;
-
-import javax.servlet.DispatcherType;
-import javax.servlet.annotation.WebFilter;
 
 /**
  * Service dispatcher.
  */
 @WebFilter(filterName="DarwinoServices", urlPatterns="/*", dispatcherTypes={DispatcherType.REQUEST, DispatcherType.FORWARD})
 public class AppServiceDispatcher extends DarwinoJ2EEServiceDispatcherFilter {
-	
+
 	public AppServiceDispatcher() {
 	}
-	
+
 	/**
-	 * Add the application specific services. 
+	 * Add the application specific services.
 	 */
 	@Override
-	protected void addApplicationServiceFactories(HttpServiceFactories factories) {
+	protected void addApplicationServiceFactories(final HttpServiceFactories factories) {
 		// Add the debug services
-		final DebugRestFactory debug = new DebugRestFactory();  
+		final var debug = new DebugRestFactory();
 		factories.add(debug);
 	}
-	
+
 	@Override
-	protected void addJsonStoreServiceFactories(HttpServiceFactories factories) {
+	protected void addJsonStoreServiceFactories(final HttpServiceFactories factories) {
 		// disabled
 	}
 	@Override
-	protected void addGraphQLServiceFactories(HttpServiceFactories factories) {
+	protected void addGraphQLServiceFactories(final HttpServiceFactories factories) {
 		// disabled
 	}
 	@Override
-	protected void addApiServiceFactories(HttpServiceFactories factories) {
+	protected void addApiServiceFactories(final HttpServiceFactories factories) {
 		// disabled
 	}
 	@Override
-	protected void addLibrariesServiceFactories(HttpServiceFactories factories) {
+	protected void addLibrariesServiceFactories(final HttpServiceFactories factories) {
 		// disabled
 	}
-	
+
 }

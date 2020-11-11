@@ -15,18 +15,15 @@
  */
 package controller;
 
-import com.darwino.commons.json.JsonException;
-
-import model.Post;
-import model.PostRepository;
-import model.util.PostUtil;
+import static model.util.PostUtil.PAGE_LENGTH;
 
 import javax.inject.Inject;
 import javax.mvc.Models;
 
-import static model.util.PostUtil.PAGE_LENGTH;
+import com.darwino.commons.json.JsonException;
 
-import java.util.List;
+import model.PostRepository;
+import model.util.PostUtil;
 
 public abstract class AbstractPostListController {
     @Inject
@@ -35,15 +32,15 @@ public abstract class AbstractPostListController {
     @Inject
     PostRepository posts;
 
-    protected String maybeList(String startParam) throws JsonException {
-        int start = PostUtil.parseStartParam(startParam);
+    protected String maybeList(final String startParam) throws JsonException {
+        var start = PostUtil.parseStartParam(startParam);
         if(start > -1) {
-        		List<Post> homeList = posts.homeList(start, PAGE_LENGTH);
+        		var homeList = posts.homeList(start, PAGE_LENGTH);
             models.put("posts", homeList); //$NON-NLS-1$
             models.put("start", start); //$NON-NLS-1$
             models.put("pageSize", PAGE_LENGTH); //$NON-NLS-1$
 
-            int total = start + PAGE_LENGTH;
+            var total = start + PAGE_LENGTH;
             if(total >= PostUtil.getPostCount()) {
                 models.put("endOfLine", true); //$NON-NLS-1$
             } else {

@@ -26,29 +26,29 @@ import com.darwino.j2ee.application.DarwinoJ2EEApplication;
 
 @WebListener
 public class AppContextListener extends AbstractDarwinoContextListener {
-	
-	private BackgroundServletSynchronizationExecutor syncExecutor; 
-	
+
+	private BackgroundServletSynchronizationExecutor syncExecutor;
+
 	public AppContextListener() {
 	}
-	
+
 	@Override
-	protected DarwinoJ2EEApplication createDarwinoApplication(ServletContext context) throws JsonException {
+	protected DarwinoJ2EEApplication createDarwinoApplication(final ServletContext context) throws JsonException {
 		return AppJ2EEApplication.create(context);
 	}
 
 	@Override
-	public void contextInitialized(ServletContextEvent sce) {
+	public void contextInitialized(final ServletContextEvent sce) {
 		super.contextInitialized(sce);
-		
- 		// Define these to enable the background replication with another server 
+
+ 		// Define these to enable the background replication with another server
 		syncExecutor = new BackgroundServletSynchronizationExecutor(getApplication(), sce.getServletContext());
 		syncExecutor.putPropertyValue("dwo-sync-database",AppDatabaseDef.DATABASE_NAME); //$NON-NLS-1$
 		syncExecutor.start();
 	}
 
 	@Override
-	public void contextDestroyed(ServletContextEvent sce) {
+	public void contextDestroyed(final ServletContextEvent sce) {
 		if(syncExecutor!=null) {
 			syncExecutor.stop();
 			syncExecutor = null;

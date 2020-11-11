@@ -18,7 +18,7 @@ package darwino;
 import com.darwino.commons.Platform;
 import com.darwino.commons.json.JsonException;
 import com.darwino.commons.util.StringUtil;
-import com.darwino.jsonstore.Database;
+import com.darwino.jsonstore.Base;
 import com.darwino.jsonstore.impl.DatabaseFactoryImpl;
 import com.darwino.jsonstore.meta._Database;
 import com.darwino.jsonstore.meta._DatabaseACL;
@@ -41,7 +41,7 @@ public class AppDatabaseDef extends DatabaseFactoryImpl {
 	public static final String STORE_TOKENS = "tokens"; //$NON-NLS-1$
 	/** @since 2.3.0 */
 	public static final String STORE_WEBMENTIONS = "webmentions"; //$NON-NLS-1$
-	
+
 	// The list  of instances is defined through a property for the DB
 	public static String[] getInstances() {
 		String inst = Platform.getProperty("frostillicus_blog.instances"); //$NON-NLS-1$
@@ -49,24 +49,24 @@ public class AppDatabaseDef extends DatabaseFactoryImpl {
 			return StringUtil.splitString(inst, ',', true);
 		}
 		return null;
-	}	
-	
+	}
+
 	@Override
-	public int getDatabaseVersion(String databaseName) throws JsonException {
+	public int getDatabaseVersion(final String databaseName) throws JsonException {
 		if(!StringUtil.equalsIgnoreCase(databaseName, DATABASE_NAME)) {
 			return -1;
 		}
 		return DATABASE_VERSION;
 	}
-	
+
 	@Override
-	public _Database loadDatabase(String databaseName) throws JsonException {
+	public _Database loadDatabase(final String databaseName) throws JsonException {
 		if(!StringUtil.equalsIgnoreCase(databaseName, DATABASE_NAME)) {
 			return null;
 		}
 		_Database db = new _Database(DATABASE_NAME, "frostillic.us Blog", DATABASE_VERSION); //$NON-NLS-1$
-		db.setDocumentSecurity(Database.DOCSEC_NOTESLIKE | Database.DOCSEC_INCLUDE | Database.DOCSEC_DYNAMIC);
-		
+		db.setDocumentSecurity(Base.DOCSEC_NOTESLIKE | Base.DOCSEC_INCLUDE | Base.DOCSEC_DYNAMIC);
+
 		_DatabaseACL acl = new _DatabaseACL();
 		acl.addRole(UserInfoBean.ROLE_ADMIN, _DatabaseACL.ROLE_MANAGE);
 		acl.addAnonymous(_DatabaseACL.ROLE_AUTHOR);
@@ -75,9 +75,9 @@ public class AppDatabaseDef extends DatabaseFactoryImpl {
 
 		db.setReplicationEnabled(true);
 		db.setDocumentLockEnabled(false);
-		
+
 		db.setInstanceEnabled(false);
-		
+
 		{
 			_Store posts = db.addStore(STORE_POSTS);
 			posts.setFtSearchEnabled(true);

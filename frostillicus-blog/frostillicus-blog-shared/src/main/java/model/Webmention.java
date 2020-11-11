@@ -48,5 +48,5 @@ public class Webmention {
 	@Column("http_user_agent") private String httpUserAgent;
 	@Column("remote_addr") private String httpRemoteAddr;
 	@Column private boolean isConflict;
-	
+
 }

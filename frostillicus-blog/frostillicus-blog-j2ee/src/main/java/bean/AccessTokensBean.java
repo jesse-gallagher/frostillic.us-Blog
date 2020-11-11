@@ -29,7 +29,7 @@ import model.AccessTokenRepository;
 public class AccessTokensBean {
 	@Inject
 	AccessTokenRepository accessTokens;
-	
+
 	public Collection<AccessToken> getAll() {
 		return accessTokens.findAll().collect(Collectors.toList());
 	}

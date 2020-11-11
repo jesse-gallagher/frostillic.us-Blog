@@ -15,9 +15,6 @@
  */
 package app;
 
-import model.Media;
-import model.MediaRepository;
-
 import java.io.IOException;
 
 import javax.inject.Inject;
@@ -25,9 +22,14 @@ import javax.ws.rs.GET;
 import javax.ws.rs.NotFoundException;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
-import javax.ws.rs.core.*;
+import javax.ws.rs.core.CacheControl;
+import javax.ws.rs.core.Context;
+import javax.ws.rs.core.EntityTag;
+import javax.ws.rs.core.HttpHeaders;
+import javax.ws.rs.core.Request;
+import javax.ws.rs.core.Response;
 
-import org.eclipse.jnosql.diana.driver.attachment.EntityAttachment;
+import model.MediaRepository;
 
 @Path(MediaResource.PATH)
 public class MediaResource {
@@ -35,25 +37,25 @@ public class MediaResource {
 
     @Context
     Request request;
-    
+
     @Inject
     MediaRepository mediaRepository;
 
     @GET
     @Path("{mediaId}/{mediaName}")
-    public Response get(@PathParam("mediaId") String mediaId) throws IOException {
-    	Media media = mediaRepository.findById(mediaId).orElseThrow(NotFoundException::new);
-        EntityAttachment att = media.getAttachments().get(0);
+    public Response get(@PathParam("mediaId") final String mediaId) throws IOException {
+    	var media = mediaRepository.findById(mediaId).orElseThrow(NotFoundException::new);
+        var att = media.getAttachments().get(0);
 
-        EntityTag etag = new EntityTag(att.getETag());
-        Response.ResponseBuilder builder = request.evaluatePreconditions(etag);
+        var etag = new EntityTag(att.getETag());
+        var builder = request.evaluatePreconditions(etag);
         if(builder == null) {
             builder = Response.ok(att.getData())
                     .header(HttpHeaders.CONTENT_TYPE, att.getContentType())
                     .header(HttpHeaders.ETAG, etag);
         }
 
-        CacheControl cc = new CacheControl();
+        var cc = new CacheControl();
         cc.setMaxAge(5 * 24 * 60 * 60);
 
         return builder
