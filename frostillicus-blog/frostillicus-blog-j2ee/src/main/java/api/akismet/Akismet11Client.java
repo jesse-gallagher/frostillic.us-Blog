@@ -15,9 +15,12 @@
  */
 package api.akismet;
 
+import javax.ws.rs.Consumes;
 import javax.ws.rs.FormParam;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
+import javax.ws.rs.Produces;
+import javax.ws.rs.core.MediaType;
 
 /**
  * MicroProfile REST Client representation of the Akismet 1.1 API.
@@ -31,6 +34,8 @@ public interface Akismet11Client {
 
 	@Path("verify-key")
 	@POST
+	@Consumes(MediaType.APPLICATION_FORM_URLENCODED)
+	@Produces(MediaType.TEXT_PLAIN)
 	public String verifyKey(
 		@FormParam("key") String key,
 		@FormParam("blog") String blog
@@ -38,6 +43,8 @@ public interface Akismet11Client {
 
 	@Path("comment-check")
 	@POST
+	@Consumes(MediaType.APPLICATION_FORM_URLENCODED)
+	@Produces(MediaType.TEXT_PLAIN)
 	public boolean checkComment(
 		@FormParam("blog") String blog,
 		@FormParam("user_ip") String remoteAddress,
