@@ -74,7 +74,7 @@ public class AkismetBean {
 		if(StringUtil.isEmpty(this.apiKey)) { throw new IllegalArgumentException("apiKey is empty"); } //$NON-NLS-1$
 		if(StringUtil.isEmpty(this.blog)) { throw new IllegalArgumentException("blog is key"); } //$NON-NLS-1$
 
-//		// TODO move to MicroProfile REST Client when the keystore options work in Liberty
+//		// TODO move to MicroProfile REST Client when it no longer leads to "context class has not been injected"
 //		KeyStore keystore = HttpUtil.loadKeyStore("akismet");
 //		Akismet11Client client = RestClientBuilder.newBuilder()
 //			.baseUri(new URI(REQUEST_PROTOCOL + "://" + this.apiKey + "." + Akismet11Client.BASE_HOST))
