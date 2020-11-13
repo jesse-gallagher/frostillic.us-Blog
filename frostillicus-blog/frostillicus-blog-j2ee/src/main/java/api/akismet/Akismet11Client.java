@@ -36,7 +36,7 @@ public interface Akismet11Client {
 		@FormParam("blog") String blog
 	);
 
-	@Path("check-comment")
+	@Path("comment-check")
 	@POST
 	public boolean checkComment(
 		@FormParam("blog") String blog,
