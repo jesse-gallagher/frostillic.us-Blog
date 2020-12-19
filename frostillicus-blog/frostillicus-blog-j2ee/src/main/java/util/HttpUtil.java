@@ -90,18 +90,19 @@ public enum HttpUtil {
 		// Generate the content and write it into the request
 		var requestString = requestContent.toString();
 		conn.setRequestProperty("Content-Length", Integer.toString(requestString.getBytes().length)); //$NON-NLS-1$
-		var wr = new DataOutputStream(conn.getOutputStream());
-		wr.writeBytes(requestString);
-		wr.flush();
-		wr.close();
-
-		var is = conn.getInputStream();
-		var reader = new BufferedReader(new InputStreamReader(is));
-		var response = new StringBuilder();
-		while(reader.ready()) {
-			response.append((char)reader.read());
+		try (var wr = new DataOutputStream(conn.getOutputStream())) {
+			wr.writeBytes(requestString);
+			wr.flush();
 		}
-		reader.close();
+
+		StringBuilder response = new StringBuilder();
+		try (var is = conn.getInputStream()) {
+			try (var reader = new BufferedReader(new InputStreamReader(is))) {
+				while (reader.ready()) {
+					response.append((char) reader.read());
+				}
+			}
+		}
 
 		return response.toString();
 	}

@@ -15,32 +15,21 @@
  */
 package controller;
 
-import java.util.ResourceBundle;
-import java.util.UUID;
-
-import javax.annotation.security.RolesAllowed;
-import javax.enterprise.context.RequestScoped;
-import javax.inject.Inject;
-import javax.inject.Named;
-import javax.mvc.Controller;
-import javax.ws.rs.DELETE;
-import javax.ws.rs.FormParam;
-import javax.ws.rs.GET;
-import javax.ws.rs.NotFoundException;
-import javax.ws.rs.POST;
-import javax.ws.rs.Path;
-import javax.ws.rs.PathParam;
-import javax.ws.rs.Produces;
-import javax.ws.rs.core.MediaType;
-
+import bean.UserInfoBean;
 import com.darwino.commons.json.JsonException;
 import com.darwino.jsonstore.Session;
-
-import bean.UserInfoBean;
 import model.AccessToken;
 import model.AccessTokenRepository;
 import model.Link;
 import model.LinkRepository;
+
+import javax.annotation.security.RolesAllowed;
+import javax.enterprise.context.RequestScoped;
+import javax.inject.Inject;
+import javax.mvc.Controller;
+import javax.ws.rs.*;
+import javax.ws.rs.core.MediaType;
+import java.util.UUID;
 
 @Controller
 @Path("admin")
@@ -51,8 +40,6 @@ public class AdminController {
 	LinkRepository links;
 	@Inject
 	AccessTokenRepository tokens;
-	@Inject @Named("translation")
-	ResourceBundle translation;
 	@Inject
 	Session session;
 
