@@ -218,6 +218,7 @@
 						</properties>
 						<mapping>
 							<tag>DYNASCRIPT_STYLE</tag>
+							<java>SLASHSTAR_STYLE</java>
 						</mapping>
 					</configuration>
 				</plugin>

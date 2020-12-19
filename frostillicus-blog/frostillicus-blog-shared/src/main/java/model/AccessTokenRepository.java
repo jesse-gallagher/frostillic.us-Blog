@@ -1,4 +1,4 @@
-/**
+/*
  * Copyright © 2012-2020 Jesse Gallagher
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
