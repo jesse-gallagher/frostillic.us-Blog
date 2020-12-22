@@ -26,9 +26,6 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
 
-import com.darwino.commons.json.JsonException;
-import com.darwino.commons.util.StringUtil;
-
 @Path("/")
 @Controller
 @RequestScoped
@@ -38,14 +35,14 @@ public class HomeController extends AbstractPostListController {
 
 	@GET
 	@Produces(MediaType.TEXT_HTML)
-	public String get(@QueryParam("start") final String startParam, @QueryParam("p") final String postId) throws JsonException {
-		if(StringUtil.isNotEmpty(postId)) {
-			// Support for very-old-style "?p=foo" URLs
-			return postController.show(postId);
-		}
+	public String get(@QueryParam("start") final String startParam, @QueryParam("p") final String postId) {
+//		if(StringUtil.isNotEmpty(postId)) {
+//			// Support for very-old-style "?p=foo" URLs
+//			return postController.show(postId);
+//		}
 
 		var maybeList = maybeList(startParam);
-		if(StringUtil.isEmpty(maybeList)) {
+		if(maybeList.isEmpty()) {
     		var homeList = posts.homeList();
 			models.put("posts", homeList); //$NON-NLS-1$
 			models.put("start", 0); //$NON-NLS-1$

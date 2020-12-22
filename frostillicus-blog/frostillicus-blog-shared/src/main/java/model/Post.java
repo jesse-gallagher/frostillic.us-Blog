@@ -21,10 +21,6 @@ import model.event.PostEvent;
 import model.event.PostEvent.Type;
 import model.util.UtilDateOffsetConverter;
 
-import org.darwino.jnosql.artemis.extension.converter.ISOOffsetDateTimeConverter;
-
-import com.darwino.commons.util.StringUtil;
-import com.darwino.jsonstore.Document;
 
 import bean.MarkdownBean;
 import jakarta.nosql.mapping.Column;
@@ -42,6 +38,7 @@ import java.time.OffsetDateTime;
 import java.time.temporal.ChronoField;
 import java.util.Date;
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 
 @Entity @Data @NoArgsConstructor
@@ -51,7 +48,7 @@ public class Post {
 
 		public static Status valueFor(final String optionalName) {
 			for(Status status : values()) {
-				if(StringUtil.equalsIgnoreCase(status.name(), optionalName)) {
+				if(status.name().toLowerCase().equals(optionalName.toLowerCase())) {
 					return status;
 				}
 			}
@@ -63,7 +60,7 @@ public class Post {
 	@Column private int postIdInt;
 	@Column private String postId;
 	@Column private String title;
-	@Column @NotNull @Convert(ISOOffsetDateTimeConverter.class) private OffsetDateTime posted;
+	@Column @NotNull private OffsetDateTime posted;
 	@Column private String postedBy;
 	@Column private String bodyMarkdown;
 	@Column private String bodyHtml;
@@ -71,7 +68,7 @@ public class Post {
 	@Column private String thread;
 	@Column private Status status;
 	@Column private String name;
-	@Column(Document.SYSTEM_META_MDATE) @Convert(UtilDateOffsetConverter.class) private OffsetDateTime modified;
+	@Column("mdate") @Convert(UtilDateOffsetConverter.class) private OffsetDateTime modified;
 	@Column private String modifiedBy;
 	@Column private boolean hasGoneLive;
 	@Column private boolean isConflict;
@@ -86,10 +83,10 @@ public class Post {
 		Post post = (Post)entity.getValue();
 
 		// Auto-generate a slug if not already present
-		if(StringUtil.isEmpty(post.getName()) && post.getStatus() == Status.Posted) {
+		if(post.getName().isEmpty() && post.getStatus() == Status.Posted) {
 			PostRepository posts = CDI.current().select(PostRepository.class).get();
 
-			String baseName = StringUtil.toString(post.getTitle()).toLowerCase()
+			String baseName = String.valueOf(post.getTitle()).toLowerCase()
 					.replaceAll("[^\\w]", "-") //$NON-NLS-1$ //$NON-NLS-2$
 					.replaceAll("--+", "-"); //$NON-NLS-1$ //$NON-NLS-2$
 			int dedupe = 1;
@@ -97,7 +94,7 @@ public class Post {
 
 			Optional<Post> existing = posts.findByName(name);
 			String id = post.getId();
-			while(existing.isPresent() && (StringUtil.isEmpty(id) || !StringUtil.equals(id, existing.get().getId()))) {
+			while(existing.isPresent() && (id.isEmpty() || !Objects.equals(id, existing.get().getId()))) {
 				name = baseName + ++dedupe;
 				existing = posts.findByName(name);
 			}
@@ -107,7 +104,7 @@ public class Post {
 
 		// Update the calculated HTML body
 		MarkdownBean markdown = CDI.current().select(MarkdownBean.class).get();
-		post.setBodyHtml(markdown.toHtml(StringUtil.toString(post.getBodyMarkdown())));
+		post.setBodyHtml(markdown.toHtml(String.valueOf(post.getBodyMarkdown())));
 
 		// Set the posted time if this is the first time it's posted or has gone live
 		if(post.posted == null || (post.status == Status.Posted && !post.hasGoneLive)) {
@@ -150,7 +147,7 @@ public class Post {
 	}
 
 	public String getSlug() {
-		if(StringUtil.isEmpty(name)) {
+		if(name.isEmpty()) {
 			return postId;
 		} else {
 			return name;

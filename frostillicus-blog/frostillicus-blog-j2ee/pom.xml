@@ -78,47 +78,6 @@
 		</dependency>
 
 		<dependency>
-			<groupId>com.darwino</groupId>
-			<artifactId>dwo-jre-j2ee-platform</artifactId>
-			<version>${DARWINO_VERSION}</version>
-		</dependency>
-		<dependency>
-			<groupId>com.darwino</groupId>
-			<artifactId>dwo-jre-social</artifactId>
-			<version>${DARWINO_VERSION}</version>
-		</dependency>
-		<dependency>
-			<groupId>com.darwino</groupId>
-			<artifactId>dwo-jsonstore-sql-jsql</artifactId>
-			<version>${DARWINO_VERSION}</version>
-		</dependency>
-		<dependency>
-			<groupId>com.darwino</groupId>
-			<artifactId>dwo-commons-runtime-debug</artifactId>
-			<version>${DARWINO_VERSION}</version>
-		</dependency>
-		<dependency>
-			<groupId>com.darwino</groupId>
-			<artifactId>dwo-commons-runtime-debug-script</artifactId>
-			<version>${DARWINO_VERSION}</version>
-		</dependency>
-<!-- 		<dependency> -->
-<!-- 			<groupId>com.darwino</groupId> -->
-<!-- 			<artifactId>dwo-jre-j2ee-security</artifactId> -->
-<!-- 			<version>${DARWINO_VERSION}</version> -->
-<!-- 		</dependency> -->
-		<dependency>
-			<groupId>com.darwino</groupId>
-			<artifactId>dwo-jre-j2ee-mpconfig</artifactId>
-			<version>${DARWINO_VERSION}</version>
-		</dependency>
-		<dependency>
-			<groupId>com.darwino</groupId>
-			<artifactId>dwo-jre-cdi</artifactId>
-			<version>${DARWINO_VERSION}</version>
-		</dependency>
-
-		<dependency>
 			<groupId>frostillicus.blog</groupId>
 			<artifactId>frostillicus-blog-shared</artifactId>
 			<version>${project.version}</version>
@@ -164,26 +123,6 @@
 	</build>
 	
 	<profiles>
-		<profile>
-			<id>postgresql</id>
-			<activation>
-				<activeByDefault>true</activeByDefault>
-			</activation>
-
-			<dependencies>
-				<dependency>
-					<groupId>com.darwino</groupId>
-					<artifactId>dwo-jre-jdbc-drivers-postgresql</artifactId>
-					<version>${DARWINO_VERSION}</version>
-					<exclusions>
-						<exclusion>
-							<groupId>org.postgresql</groupId>
-							<artifactId>postgresql</artifactId>
-						</exclusion>
-					</exclusions>
-				</dependency>
-			</dependencies>
-		</profile>
 		
 		<profile>
 			<id>jee-container</id>

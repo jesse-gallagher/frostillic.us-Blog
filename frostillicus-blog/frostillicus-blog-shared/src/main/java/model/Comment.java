@@ -17,7 +17,6 @@ package model;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.darwino.jnosql.artemis.extension.converter.ISOOffsetDateTimeConverter;
 import jakarta.nosql.mapping.Column;
 import jakarta.nosql.mapping.Convert;
 import jakarta.nosql.mapping.Entity;
@@ -34,7 +33,7 @@ public class Comment {
 	@Id @Column private String id;
 	@Column("commentId") @NotEmpty private String commentId;
 	@Column("postId") @NotEmpty private String postId;
-	@Column @NotNull @Convert(ISOOffsetDateTimeConverter.class) private OffsetDateTime posted;
+	@Column @NotNull private OffsetDateTime posted;
 	@Column("postedBy") @NotEmpty private String postedBy;
 	@Column("postedByEmail") @Email private String postedByEmail;
 	@Column("postedByUrl") private String postedByUrl;

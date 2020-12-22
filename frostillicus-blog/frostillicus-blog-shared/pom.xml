@@ -9,17 +9,6 @@
 	<artifactId>frostillicus-blog-shared</artifactId>
 	
 	<dependencies>
-		<dependency>
-			<groupId>com.darwino</groupId>
-			<artifactId>dwo-platform</artifactId>
-			<version>${DARWINO_VERSION}</version>
-		</dependency>
-		<dependency>
-			<groupId>com.darwino</groupId>
-			<artifactId>dwo-services-social</artifactId>
-			<version>${DARWINO_VERSION}</version>
-		</dependency>
-		
 		<!-- General utilities -->
 		<dependency>
 			<groupId>org.projectlombok</groupId>
@@ -59,16 +48,6 @@
 		<dependency>
 			<groupId>org.eclipse.jnosql.artemis</groupId>
 			<artifactId>artemis-validation</artifactId>
-			<version>${jnosql-version}</version>
-		</dependency>
-		<dependency>
-			<groupId>org.darwino</groupId>
-			<artifactId>darwino-jnosql-diana-driver</artifactId>
-			<version>${jnosql-version}</version>
-		</dependency>
-		<dependency>
-			<groupId>org.darwino</groupId>
-			<artifactId>darwino-jnosql-artemis-extension</artifactId>
 			<version>${jnosql-version}</version>
 		</dependency>
 		<dependency>

@@ -18,39 +18,32 @@ package model;
 import java.util.List;
 import java.util.Optional;
 
-import org.darwino.jnosql.artemis.extension.DarwinoRepository;
-import org.darwino.jnosql.artemis.extension.JSQL;
-import org.darwino.jnosql.artemis.extension.RepositoryProvider;
-import org.darwino.jnosql.artemis.extension.Search;
-import org.darwino.jnosql.artemis.extension.StoredCursor;
 import jakarta.nosql.mapping.Param;
+import jakarta.nosql.mapping.Repository;
 
-import darwino.AppDatabaseDef;
-
-@RepositoryProvider(AppDatabaseDef.STORE_POSTS)
-public interface PostRepository extends DarwinoRepository<Post, String> {
-	@StoredCursor("FindPost")
+public interface PostRepository extends Repository<Post, String> {
+//	@StoredCursor("FindPost")
 	Optional<Post> findPost(@Param("key") String key);
 
-	@JSQL("select unid from posts where $.postIdInt::int=:postIdInt")
+//	@JSQL("select unid from posts where $.postIdInt::int=:postIdInt")
 	Optional<Post> findByPostIdInt(@Param("postIdInt") int postIdInt);
 
-	@StoredCursor("PostsByTag")
+//	@StoredCursor("PostsByTag")
 	List<Post> findByTag(@Param("tag") String tag);
 
-	@StoredCursor("PostsByMonth")
+//	@StoredCursor("PostsByMonth")
 	List<Post> findByMonth(@Param("monthQuery") String monthQuery);
 
-	@Search(orderBy="posted desc")
+//	@Search(orderBy="posted desc")
 	List<Post> search(String query);
 
-	@JSQL("select unid from posts where $.form='Post' order by $.posted desc limit 10")
+//	@JSQL("select unid from posts where $.form='Post' order by $.posted desc limit 10")
 	List<Post> homeList();
 
-	@JSQL("select unid from posts where $.form='Post' order by $.posted desc")
+//	@JSQL("select unid from posts where $.form='Post' order by $.posted desc")
 	List<Post> homeList(@Param("skip") int skip, @Param("limit") int limit);
 
-	@JSQL("select unid from posts where $.form='Post' and $.thread=:thread order by $.posted")
+//	@JSQL("select unid from posts where $.form='Post' and $.thread=:thread order by $.posted")
 	List<Post> findByThread(@Param("thread") String thread);
 
 	Optional<Post> findByName(String name);

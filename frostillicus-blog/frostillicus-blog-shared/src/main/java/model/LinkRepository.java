@@ -18,14 +18,10 @@ package model;
 import java.util.List;
 import java.util.stream.Stream;
 
-import org.darwino.jnosql.artemis.extension.DarwinoRepository;
-import org.darwino.jnosql.artemis.extension.RepositoryProvider;
 import jakarta.nosql.mapping.Query;
+import jakarta.nosql.mapping.Repository;
 
-import darwino.AppDatabaseDef;
-
-@RepositoryProvider(AppDatabaseDef.STORE_CONFIG)
-public interface LinkRepository extends DarwinoRepository<Link, String> {
+public interface LinkRepository extends Repository<Link, String> {
 	Stream<Link> findAll();
 
 	@Query("select * from Link order by category name")

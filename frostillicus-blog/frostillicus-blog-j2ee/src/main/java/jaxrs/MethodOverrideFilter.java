@@ -30,9 +30,6 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.ext.Provider;
 import javax.ws.rs.ext.Providers;
 
-import com.darwino.commons.util.StringUtil;
-import com.darwino.commons.util.io.StreamUtil;
-
 /**
  * This class hooks into incoming requests for a method-override form parameter.
  */
@@ -55,9 +52,9 @@ public class MethodOverrideFilter implements ContainerRequestFilter {
 				}
 			}
 
-			if(StringUtil.isNotEmpty(overrideMethod)) {
-				requestContext.setMethod(overrideMethod);
-			}
+//			if(StringUtil.isNotEmpty(overrideMethod)) {
+//				requestContext.setMethod(overrideMethod);
+//			}
 		}
 	}
 
@@ -91,7 +88,7 @@ public class MethodOverrideFilter implements ContainerRequestFilter {
 
 	private ByteArrayInputStream copy(final InputStream is) throws IOException {
 		var baos = new ByteArrayOutputStream();
-		StreamUtil.copyStream(is, baos);
+//		StreamUtil.copyStream(is, baos);
 		var data = baos.toByteArray();
 		return new ByteArrayInputStream(data);
 	}

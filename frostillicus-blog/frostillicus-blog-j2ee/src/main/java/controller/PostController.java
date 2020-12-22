@@ -42,9 +42,6 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
 
-import com.darwino.commons.json.JsonException;
-import com.darwino.commons.util.StringUtil;
-
 import bean.UserInfoBean;
 import model.Comment;
 import model.CommentRepository;
@@ -69,9 +66,9 @@ public class PostController extends AbstractPostListController {
 
 	@GET
 	@Produces(MediaType.TEXT_HTML)
-	public String list(@QueryParam("start") final String startParam) throws JsonException {
+	public String list(@QueryParam("start") final String startParam) {
 		var maybeList = maybeList(startParam);
-		if(StringUtil.isNotEmpty(maybeList)) {
+		if(!maybeList.isEmpty()) {
 			return maybeList;
 		} else {
 			Map<Integer, Collection<Integer>> months = new TreeMap<>(Comparator.reverseOrder());
@@ -204,7 +201,7 @@ public class PostController extends AbstractPostListController {
 			.collect(Collectors.toList()));
 
 		var referer = request.getHeader("Referer"); //$NON-NLS-1$
-		if(StringUtil.isNotEmpty(referer) && !referer.toLowerCase().contains(postId.toLowerCase())) {
+		if(!referer.isEmpty() && !referer.toLowerCase().contains(postId.toLowerCase())) {
 			// TODO make this more robust?
 			var context = request.getContextPath();
 			var contextIndex = referer.indexOf(context);
@@ -240,7 +237,7 @@ public class PostController extends AbstractPostListController {
 			tags == null ? Collections.emptyList() :
 				Arrays.stream(tags.split(",")) //$NON-NLS-1$
 					.map(String::trim)
-					.filter(StringUtil::isNotEmpty)
+					.filter(s -> !s.isEmpty())
 					.collect(Collectors.toList())
 		);
 	}

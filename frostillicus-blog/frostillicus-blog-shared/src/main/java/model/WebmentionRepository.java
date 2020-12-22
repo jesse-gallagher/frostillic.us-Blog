@@ -18,18 +18,13 @@ package model;
 import java.util.Optional;
 import java.util.stream.Stream;
 
-import org.darwino.jnosql.artemis.extension.DarwinoRepository;
-import org.darwino.jnosql.artemis.extension.RepositoryProvider;
-import org.darwino.jnosql.artemis.extension.StoredCursor;
-
-import darwino.AppDatabaseDef;
 import jakarta.nosql.mapping.Param;
+import jakarta.nosql.mapping.Repository;
 
-@RepositoryProvider(AppDatabaseDef.STORE_WEBMENTIONS)
-public interface WebmentionRepository extends DarwinoRepository<Webmention, String> {
+public interface WebmentionRepository extends Repository<Webmention, String> {
 	Stream<Webmention> findByTypeAndTargetId(Webmention.Type type, String targetId);
 
 	// TODO figure out why enum -> string conversion isn't working in the Darwino layer
-	@StoredCursor("FindWebmention")
+//	@StoredCursor("FindWebmention")
 	Optional<Webmention> find(@Param("source") String source, @Param("type") String type, @Param("targetId") String targetId);
 }

@@ -26,9 +26,6 @@ import javax.ws.rs.core.HttpHeaders;
 
 import org.eclipse.microprofile.config.inject.ConfigProperty;
 
-import com.darwino.commons.util.StringUtil;
-
-import darwino.AppDatabaseDef;
 import lombok.Getter;
 import lombok.Setter;
 import util.HttpUtil;
@@ -45,21 +42,21 @@ public class AkismetBean {
 	public static final String TYPE_COMMENT = "comment"; //$NON-NLS-1$
 
 	@Inject
-	@ConfigProperty(name=AppDatabaseDef.DATABASE_NAME+".akismet-api-key", defaultValue="")
+//	@ConfigProperty(name=AppDatabaseDef.DATABASE_NAME+".akismet-api-key", defaultValue="")
 	@Getter @Setter
 	private String apiKey;
 	@Inject
-	@ConfigProperty(name=AppDatabaseDef.DATABASE_NAME+".akismet-blog", defaultValue="")
+//	@ConfigProperty(name=AppDatabaseDef.DATABASE_NAME+".akismet-blog", defaultValue="")
 	@Getter @Setter
 	private String blog;
 
 	public boolean isValid() {
-		return StringUtil.isNotEmpty(this.apiKey) && StringUtil.isNotEmpty(this.blog);
+		return false;
 	}
 
 	public boolean verifyKey() throws Exception {
-		if(StringUtil.isEmpty(this.apiKey)) { throw new IllegalArgumentException("apiKey is empty"); } //$NON-NLS-1$
-		if(StringUtil.isEmpty(this.blog)) { throw new IllegalArgumentException("blog is key"); } //$NON-NLS-1$
+//		if(StringUtil.isEmpty(this.apiKey)) { throw new IllegalArgumentException("apiKey is empty"); } //$NON-NLS-1$
+//		if(StringUtil.isEmpty(this.blog)) { throw new IllegalArgumentException("blog is key"); } //$NON-NLS-1$
 
 		Map<String, String> params = new HashMap<>();
 		params.put("key", this.apiKey); //$NON-NLS-1$
@@ -71,8 +68,8 @@ public class AkismetBean {
 	}
 
 	public boolean checkComment(final String remoteAddress, final String userAgent, final String referrer, final String permalink, final String commentType, final String author, final String authorEmail, final String authorURL, final String content) throws Exception {
-		if(StringUtil.isEmpty(this.apiKey)) { throw new IllegalArgumentException("apiKey is empty"); } //$NON-NLS-1$
-		if(StringUtil.isEmpty(this.blog)) { throw new IllegalArgumentException("blog is key"); } //$NON-NLS-1$
+//		if(StringUtil.isEmpty(this.apiKey)) { throw new IllegalArgumentException("apiKey is empty"); } //$NON-NLS-1$
+//		if(StringUtil.isEmpty(this.blog)) { throw new IllegalArgumentException("blog is key"); } //$NON-NLS-1$
 
 //		// TODO move to MicroProfile REST Client when it no longer leads to "context class has not been injected"
 //		KeyStore keystore = HttpUtil.loadKeyStore("akismet");

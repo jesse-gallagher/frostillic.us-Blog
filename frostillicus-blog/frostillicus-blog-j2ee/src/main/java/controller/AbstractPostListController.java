@@ -20,8 +20,6 @@ import static model.util.PostUtil.PAGE_LENGTH;
 import javax.inject.Inject;
 import javax.mvc.Models;
 
-import com.darwino.commons.json.JsonException;
-
 import model.PostRepository;
 import model.util.PostUtil;
 
@@ -32,7 +30,7 @@ public abstract class AbstractPostListController {
     @Inject
     PostRepository posts;
 
-    protected String maybeList(final String startParam) throws JsonException {
+    protected String maybeList(final String startParam) {
         var start = PostUtil.parseStartParam(startParam);
         if(start > -1) {
         		var homeList = posts.homeList(start, PAGE_LENGTH);

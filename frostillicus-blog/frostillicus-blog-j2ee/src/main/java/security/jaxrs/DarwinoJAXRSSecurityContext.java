@@ -20,8 +20,6 @@ import java.security.Principal;
 import javax.ws.rs.core.SecurityContext;
 import javax.ws.rs.core.UriInfo;
 
-import com.darwino.platform.DarwinoContext;
-
 import security.DarwinoPrincipal;
 
 /**
@@ -38,12 +36,12 @@ public class DarwinoJAXRSSecurityContext implements SecurityContext {
 
 	@Override
 	public Principal getUserPrincipal() {
-		return new DarwinoPrincipal(DarwinoContext.get().getUser());
+		return new DarwinoPrincipal();
 	}
 
 	@Override
 	public boolean isUserInRole(final String role) {
-		return DarwinoContext.get().getUser().hasRole(role);
+		return false;
 	}
 
 	@Override

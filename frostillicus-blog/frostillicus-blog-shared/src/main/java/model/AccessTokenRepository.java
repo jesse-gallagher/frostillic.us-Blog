@@ -18,13 +18,10 @@ package model;
 import java.util.Optional;
 import java.util.stream.Stream;
 
-import org.darwino.jnosql.artemis.extension.DarwinoRepository;
-import org.darwino.jnosql.artemis.extension.RepositoryProvider;
+import jakarta.nosql.mapping.Repository;
 
-import darwino.AppDatabaseDef;
 
-@RepositoryProvider(AppDatabaseDef.STORE_TOKENS)
-public interface AccessTokenRepository extends DarwinoRepository<AccessToken, String> {
+public interface AccessTokenRepository extends Repository<AccessToken, String> {
 	Stream<AccessToken> findAll();
 
 	Optional<AccessToken> findByToken(String token);

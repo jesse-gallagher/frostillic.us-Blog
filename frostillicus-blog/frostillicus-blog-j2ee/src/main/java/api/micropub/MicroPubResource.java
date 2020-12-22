@@ -41,14 +41,11 @@ import javax.ws.rs.core.UriInfo;
 
 import org.eclipse.microprofile.config.inject.ConfigProperty;
 
-import com.darwino.commons.util.PathUtil;
-import com.darwino.commons.util.StringUtil;
 
 import api.micropub.MicroPubClient.EntryType;
 import api.rsd.RSDService;
 import bean.UserInfoBean;
 import controller.MicroPostController;
-import darwino.AppDatabaseDef;
 import model.MicroPost;
 import model.MicroPostRepository;
 
@@ -80,13 +77,13 @@ public class MicroPubResource {
 	MicroPostRepository microPosts;
 
 	@Inject
-	@ConfigProperty(name=AppDatabaseDef.DATABASE_NAME+".rss-request-urls", defaultValue="false")
+//	@ConfigProperty(name=AppDatabaseDef.DATABASE_NAME+".rss-request-urls", defaultValue="false")
 	private boolean rssRequestUrls;
 
 	@GET
 	@Produces(MediaType.APPLICATION_JSON)
 	public void get(@QueryParam("q") final String info) {
-		switch(StringUtil.toString(info)) {
+		switch(info) {
 		case "q": //$NON-NLS-1$
 			break;
 		default:
@@ -119,7 +116,7 @@ public class MicroPubResource {
 	) {
 		var uri = create(entityType, name, content, category, categories);
 		var builder = Response.created(uri);
-		if(StringUtil.isNotEmpty(accept) && accept.startsWith("text/html")) { //$NON-NLS-1$
+		if(!accept.isEmpty() && accept.startsWith("text/html")) { //$NON-NLS-1$
 			// Special support for browsers
 			builder.header("Refresh", "0; url=" + uri); //$NON-NLS-1$ //$NON-NLS-2$
 		}
@@ -138,10 +135,11 @@ public class MicroPubResource {
 			if(rssRequestUrls) {
 				baseUrl = uriInfo.getBaseUri().toString();
 			} else {
-				baseUrl = PathUtil.concat(translation.getString("baseUrl"), servletContext.getContextPath()); //$NON-NLS-1$
+				baseUrl = null;
 			}
 
-			return URI.create(PathUtil.concat(baseUrl, MicroPostController.PATH, microPost.getPostId()));
+			//return URI.create(PathUtil.concat(baseUrl, MicroPostController.PATH, microPost.getPostId()));
+			return null;
 		}
 		throw new IllegalArgumentException("Unable to create entity of type " + entityType);
 	}

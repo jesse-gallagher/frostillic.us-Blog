@@ -20,8 +20,6 @@ import java.util.logging.Logger;
 import javax.enterprise.context.ApplicationScoped;
 import javax.enterprise.inject.Produces;
 
-import darwino.AppDatabaseDef;
-
 /**
  * Provides an app logger for CDI injection.
  *
@@ -32,6 +30,6 @@ import darwino.AppDatabaseDef;
 public class LoggerBean {
 	@Produces
 	public Logger getLogger() {
-		return Logger.getLogger(AppDatabaseDef.DATABASE_NAME);
+		return Logger.getLogger("foo");
 	}
 }

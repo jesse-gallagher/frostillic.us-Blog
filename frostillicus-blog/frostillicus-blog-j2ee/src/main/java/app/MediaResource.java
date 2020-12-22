@@ -45,15 +45,15 @@ public class MediaResource {
     @Path("{mediaId}/{mediaName}")
     public Response get(@PathParam("mediaId") final String mediaId) throws IOException {
     	var media = mediaRepository.findById(mediaId).orElseThrow(NotFoundException::new);
-        var att = media.getAttachments().get(0);
+//        var att = media.getAttachments().get(0);
 
-        var etag = new EntityTag(att.getETag());
+        var etag = new EntityTag("");
         var builder = request.evaluatePreconditions(etag);
-        if(builder == null) {
-            builder = Response.ok(att.getData())
-                    .header(HttpHeaders.CONTENT_TYPE, att.getContentType())
-                    .header(HttpHeaders.ETAG, etag);
-        }
+//        if(builder == null) {
+//            builder = Response.ok(att.getData())
+//                    .header(HttpHeaders.CONTENT_TYPE, att.getContentType())
+//                    .header(HttpHeaders.ETAG, etag);
+//        }
 
         var cc = new CacheControl();
         cc.setMaxAge(5 * 24 * 60 * 60);

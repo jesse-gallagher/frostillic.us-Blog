@@ -30,7 +30,6 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.darwino.commons.util.io.StreamUtil;
 
 @WebServlet(name="ErrorHandler", urlPatterns="/errorHandler")
 public class ErrorHandlerServlet extends HttpServlet {
@@ -42,7 +41,8 @@ public class ErrorHandlerServlet extends HttpServlet {
         try (var writer = resp.getWriter()) {
             String bodyHtml;
             try(var is = getClass().getResourceAsStream("/WEB-INF/error.html")) { //$NON-NLS-1$
-                bodyHtml = StreamUtil.readString(is);
+//                bodyHtml = StreamUtil.readString(is);
+            	bodyHtml = "";
             }
 
             bodyHtml = bodyHtml.replace("${CONTEXT_PATH}", req.getContextPath()) //$NON-NLS-1$

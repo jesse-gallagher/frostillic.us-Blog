@@ -30,8 +30,6 @@
 	</modules>
 
 	<properties>
-		<DARWINO_VERSION>2.6.0-SNAPSHOT</DARWINO_VERSION>
-
 		<maven.compiler.source>11</maven.compiler.source>
 		<maven.compiler.target>11</maven.compiler.target>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -40,7 +38,7 @@
 
 		<maven-version>3.3.9</maven-version>
 		<java-version>${maven.compiler.target}</java-version>
-		<jnosql-version>0.1.0-SNAPSHOT</jnosql-version>
+		<jnosql-version>1.0.0-b2</jnosql-version>
 	</properties>
 	
 	<prerequisites>

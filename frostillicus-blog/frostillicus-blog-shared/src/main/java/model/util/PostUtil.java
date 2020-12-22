@@ -15,13 +15,6 @@
  */
 package model.util;
 
-import com.darwino.commons.json.JsonArray;
-import com.darwino.commons.json.JsonException;
-import com.darwino.commons.json.JsonObject;
-import com.darwino.commons.util.StringUtil;
-import com.darwino.jsonstore.Database;
-import com.darwino.jsonstore.Store;
-import darwino.AppDatabaseDef;
 import model.Post;
 import model.PostRepository;
 
@@ -37,29 +30,13 @@ public enum PostUtil {
     ;
     public static final int PAGE_LENGTH = 10;
 
-    public static int getPostCount() throws JsonException {
-        Database database = CDI.current().select(Database.class).get();
-        Store store = database.getStore(AppDatabaseDef.STORE_POSTS);
-        return store.openCursor()
-                .query(JsonObject.of("form", Post.class.getSimpleName())) //$NON-NLS-1$
-                .count();
+    public static int getPostCount() {
+        return 0;
     }
 
-    public static Collection<String> getPostMonths() throws JsonException {
+    public static Collection<String> getPostMonths() {
         Collection<String> months = new TreeSet<>();
 
-        Database database = CDI.current().select(Database.class).get();
-        Store store = database.getStore(AppDatabaseDef.STORE_POSTS);
-        store.openCursor()
-                .query(JsonObject.of("form", Post.class.getSimpleName())) //$NON-NLS-1$
-                .extract(JsonObject.of("posted", "posted")) //$NON-NLS-1$ //$NON-NLS-2$
-                .find(entry -> {
-                    String posted = entry.getString("posted"); //$NON-NLS-1$
-                    if(posted != null && posted.length() >= 7) {
-                        months.add(posted.substring(0, 7));
-                    }
-                    return true;
-                });
 
         return months;
     }
@@ -81,19 +58,13 @@ public enum PostUtil {
         return post;
     }
 
-    public static Collection<String> getCategories() throws JsonException {
-        Database database = CDI.current().select(Database.class).get();
-        JsonArray tags = (JsonArray)database.getStore(AppDatabaseDef.STORE_POSTS).getTags(Integer.MAX_VALUE, true);
-        return tags.stream()
-                .map(JsonObject.class::cast)
-                .map(tag -> tag.getAsString("name")) //$NON-NLS-1$
-                .map(StringUtil::toString)
-                .collect(Collectors.toList());
+    public static Collection<String> getCategories() {
+        return List.of();
     }
 
     public static int parseStartParam(final String startParam) {
         int start;
-        if(StringUtil.isNotEmpty(startParam)) {
+        if(!startParam.isEmpty()) {
             try {
                 start = Integer.parseInt(startParam);
             } catch(NumberFormatException e) {
@@ -114,7 +85,7 @@ public enum PostUtil {
      * @since 2.2.0
      */
     public static String toCn(final String dn) {
-		if(StringUtil.isNotEmpty(dn)) {
+		if(dn.isEmpty()) {
 			try {
 				LdapName name = new LdapName(dn);
 				for(int i = name.size()-1; i >= 0; i--) {
@@ -127,6 +98,6 @@ public enum PostUtil {
 				return dn;
 			}
 		}
-		return StringUtil.EMPTY_STRING;
+		return "";
     }
 }

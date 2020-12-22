@@ -25,9 +25,6 @@ import javax.inject.Inject;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 
-import org.darwino.jnosql.artemis.extension.converter.ISOOffsetDateTimeConverter;
-
-import com.darwino.commons.util.StringUtil;
 
 import jakarta.nosql.mapping.Column;
 import jakarta.nosql.mapping.Convert;
@@ -45,7 +42,7 @@ public class MicroPost {
 	@Column @NotEmpty private String postId;
 	@Column private String name;
 	@Column @NotEmpty private String content;
-	@Column @NotNull @Convert(ISOOffsetDateTimeConverter.class) private OffsetDateTime posted;
+	@Column @NotNull private OffsetDateTime posted;
 	@Column private boolean isConflict;
 
 	// TODO attachments
@@ -59,7 +56,7 @@ public class MicroPost {
 		}
 		MicroPost post = (MicroPost)event.getValue();
 
-		if(StringUtil.isEmpty(post.getPostId())) {
+		if(postId == null || postId.isEmpty()) {
 			post.setPostId(UUID.randomUUID().toString());
 		}
 		if(post.getPosted() == null) {

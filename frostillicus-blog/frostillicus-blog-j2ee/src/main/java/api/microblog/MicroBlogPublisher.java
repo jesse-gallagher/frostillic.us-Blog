@@ -30,10 +30,7 @@ import javax.ws.rs.core.HttpHeaders;
 
 import org.eclipse.microprofile.config.inject.ConfigProperty;
 
-import com.darwino.commons.util.StringUtil;
-
 import api.micropub.MicroPubClient.EntryType;
-import darwino.AppDatabaseDef;
 import lombok.Getter;
 import lombok.Setter;
 import model.MicroPost;
@@ -56,12 +53,12 @@ public class MicroBlogPublisher {
 	private static final ExecutorService exec = Executors.newCachedThreadPool();
 
 	@Inject
-	@ConfigProperty(name=AppDatabaseDef.DATABASE_NAME+".microblog-key", defaultValue="")
+//	@ConfigProperty(name=AppDatabaseDef.DATABASE_NAME+".microblog-key", defaultValue="")
 	@Getter @Setter
 	private String apiKey;
 
 	public void crossPost(@Observes final MicroPostEvent event) {
-		if(StringUtil.isNotEmpty(apiKey)) {
+		if(!apiKey.isEmpty()) {
 			if(log.isLoggable(Level.FINE)) {
 				log.fine("Logging MicroPost " + event.getPost()); //$NON-NLS-1$
 			}

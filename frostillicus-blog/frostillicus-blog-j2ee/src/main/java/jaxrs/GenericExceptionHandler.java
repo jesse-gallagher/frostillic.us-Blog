@@ -35,7 +35,6 @@ import javax.ws.rs.ext.Provider;
 
 import org.eclipse.krazo.engine.Viewable;
 
-import com.darwino.commons.util.io.StreamUtil;
 
 /**
  * @author Jesse Gallagher
@@ -89,7 +88,7 @@ public class GenericExceptionHandler implements ExceptionMapper<Throwable> {
 
         String bodyHtml;
         try(var is = getClass().getResourceAsStream("/WEB-INF/error.html")) { //$NON-NLS-1$
-            bodyHtml = StreamUtil.readString(is);
+            bodyHtml = "";
         } catch(IOException e) {
         		e.printStackTrace();
         		bodyHtml = ""; //$NON-NLS-1$

@@ -36,12 +36,8 @@ import javax.ws.rs.core.UriInfo;
 
 import org.jsoup.Jsoup;
 
-import com.darwino.commons.util.PathUtil;
-import com.darwino.platform.DarwinoContext;
-
 import app.AsyncManager;
 import controller.PostController;
-import darwino.AppDatabaseDef;
 import model.PostRepository;
 import model.Webmention;
 import model.Webmention.Type;
@@ -91,7 +87,7 @@ public class WebmentionResource {
 			return error("Target URI must begin with " + base); //$NON-NLS-1$
 		}
 
-		var path = PathUtil.concat("/", target.substring(base.length())); //$NON-NLS-1$
+		var path = "";
 		var matcher = POSTS_MATCHER.matcher(path);
 		if(matcher.matches()) {
 			var postId = matcher.group(1);
@@ -117,9 +113,9 @@ public class WebmentionResource {
 			AsyncManager.executor.submit(() -> {
 				try {
 					// Use the Darwino API to avoid an NPE in LiberyValidatorProxy on WS Liberty
-					var database = DarwinoContext.get().getSession().getDatabase(AppDatabaseDef.DATABASE_NAME);
-					var mentions = database.getStore(AppDatabaseDef.STORE_WEBMENTIONS);
-					var mention = mentions.loadDocument(webmention.getId());
+//					var database = DarwinoContext.get().getSession().getDatabase(AppDatabaseDef.DATABASE_NAME);
+//					var mentions = database.getStore(AppDatabaseDef.STORE_WEBMENTIONS);
+//					var mention = mentions.loadDocument(webmention.getId());
 
 					try {
 						var doc = Jsoup.connect(source).get();
@@ -134,20 +130,20 @@ public class WebmentionResource {
 							if(log.isLoggable(Level.SEVERE)) {
 								log.severe("Skipping Webmention without associated link: " + source); //$NON-NLS-1$
 							}
-							mention.set("verified", 0); //$NON-NLS-1$
+//							mention.set("verified", 0); //$NON-NLS-1$
 						} else {
-							mention.set("verified", 1); //$NON-NLS-1$
-							mention.set("sourceTitle", doc.title()); //$NON-NLS-1$
+//							mention.set("verified", 1); //$NON-NLS-1$
+//							mention.set("sourceTitle", doc.title()); //$NON-NLS-1$
 						}
 					} catch(IOException e) {
 						if(log.isLoggable(Level.SEVERE)) {
 							log.log(Level.SEVERE, "Encountered exception when looking up webmention", e); //$NON-NLS-1$
 						}
-						mention.set("verified", 0); //$NON-NLS-1$
-						mention.set("problemCause", e.toString()); //$NON-NLS-1$
+//						mention.set("verified", 0); //$NON-NLS-1$
+//						mention.set("problemCause", e.toString()); //$NON-NLS-1$
 					}
 
-					mention.save();
+//					mention.save();
 				} catch (Throwable t) {
 					t.printStackTrace();
 					if(log.isLoggable(Level.SEVERE)) {

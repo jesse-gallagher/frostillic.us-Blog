@@ -20,8 +20,6 @@ import java.net.URLEncoder;
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Named;
 
-import com.darwino.commons.util.StringUtil;
-
 import lombok.SneakyThrows;
 
 /**
@@ -40,10 +38,7 @@ public class EncoderBean {
 	 */
 	@SneakyThrows
 	public String urlEncode(final String value) {
-		if(StringUtil.isEmpty(value)) {
-			return StringUtil.EMPTY_STRING;
-		} else {
-			return URLEncoder.encode(value, StringUtil.UTF_8.name());
-		}
+
+	       return null;
 	}
 }

@@ -16,8 +16,6 @@
 package controller;
 
 import bean.UserInfoBean;
-import com.darwino.commons.json.JsonException;
-import com.darwino.jsonstore.Session;
 import model.AccessToken;
 import model.AccessTokenRepository;
 import model.Link;
@@ -40,8 +38,6 @@ public class AdminController {
 	LinkRepository links;
 	@Inject
 	AccessTokenRepository tokens;
-	@Inject
-	Session session;
 
 	@GET
 	@Produces(MediaType.TEXT_HTML)
@@ -119,9 +115,9 @@ public class AdminController {
 
 	@POST
 	@Path("tokens/new")
-	public String createToken() throws JsonException {
+	public String createToken() {
 		var token = new AccessToken();
-		token.setUserName(session.getUser().getDn());
+//		token.setUserName(session.getUser().getDn());
 		token.setName("New Token"); //$NON-NLS-1$
 		token.setToken(UUID.randomUUID().toString());
 		tokens.save(token);

@@ -19,10 +19,7 @@ import javax.annotation.PostConstruct;
 import javax.enterprise.context.ApplicationScoped;
 import javax.enterprise.inject.Produces;
 
-import org.darwino.jnosql.diana.driver.DarwinoDocumentCollectionManager;
-import org.darwino.jnosql.diana.driver.DarwinoDocumentConfiguration;
-
-import darwino.AppDatabaseDef;
+import jakarta.nosql.document.DocumentCollectionManager;
 import jakarta.nosql.document.DocumentCollectionManagerFactory;
 import jakarta.nosql.document.DocumentConfiguration;
 import jakarta.nosql.mapping.Database;
@@ -36,63 +33,62 @@ public class DocumentCollectionManagerProducer {
 
 	@PostConstruct
 	public void init() {
-		configuration = new DarwinoDocumentConfiguration();
 		managerFactory = configuration.get();
 	}
 
 	@Produces
-	public DarwinoDocumentCollectionManager getManager() {
-		return managerFactory.get(com.darwino.jsonstore.Database.STORE_DEFAULT);
+	public DocumentCollectionManager getManager() {
+		return managerFactory.get("");
 	}
 
 	@Produces
-	@Database(value=DatabaseType.DOCUMENT, provider=AppDatabaseDef.STORE_POSTS)
-	public DarwinoDocumentCollectionManager getPostsManager() {
-		return managerFactory.get(AppDatabaseDef.STORE_POSTS);
+	@Database(value=DatabaseType.DOCUMENT)
+	public DocumentCollectionManager getPostsManager() {
+		return managerFactory.get("");
 	}
 
 	@Produces
-	@Database(value=DatabaseType.DOCUMENT, provider=AppDatabaseDef.STORE_COMMENTS)
-	public DarwinoDocumentCollectionManager getCommentsManager() {
-		return managerFactory.get(AppDatabaseDef.STORE_COMMENTS);
+	@Database(value=DatabaseType.DOCUMENT)
+	public DocumentCollectionManager getCommentsManager() {
+		return managerFactory.get("");
 	}
 
 	@Produces
-	@Database(value=DatabaseType.DOCUMENT, provider=AppDatabaseDef.STORE_CONFIG)
-	public DarwinoDocumentCollectionManager getConfigManager() {
-		return managerFactory.get(AppDatabaseDef.STORE_CONFIG);
+	@Database(value=DatabaseType.DOCUMENT)
+	public DocumentCollectionManager getConfigManager() {
+		return managerFactory.get("");
 	}
 
 	@Produces
-	@Database(value=DatabaseType.DOCUMENT, provider=AppDatabaseDef.STORE_MEDIA)
-	public DarwinoDocumentCollectionManager getMediaManager() {
-		return managerFactory.get(AppDatabaseDef.STORE_MEDIA);
-	}
-
-	/**
-	 * @since 2.3.0
-	 */
-	@Produces
-	@Database(value=DatabaseType.DOCUMENT, provider=AppDatabaseDef.STORE_MICROPOSTS)
-	public DarwinoDocumentCollectionManager getMicroPostManager() {
-		return managerFactory.get(AppDatabaseDef.STORE_MICROPOSTS);
+	@Database(value=DatabaseType.DOCUMENT)
+	public DocumentCollectionManager getMediaManager() {
+		return managerFactory.get("");
 	}
 
 	/**
 	 * @since 2.3.0
 	 */
 	@Produces
-	@Database(value=DatabaseType.DOCUMENT, provider=AppDatabaseDef.STORE_TOKENS)
-	public DarwinoDocumentCollectionManager getAccessTokenManager() {
-		return managerFactory.get(AppDatabaseDef.STORE_TOKENS);
+	@Database(value=DatabaseType.DOCUMENT)
+	public DocumentCollectionManager getMicroPostManager() {
+		return managerFactory.get("");
 	}
 
 	/**
 	 * @since 2.3.0
 	 */
 	@Produces
-	@Database(value=DatabaseType.DOCUMENT, provider=AppDatabaseDef.STORE_WEBMENTIONS)
-	public DarwinoDocumentCollectionManager getWebmentionManager() {
-		return managerFactory.get(AppDatabaseDef.STORE_WEBMENTIONS);
+	@Database(value=DatabaseType.DOCUMENT)
+	public DocumentCollectionManager getAccessTokenManager() {
+		return managerFactory.get("");
+	}
+
+	/**
+	 * @since 2.3.0
+	 */
+	@Produces
+	@Database(value=DatabaseType.DOCUMENT)
+	public DocumentCollectionManager getWebmentionManager() {
+		return managerFactory.get("");
 	}
 }

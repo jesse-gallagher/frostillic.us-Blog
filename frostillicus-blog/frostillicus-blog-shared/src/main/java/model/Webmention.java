@@ -20,8 +20,6 @@ import java.time.OffsetDateTime;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 
-import org.darwino.jnosql.artemis.extension.converter.ISOOffsetDateTimeConverter;
-
 import jakarta.nosql.mapping.Column;
 import jakarta.nosql.mapping.Convert;
 import jakarta.nosql.mapping.Entity;
@@ -39,7 +37,7 @@ public class Webmention {
 	@Column @NotNull private Type type;
 	@Column @NotEmpty private String targetId;
 	@Column @NotEmpty private String source;
-	@Column @NotNull @Convert(ISOOffsetDateTimeConverter.class) private OffsetDateTime posted;
+	@Column @NotNull private OffsetDateTime posted;
 	@Column private boolean verified;
 	@Column private boolean approved;
 	@Column private String problemCause;

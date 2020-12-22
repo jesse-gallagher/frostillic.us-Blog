@@ -15,17 +15,8 @@
  */
 package bean;
 
-import java.net.URLEncoder;
-
 import javax.enterprise.context.RequestScoped;
-import javax.inject.Inject;
 import javax.inject.Named;
-
-import com.darwino.commons.security.acl.User;
-import com.darwino.commons.security.acl.UserException;
-import com.darwino.commons.util.StringUtil;
-import com.darwino.platform.DarwinoContext;
-import com.darwino.platform.DarwinoHttpConstants;
 
 import lombok.SneakyThrows;
 
@@ -34,33 +25,29 @@ import lombok.SneakyThrows;
 public class UserInfoBean {
 	public static final String ROLE_ADMIN = "admin"; //$NON-NLS-1$
 
-	@Inject @Named("darwinoContext")
-	DarwinoContext context;
 
 	@SneakyThrows
 	public String getImageUrl(final String userName) {
-		String md5 = StringUtil.md5Hex(StringUtil.toString(userName).toLowerCase());
-		return StringUtil.format(DarwinoHttpConstants.SOCIAL_USERS_PATH + "/users/{0}/content/photo", URLEncoder.encode(md5, "UTF-8")); //$NON-NLS-1$ //$NON-NLS-2$
+		return "";
 	}
 
 	public boolean isAdmin() {
-		return context.getUser().hasRole(ROLE_ADMIN);
+		return false;
 	}
 
 	public boolean isAnonymous() {
-		return context.getUser().isAnonymous();
+		return true;
 	}
 
 	public String getCn() {
-		return context.getUser().getCn();
+		return "anonymous";
 	}
 
 	public String getDn() {
-		return context.getUser().getDn();
+		return "anonymous";
 	}
 
-	public String getEmailAddress() throws UserException {
-		Object mail = context.getUser().getAttribute(User.ATTR_EMAIL);
-		return StringUtil.toString(mail);
+	public String getEmailAddress(){
+		return null;
 	}
 }
