@@ -62,7 +62,7 @@ import model.MicroPostRepository;
 @RSDService(name="Micropub", basePath=MicroPubResource.BASE_PATH, preferred=false)
 @RolesAllowed(UserInfoBean.ROLE_ADMIN)
 public class MicroPubResource {
-	public static final String BASE_PATH = "micropub"; //$NON-NLS-1$
+	public static final String BASE_PATH = "/micropub"; //$NON-NLS-1$
 
 	public enum EntityAction {
 		delete, undelete

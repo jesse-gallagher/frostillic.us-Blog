@@ -33,7 +33,7 @@ import model.MediaRepository;
 
 @Path(MediaResource.PATH)
 public class MediaResource {
-    public static final String PATH = "media"; //$NON-NLS-1$
+    public static final String PATH = "/media"; //$NON-NLS-1$
 
     @Context
     Request request;

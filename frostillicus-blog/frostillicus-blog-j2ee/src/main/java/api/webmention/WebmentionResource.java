@@ -56,7 +56,7 @@ import model.WebmentionRepository;
  */
 @Path(WebmentionResource.PATH)
 public class WebmentionResource {
-	public static final String PATH = "webmention"; //$NON-NLS-1$
+	public static final String PATH = "/webmention"; //$NON-NLS-1$
 
 	private static final Pattern POSTS_MATCHER;
 	static {

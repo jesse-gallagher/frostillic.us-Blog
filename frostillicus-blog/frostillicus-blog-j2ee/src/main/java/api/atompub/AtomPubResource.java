@@ -40,7 +40,7 @@ import darwino.AppDatabaseDef;
 @RolesAllowed(UserInfoBean.ROLE_ADMIN)
 @RSDService(name="AtomPub", basePath=AtomPubResource.BASE_PATH, preferred=false)
 public class AtomPubResource {
-	public static final String BASE_PATH = "atompub"; //$NON-NLS-1$
+	public static final String BASE_PATH = "/atompub"; //$NON-NLS-1$
 
 	public static final String BLOG_ID = AppDatabaseDef.DATABASE_NAME;
 

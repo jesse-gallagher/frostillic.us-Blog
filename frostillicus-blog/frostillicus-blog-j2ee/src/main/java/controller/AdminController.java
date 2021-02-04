@@ -32,7 +32,7 @@ import javax.ws.rs.core.MediaType;
 import java.util.UUID;
 
 @Controller
-@Path("admin")
+@Path("/admin")
 @RolesAllowed(UserInfoBean.ROLE_ADMIN)
 @RequestScoped
 public class AdminController {
