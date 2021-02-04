@@ -84,6 +84,11 @@
 				<artifactId>krazo-cxf</artifactId>
 				<version>1.1.0</version>
 			</dependency>
+			<dependency>
+				<groupId>org.glassfish.web</groupId>
+				<artifactId>jakarta.servlet.jsp.jstl</artifactId>
+				<version>1.2.6</version>
+			</dependency>
 			
 			<dependency>
 				<groupId>org.projectlombok</groupId>
