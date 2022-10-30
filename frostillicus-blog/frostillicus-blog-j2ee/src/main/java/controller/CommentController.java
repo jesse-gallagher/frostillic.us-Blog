@@ -31,7 +31,7 @@ import jakarta.ws.rs.Path;
 import jakarta.ws.rs.PathParam;
 
 import org.jsoup.Jsoup;
-import org.jsoup.safety.Whitelist;
+import org.jsoup.safety.Safelist;
 
 import bean.AkismetBean;
 import bean.MarkdownBean;
@@ -90,7 +90,7 @@ public class CommentController {
 		}
 
 		var html = markdown.toHtml(bodyMarkdown);
-		html = Jsoup.clean(html, Whitelist.basicWithImages());
+		html = Jsoup.clean(html, Safelist.basicWithImages());
 		comment.setBodyHtml(html);
 
 		comments.save(comment);
