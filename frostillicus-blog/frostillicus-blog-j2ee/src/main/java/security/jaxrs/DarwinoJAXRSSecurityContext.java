@@ -17,8 +17,8 @@ package security.jaxrs;
 
 import java.security.Principal;
 
-import javax.ws.rs.core.SecurityContext;
-import javax.ws.rs.core.UriInfo;
+import jakarta.ws.rs.core.SecurityContext;
+import jakarta.ws.rs.core.UriInfo;
 
 import com.darwino.platform.DarwinoContext;
 

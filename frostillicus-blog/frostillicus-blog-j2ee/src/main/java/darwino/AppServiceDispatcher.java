@@ -15,8 +15,8 @@
  */
 package darwino;
 
-import javax.servlet.DispatcherType;
-import javax.servlet.annotation.WebFilter;
+import jakarta.servlet.DispatcherType;
+import jakarta.servlet.annotation.WebFilter;
 
 import com.darwino.commons.services.HttpServiceFactories;
 import com.darwino.commons.services.debug.DebugRestFactory;

@@ -19,10 +19,10 @@ import java.io.IOException;
 import java.util.Collections;
 import java.util.Map;
 
-import javax.security.enterprise.credential.Credential;
-import javax.servlet.ServletException;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
+import jakarta.security.enterprise.credential.Credential;
+import jakarta.servlet.ServletException;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 
 import com.darwino.commons.httpclnt.HttpBase;
 import com.darwino.commons.httpclnt.HttpClient;

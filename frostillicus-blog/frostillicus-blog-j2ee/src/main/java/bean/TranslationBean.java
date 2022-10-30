@@ -19,13 +19,13 @@ import java.text.DateFormatSymbols;
 import java.text.MessageFormat;
 import java.util.ResourceBundle;
 
-import javax.enterprise.context.RequestScoped;
-import javax.enterprise.inject.Produces;
-import javax.enterprise.inject.literal.NamedLiteral;
-import javax.enterprise.inject.spi.CDI;
-import javax.inject.Inject;
-import javax.inject.Named;
-import javax.servlet.http.HttpServletRequest;
+import jakarta.enterprise.context.RequestScoped;
+import jakarta.enterprise.inject.Produces;
+import jakarta.enterprise.inject.literal.NamedLiteral;
+import jakarta.enterprise.inject.spi.CDI;
+import jakarta.inject.Inject;
+import jakarta.inject.Named;
+import jakarta.servlet.http.HttpServletRequest;
 
 @RequestScoped
 public class TranslationBean {

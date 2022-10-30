@@ -17,8 +17,8 @@ package controller;
 
 import static model.util.PostUtil.PAGE_LENGTH;
 
-import javax.inject.Inject;
-import javax.mvc.Models;
+import jakarta.inject.Inject;
+import jakarta.mvc.Models;
 
 import com.darwino.commons.json.JsonException;
 

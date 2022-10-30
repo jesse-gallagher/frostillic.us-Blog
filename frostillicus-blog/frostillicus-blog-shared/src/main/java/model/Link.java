@@ -15,7 +15,7 @@
  */
 package model;
 
-import javax.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.NotEmpty;
 
 import jakarta.nosql.mapping.Column;
 import jakarta.nosql.mapping.Convert;

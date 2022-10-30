@@ -15,20 +15,20 @@
  */
 package app;
 
-import static javax.servlet.RequestDispatcher.ERROR_EXCEPTION;
-import static javax.servlet.RequestDispatcher.ERROR_EXCEPTION_TYPE;
-import static javax.servlet.RequestDispatcher.ERROR_MESSAGE;
-import static javax.servlet.RequestDispatcher.ERROR_STATUS_CODE;
+import static jakarta.servlet.RequestDispatcher.ERROR_EXCEPTION;
+import static jakarta.servlet.RequestDispatcher.ERROR_EXCEPTION_TYPE;
+import static jakarta.servlet.RequestDispatcher.ERROR_MESSAGE;
+import static jakarta.servlet.RequestDispatcher.ERROR_STATUS_CODE;
 
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.io.StringWriter;
 
-import javax.servlet.ServletException;
-import javax.servlet.annotation.WebServlet;
-import javax.servlet.http.HttpServlet;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
+import jakarta.servlet.ServletException;
+import jakarta.servlet.annotation.WebServlet;
+import jakarta.servlet.http.HttpServlet;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 
 import com.darwino.commons.util.io.StreamUtil;
 

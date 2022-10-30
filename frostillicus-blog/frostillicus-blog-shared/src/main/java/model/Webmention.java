@@ -17,8 +17,8 @@ package model;
 
 import java.time.OffsetDateTime;
 
-import javax.validation.constraints.NotEmpty;
-import javax.validation.constraints.NotNull;
+import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.NotNull;
 
 import org.darwino.jnosql.artemis.extension.converter.ISOOffsetDateTimeConverter;
 

@@ -15,10 +15,10 @@
  */
 package api.micropub;
 
-import javax.ws.rs.FormParam;
-import javax.ws.rs.HeaderParam;
-import javax.ws.rs.POST;
-import javax.ws.rs.core.HttpHeaders;
+import jakarta.ws.rs.FormParam;
+import jakarta.ws.rs.HeaderParam;
+import jakarta.ws.rs.POST;
+import jakarta.ws.rs.core.HttpHeaders;
 
 /**
  * Represents the MicroPub REST API.

@@ -15,7 +15,7 @@
  */
 package darwino;
 
-import javax.servlet.ServletContext;
+import jakarta.servlet.ServletContext;
 
 import com.darwino.commons.json.JsonException;
 import com.darwino.commons.platform.ManagedBeansService;

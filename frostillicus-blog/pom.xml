@@ -40,7 +40,7 @@
 
 		<maven-version>3.3.9</maven-version>
 		<java-version>${maven.compiler.target}</java-version>
-		<jnosql-version>0.1.0-SNAPSHOT</jnosql-version>
+		<jnosql-version>1.0.0.20220620160743</jnosql-version>
 	</properties>
 	
 	<prerequisites>
@@ -52,14 +52,14 @@
 			<dependency>
 				<groupId>jakarta.platform</groupId>
 				<artifactId>jakarta.jakartaee-bom</artifactId>
-				<version>8.0.0</version>
+				<version>9.1.0</version>
 				<scope>import</scope>
 				<type>pom</type>
 			</dependency>
 			<dependency>
 				<groupId>org.eclipse.microprofile</groupId>
 				<artifactId>microprofile</artifactId>
-				<version>3.1</version>
+				<version>5.0</version>
 				<scope>import</scope>
 				<type>pom</type>
 			</dependency>
@@ -67,33 +67,28 @@
 			<dependency>
 				<groupId>jakarta.mvc</groupId>
 				<artifactId>jakarta.mvc-api</artifactId>
-				<version>1.1.0</version>
+				<version>2.0.0</version>
 			</dependency>
 			<dependency>
 				<groupId>org.eclipse.krazo</groupId>
 				<artifactId>krazo-core</artifactId>
-				<version>1.1.0</version>
+				<version>2.0.1</version>
 			</dependency>
 			<dependency>
 				<groupId>org.eclipse.krazo</groupId>
 				<artifactId>krazo-resteasy</artifactId>
-				<version>1.1.0</version>
-			</dependency>
-			<dependency>
-				<groupId>org.eclipse.krazo</groupId>
-				<artifactId>krazo-cxf</artifactId>
-				<version>1.1.0</version>
+				<version>2.0.1</version>
 			</dependency>
 			<dependency>
 				<groupId>org.glassfish.web</groupId>
 				<artifactId>jakarta.servlet.jsp.jstl</artifactId>
-				<version>1.2.6</version>
+				<version>2.0.0</version>
 			</dependency>
 			
 			<dependency>
 				<groupId>org.projectlombok</groupId>
 				<artifactId>lombok</artifactId>
-				<version>1.18.16</version>
+				<version>1.18.24</version>
 			</dependency>
 			<dependency>
 				<groupId>com.atlassian.commonmark</groupId>
@@ -118,13 +113,13 @@
 			<dependency>
 				<groupId>org.reflections</groupId>
 				<artifactId>reflections</artifactId>
-				<version>0.9.12</version>
+				<version>0.10.2</version>
 			</dependency>
 			
 			<dependency>
 				<groupId>org.junit.jupiter</groupId>
 				<artifactId>junit-jupiter-engine</artifactId>
-				<version>5.7.0</version>
+				<version>5.9.1</version>
 			</dependency>
 		</dependencies>
 	</dependencyManagement>

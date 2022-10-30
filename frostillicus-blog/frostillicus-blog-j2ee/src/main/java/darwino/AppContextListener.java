@@ -15,9 +15,9 @@
  */
 package darwino;
 
-import javax.servlet.ServletContext;
-import javax.servlet.ServletContextEvent;
-import javax.servlet.annotation.WebListener;
+import jakarta.servlet.ServletContext;
+import jakarta.servlet.ServletContextEvent;
+import jakarta.servlet.annotation.WebListener;
 
 import com.darwino.commons.json.JsonException;
 import com.darwino.j2ee.application.AbstractDarwinoContextListener;

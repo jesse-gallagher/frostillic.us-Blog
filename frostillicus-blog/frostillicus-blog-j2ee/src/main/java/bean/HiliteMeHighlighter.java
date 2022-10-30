@@ -17,9 +17,9 @@ package bean;
 
 import java.net.URI;
 
-import javax.enterprise.context.ApplicationScoped;
-import javax.ws.rs.FormParam;
-import javax.ws.rs.POST;
+import jakarta.enterprise.context.ApplicationScoped;
+import jakarta.ws.rs.FormParam;
+import jakarta.ws.rs.POST;
 
 import org.eclipse.microprofile.rest.client.RestClientBuilder;
 

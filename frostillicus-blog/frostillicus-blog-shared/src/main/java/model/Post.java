@@ -33,11 +33,11 @@ import jakarta.nosql.mapping.Entity;
 import jakarta.nosql.mapping.EntityPrePersist;
 import jakarta.nosql.mapping.Id;
 
-import javax.enterprise.event.Event;
-import javax.enterprise.event.Observes;
-import javax.enterprise.inject.spi.CDI;
-import javax.inject.Inject;
-import javax.validation.constraints.NotNull;
+import jakarta.enterprise.event.Event;
+import jakarta.enterprise.event.Observes;
+import jakarta.enterprise.inject.spi.CDI;
+import jakarta.inject.Inject;
+import jakarta.validation.constraints.NotNull;
 import java.time.OffsetDateTime;
 import java.time.temporal.ChronoField;
 import java.util.Date;

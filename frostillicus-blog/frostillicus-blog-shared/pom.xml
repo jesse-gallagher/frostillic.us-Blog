@@ -47,33 +47,38 @@
 			JNoSQL
 		 -->
 		<dependency>
-			<groupId>org.eclipse.jnosql.artemis</groupId>
-			<artifactId>artemis-core</artifactId>
+			<groupId>org.openntf.jakarta</groupId>
+			<artifactId>org.openntf.org.eclipse.jnosql.mapping.core</artifactId>
 			<version>${jnosql-version}</version>
 		</dependency>
 		<dependency>
-			<groupId>org.eclipse.jnosql.artemis</groupId>
-			<artifactId>artemis-document</artifactId>
+			<groupId>org.openntf.jakarta</groupId>
+			<artifactId>org.openntf.org.eclipse.jnosql.mapping.document</artifactId>
 			<version>${jnosql-version}</version>
 		</dependency>
 		<dependency>
-			<groupId>org.eclipse.jnosql.artemis</groupId>
-			<artifactId>artemis-validation</artifactId>
+			<groupId>org.openntf.jakarta</groupId>
+			<artifactId>org.openntf.org.eclipse.jnosql.mapping.validation</artifactId>
 			<version>${jnosql-version}</version>
 		</dependency>
 		<dependency>
 			<groupId>org.darwino</groupId>
 			<artifactId>darwino-jnosql-diana-driver</artifactId>
-			<version>${jnosql-version}</version>
+			<version>1.0.0-SNAPSHOT</version>
 		</dependency>
 		<dependency>
 			<groupId>org.darwino</groupId>
 			<artifactId>darwino-jnosql-artemis-extension</artifactId>
+			<version>1.0.0-SNAPSHOT</version>
+		</dependency>
+		<dependency>
+			<groupId>org.openntf.jakarta</groupId>
+			<artifactId>org.openntf.jakarta.nosql.communication.document</artifactId>
 			<version>${jnosql-version}</version>
 		</dependency>
 		<dependency>
-			<groupId>org.eclipse.jnosql.diana</groupId>
-			<artifactId>diana-document</artifactId>
+			<groupId>org.openntf.jakarta</groupId>
+			<artifactId>org.openntf.org.eclipse.jnosql.communication.driver.commons</artifactId>
 			<version>${jnosql-version}</version>
 		</dependency>
 		

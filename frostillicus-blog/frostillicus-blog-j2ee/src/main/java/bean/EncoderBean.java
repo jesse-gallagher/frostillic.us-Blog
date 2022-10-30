@@ -17,8 +17,8 @@ package bean;
 
 import java.net.URLEncoder;
 
-import javax.enterprise.context.ApplicationScoped;
-import javax.inject.Named;
+import jakarta.enterprise.context.ApplicationScoped;
+import jakarta.inject.Named;
 
 import com.darwino.commons.util.StringUtil;
 

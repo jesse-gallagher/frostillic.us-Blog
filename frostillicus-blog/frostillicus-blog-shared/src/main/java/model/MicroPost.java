@@ -19,11 +19,11 @@ import java.time.OffsetDateTime;
 import java.util.Date;
 import java.util.UUID;
 
-import javax.enterprise.event.Event;
-import javax.enterprise.event.Observes;
-import javax.inject.Inject;
-import javax.validation.constraints.NotEmpty;
-import javax.validation.constraints.NotNull;
+import jakarta.enterprise.event.Event;
+import jakarta.enterprise.event.Observes;
+import jakarta.inject.Inject;
+import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.NotNull;
 
 import org.darwino.jnosql.artemis.extension.converter.ISOOffsetDateTimeConverter;
 

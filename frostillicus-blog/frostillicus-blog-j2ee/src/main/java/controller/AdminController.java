@@ -23,12 +23,12 @@ import model.AccessTokenRepository;
 import model.Link;
 import model.LinkRepository;
 
-import javax.annotation.security.RolesAllowed;
-import javax.enterprise.context.RequestScoped;
-import javax.inject.Inject;
-import javax.mvc.Controller;
-import javax.ws.rs.*;
-import javax.ws.rs.core.MediaType;
+import jakarta.annotation.security.RolesAllowed;
+import jakarta.enterprise.context.RequestScoped;
+import jakarta.inject.Inject;
+import jakarta.mvc.Controller;
+import jakarta.ws.rs.*;
+import jakarta.ws.rs.core.MediaType;
 import java.util.UUID;
 
 @Controller

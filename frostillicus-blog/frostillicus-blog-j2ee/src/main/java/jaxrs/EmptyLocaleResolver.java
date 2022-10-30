@@ -17,11 +17,11 @@ package jaxrs;
 
 import java.util.Locale;
 
-import javax.annotation.Priority;
-import javax.enterprise.context.ApplicationScoped;
-import javax.mvc.locale.LocaleResolver;
-import javax.mvc.locale.LocaleResolverContext;
-import javax.ws.rs.core.HttpHeaders;
+import jakarta.annotation.Priority;
+import jakarta.enterprise.context.ApplicationScoped;
+import jakarta.mvc.locale.LocaleResolver;
+import jakarta.mvc.locale.LocaleResolverContext;
+import jakarta.ws.rs.core.HttpHeaders;
 
 /**
  * Accounts for cases where a client sends an empty Accept-Language header,

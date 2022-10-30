@@ -21,14 +21,14 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.lang.annotation.Annotation;
 
-import javax.ws.rs.container.ContainerRequestContext;
-import javax.ws.rs.container.ContainerRequestFilter;
-import javax.ws.rs.container.PreMatching;
-import javax.ws.rs.core.Context;
-import javax.ws.rs.core.Form;
-import javax.ws.rs.core.MediaType;
-import javax.ws.rs.ext.Provider;
-import javax.ws.rs.ext.Providers;
+import jakarta.ws.rs.container.ContainerRequestContext;
+import jakarta.ws.rs.container.ContainerRequestFilter;
+import jakarta.ws.rs.container.PreMatching;
+import jakarta.ws.rs.core.Context;
+import jakarta.ws.rs.core.Form;
+import jakarta.ws.rs.core.MediaType;
+import jakarta.ws.rs.ext.Provider;
+import jakarta.ws.rs.ext.Providers;
 
 import com.darwino.commons.util.StringUtil;
 import com.darwino.commons.util.io.StreamUtil;

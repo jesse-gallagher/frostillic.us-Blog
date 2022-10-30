@@ -25,7 +25,7 @@ import darwino.AppDatabaseDef;
 import model.Post;
 import model.PostRepository;
 
-import javax.enterprise.inject.spi.CDI;
+import jakarta.enterprise.inject.spi.CDI;
 import javax.naming.InvalidNameException;
 import javax.naming.ldap.LdapName;
 

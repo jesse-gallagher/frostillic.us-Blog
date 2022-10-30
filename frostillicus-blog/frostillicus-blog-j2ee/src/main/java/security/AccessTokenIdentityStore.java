@@ -15,12 +15,12 @@
  */
 package security;
 
-import javax.enterprise.context.ApplicationScoped;
-import javax.security.enterprise.credential.Credential;
-import javax.security.enterprise.credential.UsernamePasswordCredential;
-import javax.security.enterprise.identitystore.CredentialValidationResult;
-import javax.security.enterprise.identitystore.IdentityStore;
-import javax.security.enterprise.identitystore.IdentityStoreHandler;
+import jakarta.enterprise.context.ApplicationScoped;
+import jakarta.security.enterprise.credential.Credential;
+import jakarta.security.enterprise.credential.UsernamePasswordCredential;
+import jakarta.security.enterprise.identitystore.CredentialValidationResult;
+import jakarta.security.enterprise.identitystore.IdentityStore;
+import jakarta.security.enterprise.identitystore.IdentityStoreHandler;
 
 import com.darwino.commons.Platform;
 import com.darwino.commons.security.acl.UserException;

@@ -17,9 +17,9 @@ package bean;
 
 import java.net.URLEncoder;
 
-import javax.enterprise.context.RequestScoped;
-import javax.inject.Inject;
-import javax.inject.Named;
+import jakarta.enterprise.context.RequestScoped;
+import jakarta.inject.Inject;
+import jakarta.inject.Named;
 
 import com.darwino.commons.security.acl.User;
 import com.darwino.commons.security.acl.UserException;

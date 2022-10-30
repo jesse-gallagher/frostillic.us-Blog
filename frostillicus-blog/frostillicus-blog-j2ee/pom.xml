@@ -31,6 +31,11 @@
 			<artifactId>jakarta.servlet-api</artifactId>
 			<scope>provided</scope>
 		</dependency>
+		<dependency>
+			<groupId>jakarta.servlet.jsp</groupId>
+			<artifactId>jakarta.servlet.jsp-api</artifactId>
+			<scope>provided</scope>
+		</dependency>
         <dependency>
             <groupId>jakarta.enterprise</groupId>
             <artifactId>jakarta.enterprise.cdi-api</artifactId>
@@ -89,8 +94,15 @@
 
 		<dependency>
 			<groupId>com.darwino</groupId>
+			<artifactId>dwo-jre-j2ee-commons</artifactId>
+			<version>${DARWINO_VERSION}</version>
+			<classifier>jakarta</classifier>
+		</dependency>
+		<dependency>
+			<groupId>com.darwino</groupId>
 			<artifactId>dwo-jre-j2ee-platform</artifactId>
 			<version>${DARWINO_VERSION}</version>
+			<classifier>jakarta</classifier>
 		</dependency>
 		<dependency>
 			<groupId>com.darwino</groupId>
@@ -121,11 +133,13 @@
 			<groupId>com.darwino</groupId>
 			<artifactId>dwo-jre-j2ee-mpconfig</artifactId>
 			<version>${DARWINO_VERSION}</version>
+			<classifier>jakarta</classifier>
 		</dependency>
 		<dependency>
 			<groupId>com.darwino</groupId>
 			<artifactId>dwo-jre-cdi</artifactId>
 			<version>${DARWINO_VERSION}</version>
+			<classifier>jakarta</classifier>
 		</dependency>
 
 		<dependency>
@@ -210,7 +224,7 @@
 		</profile>
 		
 		<profile>
-			<id>cxf</id>
+			<id>resteasy</id>
 			<activation>
 				<activeByDefault>true</activeByDefault>
 			</activation>
@@ -218,7 +232,7 @@
 			<dependencies>
 				<dependency>
 					<groupId>org.eclipse.krazo</groupId>
-					<artifactId>krazo-cxf</artifactId>
+					<artifactId>krazo-resteasy</artifactId>
 				</dependency>
 			</dependencies>
 		</profile>

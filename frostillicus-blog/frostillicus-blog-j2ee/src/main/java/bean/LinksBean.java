@@ -21,9 +21,9 @@ import java.util.Map;
 import java.util.TreeMap;
 import java.util.TreeSet;
 
-import javax.enterprise.context.ApplicationScoped;
-import javax.inject.Inject;
-import javax.inject.Named;
+import jakarta.enterprise.context.ApplicationScoped;
+import jakarta.inject.Inject;
+import jakarta.inject.Named;
 
 import model.Link;
 import model.LinkRepository;
