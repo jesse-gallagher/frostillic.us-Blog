@@ -4,7 +4,7 @@ This blog template is a Darwino-based Jakarta EE application.
 
 ## Server Requirements
 
-The application requires a Java EE 8 and MicroProfile 3.0 container - it should work with any server that implements those, but has been developed and tested specifically with Open Liberty.
+The application requires a Java EE 9 and MicroProfile 5.0 container - it should work with any server that implements those, but has been developed and tested specifically with Open Liberty.
 
 ### Environment Configuration
 
@@ -34,20 +34,20 @@ To run on Open Liberty or WLP, the following feature set is required at minimum:
 
 ```xml
 <features>
-    <feature>appSecurity-3.0</feature>
-    <feature>beanValidation-2.0</feature>
-    <feature>cdi-2.0</feature>
-    <feature>jaxrs-2.1</feature>
-    <feature>servlet-4.0</feature>
-    <feature>jsonb-1.0</feature>
-    <feature>jsp-2.3</feature>
+    <feature>appSecurity-4.0</feature>
+    <feature>beanValidation-3.0</feature>
+    <feature>cdi-3.0</feature>
+    <feature>restfulWS-3.0</feature>
+    <feature>servlet-5.0</feature>
+    <feature>jsonb-2.0</feature>
+    <feature>pages-3.3</feature>
     
-    <feature>mpConfig-1.3</feature>
-    <feature>mpRestClient-1.3</feature>
+    <feature>mpConfig-3.0</feature>
+    <feature>mpRestClient-3.0</feature>
 </features>
 ```
 
-For JNDI database use, "jdbc-4-2" and "jndi-1.0" are also required. Alternatively, the "javaee-8.0" and "microprofile-3.0" features will cover everything.
+For JNDI database use, "jdbc-4-2" and "jndi-1.0" are also required. Alternatively, the "javaee-9.1" and "microprofile-5.0" features will cover everything.
 
 The app can get very chatty in Liberty, spitting out stack traces when a post ID isn't found and periodically when something in the stack tries to set a header after the fact. This chatter can be reduced by ignoring a couple message codes in the server.xml:
 
