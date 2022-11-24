@@ -185,6 +185,14 @@
 
 	<build>
         <finalName>blog</finalName>
+
+		<plugins>
+			<plugin>
+				<groupId>io.openliberty.tools</groupId>
+				<artifactId>liberty-maven-plugin</artifactId>
+				<version>3.7.1</version>
+			</plugin>
+		</plugins>
 	</build>
 	
 	<profiles>
@@ -205,6 +213,11 @@
 							<artifactId>postgresql</artifactId>
 						</exclusion>
 					</exclusions>
+				</dependency>
+				<dependency>
+					<groupId>org.postgresql</groupId>
+					<artifactId>postgresql</artifactId>
+					<version>42.5.0</version>
 				</dependency>
 			</dependencies>
 		</profile>

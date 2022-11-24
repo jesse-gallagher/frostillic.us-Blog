@@ -15,10 +15,13 @@
  */
 package bean;
 
+import java.net.URI;
+import java.security.KeyStore;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 
+import api.akismet.Akismet11Client;
 import jakarta.enterprise.context.RequestScoped;
 import jakarta.inject.Inject;
 import jakarta.inject.Named;
@@ -31,6 +34,7 @@ import com.darwino.commons.util.StringUtil;
 import darwino.AppDatabaseDef;
 import lombok.Getter;
 import lombok.Setter;
+import org.eclipse.microprofile.rest.client.RestClientBuilder;
 import util.HttpUtil;
 
 @Named("akismet")
@@ -75,28 +79,28 @@ public class AkismetBean {
 		if(StringUtil.isEmpty(this.blog)) { throw new IllegalArgumentException("blog is key"); } //$NON-NLS-1$
 
 //		// TODO move to MicroProfile REST Client when it no longer leads to "context class has not been injected"
-//		KeyStore keystore = HttpUtil.loadKeyStore("akismet");
-//		Akismet11Client client = RestClientBuilder.newBuilder()
-//			.baseUri(new URI(REQUEST_PROTOCOL + "://" + this.apiKey + "." + Akismet11Client.BASE_HOST))
-//			.trustStore(keystore)
-//			.build(Akismet11Client.class);
+		KeyStore keystore = HttpUtil.loadKeyStore("akismet");
+		Akismet11Client client = RestClientBuilder.newBuilder()
+			.baseUri(new URI(REQUEST_PROTOCOL + "://" + this.apiKey + "." + Akismet11Client.BASE_HOST))
+			.trustStore(keystore)
+			.build(Akismet11Client.class);
+
+		return client.checkComment(this.blog, remoteAddress, userAgent, referrer, permalink, commentType, author, authorEmail, authorURL, content);
+
+//		Map<String, String> params = new HashMap<>();
+//		params.put("blog", this.blog); //$NON-NLS-1$
+//		params.put("user_ip", remoteAddress); //$NON-NLS-1$
+//		params.put("user_agent", userAgent); //$NON-NLS-1$
+//		params.put("referrer", referrer); //$NON-NLS-1$
+//		params.put("permalink", permalink); //$NON-NLS-1$
+//		params.put("comment_type", commentType); //$NON-NLS-1$
+//		params.put("comment_author", author); //$NON-NLS-1$
+//		params.put("comment_author_email", authorEmail); //$NON-NLS-1$
+//		params.put("comment_author_url", authorURL); //$NON-NLS-1$
+//		params.put("comment_content", content); //$NON-NLS-1$
 //
-//		return client.checkComment(this.blog, remoteAddress, userAgent, referrer, permalink, commentType, author, authorEmail, authorURL, content);
-
-		Map<String, String> params = new HashMap<>();
-		params.put("blog", this.blog); //$NON-NLS-1$
-		params.put("user_ip", remoteAddress); //$NON-NLS-1$
-		params.put("user_agent", userAgent); //$NON-NLS-1$
-		params.put("referrer", referrer); //$NON-NLS-1$
-		params.put("permalink", permalink); //$NON-NLS-1$
-		params.put("comment_type", commentType); //$NON-NLS-1$
-		params.put("comment_author", author); //$NON-NLS-1$
-		params.put("comment_author_email", authorEmail); //$NON-NLS-1$
-		params.put("comment_author_url", authorURL); //$NON-NLS-1$
-		params.put("comment_content", content); //$NON-NLS-1$
-
-		String response = HttpUtil.doPost(REQUEST_PROTOCOL + "://" + this.apiKey + "." + COMMENT_CHECK_URL, "akismet", Collections.singletonMap(HttpHeaders.USER_AGENT, USER_AGENT), params); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
-
-		return response.equals("true"); //$NON-NLS-1$
+//		String response = HttpUtil.doPost(REQUEST_PROTOCOL + "://" + this.apiKey + "." + COMMENT_CHECK_URL, "akismet", Collections.singletonMap(HttpHeaders.USER_AGENT, USER_AGENT), params); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
+//
+//		return response.equals("true"); //$NON-NLS-1$
 	}
 }

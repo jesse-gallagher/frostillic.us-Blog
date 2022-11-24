@@ -67,17 +67,17 @@
 			<dependency>
 				<groupId>jakarta.mvc</groupId>
 				<artifactId>jakarta.mvc-api</artifactId>
-				<version>2.0.0</version>
+				<version>2.1.0</version>
 			</dependency>
 			<dependency>
 				<groupId>org.eclipse.krazo</groupId>
 				<artifactId>krazo-core</artifactId>
-				<version>2.0.1</version>
+				<version>2.0.2</version>
 			</dependency>
 			<dependency>
 				<groupId>org.eclipse.krazo</groupId>
 				<artifactId>krazo-resteasy</artifactId>
-				<version>2.0.1</version>
+				<version>2.0.2</version>
 			</dependency>
 			<dependency>
 				<groupId>org.glassfish.web</groupId>
@@ -98,7 +98,7 @@
 			<dependency>
 				<groupId>com.rometools</groupId>
 				<artifactId>rome</artifactId>
-				<version>1.12.2</version>
+				<version>1.18.0</version>
 			</dependency>
 			<dependency>
 				<groupId>org.jsoup</groupId>
@@ -148,6 +148,11 @@
 						</configuration>
 					</execution>
 				</executions>
+			</plugin>
+			<plugin>
+				<groupId>io.openliberty.tools</groupId>
+				<artifactId>liberty-maven-plugin</artifactId>
+				<version>3.7.1</version>
 			</plugin>
 		</plugins>
 

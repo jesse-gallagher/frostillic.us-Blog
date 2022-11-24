@@ -48,7 +48,17 @@
 		 -->
 		<dependency>
 			<groupId>org.openntf.jakarta</groupId>
+			<artifactId>org.openntf.jakarta.nosql.mapping.core</artifactId>
+			<version>${jnosql-version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.openntf.jakarta</groupId>
 			<artifactId>org.openntf.org.eclipse.jnosql.mapping.core</artifactId>
+			<version>${jnosql-version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.openntf.jakarta</groupId>
+			<artifactId>org.openntf.jakarta.nosql.mapping.document</artifactId>
 			<version>${jnosql-version}</version>
 		</dependency>
 		<dependency>
@@ -73,12 +83,37 @@
 		</dependency>
 		<dependency>
 			<groupId>org.openntf.jakarta</groupId>
+			<artifactId>org.openntf.jakarta.nosql.communication.core</artifactId>
+			<version>${jnosql-version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.openntf.jakarta</groupId>
 			<artifactId>org.openntf.jakarta.nosql.communication.document</artifactId>
 			<version>${jnosql-version}</version>
 		</dependency>
 		<dependency>
 			<groupId>org.openntf.jakarta</groupId>
+			<artifactId>org.openntf.jakarta.nosql.communication.query</artifactId>
+			<version>${jnosql-version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.openntf.jakarta</groupId>
+			<artifactId>org.openntf.org.eclipse.jnosql.communication.core</artifactId>
+			<version>${jnosql-version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.openntf.jakarta</groupId>
+			<artifactId>org.openntf.org.eclipse.jnosql.communication.document</artifactId>
+			<version>${jnosql-version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.openntf.jakarta</groupId>
 			<artifactId>org.openntf.org.eclipse.jnosql.communication.driver.commons</artifactId>
+			<version>${jnosql-version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.openntf.jakarta</groupId>
+			<artifactId>org.openntf.org.eclipse.jnosql.communication.query</artifactId>
 			<version>${jnosql-version}</version>
 		</dependency>
 		

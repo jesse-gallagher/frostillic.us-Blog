@@ -106,25 +106,25 @@ public class MicroPubResource {
 		return Response.created(create(entityType, name, content, category, categories)).build();
 	}
 
-	@POST
-	@Consumes(MediaType.MULTIPART_FORM_DATA)
-	public Response createFormData(
-		@FormParam("h") final EntryType entityType,
-		@FormParam("name") final String name,
-		@FormParam("content") final String content,
-		@FormParam("category") final String category,
-		@FormParam("category[]") final List<String> categories,
-		@FormParam("file") final BodyPart image,
-		@HeaderParam("Accept") final String accept
-	) {
-		var uri = create(entityType, name, content, category, categories);
-		var builder = Response.created(uri);
-		if(StringUtil.isNotEmpty(accept) && accept.startsWith("text/html")) { //$NON-NLS-1$
-			// Special support for browsers
-			builder.header("Refresh", "0; url=" + uri); //$NON-NLS-1$ //$NON-NLS-2$
-		}
-		return builder.build();
-	}
+//	@POST
+//	@Consumes(MediaType.MULTIPART_FORM_DATA)
+//	public Response createFormData(
+//		@FormParam("h") final EntryType entityType,
+//		@FormParam("name") final String name,
+//		@FormParam("content") final String content,
+//		@FormParam("category") final String category,
+//		@FormParam("category[]") final List<String> categories,
+//		@FormParam("file") final BodyPart image,
+//		@HeaderParam("Accept") final String accept
+//	) {
+//		var uri = create(entityType, name, content, category, categories);
+//		var builder = Response.created(uri);
+//		if(StringUtil.isNotEmpty(accept) && accept.startsWith("text/html")) { //$NON-NLS-1$
+//			// Special support for browsers
+//			builder.header("Refresh", "0; url=" + uri); //$NON-NLS-1$ //$NON-NLS-2$
+//		}
+//		return builder.build();
+//	}
 
 	private URI create(final EntryType entityType, final String name, final String content, final String category, final List<String> categories) {
 		switch(entityType) {
