@@ -34,8 +34,8 @@
 		<link rel="stylesheet" href="${pageContext.request.contextPath}/css/tabs.css" />
 		<link rel="stylesheet" href="${pageContext.request.contextPath}/css/tooltips.css" />
 		
-		<link rel="alternate" href="${uriInfoBean.requestUri.resolve('feed.json')}" type="application/json" title="frostillic.us &gt; Feed (JSON Feed)">
-		<link rel="alternate" href="${uriInfoBean.requestUri.resolve('feed.xml')}" type="application/rss+xml" title="frostillic.us &gt; Feed (RSS 2.0)">
+		<link rel="alternate" href="${uriInfoBean.requestUri.resolve('feed.json')}" type="application/json" title="${fn:escapeXml(translation.feedJson)}">
+		<link rel="alternate" href="${uriInfoBean.requestUri.resolve('feed.xml')}" type="application/rss+xml" title="${fn:escapeXml(translation.feedRss)}">
 		<link rel="EditURI" type="application/rsd+xml" href="${uriInfoBean.requestUri.resolve('rsd.xml')}" />
 		<link rel="webmention" href="${uriInfoBean.requestUri.resolve('webmention')}" />
 		
