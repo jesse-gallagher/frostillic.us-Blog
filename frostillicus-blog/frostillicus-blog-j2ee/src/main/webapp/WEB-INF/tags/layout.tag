@@ -66,7 +66,7 @@
 					</ul>
 					
 					<form action="posts/search" method="GET" class="inline-search">
-						<input class="search" name="q" id="quick-search" aria-label="${translation.quickSearch}"/>
+						<input name="q" id="quick-search" aria-label="${translation.quickSearch}"/>
 						<button type="submit">${translation.searchButton}</button>
 					</form>
 					

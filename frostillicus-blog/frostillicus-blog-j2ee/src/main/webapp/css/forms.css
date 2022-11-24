@@ -73,12 +73,13 @@
 
 .inline-search {
 	display: grid;
-	margin-right: 1em;
-	margin-left: 2em;
-	grid-template-columns: 1fr 1em;
+	grid-template-columns: 2em 1fr 1.5em;
+	grid-template-areas: ". input search";
 }
 .inline-search input {
 	margin: 0;
+	grid-area: input;
+	width: 100%;
 }
 .inline-search [type='submit'] {
 	display: block;
@@ -87,6 +88,7 @@
 	margin: 0;
 	width: 1.5em;
 	background: transparent;
+	grid-area: search;
 }
 .inline-search [type='submit']:focus {
 	outline: 1px solid lightblue;
