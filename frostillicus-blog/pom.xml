@@ -107,8 +107,8 @@
 			</dependency>
 			<dependency>
 				<groupId>org.webjars.npm</groupId>
-				<artifactId>turbolinks</artifactId>
-				<version>5.2.0</version>
+				<artifactId>hotwired__turbo</artifactId>
+				<version>7.2.4</version>
 			</dependency>
 			<dependency>
 				<groupId>org.reflections</groupId>

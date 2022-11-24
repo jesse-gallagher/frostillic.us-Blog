@@ -39,7 +39,7 @@
 		<link rel="EditURI" type="application/rsd+xml" href="${uriInfoBean.requestUri.resolve('rsd.xml')}" />
 		<link rel="webmention" href="${uriInfoBean.requestUri.resolve('webmention')}" />
 		
-		<script type="text/javascript" src="${pageContext.request.contextPath}/webjars/turbolinks/5.2.0/dist/turbolinks.js"></script>
+		<script type="text/javascript" src="${pageContext.request.contextPath}/webjars/hotwired__turbo/7.2.4/dist/turbo.es2017-esm.js"></script>
 		
 		<title>${translation.appTitle}</title>
 	</head>
