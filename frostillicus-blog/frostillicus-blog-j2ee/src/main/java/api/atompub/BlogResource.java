@@ -39,6 +39,7 @@ import jakarta.ws.rs.QueryParam;
 import jakarta.ws.rs.core.Context;
 import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
+import jakarta.ws.rs.core.StreamingOutput;
 import jakarta.ws.rs.core.UriInfo;
 import javax.xml.xpath.XPathExpressionException;
 
@@ -142,8 +143,10 @@ public class BlogResource {
 		post.setPostedBy(darwinoSession.getUser().getDn());
 		updatePost(post, xml);
 
-		return Response.created(new URI(resolveUrl(AtomPubResource.BLOG_ID, post.getPostId()))).entity(toAtomXml(post))
-				.build();
+		Element result = toAtomXml(post);
+		return Response.created(new URI(resolveUrl(AtomPubResource.BLOG_ID, post.getPostId())))
+			.entity((StreamingOutput)(out) -> DomUtil.serialize(out, result, false, true))
+			.build();
 	}
 
 	@GET
