@@ -16,6 +16,9 @@
 package app;
 
 import java.io.IOException;
+import java.text.MessageFormat;
+
+import com.darwino.commons.util.StringUtil;
 
 import jakarta.inject.Inject;
 import jakarta.ws.rs.GET;
@@ -43,15 +46,20 @@ public class MediaResource {
 
     @GET
     @Path("{mediaId}/{mediaName}")
-    public Response get(@PathParam("mediaId") final String mediaId) throws IOException {
+    public Response get(@PathParam("mediaId") final String mediaId, @PathParam("mediaName") final String mediaName) throws IOException {
     	var media = mediaRepository.findById(mediaId).orElseThrow(NotFoundException::new);
-        var att = media.getAttachments().get(0);
+    	
+    	String expectedName = mediaName.replace('+', ' ').toLowerCase();
+        var att = media.getAttachments()
+        	.stream()
+        	.filter(a -> StringUtil.toString(a.getName()).toLowerCase().endsWith(expectedName))
+        	.findFirst()
+        	.orElseThrow(() -> new NotFoundException(MessageFormat.format("Unable to find media {0} in document {1}", mediaName, mediaId)));
 
         var etag = new EntityTag(att.getETag());
         var builder = request.evaluatePreconditions(etag);
         if(builder == null) {
-            builder = Response.ok(att.getData())
-                    .header(HttpHeaders.CONTENT_TYPE, att.getContentType())
+            builder = Response.ok(att.getData(), att.getContentType())
                     .header(HttpHeaders.ETAG, etag);
         }
 
