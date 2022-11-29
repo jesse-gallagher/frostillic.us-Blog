@@ -27,7 +27,7 @@
 			<scope>provided</scope>
 		</dependency>
 		<dependency>
-			<groupId>com.atlassian.commonmark</groupId>
+			<groupId>org.commonmark</groupId>
 			<artifactId>commonmark</artifactId>
 		</dependency>
 
