@@ -57,10 +57,10 @@
 					<ul class="sitenav">
 						<li><a href="${pageContext.request.contextPath}/">${translation.home}</a></li>
 						<li><a href="posts">${translation.archive}</a></li>
-						<c:if test="${darwinoSession.user.anonymous}">
+						<c:if test="${userInfo.anonymous}">
 							<li data-turbolinks="false"><a href="?login">${translation.logIn}</a></li>
 						</c:if>
-						<c:if test="${not darwinoSession.user.anonymous}">
+						<c:if test="${not userInfo.anonymous}">
 							<li data-turbolinks="false"><a href="?logout">${translation.logOut}</a></li>
 						</c:if>
 					</ul>
