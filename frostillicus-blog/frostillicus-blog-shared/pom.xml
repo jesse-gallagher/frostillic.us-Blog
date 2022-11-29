@@ -116,6 +116,11 @@
 			<artifactId>org.openntf.org.eclipse.jnosql.communication.query</artifactId>
 			<version>${jnosql-version}</version>
 		</dependency>
+        <dependency>
+            <groupId>org.antlr</groupId>
+            <artifactId>antlr4-runtime</artifactId>
+            <version>4.9.2</version>
+        </dependency>
 		
 		<!--
 			Bean Validation 
