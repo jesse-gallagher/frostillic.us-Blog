@@ -16,22 +16,27 @@
 package jaxrs;
 
 import java.io.ByteArrayInputStream;
-import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.lang.annotation.Annotation;
+import java.util.Arrays;
 
+import com.darwino.commons.util.StringUtil;
+import com.darwino.commons.util.io.StreamUtil;
+
+import jakarta.mail.BodyPart;
+import jakarta.mail.MessagingException;
+import jakarta.mail.internet.MimeMultipart;
+import jakarta.mail.util.ByteArrayDataSource;
 import jakarta.ws.rs.container.ContainerRequestContext;
 import jakarta.ws.rs.container.ContainerRequestFilter;
 import jakarta.ws.rs.container.PreMatching;
 import jakarta.ws.rs.core.Context;
 import jakarta.ws.rs.core.Form;
+import jakarta.ws.rs.core.HttpHeaders;
 import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.ext.Provider;
 import jakarta.ws.rs.ext.Providers;
-
-import com.darwino.commons.util.StringUtil;
-import com.darwino.commons.util.io.StreamUtil;
 
 /**
  * This class hooks into incoming requests for a method-override form parameter.
@@ -45,15 +50,7 @@ public class MethodOverrideFilter implements ContainerRequestFilter {
 	@Override
 	public void filter(final ContainerRequestContext requestContext) throws IOException {
 		if(isReadable(requestContext)) {
-			String overrideMethod = null;
-
-			var formData = getFormData(requestContext);
-			if(formData != null) {
-				var formVal = formData.asMap().get("_httpmethod"); //$NON-NLS-1$
-				if(formVal != null && !formVal.isEmpty()) {
-					overrideMethod = formVal.get(0);
-				}
-			}
+			String overrideMethod = getHttpMethod(requestContext);
 
 			if(StringUtil.isNotEmpty(overrideMethod)) {
 				requestContext.setMethod(overrideMethod);
@@ -75,24 +72,38 @@ public class MethodOverrideFilter implements ContainerRequestFilter {
 		return MediaType.APPLICATION_FORM_URLENCODED_TYPE.isCompatible(mediaType) || MediaType.MULTIPART_FORM_DATA_TYPE.isCompatible(mediaType);
 	}
 
-	private Form getFormData(final ContainerRequestContext requestContext) throws IOException {
-		InputStream is;
+	private String getHttpMethod(final ContainerRequestContext requestContext) throws IOException {
+		// This copies the entire body ahead of time to deal with how various JAX-RS implementations
+		//   may or may not reset the stream
+		byte[] entity = requestContext.getEntityStream().readAllBytes();
+		requestContext.setEntityStream(new ByteArrayInputStream(entity));
+		
 		var mediaType = requestContext.getMediaType();
 		if(MediaType.MULTIPART_FORM_DATA_TYPE.isCompatible(mediaType)) {
-			is = requestContext.getEntityStream();
+			// Read this here as it seems RestEasy doesn't provide a default reader
+			try {
+				MimeMultipart body = new MimeMultipart(new ByteArrayDataSource(entity, MediaType.MULTIPART_FORM_DATA));
+				for(int i = 0; i < body.getCount(); i++) {
+					BodyPart part = body.getBodyPart(i);
+					if(Arrays.stream(part.getHeader(HttpHeaders.CONTENT_DISPOSITION)).anyMatch(h -> h.contains("; name=\"_httpmethod\"")) ) { //$NON-NLS-1$
+						return StreamUtil.readString(part.getInputStream());
+					}
+				}
+				return null;
+			} catch (MessagingException | IOException e) {
+				throw new RuntimeException(e);
+			}
 		} else {
 			// handle this a bit differently to avoid downstream trouble with this type
-			is = copy(requestContext.getEntityStream());
+			InputStream is = new ByteArrayInputStream(entity);
+			Form formData = providers.getMessageBodyReader(Form.class, Form.class, new Annotation[0], mediaType)
+					.readFrom(Form.class, Form.class, new Annotation[0], mediaType, null, is);
+			var formVal = formData.asMap().get("_httpmethod"); //$NON-NLS-1$
+			if(formVal != null && !formVal.isEmpty()) {
+				return formVal.get(0);
+			}
 		}
-		var form = providers.getMessageBodyReader(Form.class, Form.class, new Annotation[0], mediaType)
-				.readFrom(Form.class, Form.class, new Annotation[0], mediaType, null, is);
-		return form;
-	}
-
-	private ByteArrayInputStream copy(final InputStream is) throws IOException {
-		var baos = new ByteArrayOutputStream();
-		StreamUtil.copyStream(is, baos);
-		var data = baos.toByteArray();
-		return new ByteArrayInputStream(data);
+		
+		return null;
 	}
 }
