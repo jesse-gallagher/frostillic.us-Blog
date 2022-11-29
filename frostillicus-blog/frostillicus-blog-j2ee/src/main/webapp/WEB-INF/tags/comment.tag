@@ -31,7 +31,7 @@
 		<div class="admin">
 			<form method="POST" action="posts/${pageScope.value.postId}/comments/${pageScope.value.commentId}" enctype="multipart/form-data">
 				<input type="submit" class="delete" value="${translation.deleteButton}" onclick="return confirm('${translation.commentDeleteConfirm}')" />
-				<input type="hidden" name="_httpmethod" value="DELETE" />
+				<input type="hidden" name="_method" value="DELETE" />
 			</form>
 		</div>
 	</c:if>

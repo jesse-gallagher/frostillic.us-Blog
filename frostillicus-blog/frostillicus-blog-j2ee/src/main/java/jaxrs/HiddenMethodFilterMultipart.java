@@ -17,8 +17,6 @@ package jaxrs;
 
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
-import java.io.InputStream;
-import java.lang.annotation.Annotation;
 import java.util.Arrays;
 
 import com.darwino.commons.util.StringUtil;
@@ -32,18 +30,18 @@ import jakarta.ws.rs.container.ContainerRequestContext;
 import jakarta.ws.rs.container.ContainerRequestFilter;
 import jakarta.ws.rs.container.PreMatching;
 import jakarta.ws.rs.core.Context;
-import jakarta.ws.rs.core.Form;
 import jakarta.ws.rs.core.HttpHeaders;
 import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.ext.Provider;
 import jakarta.ws.rs.ext.Providers;
 
 /**
- * This class hooks into incoming requests for a method-override form parameter.
+ * This class hooks into incoming requests for a method-override form parameter
+ * when the incoming type is {@value MediaType#MULTIPART_FORM_DATA}.
  */
 @Provider
 @PreMatching
-public class MethodOverrideFilter implements ContainerRequestFilter {
+public class HiddenMethodFilterMultipart implements ContainerRequestFilter {
 	@Context
 	private Providers providers;
 
@@ -68,8 +66,7 @@ public class MethodOverrideFilter implements ContainerRequestFilter {
 			return false;
 		}
 
-		var mediaType = requestContext.getMediaType();
-		return MediaType.APPLICATION_FORM_URLENCODED_TYPE.isCompatible(mediaType) || MediaType.MULTIPART_FORM_DATA_TYPE.isCompatible(mediaType);
+		return MediaType.MULTIPART_FORM_DATA_TYPE.isCompatible(requestContext.getMediaType());
 	}
 
 	private String getHttpMethod(final ContainerRequestContext requestContext) throws IOException {
@@ -78,32 +75,18 @@ public class MethodOverrideFilter implements ContainerRequestFilter {
 		byte[] entity = requestContext.getEntityStream().readAllBytes();
 		requestContext.setEntityStream(new ByteArrayInputStream(entity));
 		
-		var mediaType = requestContext.getMediaType();
-		if(MediaType.MULTIPART_FORM_DATA_TYPE.isCompatible(mediaType)) {
-			// Read this here as it seems RestEasy doesn't provide a default reader
-			try {
-				MimeMultipart body = new MimeMultipart(new ByteArrayDataSource(entity, MediaType.MULTIPART_FORM_DATA));
-				for(int i = 0; i < body.getCount(); i++) {
-					BodyPart part = body.getBodyPart(i);
-					if(Arrays.stream(part.getHeader(HttpHeaders.CONTENT_DISPOSITION)).anyMatch(h -> h.contains("; name=\"_httpmethod\"")) ) { //$NON-NLS-1$
-						return StreamUtil.readString(part.getInputStream());
-					}
+		// Read this here as it seems RestEasy doesn't provide a default reader
+		try {
+			MimeMultipart body = new MimeMultipart(new ByteArrayDataSource(entity, MediaType.MULTIPART_FORM_DATA));
+			for(int i = 0; i < body.getCount(); i++) {
+				BodyPart part = body.getBodyPart(i);
+				if(Arrays.stream(part.getHeader(HttpHeaders.CONTENT_DISPOSITION)).anyMatch(h -> h.contains("; name=\"_method\"")) ) { //$NON-NLS-1$
+					return StreamUtil.readString(part.getInputStream());
 				}
-				return null;
-			} catch (MessagingException | IOException e) {
-				throw new RuntimeException(e);
 			}
-		} else {
-			// handle this a bit differently to avoid downstream trouble with this type
-			InputStream is = new ByteArrayInputStream(entity);
-			Form formData = providers.getMessageBodyReader(Form.class, Form.class, new Annotation[0], mediaType)
-					.readFrom(Form.class, Form.class, new Annotation[0], mediaType, null, is);
-			var formVal = formData.asMap().get("_httpmethod"); //$NON-NLS-1$
-			if(formVal != null && !formVal.isEmpty()) {
-				return formVal.get(0);
-			}
+			return null;
+		} catch (MessagingException | IOException e) {
+			throw new RuntimeException(e);
 		}
-		
-		return null;
 	}
 }

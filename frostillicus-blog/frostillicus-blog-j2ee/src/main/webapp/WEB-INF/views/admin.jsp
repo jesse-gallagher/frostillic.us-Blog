@@ -55,7 +55,7 @@
 							</span>
 							<div class="actions">
 								<input type="submit" name="submit" value="${translation.saveButton}" onclick="return confirm('${translation.linkSaveConfirm}')"/>
-								<button type="submit" name="_httpmethod" value="DELETE" onclick="return confirm('${translation.linkDeleteConfirm}')">${translation.deleteButton}</button>
+								<button type="submit" name="_method" value="DELETE" onclick="return confirm('${translation.linkDeleteConfirm}')">${translation.deleteButton}</button>
 							</div>
 						</form>
 					</c:forEach>
@@ -88,7 +88,7 @@
 							</span>
 							<div class="actions">
 								<input type="submit" name="submit" value="${translation.saveButton}" onclick="return confirm('${translation.tokenSaveConfirm}')"/>
-								<button type="submit" name="_httpmethod" value="DELETE" onclick="return confirm('${translation.tokenDeleteConfirm}')">${translation.deleteButton}</button>
+								<button type="submit" name="_method" value="DELETE" onclick="return confirm('${translation.tokenDeleteConfirm}')">${translation.deleteButton}</button>
 							</div>
 						</form>
 					</c:forEach>

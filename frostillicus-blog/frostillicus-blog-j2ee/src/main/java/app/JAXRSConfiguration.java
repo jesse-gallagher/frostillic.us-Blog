@@ -15,8 +15,9 @@
  */
 package app;
 
-import java.util.Collections;
 import java.util.Map;
+
+import org.eclipse.krazo.Properties;
 
 import jakarta.mvc.security.Csrf;
 import jakarta.ws.rs.ApplicationPath;
@@ -26,6 +27,9 @@ import jakarta.ws.rs.core.Application;
 public class JAXRSConfiguration extends Application {
 	@Override
 	public Map<String, Object> getProperties() {
-		return Collections.singletonMap(Csrf.CSRF_PROTECTION, Csrf.CsrfOptions.OFF);
+		return Map.of(
+			Csrf.CSRF_PROTECTION, Csrf.CsrfOptions.OFF,
+			Properties.HIDDEN_METHOD_FILTER_ACTIVE, true
+		);
 	}
 }
