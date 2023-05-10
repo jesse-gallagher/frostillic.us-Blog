@@ -13,22 +13,21 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package api.atompub;
+package api.atompub.model;
 
-import org.w3c.dom.Document;
+import jakarta.xml.bind.annotation.XmlElementRef;
+import jakarta.xml.bind.annotation.XmlRootElement;
 
-import com.darwino.commons.xml.DomUtil;
-
-enum AtomPubUtil {
-    ;
-
-    public Document createResponse(final String tagName) {
-        var result = DomUtil.createDocument();
-        var root = DomUtil.createRootElement(result, tagName);
-        root.setAttribute("xmlns", "http://purl.org/atom/app#"); //$NON-NLS-1$ //$NON-NLS-2$
-        root.setAttribute("xmlns:atom", "http://www.w3.org/2005/Atom"); //$NON-NLS-1$ //$NON-NLS-2$
-        root.setAttribute("xmlns:app", "http://www.w3.org/2007/app"); //$NON-NLS-1$ //$NON-NLS-2$
-
-        return result;
-    }
+@XmlRootElement(name="service", namespace=AtomPubService.NS_ATOMPUB)
+public class AtomPubService {
+	public static final String NS_ATOMPUB = "http://purl.org/atom/app#"; //$NON-NLS-1$
+	public static final String NS_ATOM = "http://www.w3.org/2005/Atom"; //$NON-NLS-1$
+	public static final String NS_APP = "http://www.w3.org/2007/app"; //$NON-NLS-1$
+	
+	private Workspace workspace = new Workspace();
+	
+	@XmlElementRef
+	public Workspace getWorkspace() {
+		return workspace;
+	}
 }

@@ -21,7 +21,6 @@ import org.eclipse.microprofile.config.inject.ConfigProperty;
 
 import com.darwino.commons.util.PathUtil;
 import com.darwino.commons.util.StringUtil;
-import com.rometools.rome.io.FeedException;
 
 import api.rss20.model.AtomLink;
 import api.rss20.model.Channel;
@@ -62,7 +61,7 @@ public class FeedResource {
 
 	@GET
 	@Produces("application/rss+xml")
-	public Rss get() throws FeedException {
+	public Rss get() {
 		String baseUrl;
 		if(rssRequestUrls) {
 			baseUrl = uriInfo.getBaseUri().toString();

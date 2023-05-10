@@ -25,6 +25,7 @@
 		<feature>jsonb-3.0</feature>
 		<feature>pages-3.1</feature>
 		<feature>mail-2.1</feature>
+		<feature>xmlBinding-4.0</feature>
 
         <feature>mpConfig-3.0</feature>
         <feature>mpRestClient-3.0</feature>

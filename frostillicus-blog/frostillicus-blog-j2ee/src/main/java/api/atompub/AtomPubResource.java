@@ -15,16 +15,19 @@
  */
 package api.atompub;
 
+import java.net.URI;
 import java.util.ResourceBundle;
 import java.util.stream.Stream;
 
-import com.darwino.commons.util.PathUtil;
-import com.darwino.commons.xml.DomUtil;
-
+import api.atompub.model.AtomPubCollection;
+import api.atompub.model.AtomPubService;
+import api.atompub.model.Workspace;
 import api.rsd.RSDService;
+import bean.UrlBean;
 import bean.UserInfoBean;
 import darwino.AppDatabaseDef;
 import jakarta.annotation.security.RolesAllowed;
+import jakarta.enterprise.context.RequestScoped;
 import jakarta.inject.Inject;
 import jakarta.inject.Named;
 import jakarta.servlet.ServletContext;
@@ -38,6 +41,7 @@ import jakarta.ws.rs.core.UriInfo;
 @Path(AtomPubResource.BASE_PATH)
 @RolesAllowed(UserInfoBean.ROLE_ADMIN)
 @RSDService(name="AtomPub", basePath=AtomPubResource.BASE_PATH, preferred=false)
+@RequestScoped
 public class AtomPubResource {
 	public static final String BASE_PATH = "/atompub"; //$NON-NLS-1$
 
@@ -51,49 +55,49 @@ public class AtomPubResource {
 	HttpServletRequest servletRequest;
 	@Context
 	UriInfo uriInfo;
+	@Inject
+	UrlBean urlBean;
 
 	// This only supports the one active blog
 	@GET
 	@Produces("application/atomserv+xml")
-	public String getWorkspace() {
-		var xml = DomUtil.createDocument();
-		var service = DomUtil.createRootElement(xml, "service"); //$NON-NLS-1$
-		service.setAttribute("xmlns", "http://purl.org/atom/app#"); //$NON-NLS-1$ //$NON-NLS-2$
-		service.setAttribute("xmlns:atom", "http://www.w3.org/2005/Atom"); //$NON-NLS-1$ //$NON-NLS-2$
-
-		var workspace = DomUtil.createElement(service, "workspace"); //$NON-NLS-1$
-		DomUtil.createElement(workspace, "atom:title", BLOG_ID); //$NON-NLS-1$
+	public AtomPubService getWorkspace() {
+		AtomPubService service = new AtomPubService();
+		
+		Workspace workspace = service.getWorkspace();
+		workspace.setTitle(BLOG_ID);
 
 		// Blog posts collection
 		{
-			var collection = DomUtil.createElement(workspace, "collection"); //$NON-NLS-1$
-			collection.setAttribute("href", resolveUrl(BLOG_ID)); //$NON-NLS-1$
-			DomUtil.createElement(collection, "atom:title", "Entries"); //$NON-NLS-1$ //$NON-NLS-2$
-			var categories = DomUtil.createElement(collection, "categories"); //$NON-NLS-1$
-			categories.setAttribute("href", resolveUrl(BLOG_ID, "categories")); //$NON-NLS-1$ //$NON-NLS-2$
+			AtomPubCollection collection = new AtomPubCollection();
+			workspace.getCollections().add(collection);
+			collection.setHref(resolveUrl(BLOG_ID));
+			collection.setTitle("Entries"); //$NON-NLS-1$
+			collection.setCategoriesHref(resolveUrl(BLOG_ID, "categories")); //$NON-NLS-1$
 		}
 
 		// Media collection
 		{
-			var collection = DomUtil.createElement(workspace, "collection"); //$NON-NLS-1$
-			collection.setAttribute("href", resolveUrl(BLOG_ID, MediaResource.PATH)); //$NON-NLS-1$
-			DomUtil.createElement(collection, "atom:title", "Pictures"); //$NON-NLS-1$ //$NON-NLS-2$
+			AtomPubCollection collection = new AtomPubCollection();
+			workspace.getCollections().add(collection);
+			collection.setHref(resolveUrl(BLOG_ID, MediaResource.PATH));
+			collection.setTitle("Pictures"); //$NON-NLS-1$
 			Stream.of(
 				"image/png", //$NON-NLS-1$
 				"image/jpeg", //$NON-NLS-1$
 				"image/gif", //$NON-NLS-1$
 				"image/webp" //$NON-NLS-1$
-			).forEach(type -> DomUtil.createElement(collection, "accept", type)); //$NON-NLS-1$
+			).forEach(collection.getAccept()::add);
 		}
 
-		return DomUtil.getXMLString(xml);
+		return service;
 	}
 
 	private String resolveUrl(final String... parts) {
-		var baseUri = uriInfo.getBaseUri();
-		var uri = PathUtil.concat(baseUri.toString(), BASE_PATH);
+		URI baseUri = uriInfo.getBaseUri();
+		String uri = urlBean.concat(baseUri.toString(), BASE_PATH);
 		for(String part : parts) {
-			uri = PathUtil.concat(uri, part);
+			uri = urlBean.concat(uri, part);
 		}
 		return uri;
 	}

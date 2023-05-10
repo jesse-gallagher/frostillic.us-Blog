@@ -18,18 +18,20 @@ package api.atompub;
 import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
-import java.net.URLEncoder;
-import java.nio.charset.StandardCharsets;
 import java.util.Arrays;
+import java.util.Date;
 import java.util.ResourceBundle;
 
 import org.eclipse.jnosql.communication.driver.attachment.EntityAttachment;
-import org.w3c.dom.Element;
 
-import com.darwino.commons.util.DateTimeISO8601;
-import com.darwino.commons.util.PathUtil;
-import com.darwino.commons.xml.DomUtil;
-
+import api.atompub.model.Author;
+import api.atompub.model.Content;
+import api.atompub.model.Entry;
+import api.atompub.model.Feed;
+import api.atompub.model.Link;
+import api.atompub.model.Summary;
+import bean.EncoderBean;
+import bean.UrlBean;
 import bean.UserInfoBean;
 import jakarta.annotation.security.RolesAllowed;
 import jakarta.inject.Inject;
@@ -45,7 +47,6 @@ import jakarta.ws.rs.core.Context;
 import jakarta.ws.rs.core.HttpHeaders;
 import jakarta.ws.rs.core.Response;
 import jakarta.ws.rs.core.UriInfo;
-import lombok.SneakyThrows;
 import model.Media;
 import model.MediaRepository;
 
@@ -66,98 +67,114 @@ public class MediaResource {
 
     @Inject
     MediaRepository mediaRepository;
+    
+    @Inject
+    UserInfoBean userInfo;
+    
+	@Inject
+	UrlBean urlBean;
+	
+	@Inject
+	EncoderBean encoder;
 
     @GET
     @Produces("application/atom+xml")
-    public String list() {
-        var xml = DomUtil.createDocument();
-        var feed = DomUtil.createRootElement(xml, "feed"); //$NON-NLS-1$
-        feed.setAttribute("xmlns", "http://www.w3.org/2005/Atom"); //$NON-NLS-1$ //$NON-NLS-2$
+    public Feed list() {
+    	Feed feed = new Feed();
 
-        mediaRepository.findAll().forEach(m -> {
-        	var entry = DomUtil.createElement(feed, "entry"); //$NON-NLS-1$
-            entry.setAttribute("xmlns", "http://www.w3.org/2005/Atom"); //$NON-NLS-1$ //$NON-NLS-2$
-            populateAtomXml(entry, m);
-        });
+        mediaRepository.findAll()
+        	.map(m -> {
+        		Entry entry = new Entry();
+                populateAtomXml(entry, m);
+        		return entry;
+        	})
+        	.forEach(feed.getEntries()::add);
 
-        return DomUtil.getXMLString(xml);
+        return feed;
     }
 
     @POST
     @Produces("application/atom+xml")
     public Response uploadMedia(final byte[] data) throws URISyntaxException {
-        var contentType = request.getContentType();
-        var name = request.getHeader("Slug"); //$NON-NLS-1$
+        String contentType = request.getContentType();
+        String name = request.getHeader("Slug"); //$NON-NLS-1$
 
         // TODO make sure it's not already there
         // This could use the name as the UNID, but it's kind of nice having a "real" UNID behind the scenes
-        var media = mediaRepository.findByName(name).orElseGet(Media::new);
+        Media media = mediaRepository.findByName(name).orElseGet(Media::new);
         media.setName(name);
         media.setAttachments(Arrays.asList(EntityAttachment.of(name, System.currentTimeMillis(), contentType, data)));
+        media.setCreationUser(userInfo.getDn());
+        media.setLastModificationDate(new Date());
         media = mediaRepository.save(media);
 
         // Force update of metadata fields
         media = mediaRepository.findById(media.getId()).get();
 
-        return Response.created(new URI(resolveUrl(AtomPubResource.BLOG_ID, PATH, media.getId()))).entity(toAtomXml(media)).build();
+        return Response.created(new URI(resolveUrl(AtomPubResource.BLOG_ID, PATH, media.getId())))
+        	.entity(toAtomXml(media))
+        	.build();
     }
 
     @GET
     @Path("{mediaId}")
     @Produces("application/atom+xml")
-    public Response getMediaInfo(@PathParam("mediaId") final String mediaId) {
-    	var media = mediaRepository.findById(mediaId).orElseThrow(NotFoundException::new);
-        return Response.ok(toAtomXml(media)).build();
+    public Entry getMediaInfo(@PathParam("mediaId") final String mediaId) {
+    	Media media = mediaRepository.findById(mediaId).orElseThrow(NotFoundException::new);
+        return toAtomXml(media);
     }
 
     @GET
     @Path("{mediaId}/{name}")
     public Response getMedia(@PathParam("mediaId") final String mediaId) throws IOException {
-    	var media = mediaRepository.findById(mediaId).orElseThrow(NotFoundException::new);
-    	var att = media.getAttachments().get(0);
+    	Media media = mediaRepository.findById(mediaId).orElseThrow(NotFoundException::new);
+    	EntityAttachment att = media.getAttachments().get(0);
 
         return Response.ok(att.getData()).header(HttpHeaders.CONTENT_TYPE, att.getContentType()).build();
     }
 
-    private String toAtomXml(final Media media) {
-        var xml = DomUtil.createDocument();
-        var entry = DomUtil.createRootElement(xml, "entry"); //$NON-NLS-1$
-        entry.setAttribute("xmlns", "http://www.w3.org/2005/Atom"); //$NON-NLS-1$ //$NON-NLS-2$
+    private Entry toAtomXml(final Media media) {
+    	Entry entry = new Entry();
         populateAtomXml(entry, media);
-        return DomUtil.getXMLString(xml);
+        return entry;
     }
 
-    @SneakyThrows
-    private void populateAtomXml(final Element entry, final Media media) {
-        DomUtil.createElement(entry, "title", media.getName()); //$NON-NLS-1$
-        DomUtil.createElement(entry, "id", media.getId()); //$NON-NLS-1$
-        DomUtil.createElement(entry, "updated", DateTimeISO8601.formatISO8601(media.getLastModificationDate().getTime())); //$NON-NLS-1$
-        var author = DomUtil.createElement(entry, "author"); //$NON-NLS-1$
-        DomUtil.createElement(author, "name", media.getCreationUser()); //$NON-NLS-1$
-        var summary = DomUtil.createElement(entry, "summary"); //$NON-NLS-1$
-        summary.setAttribute("type", "text"); //$NON-NLS-1$ //$NON-NLS-2$
+    private void populateAtomXml(final Entry entry, final Media media) {
+    	entry.setTitle(media.getName());
+    	entry.setId(media.getId());
+    	entry.setUpdated(media.getLastModificationDate().toInstant());
+    	entry.setAuthor(new Author(media.getCreationUser()));
+    	
+    	Summary summary = new Summary();
+    	summary.setType("text"); //$NON-NLS-1$
+    	summary.setBody(media.getName());
+    	entry.setSummary(summary);
 
-        var att = media.getAttachments().get(0);
-        var content = DomUtil.createElement(entry, "content"); //$NON-NLS-1$
-        content.setAttribute("type", att.getContentType()); //$NON-NLS-1$
+        EntityAttachment att = media.getAttachments().get(0);
+        Content content = new Content();
+        content.setType(att.getContentType());
+        entry.setContent(content);
 
-        var nameEnc = URLEncoder.encode(media.getName(), StandardCharsets.UTF_8.name());
-        var path = PathUtil.concat(MediaResource.PATH, media.getId(), nameEnc);
-        content.setAttribute("src", path); //$NON-NLS-1$
+        String nameEnc = encoder.urlEncode(media.getName());
+        String path = urlBean.concat(MediaResource.PATH, media.getId(), nameEnc);
+        content.setSrc(path);
+        entry.setContent(content);
 
-        var editMediaLink = DomUtil.createElement(entry, "link"); //$NON-NLS-1$
-        editMediaLink.setAttribute("edit-media", resolveUrl(AtomPubResource.BLOG_ID, PATH, media.getId(), nameEnc)); //$NON-NLS-1$
+        Link editMediaLink = new Link();
+        editMediaLink.setEditMedia(resolveUrl(AtomPubResource.BLOG_ID, PATH, media.getId(), nameEnc));
+        entry.getLinks().add(editMediaLink);
 
-        var editLink = DomUtil.createElement(entry, "link"); //$NON-NLS-1$
-        editLink.setAttribute("rel", "edit"); //$NON-NLS-1$ //$NON-NLS-2$
-        editMediaLink.setAttribute("edit-media", resolveUrl(AtomPubResource.BLOG_ID, PATH, media.getId())); //$NON-NLS-1$
+        Link editLink = new Link();
+        editLink.setRel("link"); //$NON-NLS-1$
+        editLink.setEditMedia(resolveUrl(AtomPubResource.BLOG_ID, PATH, media.getId()));
+        entry.getLinks().add(editLink);
     }
 
     private String resolveUrl(final String... parts) {
-        var baseUri = uriInfo.getBaseUri();
-        var uri = PathUtil.concat(baseUri.toString(), AtomPubResource.BASE_PATH);
+        URI baseUri = uriInfo.getBaseUri();
+        String uri = urlBean.concat(baseUri.toString(), AtomPubResource.BASE_PATH);
         for(String part : parts) {
-            uri = PathUtil.concat(uri, part);
+            uri = urlBean.concat(uri, part);
         }
         return uri;
     }

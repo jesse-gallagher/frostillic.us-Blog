@@ -20,7 +20,7 @@ import java.util.Collection;
 import java.util.Random;
 import java.util.TreeSet;
 import java.util.UUID;
-import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 import javax.naming.InvalidNameException;
 import javax.naming.ldap.LdapName;
@@ -85,14 +85,13 @@ public enum PostUtil {
         return post;
     }
 
-    public static Collection<String> getCategories() throws JsonException {
+    public static Stream<String> getCategories() throws JsonException {
         Database database = CDI.current().select(Database.class).get();
         JsonArray tags = (JsonArray)database.getStore(AppDatabaseDef.STORE_POSTS).getTags(Integer.MAX_VALUE, true);
         return tags.stream()
                 .map(JsonObject.class::cast)
                 .map(tag -> tag.getAsString("name")) //$NON-NLS-1$
-                .map(StringUtil::toString)
-                .collect(Collectors.toList());
+                .map(StringUtil::toString);
     }
 
     public static int parseStartParam(final String startParam) {

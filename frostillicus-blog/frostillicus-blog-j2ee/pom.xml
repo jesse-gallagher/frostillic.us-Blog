@@ -186,12 +186,6 @@
 			<artifactId>lombok</artifactId>
 		</dependency>
 		
-		<!-- RSS generation -->
-		<dependency>
-			<groupId>com.rometools</groupId>
-			<artifactId>rome</artifactId>
-		</dependency>
-		
 		<!-- HTML sanitization -->
 		<dependency>
 			<groupId>org.jsoup</groupId>

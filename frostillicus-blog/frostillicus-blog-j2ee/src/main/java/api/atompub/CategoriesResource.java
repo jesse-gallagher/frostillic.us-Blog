@@ -16,8 +16,9 @@
 package api.atompub;
 
 import com.darwino.commons.json.JsonException;
-import com.darwino.commons.xml.DomUtil;
 
+import api.atompub.model.AppCategories;
+import api.atompub.model.AtomCategory;
 import bean.UserInfoBean;
 import jakarta.annotation.security.RolesAllowed;
 import jakarta.ws.rs.GET;
@@ -30,20 +31,14 @@ import model.util.PostUtil;
 public class CategoriesResource {
     @GET
     @Produces("application/atomserv+xml")
-    public String list() throws JsonException {
-        var xml = DomUtil.createDocument();
-        var service = DomUtil.createRootElement(xml, "app:categories"); //$NON-NLS-1$
-        service.setAttribute("xmlns:app", "http://www.w3.org/2007/app"); //$NON-NLS-1$ //$NON-NLS-2$
-        service.setAttribute("xmlns:atom", "http://www.w3.org/2005/Atom"); //$NON-NLS-1$ //$NON-NLS-2$
-        service.setAttribute("fixed", "no"); //$NON-NLS-1$ //$NON-NLS-2$
+    public AppCategories list() throws JsonException {
+    	AppCategories categories = new AppCategories();
+    	categories.setFixed(false);
 
         PostUtil.getCategories()
-            .forEach(tag -> {
-                var category = DomUtil.createElement(service, "atom:category"); //$NON-NLS-1$
-                category.setAttribute("term", tag); //$NON-NLS-1$
-            }
-        );
+        	.map(AtomCategory::new)
+        	.forEach(categories.getCategories()::add);
 
-        return DomUtil.getXMLString(xml);
+        return categories;
     }
 }
