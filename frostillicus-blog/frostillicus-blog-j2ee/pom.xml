@@ -67,6 +67,21 @@
 			<scope>provided</scope>
 		</dependency>
 		<dependency>
+			<groupId>jakarta.inject</groupId>
+			<artifactId>jakarta.inject-api</artifactId>
+			<scope>provided</scope>
+		</dependency>
+		<dependency>
+			<groupId>jakarta.annotation</groupId>
+			<artifactId>jakarta.annotation-api</artifactId>
+			<scope>provided</scope>
+		</dependency>
+		<dependency>
+			<groupId>jakarta.activation</groupId>
+			<artifactId>jakarta.activation-api</artifactId>
+			<scope>provided</scope>
+		</dependency>
+		<dependency>
 			<groupId>org.eclipse.microprofile.config</groupId>
 			<artifactId>microprofile-config-api</artifactId>
 			<scope>provided</scope>
@@ -136,11 +151,6 @@
 			<artifactId>dwo-commons-runtime-debug-script</artifactId>
 			<version>${DARWINO_VERSION}</version>
 		</dependency>
-<!-- 		<dependency> -->
-<!-- 			<groupId>com.darwino</groupId> -->
-<!-- 			<artifactId>dwo-jre-j2ee-security</artifactId> -->
-<!-- 			<version>${DARWINO_VERSION}</version> -->
-<!-- 		</dependency> -->
 		<dependency>
 			<groupId>com.darwino</groupId>
 			<artifactId>dwo-jre-j2ee-mpconfig</artifactId>
