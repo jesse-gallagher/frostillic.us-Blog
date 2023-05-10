@@ -23,17 +23,16 @@ import java.util.concurrent.Executors;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import jakarta.enterprise.context.ApplicationScoped;
-import jakarta.enterprise.event.Observes;
-import jakarta.inject.Inject;
-import jakarta.ws.rs.core.HttpHeaders;
-
 import org.eclipse.microprofile.config.inject.ConfigProperty;
 
 import com.darwino.commons.util.StringUtil;
 
 import api.micropub.MicroPubClient.EntryType;
 import darwino.AppDatabaseDef;
+import jakarta.enterprise.context.ApplicationScoped;
+import jakarta.enterprise.event.Observes;
+import jakarta.inject.Inject;
+import jakarta.ws.rs.core.HttpHeaders;
 import lombok.Getter;
 import lombok.Setter;
 import model.MicroPost;

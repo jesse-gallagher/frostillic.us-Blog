@@ -17,11 +17,10 @@ package security.jaxrs;
 
 import java.security.Principal;
 
-import jakarta.ws.rs.core.SecurityContext;
-import jakarta.ws.rs.core.UriInfo;
-
 import com.darwino.platform.DarwinoContext;
 
+import jakarta.ws.rs.core.SecurityContext;
+import jakarta.ws.rs.core.UriInfo;
 import security.DarwinoPrincipal;
 
 /**

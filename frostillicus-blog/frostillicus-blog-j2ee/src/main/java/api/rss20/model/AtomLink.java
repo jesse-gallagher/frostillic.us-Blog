@@ -23,26 +23,26 @@ public class AtomLink {
 	private String href;
 	private String rel;
 	private String type;
-	
+
 	@XmlAttribute
 	public String getHref() {
 		return href;
 	}
-	public void setHref(String href) {
+	public void setHref(final String href) {
 		this.href = href;
 	}
 	@XmlAttribute
 	public String getRel() {
 		return rel;
 	}
-	public void setRel(String rel) {
+	public void setRel(final String rel) {
 		this.rel = rel;
 	}
 	@XmlAttribute
 	public String getType() {
 		return type;
 	}
-	public void setType(String type) {
+	public void setType(final String type) {
 		this.type = type;
 	}
 }

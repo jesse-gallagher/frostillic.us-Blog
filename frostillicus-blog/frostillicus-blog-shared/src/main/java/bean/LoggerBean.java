@@ -17,10 +17,9 @@ package bean;
 
 import java.util.logging.Logger;
 
+import darwino.AppDatabaseDef;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.enterprise.inject.Produces;
-
-import darwino.AppDatabaseDef;
 
 /**
  * Provides an app logger for CDI injection.

@@ -24,6 +24,10 @@ import java.util.TreeMap;
 import java.util.TreeSet;
 import java.util.stream.Collectors;
 
+import com.darwino.commons.json.JsonException;
+import com.darwino.commons.util.StringUtil;
+
+import bean.UserInfoBean;
 import jakarta.annotation.security.RolesAllowed;
 import jakarta.enterprise.context.RequestScoped;
 import jakarta.inject.Inject;
@@ -41,11 +45,6 @@ import jakarta.ws.rs.PathParam;
 import jakarta.ws.rs.Produces;
 import jakarta.ws.rs.QueryParam;
 import jakarta.ws.rs.core.MediaType;
-
-import com.darwino.commons.json.JsonException;
-import com.darwino.commons.util.StringUtil;
-
-import bean.UserInfoBean;
 import model.Comment;
 import model.CommentRepository;
 import model.Post;

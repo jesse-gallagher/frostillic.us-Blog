@@ -15,11 +15,11 @@
  */
 package model;
 
-import lombok.Data;
-import lombok.NoArgsConstructor;
-import model.event.PostEvent;
-import model.event.PostEvent.Type;
-import model.util.UtilDateOffsetConverter;
+import java.time.OffsetDateTime;
+import java.time.temporal.ChronoField;
+import java.util.Date;
+import java.util.List;
+import java.util.Optional;
 
 import org.darwino.jnosql.artemis.extension.converter.ISOOffsetDateTimeConverter;
 
@@ -27,22 +27,21 @@ import com.darwino.commons.util.StringUtil;
 import com.darwino.jsonstore.Document;
 
 import bean.MarkdownBean;
+import jakarta.enterprise.event.Event;
+import jakarta.enterprise.event.Observes;
+import jakarta.enterprise.inject.spi.CDI;
+import jakarta.inject.Inject;
 import jakarta.nosql.mapping.Column;
 import jakarta.nosql.mapping.Convert;
 import jakarta.nosql.mapping.Entity;
 import jakarta.nosql.mapping.EntityPrePersist;
 import jakarta.nosql.mapping.Id;
-
-import jakarta.enterprise.event.Event;
-import jakarta.enterprise.event.Observes;
-import jakarta.enterprise.inject.spi.CDI;
-import jakarta.inject.Inject;
 import jakarta.validation.constraints.NotNull;
-import java.time.OffsetDateTime;
-import java.time.temporal.ChronoField;
-import java.util.Date;
-import java.util.List;
-import java.util.Optional;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+import model.event.PostEvent;
+import model.event.PostEvent.Type;
+import model.util.UtilDateOffsetConverter;
 
 @Entity @Data @NoArgsConstructor
 public class Post {
@@ -110,7 +109,7 @@ public class Post {
 		post.setBodyHtml(markdown.toHtml(StringUtil.toString(post.getBodyMarkdown())));
 
 		// Set the posted time if this is the first time it's posted or has gone live
-		if(post.posted == null || (post.status == Status.Posted && !post.hasGoneLive)) {
+		if(post.posted == null || post.status == Status.Posted && !post.hasGoneLive) {
 			post.setPosted(OffsetDateTime.now());
 		}
 		if(post.status == Status.Posted && !post.hasGoneLive) {

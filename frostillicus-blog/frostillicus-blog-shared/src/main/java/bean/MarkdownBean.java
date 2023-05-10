@@ -20,9 +20,6 @@ import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.Set;
 
-import jakarta.enterprise.context.ApplicationScoped;
-import jakarta.inject.Inject;
-
 import org.commonmark.node.AbstractVisitor;
 import org.commonmark.node.FencedCodeBlock;
 import org.commonmark.node.Node;
@@ -32,6 +29,8 @@ import org.commonmark.renderer.html.HtmlNodeRendererContext;
 import org.commonmark.renderer.html.HtmlRenderer;
 import org.commonmark.renderer.html.HtmlWriter;
 
+import jakarta.enterprise.context.ApplicationScoped;
+import jakarta.inject.Inject;
 import lombok.SneakyThrows;
 
 @ApplicationScoped

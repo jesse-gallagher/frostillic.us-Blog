@@ -15,19 +15,20 @@
  */
 package model;
 
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import java.time.OffsetDateTime;
+import java.util.Date;
+
 import org.darwino.jnosql.artemis.extension.converter.ISOOffsetDateTimeConverter;
+
 import jakarta.nosql.mapping.Column;
 import jakarta.nosql.mapping.Convert;
 import jakarta.nosql.mapping.Entity;
 import jakarta.nosql.mapping.Id;
-
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
-import java.time.OffsetDateTime;
-import java.util.Date;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Entity @Data @NoArgsConstructor
 public class Comment {

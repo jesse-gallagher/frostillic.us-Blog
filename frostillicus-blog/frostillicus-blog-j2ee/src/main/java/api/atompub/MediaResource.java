@@ -23,6 +23,14 @@ import java.nio.charset.StandardCharsets;
 import java.util.Arrays;
 import java.util.ResourceBundle;
 
+import org.eclipse.jnosql.communication.driver.attachment.EntityAttachment;
+import org.w3c.dom.Element;
+
+import com.darwino.commons.util.DateTimeISO8601;
+import com.darwino.commons.util.PathUtil;
+import com.darwino.commons.xml.DomUtil;
+
+import bean.UserInfoBean;
 import jakarta.annotation.security.RolesAllowed;
 import jakarta.inject.Inject;
 import jakarta.inject.Named;
@@ -37,15 +45,6 @@ import jakarta.ws.rs.core.Context;
 import jakarta.ws.rs.core.HttpHeaders;
 import jakarta.ws.rs.core.Response;
 import jakarta.ws.rs.core.UriInfo;
-
-import org.eclipse.jnosql.communication.driver.attachment.EntityAttachment;
-import org.w3c.dom.Element;
-
-import com.darwino.commons.util.DateTimeISO8601;
-import com.darwino.commons.util.PathUtil;
-import com.darwino.commons.xml.DomUtil;
-
-import bean.UserInfoBean;
 import lombok.SneakyThrows;
 import model.Media;
 import model.MediaRepository;

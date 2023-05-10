@@ -19,13 +19,13 @@ import java.util.Date;
 import java.util.List;
 
 import org.darwino.jnosql.diana.driver.EntityConverter;
-import jakarta.nosql.mapping.Column;
-import jakarta.nosql.mapping.Entity;
-import jakarta.nosql.mapping.Id;
 import org.eclipse.jnosql.communication.driver.attachment.EntityAttachment;
 
 import com.darwino.jsonstore.Document;
 
+import jakarta.nosql.mapping.Column;
+import jakarta.nosql.mapping.Entity;
+import jakarta.nosql.mapping.Id;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 

@@ -17,11 +17,10 @@ package controller;
 
 import static model.util.PostUtil.PAGE_LENGTH;
 
-import jakarta.inject.Inject;
-import jakarta.mvc.Models;
-
 import com.darwino.commons.json.JsonException;
 
+import jakarta.inject.Inject;
+import jakarta.mvc.Models;
 import model.PostRepository;
 import model.util.PostUtil;
 

@@ -18,9 +18,6 @@ package app;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 
-import jakarta.servlet.ServletContextEvent;
-import jakarta.servlet.ServletContextListener;
-
 import com.darwino.commons.Platform;
 import com.darwino.commons.security.acl.User;
 import com.darwino.commons.security.acl.UserContextFactory;
@@ -30,6 +27,8 @@ import com.darwino.j2ee.application.DarwinoJ2EEContextFactory;
 import com.darwino.jre.application.DarwinoJreApplication;
 import com.darwino.platform.DarwinoContextFactory;
 
+import jakarta.servlet.ServletContextEvent;
+import jakarta.servlet.ServletContextListener;
 import lombok.SneakyThrows;
 
 /**

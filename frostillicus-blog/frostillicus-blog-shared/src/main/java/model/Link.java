@@ -15,13 +15,11 @@
  */
 package model;
 
-import jakarta.validation.constraints.NotEmpty;
-
 import jakarta.nosql.mapping.Column;
 import jakarta.nosql.mapping.Convert;
 import jakarta.nosql.mapping.Entity;
 import jakarta.nosql.mapping.Id;
-
+import jakarta.validation.constraints.NotEmpty;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import model.util.BooleanYNConverter;

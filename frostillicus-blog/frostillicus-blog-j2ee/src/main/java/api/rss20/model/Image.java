@@ -28,21 +28,21 @@ public class Image {
 	public String getTitle() {
 		return title;
 	}
-	public void setTitle(String title) {
+	public void setTitle(final String title) {
 		this.title = title;
 	}
 	@XmlElement
 	public String getUrl() {
 		return url;
 	}
-	public void setUrl(String url) {
+	public void setUrl(final String url) {
 		this.url = url;
 	}
 	@XmlElement
 	public String getLink() {
 		return link;
 	}
-	public void setLink(String link) {
+	public void setLink(final String link) {
 		this.link = link;
 	}
 }

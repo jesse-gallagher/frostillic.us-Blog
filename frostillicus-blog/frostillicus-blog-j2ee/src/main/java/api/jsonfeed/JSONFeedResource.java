@@ -20,6 +20,12 @@ import java.util.List;
 import java.util.ResourceBundle;
 import java.util.stream.Collectors;
 
+import org.eclipse.microprofile.config.inject.ConfigProperty;
+
+import com.darwino.commons.util.PathUtil;
+
+import bean.UserInfoBean;
+import darwino.AppDatabaseDef;
 import jakarta.inject.Inject;
 import jakarta.inject.Named;
 import jakarta.json.bind.JsonbBuilder;
@@ -32,13 +38,6 @@ import jakarta.ws.rs.core.Context;
 import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.StreamingOutput;
 import jakarta.ws.rs.core.UriInfo;
-
-import org.eclipse.microprofile.config.inject.ConfigProperty;
-
-import com.darwino.commons.util.PathUtil;
-
-import bean.UserInfoBean;
-import darwino.AppDatabaseDef;
 import lombok.Data;
 import model.Post;
 import model.PostRepository;

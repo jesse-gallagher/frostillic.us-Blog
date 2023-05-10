@@ -18,6 +18,12 @@ package controller;
 import java.time.OffsetDateTime;
 import java.util.UUID;
 
+import org.jsoup.Jsoup;
+import org.jsoup.safety.Safelist;
+
+import bean.AkismetBean;
+import bean.MarkdownBean;
+import bean.UserInfoBean;
 import jakarta.annotation.security.RolesAllowed;
 import jakarta.enterprise.context.RequestScoped;
 import jakarta.inject.Inject;
@@ -30,13 +36,6 @@ import jakarta.ws.rs.NotFoundException;
 import jakarta.ws.rs.POST;
 import jakarta.ws.rs.Path;
 import jakarta.ws.rs.PathParam;
-
-import org.jsoup.Jsoup;
-import org.jsoup.safety.Safelist;
-
-import bean.AkismetBean;
-import bean.MarkdownBean;
-import bean.UserInfoBean;
 import model.Comment;
 import model.CommentRepository;
 import model.PostRepository;

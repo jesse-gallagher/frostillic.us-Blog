@@ -15,15 +15,14 @@
  */
 package api.atompub;
 
-import jakarta.annotation.security.RolesAllowed;
-import jakarta.ws.rs.GET;
-import jakarta.ws.rs.Path;
-import jakarta.ws.rs.Produces;
-
 import com.darwino.commons.json.JsonException;
 import com.darwino.commons.xml.DomUtil;
 
 import bean.UserInfoBean;
+import jakarta.annotation.security.RolesAllowed;
+import jakarta.ws.rs.GET;
+import jakarta.ws.rs.Path;
+import jakarta.ws.rs.Produces;
 import model.util.PostUtil;
 
 @Path(AtomPubResource.BASE_PATH + "/{blogId}/categories")

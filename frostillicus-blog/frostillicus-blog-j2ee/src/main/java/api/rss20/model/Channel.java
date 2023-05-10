@@ -15,8 +15,8 @@
  */
 package api.rss20.model;
 
-import java.util.List;
 import java.util.ArrayList;
+import java.util.List;
 
 import jakarta.xml.bind.annotation.XmlElement;
 import jakarta.xml.bind.annotation.XmlElementRef;
@@ -35,21 +35,21 @@ public class Channel {
 	public String getTitle() {
 		return title;
 	}
-	public void setTitle(String title) {
+	public void setTitle(final String title) {
 		this.title = title;
 	}
 	@XmlElement
 	public String getLink() {
 		return link;
 	}
-	public void setLink(String link) {
+	public void setLink(final String link) {
 		this.link = link;
 	}
 	@XmlElement
 	public String getDescription() {
 		return description;
 	}
-	public void setDescription(String description) {
+	public void setDescription(final String description) {
 		this.description = description;
 	}
 	@XmlElementRef

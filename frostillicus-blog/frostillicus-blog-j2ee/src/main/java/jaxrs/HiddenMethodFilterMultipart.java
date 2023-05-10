@@ -74,7 +74,7 @@ public class HiddenMethodFilterMultipart implements ContainerRequestFilter {
 		//   may or may not reset the stream
 		byte[] entity = requestContext.getEntityStream().readAllBytes();
 		requestContext.setEntityStream(new ByteArrayInputStream(entity));
-		
+
 		// Read this here as it seems RestEasy doesn't provide a default reader
 		try {
 			MimeMultipart body = new MimeMultipart(new ByteArrayDataSource(entity, MediaType.MULTIPART_FORM_DATA));

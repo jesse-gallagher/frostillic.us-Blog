@@ -15,6 +15,7 @@
  */
 package controller;
 
+import bean.UserInfoBean;
 import jakarta.annotation.security.RolesAllowed;
 import jakarta.enterprise.context.RequestScoped;
 import jakarta.inject.Inject;
@@ -23,8 +24,6 @@ import jakarta.mvc.Models;
 import jakarta.ws.rs.GET;
 import jakarta.ws.rs.Path;
 import jakarta.ws.rs.PathParam;
-
-import bean.UserInfoBean;
 import model.MicroPostRepository;
 
 @Path(MicroPostController.PATH)

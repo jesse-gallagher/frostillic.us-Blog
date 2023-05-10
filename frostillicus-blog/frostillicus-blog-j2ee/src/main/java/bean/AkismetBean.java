@@ -21,20 +21,19 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 
+import org.eclipse.microprofile.config.inject.ConfigProperty;
+import org.eclipse.microprofile.rest.client.RestClientBuilder;
+
+import com.darwino.commons.util.StringUtil;
+
 import api.akismet.Akismet11Client;
+import darwino.AppDatabaseDef;
 import jakarta.enterprise.context.RequestScoped;
 import jakarta.inject.Inject;
 import jakarta.inject.Named;
 import jakarta.ws.rs.core.HttpHeaders;
-
-import org.eclipse.microprofile.config.inject.ConfigProperty;
-
-import com.darwino.commons.util.StringUtil;
-
-import darwino.AppDatabaseDef;
 import lombok.Getter;
 import lombok.Setter;
-import org.eclipse.microprofile.rest.client.RestClientBuilder;
 import util.HttpUtil;
 
 @Named("akismet")

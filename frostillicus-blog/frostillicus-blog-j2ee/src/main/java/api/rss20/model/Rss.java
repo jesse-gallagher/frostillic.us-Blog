@@ -24,7 +24,7 @@ public class Rss {
 	public static final String NS_CONTENT = "http://purl.org/rss/1.0/modules/content/";
 	public static final String NS_DC = "http://purl.org/dc/elements/1.1/";
 	public static final String NS_ATOM = "http://www.w3.org/2005/Atom";
-	
+
 	private String version = "2.0";
 	private String base;
 	private Channel channel = new Channel();
@@ -41,7 +41,7 @@ public class Rss {
 	public String getBase() {
 		return base;
 	}
-	public void setBase(String base) {
+	public void setBase(final String base) {
 		this.base = base;
 	}
 }

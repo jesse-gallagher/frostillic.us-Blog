@@ -23,7 +23,7 @@ import jakarta.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 
 @XmlRootElement(name="item")
 public class RssItem {
-	
+
 	private String title;
 	private String link;
 	private String contentEncoded;
@@ -36,21 +36,21 @@ public class RssItem {
 	public String getTitle() {
 		return title;
 	}
-	public void setTitle(String title) {
+	public void setTitle(final String title) {
 		this.title = title;
 	}
 	@XmlElement
 	public String getLink() {
 		return link;
 	}
-	public void setLink(String link) {
+	public void setLink(final String link) {
 		this.link = link;
 	}
 	@XmlElement(name="encoded", namespace=Rss.NS_CONTENT)
 	public String getContentEncoded() {
 		return contentEncoded;
 	}
-	public void setContentEncoded(String contentEncoded) {
+	public void setContentEncoded(final String contentEncoded) {
 		this.contentEncoded = contentEncoded;
 		this.description = contentEncoded;
 	}
@@ -58,14 +58,14 @@ public class RssItem {
 	public String getGuid() {
 		return guid;
 	}
-	public void setGuid(String guid) {
+	public void setGuid(final String guid) {
 		this.guid = guid;
 	}
 	@XmlElement(name="creator", namespace=Rss.NS_DC)
 	public String getCreator() {
 		return creator;
 	}
-	public void setCreator(String creator) {
+	public void setCreator(final String creator) {
 		this.creator = creator;
 	}
 	@XmlElement(name="date", namespace=Rss.NS_DC)
@@ -73,12 +73,12 @@ public class RssItem {
 	public Instant getDate() {
 		return date;
 	}
-	public void setDate(Instant date) {
+	public void setDate(final Instant date) {
 		this.date = date;
 	}
 	@XmlElement
 	public String getDescription() {
 		return description;
 	}
-	
+
 }

@@ -17,6 +17,9 @@ package controller;
 
 import static model.util.PostUtil.PAGE_LENGTH;
 
+import com.darwino.commons.json.JsonException;
+import com.darwino.commons.util.StringUtil;
+
 import jakarta.enterprise.context.RequestScoped;
 import jakarta.inject.Inject;
 import jakarta.mvc.Controller;
@@ -25,9 +28,6 @@ import jakarta.ws.rs.Path;
 import jakarta.ws.rs.Produces;
 import jakarta.ws.rs.QueryParam;
 import jakarta.ws.rs.core.MediaType;
-
-import com.darwino.commons.json.JsonException;
-import com.darwino.commons.util.StringUtil;
 
 @Path("/")
 @Controller

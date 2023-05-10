@@ -15,23 +15,27 @@
  */
 package model.util;
 
+import java.time.OffsetDateTime;
+import java.util.Collection;
+import java.util.Random;
+import java.util.TreeSet;
+import java.util.UUID;
+import java.util.stream.Collectors;
+
+import javax.naming.InvalidNameException;
+import javax.naming.ldap.LdapName;
+
 import com.darwino.commons.json.JsonArray;
 import com.darwino.commons.json.JsonException;
 import com.darwino.commons.json.JsonObject;
 import com.darwino.commons.util.StringUtil;
 import com.darwino.jsonstore.Database;
 import com.darwino.jsonstore.Store;
+
 import darwino.AppDatabaseDef;
+import jakarta.enterprise.inject.spi.CDI;
 import model.Post;
 import model.PostRepository;
-
-import jakarta.enterprise.inject.spi.CDI;
-import javax.naming.InvalidNameException;
-import javax.naming.ldap.LdapName;
-
-import java.time.OffsetDateTime;
-import java.util.*;
-import java.util.stream.Collectors;
 
 public enum PostUtil {
     ;

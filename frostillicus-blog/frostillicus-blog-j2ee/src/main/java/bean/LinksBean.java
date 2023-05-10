@@ -24,7 +24,6 @@ import java.util.TreeSet;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
 import jakarta.inject.Named;
-
 import model.Link;
 import model.LinkRepository;
 

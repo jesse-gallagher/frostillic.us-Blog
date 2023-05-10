@@ -15,14 +15,13 @@
  */
 package model;
 
-import jakarta.annotation.PostConstruct;
-import jakarta.enterprise.context.ApplicationScoped;
-import jakarta.enterprise.inject.Produces;
-
 import org.darwino.jnosql.diana.driver.DarwinoDocumentCollectionManager;
 import org.darwino.jnosql.diana.driver.DarwinoDocumentConfiguration;
 
 import darwino.AppDatabaseDef;
+import jakarta.annotation.PostConstruct;
+import jakarta.enterprise.context.ApplicationScoped;
+import jakarta.enterprise.inject.Produces;
 import jakarta.nosql.document.DocumentCollectionManagerFactory;
 import jakarta.nosql.document.DocumentConfiguration;
 import jakarta.nosql.mapping.Database;

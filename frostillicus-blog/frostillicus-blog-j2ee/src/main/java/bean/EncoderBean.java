@@ -17,11 +17,10 @@ package bean;
 
 import java.net.URLEncoder;
 
-import jakarta.enterprise.context.ApplicationScoped;
-import jakarta.inject.Named;
-
 import com.darwino.commons.util.StringUtil;
 
+import jakarta.enterprise.context.ApplicationScoped;
+import jakarta.inject.Named;
 import lombok.SneakyThrows;
 
 /**

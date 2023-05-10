@@ -15,21 +15,29 @@
  */
 package controller;
 
-import bean.UserInfoBean;
+import java.util.UUID;
+
 import com.darwino.commons.json.JsonException;
 import com.darwino.jsonstore.Session;
-import model.AccessToken;
-import model.AccessTokenRepository;
-import model.Link;
-import model.LinkRepository;
 
+import bean.UserInfoBean;
 import jakarta.annotation.security.RolesAllowed;
 import jakarta.enterprise.context.RequestScoped;
 import jakarta.inject.Inject;
 import jakarta.mvc.Controller;
-import jakarta.ws.rs.*;
+import jakarta.ws.rs.DELETE;
+import jakarta.ws.rs.FormParam;
+import jakarta.ws.rs.GET;
+import jakarta.ws.rs.NotFoundException;
+import jakarta.ws.rs.POST;
+import jakarta.ws.rs.Path;
+import jakarta.ws.rs.PathParam;
+import jakarta.ws.rs.Produces;
 import jakarta.ws.rs.core.MediaType;
-import java.util.UUID;
+import model.AccessToken;
+import model.AccessTokenRepository;
+import model.Link;
+import model.LinkRepository;
 
 @Controller
 @Path("/admin")

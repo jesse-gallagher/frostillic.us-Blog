@@ -76,13 +76,13 @@ public class FeedResource {
 		channel.setTitle(translation.getString("appTitle")); //$NON-NLS-1$
 		channel.setDescription(translation.getString("appDescription")); //$NON-NLS-1$
 		channel.setLink(baseUrl);
-		
+
 		AtomLink self = new AtomLink();
 		self.setRel("self"); //$NON-NLS-1$
 		self.setType("application/rss+xml"); //$NON-NLS-1$
 		self.setHref(urlBean.concat(baseUrl, "blog.xml")); //$NON-NLS-1$
 		channel.getLinks().add(self);
-		
+
 		Image image = channel.getImage();
 		image.setUrl(urlBean.concat(baseUrl, "img/icon.png")); //$NON-NLS-1$
 		image.setTitle(translation.getString("appTitle")); //$NON-NLS-1$

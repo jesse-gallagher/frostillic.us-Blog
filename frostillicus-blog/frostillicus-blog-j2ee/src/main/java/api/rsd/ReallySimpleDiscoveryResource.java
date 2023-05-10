@@ -18,14 +18,6 @@ package api.rsd;
 import java.util.ResourceBundle;
 import java.util.Set;
 
-import jakarta.inject.Inject;
-import jakarta.inject.Named;
-import jakarta.ws.rs.GET;
-import jakarta.ws.rs.Path;
-import jakarta.ws.rs.Produces;
-import jakarta.ws.rs.core.Context;
-import jakarta.ws.rs.core.UriInfo;
-
 import org.reflections.Reflections;
 import org.w3c.dom.Document;
 
@@ -33,6 +25,13 @@ import com.darwino.commons.util.PathUtil;
 import com.darwino.commons.xml.DomUtil;
 
 import api.atompub.AtomPubResource;
+import jakarta.inject.Inject;
+import jakarta.inject.Named;
+import jakarta.ws.rs.GET;
+import jakarta.ws.rs.Path;
+import jakarta.ws.rs.Produces;
+import jakarta.ws.rs.core.Context;
+import jakarta.ws.rs.core.UriInfo;
 
 @Path("/rsd.xml")
 public class ReallySimpleDiscoveryResource {

@@ -31,7 +31,6 @@ import jakarta.ws.rs.core.EntityTag;
 import jakarta.ws.rs.core.HttpHeaders;
 import jakarta.ws.rs.core.Request;
 import jakarta.ws.rs.core.Response;
-
 import model.MediaRepository;
 
 @Path(MediaResource.PATH)
@@ -48,7 +47,7 @@ public class MediaResource {
     @Path("{mediaId}/{mediaName}")
     public Response get(@PathParam("mediaId") final String mediaId, @PathParam("mediaName") final String mediaName) throws IOException {
     	var media = mediaRepository.findById(mediaId).orElseThrow(NotFoundException::new);
-    	
+
     	String expectedName = mediaName.replace('+', ' ').toLowerCase();
         var att = media.getAttachments()
         	.stream()

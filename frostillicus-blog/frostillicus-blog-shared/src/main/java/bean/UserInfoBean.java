@@ -17,16 +17,15 @@ package bean;
 
 import java.net.URLEncoder;
 
-import jakarta.enterprise.context.RequestScoped;
-import jakarta.inject.Inject;
-import jakarta.inject.Named;
-
 import com.darwino.commons.security.acl.User;
 import com.darwino.commons.security.acl.UserException;
 import com.darwino.commons.util.StringUtil;
 import com.darwino.platform.DarwinoContext;
 import com.darwino.platform.DarwinoHttpConstants;
 
+import jakarta.enterprise.context.RequestScoped;
+import jakarta.inject.Inject;
+import jakarta.inject.Named;
 import lombok.SneakyThrows;
 
 @RequestScoped

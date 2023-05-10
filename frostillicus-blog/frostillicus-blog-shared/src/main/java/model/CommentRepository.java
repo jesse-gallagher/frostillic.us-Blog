@@ -21,9 +21,9 @@ import java.util.Optional;
 import org.darwino.jnosql.artemis.extension.DarwinoRepository;
 import org.darwino.jnosql.artemis.extension.JSQL;
 import org.darwino.jnosql.artemis.extension.RepositoryProvider;
-import jakarta.nosql.mapping.Param;
 
 import darwino.AppDatabaseDef;
+import jakarta.nosql.mapping.Param;
 
 @RepositoryProvider(AppDatabaseDef.STORE_COMMENTS)
 public interface CommentRepository extends DarwinoRepository<Comment, String> {

@@ -21,6 +21,14 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.util.regex.Pattern;
 
+import org.jsoup.Jsoup;
+
+import com.darwino.commons.util.PathUtil;
+import com.darwino.platform.DarwinoContext;
+
+import app.AsyncManager;
+import controller.PostController;
+import darwino.AppDatabaseDef;
 import jakarta.inject.Inject;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.constraints.NotEmpty;
@@ -33,15 +41,6 @@ import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
 import jakarta.ws.rs.core.Response.Status;
 import jakarta.ws.rs.core.UriInfo;
-
-import org.jsoup.Jsoup;
-
-import com.darwino.commons.util.PathUtil;
-import com.darwino.platform.DarwinoContext;
-
-import app.AsyncManager;
-import controller.PostController;
-import darwino.AppDatabaseDef;
 import model.PostRepository;
 import model.Webmention;
 import model.Webmention.Type;

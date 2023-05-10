@@ -15,13 +15,13 @@
  */
 package darwino;
 
-import jakarta.servlet.ServletContext;
-
 import com.darwino.commons.json.JsonException;
 import com.darwino.commons.platform.ManagedBeansService;
 import com.darwino.j2ee.application.DarwinoJ2EEApplication;
 import com.darwino.platform.DarwinoApplication;
 import com.darwino.platform.DarwinoManifest;
+
+import jakarta.servlet.ServletContext;
 
 /**
  * J2EE application.

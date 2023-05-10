@@ -23,9 +23,9 @@ import org.darwino.jnosql.artemis.extension.JSQL;
 import org.darwino.jnosql.artemis.extension.RepositoryProvider;
 import org.darwino.jnosql.artemis.extension.Search;
 import org.darwino.jnosql.artemis.extension.StoredCursor;
-import jakarta.nosql.mapping.Param;
 
 import darwino.AppDatabaseDef;
+import jakarta.nosql.mapping.Param;
 
 @RepositoryProvider(AppDatabaseDef.STORE_POSTS)
 public interface PostRepository extends DarwinoRepository<Post, String> {

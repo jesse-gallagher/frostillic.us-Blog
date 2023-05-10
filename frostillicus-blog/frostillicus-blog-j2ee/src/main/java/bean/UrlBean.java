@@ -15,40 +15,40 @@
  */
 package bean;
 
-import jakarta.enterprise.context.ApplicationScoped;
-import jakarta.inject.Inject;
-import jakarta.inject.Named;
-import jakarta.servlet.http.HttpServletRequest;
-
 import java.net.URI;
 import java.net.URISyntaxException;
 
 import com.darwino.commons.util.PathUtil;
+
+import jakarta.enterprise.context.ApplicationScoped;
+import jakarta.inject.Inject;
+import jakarta.inject.Named;
+import jakarta.servlet.http.HttpServletRequest;
 
 @ApplicationScoped
 @Named("urlBean")
 public class UrlBean {
 	@Inject
 	private HttpServletRequest req;
-	
+
 	public URI getRequestUri() throws URISyntaxException {
 		return new URI(req.getRequestURL().toString()).resolve(req.getContextPath() + "/"); //$NON-NLS-1$
 	}
-	
-	public String relativizeUrl(String url) {
+
+	public String relativizeUrl(final String url) {
 		// In practice, the distinction in these URLs is whether or not they start with "/"
 		if(url == null || url.isEmpty()) {
 			return url;
 		}
-		
+
 		if(url.charAt(0) == '/') {
 			return PathUtil.concat(req.getContextPath(), url, '/');
 		} else {
 			return url;
 		}
 	}
-	
-	public String concat(String... parts) {
+
+	public String concat(final String... parts) {
 		if(parts == null || parts.length == 0) {
 			return ""; //$NON-NLS-1$
 		}

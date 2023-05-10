@@ -18,6 +18,12 @@ package api.atompub;
 import java.util.ResourceBundle;
 import java.util.stream.Stream;
 
+import com.darwino.commons.util.PathUtil;
+import com.darwino.commons.xml.DomUtil;
+
+import api.rsd.RSDService;
+import bean.UserInfoBean;
+import darwino.AppDatabaseDef;
 import jakarta.annotation.security.RolesAllowed;
 import jakarta.inject.Inject;
 import jakarta.inject.Named;
@@ -28,13 +34,6 @@ import jakarta.ws.rs.Path;
 import jakarta.ws.rs.Produces;
 import jakarta.ws.rs.core.Context;
 import jakarta.ws.rs.core.UriInfo;
-
-import com.darwino.commons.util.PathUtil;
-import com.darwino.commons.xml.DomUtil;
-
-import api.rsd.RSDService;
-import bean.UserInfoBean;
-import darwino.AppDatabaseDef;
 
 @Path(AtomPubResource.BASE_PATH)
 @RolesAllowed(UserInfoBean.ROLE_ADMIN)

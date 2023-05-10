@@ -17,13 +17,12 @@ package bean;
 
 import java.net.URI;
 
-import jakarta.enterprise.context.ApplicationScoped;
-import jakarta.ws.rs.FormParam;
-import jakarta.ws.rs.POST;
-
 import org.eclipse.microprofile.rest.client.RestClientBuilder;
 
 import bean.MarkdownBean.SyntaxHighlighter;
+import jakarta.enterprise.context.ApplicationScoped;
+import jakarta.ws.rs.FormParam;
+import jakarta.ws.rs.POST;
 import lombok.SneakyThrows;
 
 @ApplicationScoped
