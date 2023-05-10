@@ -198,11 +198,6 @@
 			<groupId>org.webjars.npm</groupId>
 			<artifactId>hotwired__turbo</artifactId>
 		</dependency>
-		
-		<dependency>
-			<groupId>org.reflections</groupId>
-			<artifactId>reflections</artifactId>
-		</dependency>
 
 		<dependency>
 			<groupId>org.junit.jupiter</groupId>

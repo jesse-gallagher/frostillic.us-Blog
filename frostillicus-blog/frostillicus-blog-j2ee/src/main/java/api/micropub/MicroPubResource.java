@@ -26,11 +26,13 @@ import com.darwino.commons.util.PathUtil;
 import com.darwino.commons.util.StringUtil;
 
 import api.micropub.MicroPubClient.EntryType;
+import api.rsd.RSD;
 import api.rsd.RSDService;
 import bean.UserInfoBean;
 import controller.MicroPostController;
 import darwino.AppDatabaseDef;
 import jakarta.annotation.security.RolesAllowed;
+import jakarta.enterprise.context.RequestScoped;
 import jakarta.inject.Inject;
 import jakarta.inject.Named;
 import jakarta.servlet.ServletContext;
@@ -58,7 +60,8 @@ import model.MicroPostRepository;
 @Path(MicroPubResource.BASE_PATH)
 @RSDService(name="Micropub", basePath=MicroPubResource.BASE_PATH, preferred=false)
 @RolesAllowed(UserInfoBean.ROLE_ADMIN)
-public class MicroPubResource {
+@RequestScoped
+public class MicroPubResource implements RSD {
 	public static final String BASE_PATH = "/micropub"; //$NON-NLS-1$
 
 	public enum EntityAction {

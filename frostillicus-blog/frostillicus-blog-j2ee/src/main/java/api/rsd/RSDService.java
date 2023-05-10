@@ -21,6 +21,8 @@ import static java.lang.annotation.RetentionPolicy.RUNTIME;
 import java.lang.annotation.Retention;
 import java.lang.annotation.Target;
 
+import jakarta.enterprise.inject.Stereotype;
+
 /**
  * This annotation should be applied to any class that should contribute to
  * the services list in the RSD manifest.
@@ -30,6 +32,7 @@ import java.lang.annotation.Target;
  */
 @Retention(RUNTIME)
 @Target(TYPE)
+@Stereotype
 public @interface RSDService {
 	String name();
 	boolean preferred();

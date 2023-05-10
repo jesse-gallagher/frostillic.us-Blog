@@ -17,14 +17,17 @@ package api.rsd;
 
 import java.util.ResourceBundle;
 import java.util.Set;
+import java.util.stream.Collectors;
 
-import org.reflections.Reflections;
 import org.w3c.dom.Document;
 
 import com.darwino.commons.util.PathUtil;
 import com.darwino.commons.xml.DomUtil;
 
 import api.atompub.AtomPubResource;
+import jakarta.annotation.PostConstruct;
+import jakarta.enterprise.context.ApplicationScoped;
+import jakarta.enterprise.inject.spi.CDI;
 import jakarta.inject.Inject;
 import jakarta.inject.Named;
 import jakarta.ws.rs.GET;
@@ -34,15 +37,23 @@ import jakarta.ws.rs.core.Context;
 import jakarta.ws.rs.core.UriInfo;
 
 @Path("/rsd.xml")
+@ApplicationScoped
 public class ReallySimpleDiscoveryResource {
-
-	private static final Set<Class<?>> serviceClasses = new Reflections("api").getTypesAnnotatedWith(RSDService.class); //$NON-NLS-1$
-
 	@Inject @Named("translation")
 	ResourceBundle translation;
 
 	@Context
 	UriInfo uriInfo;
+	
+	private Set<Class<?>> serviceClasses;
+	
+	@PostConstruct
+	public void init() {
+		serviceClasses = CDI.current().getBeanManager().getBeans(RSD.class)
+			.stream()
+			.map(bean -> bean.getBeanClass())
+			.collect(Collectors.toSet());
+	}
 
 	@GET
 	@Produces("application/rsd+xml")

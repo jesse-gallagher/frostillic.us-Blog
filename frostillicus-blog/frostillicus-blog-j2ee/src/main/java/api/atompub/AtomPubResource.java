@@ -22,6 +22,7 @@ import java.util.stream.Stream;
 import api.atompub.model.AtomPubCollection;
 import api.atompub.model.AtomPubService;
 import api.atompub.model.Workspace;
+import api.rsd.RSD;
 import api.rsd.RSDService;
 import bean.UrlBean;
 import bean.UserInfoBean;
@@ -42,7 +43,7 @@ import jakarta.ws.rs.core.UriInfo;
 @RolesAllowed(UserInfoBean.ROLE_ADMIN)
 @RSDService(name="AtomPub", basePath=AtomPubResource.BASE_PATH, preferred=false)
 @RequestScoped
-public class AtomPubResource {
+public class AtomPubResource implements RSD {
 	public static final String BASE_PATH = "/atompub"; //$NON-NLS-1$
 
 	public static final String BLOG_ID = AppDatabaseDef.DATABASE_NAME;
