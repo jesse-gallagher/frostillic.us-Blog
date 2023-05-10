@@ -83,8 +83,7 @@ public class AccessTokenAuthenticationMechanism implements HttpAuthenticationMec
 	        var handler = new FormAuthHandler();
 	        try {
 	            var auth = handler.readAuthentication(request, response);
-	            if(auth instanceof HttpClient.BasicAuthenticator) {
-	                var cred = (HttpClient.BasicAuthenticator)auth;
+	            if(auth instanceof HttpClient.BasicAuthenticator cred) {
 	                var result = identityStore.validate(new UsernamePasswordCredential(cred.getUserName(), cred.getPassword()));
 	                return httpMessageContext.notifyContainerAboutLogin(result.getCallerPrincipal(), result.getCallerGroups());
 	            }
