@@ -28,7 +28,7 @@ public class JAXRSConfiguration extends Application {
 	@Override
 	public Map<String, Object> getProperties() {
 		return Map.of(
-			Csrf.CSRF_PROTECTION, Csrf.CsrfOptions.OFF,
+			Csrf.CSRF_PROTECTION, Csrf.CsrfOptions.EXPLICIT,
 			Properties.HIDDEN_METHOD_FILTER_ACTIVE, true
 		);
 	}

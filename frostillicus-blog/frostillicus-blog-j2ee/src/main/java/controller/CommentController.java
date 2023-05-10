@@ -22,6 +22,7 @@ import jakarta.annotation.security.RolesAllowed;
 import jakarta.enterprise.context.RequestScoped;
 import jakarta.inject.Inject;
 import jakarta.mvc.Controller;
+import jakarta.mvc.security.CsrfProtected;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.ws.rs.DELETE;
 import jakarta.ws.rs.FormParam;
@@ -61,6 +62,7 @@ public class CommentController {
 	HttpServletRequest request;
 
 	@POST
+	@CsrfProtected
 	public String create(
 			@PathParam("postId") final String postId,
 			@FormParam("postedBy") final String postedBy,

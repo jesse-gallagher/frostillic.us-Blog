@@ -33,4 +33,5 @@
 
     <httpEndpoint host="*" httpPort="10801" id="defaultHttpEndpoint"/>
 	<applicationManager autoExpand="true"/>
+    <ssl id="defaultSSLConfig" trustDefaultCerts="true"/>
 </server>

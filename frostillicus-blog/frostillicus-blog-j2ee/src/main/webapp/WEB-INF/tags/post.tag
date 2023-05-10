@@ -70,7 +70,7 @@
 			<fieldset>
 				<legend>${translation.newComment}</legend>
 					
-				<form action="posts/${pageScope.value.postId}/comments" method="POST" class="new-comment crud" enctype="multipart/form-data">
+				<form action="posts/${pageScope.value.postId}/comments" method="POST" class="new-comment crud" enctype="application/x-www-form-urlencoded">
 					<label for="postedBy">${translation.authorLabel}</label>
 					<input type="text" name="postedBy" id="postedBy" required="required"
 						value="${userInfo.anonymous ? '' : userInfo.cn}"/>
@@ -94,6 +94,7 @@
 							<span class="tooltip-text">${translation.commentLegal}</span>
 						</span>
 					</div>
+					<input type="hidden" name="${mvc.csrf.name}" value="${mvc.csrf.token}"/>
 				</form>
 			</fieldset>
 		</section>
