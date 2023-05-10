@@ -111,6 +111,14 @@
 			<groupId>jakarta.mvc</groupId>
 			<artifactId>jakarta.mvc-api</artifactId>
 		</dependency>
+		<dependency>
+			<groupId>org.eclipse.krazo</groupId>
+			<artifactId>krazo-core</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.eclipse.krazo</groupId>
+			<artifactId>krazo-resteasy</artifactId>
+		</dependency>
 
 		<dependency>
 			<groupId>com.darwino</groupId>
@@ -237,38 +245,16 @@
 						</exclusion>
 					</exclusions>
 				</dependency>
+			</dependencies>
+		</profile>
+		<profile>
+			<id>postgresql-driver</id>
+
+			<dependencies>
 				<dependency>
 					<groupId>org.postgresql</groupId>
 					<artifactId>postgresql</artifactId>
 					<version>42.6.0</version>
-				</dependency>
-			</dependencies>
-		</profile>
-		
-		<profile>
-			<id>jee-container</id>
-			<activation>
-				<activeByDefault>true</activeByDefault>
-			</activation>
-			
-			<dependencies>
-				<dependency>
-					<groupId>org.eclipse.krazo</groupId>
-					<artifactId>krazo-core</artifactId>
-				</dependency>
-			</dependencies>
-		</profile>
-		
-		<profile>
-			<id>resteasy</id>
-			<activation>
-				<activeByDefault>true</activeByDefault>
-			</activation>
-			
-			<dependencies>
-				<dependency>
-					<groupId>org.eclipse.krazo</groupId>
-					<artifactId>krazo-resteasy</artifactId>
 				</dependency>
 			</dependencies>
 		</profile>
