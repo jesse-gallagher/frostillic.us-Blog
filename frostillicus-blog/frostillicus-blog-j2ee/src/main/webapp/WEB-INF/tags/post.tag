@@ -18,9 +18,9 @@
 <%@tag description="Displays an individual model.Post object and its comments, if present" pageEncoding="UTF-8" trimDirectiveWhitespaces="true" %>
 <%@attribute name="value" required="true" type="model.Post" %>
 <%@attribute name="comments" required="false" type="java.util.List" %>
-<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
-<%@taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+<%@taglib prefix="c" uri="jakarta.tags.core" %>
+<%@taglib prefix="fmt" uri="jakarta.tags.fmt" %>
+<%@taglib prefix="fn" uri="jakarta.tags.functions" %>
 <%@taglib prefix="t" tagdir="/WEB-INF/tags" %>
 <article class="post post-${pageScope.value.status}">
 	<header>

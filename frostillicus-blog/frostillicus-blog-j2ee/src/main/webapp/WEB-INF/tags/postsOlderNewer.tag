@@ -19,7 +19,7 @@
 <%@attribute name="start" required="true" type="java.lang.Integer"%>
 <%@attribute name="pageSize" required="true" type="java.lang.Integer"%>
 <%@attribute name="endOfLine" required="true" type="java.lang.Boolean"%>
-<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@taglib prefix="c" uri="jakarta.tags.core" %>
 <nav class="posts-older-newer">
     <c:if test="${pageScope.start gt 0}">
         <a class="newer" href="posts/?start=${pageScope.start - pageScope.pageSize gt 0 ? pageScope.start - pageScope.pageSize : 0}">${translation.newerPosts}</a>

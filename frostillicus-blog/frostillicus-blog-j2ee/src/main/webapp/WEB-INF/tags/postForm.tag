@@ -18,9 +18,9 @@
 <%@tag description="Displays a model.Post in an editable form" pageEncoding="UTF-8" trimDirectiveWhitespaces="true" %>
 <%@attribute name="value" required="true" type="model.Post" %>
 <%@attribute name="edit" required="true" type="java.lang.Boolean" %>
-<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
-<%@taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+<%@taglib prefix="c" uri="jakarta.tags.core" %>
+<%@taglib prefix="fmt" uri="jakarta.tags.fmt" %>
+<%@taglib prefix="fn" uri="jakarta.tags.functions" %>
 <%@taglib prefix="t" tagdir="/WEB-INF/tags" %>
 <form name="form" action="posts/${pageScope.edit ? post.id : ''}" method="post" class="crud" enctype="multipart/form-data">
 	<label for="title">${translation.titleLabel}</label>
