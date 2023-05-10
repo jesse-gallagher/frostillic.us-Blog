@@ -17,8 +17,7 @@ package app;
 
 import java.util.Map;
 
-import org.eclipse.krazo.Properties;
-
+import jakarta.mvc.form.FormMethodOverwriter;
 import jakarta.mvc.security.Csrf;
 import jakarta.ws.rs.ApplicationPath;
 import jakarta.ws.rs.core.Application;
@@ -28,7 +27,8 @@ public class JAXRSConfiguration extends Application {
 	@Override
 	public Map<String, Object> getProperties() {
 		return Map.of(
-			Csrf.CSRF_PROTECTION, Csrf.CsrfOptions.EXPLICIT
+			Csrf.CSRF_PROTECTION, Csrf.CsrfOptions.EXPLICIT,
+			FormMethodOverwriter.FORM_METHOD_OVERWRITE, FormMethodOverwriter.Options.ENABLED
 		);
 	}
 }
