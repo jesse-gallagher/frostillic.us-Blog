@@ -78,29 +78,12 @@ public class AkismetBean {
 		if(StringUtil.isEmpty(this.apiKey)) { throw new IllegalArgumentException("apiKey is empty"); } //$NON-NLS-1$
 		if(StringUtil.isEmpty(this.blog)) { throw new IllegalArgumentException("blog is key"); } //$NON-NLS-1$
 
-//		// TODO move to MicroProfile REST Client when it no longer leads to "context class has not been injected"
 		KeyStore keystore = HttpUtil.loadKeyStore("akismet");
 		Akismet11Client client = RestClientBuilder.newBuilder()
-			.baseUri(new URI(REQUEST_PROTOCOL + "://" + this.apiKey + "." + Akismet11Client.BASE_HOST))
+			.baseUri(new URI(REQUEST_PROTOCOL + "://" + this.apiKey + "." + Akismet11Client.BASE_HOST)) //$NON-NLS-1$ //$NON-NLS-2$
 			.trustStore(keystore)
 			.build(Akismet11Client.class);
 
 		return client.checkComment(this.blog, remoteAddress, userAgent, referrer, permalink, commentType, author, authorEmail, authorURL, content);
-
-//		Map<String, String> params = new HashMap<>();
-//		params.put("blog", this.blog); //$NON-NLS-1$
-//		params.put("user_ip", remoteAddress); //$NON-NLS-1$
-//		params.put("user_agent", userAgent); //$NON-NLS-1$
-//		params.put("referrer", referrer); //$NON-NLS-1$
-//		params.put("permalink", permalink); //$NON-NLS-1$
-//		params.put("comment_type", commentType); //$NON-NLS-1$
-//		params.put("comment_author", author); //$NON-NLS-1$
-//		params.put("comment_author_email", authorEmail); //$NON-NLS-1$
-//		params.put("comment_author_url", authorURL); //$NON-NLS-1$
-//		params.put("comment_content", content); //$NON-NLS-1$
-//
-//		String response = HttpUtil.doPost(REQUEST_PROTOCOL + "://" + this.apiKey + "." + COMMENT_CHECK_URL, "akismet", Collections.singletonMap(HttpHeaders.USER_AGENT, USER_AGENT), params); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
-//
-//		return response.equals("true"); //$NON-NLS-1$
 	}
 }

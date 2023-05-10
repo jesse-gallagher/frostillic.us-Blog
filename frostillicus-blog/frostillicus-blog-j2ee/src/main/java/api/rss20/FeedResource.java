@@ -15,10 +15,21 @@
  */
 package api.rss20;
 
-import java.util.Arrays;
 import java.util.ResourceBundle;
-import java.util.stream.Collectors;
 
+import org.eclipse.microprofile.config.inject.ConfigProperty;
+
+import com.darwino.commons.util.PathUtil;
+import com.darwino.commons.util.StringUtil;
+import com.rometools.rome.io.FeedException;
+
+import api.rss20.model.AtomLink;
+import api.rss20.model.Channel;
+import api.rss20.model.Image;
+import api.rss20.model.Rss;
+import api.rss20.model.RssItem;
+import bean.UrlBean;
+import darwino.AppDatabaseDef;
 import jakarta.inject.Inject;
 import jakarta.inject.Named;
 import jakarta.servlet.ServletContext;
@@ -26,27 +37,7 @@ import jakarta.ws.rs.GET;
 import jakarta.ws.rs.Path;
 import jakarta.ws.rs.Produces;
 import jakarta.ws.rs.core.Context;
-import jakarta.ws.rs.core.MediaType;
-import jakarta.ws.rs.core.StreamingOutput;
 import jakarta.ws.rs.core.UriInfo;
-
-import org.eclipse.microprofile.config.inject.ConfigProperty;
-
-import com.darwino.commons.util.PathUtil;
-import com.darwino.commons.util.StringUtil;
-import com.darwino.commons.xml.DomUtil;
-import com.rometools.rome.feed.synd.SyndContent;
-import com.rometools.rome.feed.synd.SyndContentImpl;
-import com.rometools.rome.feed.synd.SyndEntry;
-import com.rometools.rome.feed.synd.SyndEntryImpl;
-import com.rometools.rome.feed.synd.SyndFeed;
-import com.rometools.rome.feed.synd.SyndFeedImpl;
-import com.rometools.rome.feed.synd.SyndImage;
-import com.rometools.rome.feed.synd.SyndImageImpl;
-import com.rometools.rome.io.FeedException;
-import com.rometools.rome.io.SyndFeedOutput;
-
-import darwino.AppDatabaseDef;
 import lombok.SneakyThrows;
 import model.Post;
 import model.PostRepository;
@@ -62,6 +53,8 @@ public class FeedResource {
 	ServletContext servletContext;
 	@Context
 	UriInfo uriInfo;
+	@Inject
+	UrlBean urlBean;
 
 	@Inject
 	@ConfigProperty(name=AppDatabaseDef.DATABASE_NAME+".rss-request-urls", defaultValue="false")
@@ -69,7 +62,7 @@ public class FeedResource {
 
 	@GET
 	@Produces("application/rss+xml")
-	public StreamingOutput get() throws FeedException {
+	public Rss get() throws FeedException {
 		String baseUrl;
 		if(rssRequestUrls) {
 			baseUrl = uriInfo.getBaseUri().toString();
@@ -77,50 +70,50 @@ public class FeedResource {
 			baseUrl = PathUtil.concat(translation.getString("baseUrl"), servletContext.getContextPath()); //$NON-NLS-1$
 		}
 
-		SyndFeed feed = new SyndFeedImpl();
-		feed.setFeedType("rss_2.0"); //$NON-NLS-1$
-		feed.setTitle(translation.getString("appTitle")); //$NON-NLS-1$
-		feed.setDescription(translation.getString("appDescription")); //$NON-NLS-1$
-		feed.setLink(baseUrl);
+		Rss rss = new Rss();
+		rss.setBase(baseUrl);
+		Channel channel = rss.getChannel();
+		channel.setTitle(translation.getString("appTitle")); //$NON-NLS-1$
+		channel.setDescription(translation.getString("appDescription")); //$NON-NLS-1$
+		channel.setLink(baseUrl);
+		
+		AtomLink self = new AtomLink();
+		self.setRel("self"); //$NON-NLS-1$
+		self.setType("application/rss+xml"); //$NON-NLS-1$
+		self.setHref(urlBean.concat(baseUrl, "blog.xml")); //$NON-NLS-1$
+		channel.getLinks().add(self);
+		
+		Image image = channel.getImage();
+		image.setUrl(urlBean.concat(baseUrl, "img/icon.png")); //$NON-NLS-1$
+		image.setTitle(translation.getString("appTitle")); //$NON-NLS-1$
+		image.setLink(baseUrl);
 
-		SyndImage icon = new SyndImageImpl();
-		icon.setUrl(PathUtil.concat(baseUrl, "img/icon.png")); //$NON-NLS-1$
-		icon.setTitle(translation.getString("appTitle")); //$NON-NLS-1$
-		icon.setLink(baseUrl);
-		feed.setIcon(icon);
-		feed.setImage(icon);
-
-		feed.setEntries(posts.homeList().stream()
+		posts.homeList().stream()
 			.map(post -> toEntry(post, baseUrl))
-			.collect(Collectors.toList()));
+			.forEach(channel.getItems()::add);
 
-		var result = new SyndFeedOutput().outputW3CDom(feed);
-		result.getDocumentElement().setAttribute("xml:base", baseUrl); //$NON-NLS-1$
-		return out -> DomUtil.serialize(out, result, false, true);
+		return rss;
 	}
 
 	@SneakyThrows
-	private SyndEntry toEntry(final Post post, final String baseUrl) {
-		SyndEntry entry = new SyndEntryImpl();
+	private RssItem toEntry(final Post post, final String baseUrl) {
+		RssItem entry = new RssItem();
 
 		var author = PostUtil.toCn(post.getPostedBy());
-		entry.setAuthor(author);
+		entry.setCreator(author);
 
 		entry.setTitle(post.getTitle());
 		entry.setLink(PathUtil.concat(baseUrl, "posts") + "/" + post.getPostedYear() + "/" + post.getPostedMonth() + "/" + post.getPostedDay() + "/" + post.getSlug()); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$ //$NON-NLS-4$ //$NON-NLS-5$
-		entry.setPublishedDate(java.util.Date.from(post.getPosted().toInstant()));
+		entry.setDate(post.getPosted().toInstant());
 
 		var summary = post.getSummary();
-		SyndContent content = new SyndContentImpl();
+		String content;
 		if(StringUtil.isNotEmpty(summary)) {
-			content.setType(MediaType.TEXT_PLAIN);
-			content.setValue(summary);
+			content = summary;
 		} else {
-			content.setType(MediaType.TEXT_HTML);
-			// TODO consider parsing and manipulating the HTML to have a base for images
-			content.setValue(post.getBodyHtml());
+			content = post.getBodyHtml();
 		}
-		entry.setContents(Arrays.asList(content));
+		entry.setContentEncoded(content);
 
 		return entry;
 	}
