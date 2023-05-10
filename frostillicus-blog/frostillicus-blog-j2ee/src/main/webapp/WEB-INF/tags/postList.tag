@@ -21,7 +21,6 @@
 <%@attribute name="pageSize" required="false" type="java.lang.Integer"%>
 <%@attribute name="endOfLine" required="false" type="java.lang.Boolean"%>
 <%@taglib prefix="c" uri="jakarta.tags.core" %>
-<%@taglib prefix="fmt" uri="jakarta.tags.fmt" %>
 <%@taglib prefix="t" tagdir="/WEB-INF/tags" %>
 <c:if test="${pageScope.start != null}">
     <t:postsOlderNewer start="${pageScope.start}" pageSize="${pageScope.pageSize}" endOfLine="${pageScope.endOfLine}"/>

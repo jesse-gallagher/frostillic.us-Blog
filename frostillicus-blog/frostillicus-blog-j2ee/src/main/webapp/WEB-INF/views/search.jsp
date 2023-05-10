@@ -22,7 +22,7 @@
 <t:layout>
 	<form action="posts/search" method="GET" class="search">
 		<input class="search" name="q" value="${fn:escapeXml(uriInfoBean.getParam('q'))}"/>
-		<button type="submit">${translation.searchButton}</button>
+		<button type="submit"><c:out value="${translation.searchButton}"/></button>
 	</form>
 
 	<c:forEach items="${posts}" var="post">

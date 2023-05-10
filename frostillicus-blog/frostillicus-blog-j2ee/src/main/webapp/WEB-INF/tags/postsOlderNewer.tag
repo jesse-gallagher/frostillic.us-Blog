@@ -26,9 +26,9 @@
     </c:if>
 
     <c:if test="${not pageScope.endOfLine}">
-        <a class="older" href="posts/?start=${pageScope.start + pageScope.pageSize}">${translation.olderPosts}</a>
+        <a class="older" href="posts/?start=${pageScope.start + pageScope.pageSize}"><c:out value="${translation.olderPosts}"/></a>
     </c:if>
     <c:if test="${pageScope.endOfLine}">
-        <span class="older">${translation.olderPosts}</span>
+        <span class="older"><c:out value="${translation.olderPosts}"/></span>
     </c:if>
 </nav>

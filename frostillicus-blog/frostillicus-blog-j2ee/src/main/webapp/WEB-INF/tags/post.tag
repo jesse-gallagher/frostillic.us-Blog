@@ -28,7 +28,7 @@
 			<div class="admin">
 				<a class="edit" href="posts/${pageScope.value.postedYear}/${pageScope.value.postedMonth}/${pageScope.value.postedDay}/${pageScope.value.slug}/edit">${translation.editButton}</a>
 				<form method="POST" action="posts/${pageScope.value.slug}" enctype="multipart/form-data">
-					<input type="submit" class="delete" value="${translation.deleteButton}" onclick="return confirm('${translation.postDeleteConfirm}')" />
+					<input type="submit" class="delete" value="${fn:escapeXml(translation.deleteButton)}" onclick="return confirm('${fn:escapeXml(translation.postDeleteConfirm)}')" />
 					<input type="hidden" name="_method" value="DELETE" />
 				</form>
 			</div>
@@ -49,10 +49,10 @@
 		<ol class="thread" title="${fn:escapeXml(pageScope.value.thread)}">
 			<c:forEach items="${pageScope.value.threadInfo}" var="threadEntry">
 				<c:if test="${pageScope.value.id == threadEntry.id}">
-					<li>${fn:escapeXml(threadEntry.title)}</li>
+					<li><c:out value="${threadEntry.title}"/></li>
 				</c:if>
 				<c:if test="${pageScope.value.id != threadEntry.id}">
-					<li><a href="posts/${threadEntry.postedYear}/${threadEntry.postedMonth}/${threadEntry.postedDay}/${threadEntry.slug}">${fn:escapeXml(threadEntry.title)}</a></li>
+					<li><a href="posts/${threadEntry.postedYear}/${threadEntry.postedMonth}/${threadEntry.postedDay}/${threadEntry.slug}"><c:out value="${threadEntry.title}"/></a></li>
 				</c:if>
 			</c:forEach>
 		</ol>
@@ -68,30 +68,30 @@
 			</c:forEach>
 			
 			<fieldset>
-				<legend>${translation.newComment}</legend>
+				<legend><c:out value="${translation.newComment}"/></legend>
 					
 				<form action="posts/${pageScope.value.postId}/comments" method="POST" class="new-comment crud" enctype="application/x-www-form-urlencoded">
-					<label for="postedBy">${translation.authorLabel}</label>
+					<label for="postedBy"><c:out value="${translation.authorLabel}"/></label>
 					<input type="text" name="postedBy" id="postedBy" required="required"
 						value="${userInfo.anonymous ? '' : userInfo.cn}"/>
 					
 					<label for="postedByEmail">
 						<span class="tooltip">
-							${translation.emailLabel}
-							<span class="tooltip-text">${translation.emailLegal}</span>
+							<c:out value="${translation.emailLabel}"/>
+							<span class="tooltip-text"><c:out value="${translation.emailLegal}"/></span>
 						</span>
 					</label>
 					<input type="email" name="postedByEmail" id="postedByEmail" required="required"
 						value="${userInfo.anonymous ? '' : userInfo.emailAddress}"/>
 					
-					<label for="bodyMarkdown">${translation.bodyLabel}</label>
+					<label for="bodyMarkdown"><c:out value="${translation.bodyLabel}"/></label>
 					<textarea name="bodyMarkdown" id="bodyMarkdown" required="required"></textarea>
 					
-					<input type="submit" value="${translation.postComment}"/>
+					<input type="submit" value="${fn:escapeXml(translation.postComment)}"/>
 					<div class="legal">
 						<span class="tooltip">
-							${translation.commentLegalLabel}
-							<span class="tooltip-text">${translation.commentLegal}</span>
+							<c:out value="${translation.commentLegalLabel}"/>
+							<span class="tooltip-text"><c:out value="${translation.commentLegal}" escapeXml="false"/></span>
 						</span>
 					</div>
 					<input type="hidden" name="${mvc.csrf.name}" value="${mvc.csrf.token}"/>
@@ -102,7 +102,7 @@
 	<c:if test="${pageScope.comments == null}">
 		<div class="meta">
 			<a href="posts/${pageScope.value.postedYear}/${pageScope.value.postedMonth}/${pageScope.value.postedDay}/${pageScope.value.slug}#comments">
-				${pageScope.value.commentCount} Comment${pageScope.value.commentCount == 1 ? '' : 's'}
+				<c:out value="${messages.format('commentCount', pageScope.value.commentCount)}"/>
 			</a>
 		</div>
 	</c:if>

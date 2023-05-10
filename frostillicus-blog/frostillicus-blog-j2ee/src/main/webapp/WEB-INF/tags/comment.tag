@@ -21,7 +21,7 @@
 <%@taglib prefix="fmt" uri="jakarta.tags.fmt" %>
 <%@taglib prefix="fn" uri="jakarta.tags.functions" %>
 <article class="comment ${pageScope.value.akismetSpam ? 'spam' : ''}">
-	<img class="photo" src="${userInfo.getImageUrl(pageScope.value.postedByEmail)}" alt="${translation.commenterPhoto}"/>
+	<img class="photo" src="${userInfo.getImageUrl(pageScope.value.postedByEmail)}" alt="${fn:escapeXml(translation.commenterPhoto)}"/>
 	<h3>
 		${fn:escapeXml(pageScope.value.postedBy)}
 		-
@@ -30,7 +30,7 @@
 	<c:if test="${userInfo.admin}">
 		<div class="admin">
 			<form method="POST" action="posts/${pageScope.value.postId}/comments/${pageScope.value.commentId}" enctype="multipart/form-data">
-				<input type="submit" class="delete" value="${translation.deleteButton}" onclick="return confirm('${translation.commentDeleteConfirm}')" />
+				<input type="submit" class="delete" value="${fn:escapeXml(translation.deleteButton)}" onclick="return confirm('${fn:escapeXml(translation.commentDeleteConfirm)}')" />
 				<input type="hidden" name="_method" value="DELETE" />
 			</form>
 		</div>

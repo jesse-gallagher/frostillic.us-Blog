@@ -22,17 +22,17 @@
 <%@taglib prefix="fn" uri="jakarta.tags.functions" %>
 <t:layout>
 	<fieldset>
-		<legend>${translation.newMicroPost}</legend>
+		<legend><c:out value="${translation.newMicroPost}"/></legend>
 			
 		<form action="micropub" method="POST" class="crud" enctype="multipart/form-data">
-			<label for="name">${translation.name}</label>
+			<label for="name"><c:out value="${translation.name}"/></label>
 			<input type="text" name="name" id="name"/>
 			
-			<label for="content">${translation.bodyLabel}</label>
+			<label for="content"><c:out value="${translation.bodyLabel}"/></label>
 			<textarea name="content" id="content" required="required"></textarea>
 			
 			<input type="hidden" name="h" value="entry" />
-			<input type="submit" value="${translation.post}"/>
+			<input type="submit" value="${fn:escapeXml(translation.post)}"/>
 		</form>
 	</fieldset>
 	

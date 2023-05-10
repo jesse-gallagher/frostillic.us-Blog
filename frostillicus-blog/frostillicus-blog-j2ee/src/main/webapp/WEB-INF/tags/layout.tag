@@ -41,48 +41,48 @@
 		
 		<script type="text/javascript" src="${pageContext.request.contextPath}/webjars/hotwired__turbo/7.2.4/dist/turbo.es2017-esm.js"></script>
 		
-		<title>${translation.appTitle}</title>
+		<title><c:out value="${translation.appTitle}"/></title>
 	</head>
 	<body>
 		<div id="entirety">
 			<header id="pageheader">
-				<a href="${pageContext.request.contextPath}">${translation.appTitle}</a>
+				<a href="${pageContext.request.contextPath}"><c:out value="${translation.appTitle}"/></a>
 			</header>
 			<nav id="pagenav">
 				<input type="checkbox" id="navbar-toggle" class="mobile-nav" aria-hidden="true"/>
 				<div class="sidebar-content">
 					<header class="authorinfo">
-						<img src="${userInfo.getImageUrl(translation.authorEmail)}" class="photo" alt="${translation.authorPhoto}"/>
+						<img src="${userInfo.getImageUrl(translation.authorEmail)}" class="photo" alt="${fn:escapeXml(translation.authorPhoto)}"/>
 					</header>
 					<ul class="sitenav">
-						<li><a href="${pageContext.request.contextPath}/">${translation.home}</a></li>
-						<li><a href="posts">${translation.archive}</a></li>
+						<li><a href="${pageContext.request.contextPath}/"><c:out value="${translation.home}"/></a></li>
+						<li><a href="posts"><c:out value="${translation.archive}"/></a></li>
 						<c:if test="${userInfo.anonymous}">
-							<li data-turbolinks="false"><a href="?login">${translation.logIn}</a></li>
+							<li data-turbolinks="false"><a href="?login"><c:out value="${translation.logIn}"/></a></li>
 						</c:if>
 						<c:if test="${not userInfo.anonymous}">
-							<li data-turbolinks="false"><a href="?logout">${translation.logOut}</a></li>
+							<li data-turbolinks="false"><a href="?logout"><c:out value="${translation.logOut}"/></a></li>
 						</c:if>
 					</ul>
 					
 					<form action="posts/search" method="GET" class="inline-search">
-						<input name="q" id="quick-search" aria-label="${translation.quickSearch}"/>
-						<button type="submit">${translation.searchButton}</button>
+						<input name="q" id="quick-search" aria-label="${fn:escapeXml(translation.quickSearch)}"/>
+						<button type="submit"><c:out value="${translation.searchButton}"/></button>
 					</form>
 					
 					<c:forEach items="${links.byCategory}" var="cat">
 						<ul title="${cat.key}">
 							<c:forEach items="${cat.value}" var="link">
-								<li><a href="${link.url}" rel="${link.rel}">${link.name}</a></li>
+								<li><a href="${link.url}" rel="${link.rel}"><c:out value="${link.name}"/></a></li>
 							</c:forEach>
 						</ul>
 					</c:forEach>
 					
 					<c:if test="${userInfo.admin}">
-						<ul title="${translation.admin}">
-							<li><a href="admin">${translation.adminPanel}</a></li>
-							<li><a href="admin/console">${translation.adminConsole}</a></li>
-							<li><a href="posts/new">${translation.newPost}</a></li>
+						<ul title="${fn:escapeXml(translation.admin)}">
+							<li><a href="admin"><c:out value="${translation.adminPanel}"/></a></li>
+							<li><a href="admin/console"><c:out value="${translation.adminConsole}"/></a></li>
+							<li><a href="posts/new"><c:out value="${translation.newPost}"/></a></li>
 						</ul>
 					</c:if>
 				</div>
@@ -91,7 +91,7 @@
 				<c:if test="${not empty redirectMessages}">
 					<ul>
 						<c:forEach items="${redirectMessages}" var="message">
-							<li>${message}</li>
+							<li><c:out value="${message}"/></li>
 						</c:forEach>
 					</ul>
 				</c:if>
@@ -99,7 +99,7 @@
 				<jsp:doBody />
 			</main>
 			<footer id="pagefooter">
-				<p>${translation.copyright}</p>
+				<p><c:out value="${translation.copyright}"/></p>
 			</footer>
 		</div>
 	</body>
