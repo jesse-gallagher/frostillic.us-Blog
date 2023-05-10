@@ -78,7 +78,7 @@ public class AkismetBean {
 		if(StringUtil.isEmpty(this.apiKey)) { throw new IllegalArgumentException("apiKey is empty"); } //$NON-NLS-1$
 		if(StringUtil.isEmpty(this.blog)) { throw new IllegalArgumentException("blog is key"); } //$NON-NLS-1$
 
-		KeyStore keystore = HttpUtil.loadKeyStore("akismet");
+		KeyStore keystore = HttpUtil.loadKeyStore("akismet"); //$NON-NLS-1$
 		Akismet11Client client = RestClientBuilder.newBuilder()
 			.baseUri(new URI(REQUEST_PROTOCOL + "://" + this.apiKey + "." + Akismet11Client.BASE_HOST)) //$NON-NLS-1$ //$NON-NLS-2$
 			.trustStore(keystore)
