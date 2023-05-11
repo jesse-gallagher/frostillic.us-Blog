@@ -19,9 +19,11 @@ import java.time.Instant;
 
 import jakarta.xml.bind.annotation.XmlElement;
 import jakarta.xml.bind.annotation.XmlRootElement;
+import jakarta.xml.bind.annotation.XmlType;
 import jakarta.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 
 @XmlRootElement(name="item")
+@XmlType(propOrder = { "title", "link", "contentEncoded", "guid", "creator", "date", "pubDate", "description" })
 public class RssItem {
 
 	private String title;
@@ -75,6 +77,11 @@ public class RssItem {
 	}
 	public void setDate(final Instant date) {
 		this.date = date;
+	}
+	@XmlElement
+	@XmlJavaTypeAdapter(InstantXmlAdapterRfc822.class)
+	public Instant getPubDate() {
+		return date;
 	}
 	@XmlElement
 	public String getDescription() {

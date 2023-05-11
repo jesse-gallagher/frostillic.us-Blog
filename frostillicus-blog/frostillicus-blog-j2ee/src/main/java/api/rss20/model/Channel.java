@@ -21,8 +21,10 @@ import java.util.List;
 import jakarta.xml.bind.annotation.XmlElement;
 import jakarta.xml.bind.annotation.XmlElementRef;
 import jakarta.xml.bind.annotation.XmlRootElement;
+import jakarta.xml.bind.annotation.XmlType;
 
 @XmlRootElement(name="channel")
+@XmlType(propOrder = { "title", "link", "description", "image", "items", "links" })
 public class Channel {
 	private String title;
 	private String link;

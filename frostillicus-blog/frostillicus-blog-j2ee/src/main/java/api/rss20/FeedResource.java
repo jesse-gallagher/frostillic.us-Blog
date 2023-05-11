@@ -104,6 +104,7 @@ public class FeedResource {
 		entry.setTitle(post.getTitle());
 		entry.setLink(PathUtil.concat(baseUrl, "posts") + "/" + post.getPostedYear() + "/" + post.getPostedMonth() + "/" + post.getPostedDay() + "/" + post.getSlug()); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$ //$NON-NLS-4$ //$NON-NLS-5$
 		entry.setDate(post.getPosted().toInstant());
+		entry.setGuid(post.getId());
 
 		var summary = post.getSummary();
 		String content;
