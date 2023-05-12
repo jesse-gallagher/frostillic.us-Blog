@@ -16,7 +16,6 @@
 package bean;
 
 import java.net.URI;
-import java.nio.charset.StandardCharsets;
 
 import jakarta.enterprise.context.RequestScoped;
 import jakarta.inject.Inject;
@@ -31,25 +30,5 @@ public class UriInfoBean {
 
 	public URI getRequestUri() {
 		return URI.create(request.getRequestURL().toString()).resolve(request.getContextPath() + "/"); //$NON-NLS-1$
-	}
-
-	/**
-	 * Retrieves the given request query parameter with UTF-8 encoding.
-	 *
-	 * <p>This is needed because the JSP-available {@code param} object uses ISO-8859-1 for incoming
-	 * query string parameters and breaks on non-ASCII values.</p>
-	 *
-	 * @param param the name of the query parameter
-	 * @return the value of the parameter as a UTF-8 string, or {@code null} if the parameter
-	 * 		is not in the URL
-	 * @see <a href="https://forums.adobe.com/thread/2337637">https://forums.adobe.com/thread/2337637</a>
-	 * @since 2.2.0
-	 */
-	public String getParam(final String param) {
-		var val = request.getParameter(param);
-		if(val == null) {
-			return null;
-		}
-		return new String(val.getBytes(StandardCharsets.ISO_8859_1), StandardCharsets.UTF_8);
 	}
 }

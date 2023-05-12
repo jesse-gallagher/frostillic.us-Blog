@@ -22,6 +22,9 @@
 	  version="6.0" metadata-complete="false">
 	
 	<display-name>frostillic.us Blog</display-name>
+	
+	<request-character-encoding>UTF-8</request-character-encoding>
+	<response-character-encoding>UTF-8</response-character-encoding>
 					
 	<!-- Make sure that the database is properly deployed when the app is launched -->
 	<context-param>

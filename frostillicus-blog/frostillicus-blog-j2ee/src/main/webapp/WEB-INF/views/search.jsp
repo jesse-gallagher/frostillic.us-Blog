@@ -21,7 +21,7 @@
 <%@taglib prefix="fn" uri="jakarta.tags.functions" %>
 <t:layout>
 	<form action="posts/search" method="GET" class="search">
-		<input class="search" name="q" value="${fn:escapeXml(uriInfoBean.getParam('q'))}"/>
+		<input class="search" name="q" value="${fn:escapeXml(param.q)}"/>
 		<button type="submit"><c:out value="${translation.searchButton}"/></button>
 	</form>
 
