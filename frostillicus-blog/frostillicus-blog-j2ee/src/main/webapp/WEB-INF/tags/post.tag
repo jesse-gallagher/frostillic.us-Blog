@@ -26,19 +26,19 @@
 	<header>
 		<c:if test="${userInfo.admin}">
 			<div class="admin">
-				<a class="edit" href="posts/${pageScope.value.postedYear}/${pageScope.value.postedMonth}/${pageScope.value.postedDay}/${pageScope.value.slug}/edit">${translation.editButton}</a>
-				<form method="POST" action="posts/${pageScope.value.slug}" enctype="multipart/form-data">
+				<a class="edit" href="posts/${pageScope.value.postedYear}/${pageScope.value.postedMonth}/${pageScope.value.postedDay}/${pageScope.value.slug}/edit"><c:out value="${translation.editButton}"/></a>
+				<form method="POST" action="posts/${encoder.urlEncode(pageScope.value.slug)}" enctype="multipart/form-data">
 					<input type="submit" class="delete" value="${fn:escapeXml(translation.deleteButton)}" onclick="return confirm('${fn:escapeXml(translation.postDeleteConfirm)}')" />
 					<input type="hidden" name="_method" value="DELETE" />
 				</form>
 			</div>
 		</c:if>
 		
-		<h2><a href="posts/${pageScope.value.postedYear}/${pageScope.value.postedMonth}/${pageScope.value.postedDay}/${pageScope.value.slug}">${fn:escapeXml(pageScope.value.title)}</a></h2>
+		<h2><a href="posts/${pageScope.value.postedYear}/${pageScope.value.postedMonth}/${pageScope.value.postedDay}/${pageScope.value.slug}"><c:out value="${pageScope.value.title}"/></a></h2>
 		<h3><fmt:formatDate value="${pageScope.value.postedDate}" type="BOTH" dateStyle="MEDIUM" timeStyle="SHORT" /></h3>
 		<c:if test="${not empty pageScope.value.tags}">
 			<div class="meta">
-				${translation.tagsLabel}
+				<c:out value="${translation.tagsLabel}"/>
 				<c:forEach items="${pageScope.value.tags}" var="tag">
 					<a href="posts/tag/${encoder.urlEncode(tag)}">${fn:escapeXml(tag)}</a>
 				</c:forEach>	
