@@ -1,6 +1,6 @@
 <%--
 
-    Copyright Â© 2012-2023 Jesse Gallagher
+    Copyright © 2012-2023 Jesse Gallagher
 
     Licensed under the Apache License, Version 2.0 (the "License");
     you may not use this file except in compliance with the License.
@@ -15,7 +15,7 @@
     limitations under the License.
 
 --%>
-<%@tag description="Displays List&kt;model.Post&gt;" pageEncoding="UTF-8" trimDirectiveWhitespaces="true" %>
+<%@tag description="Displays List&kt;model.Post&gt;" trimDirectiveWhitespaces="true" %>
 <%@attribute name="value" required="true" type="java.util.List" %>
 <%@attribute name="start" required="false" type="java.lang.Integer"%>
 <%@attribute name="pageSize" required="false" type="java.lang.Integer"%>

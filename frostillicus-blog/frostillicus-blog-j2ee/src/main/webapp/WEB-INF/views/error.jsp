@@ -1,6 +1,6 @@
 <%--
 
-    Copyright Â© 2012-2023 Jesse Gallagher
+    Copyright © 2012-2023 Jesse Gallagher
 
     Licensed under the Apache License, Version 2.0 (the "License");
     you may not use this file except in compliance with the License.
@@ -15,7 +15,7 @@
     limitations under the License.
 
 --%>
-<%@page contentType="text/html" pageEncoding="UTF-8" trimDirectiveWhitespaces="true" session="false" %>
+<%@page contentType="text/html" trimDirectiveWhitespaces="true" session="false" %>
 <!DOCTYPE html>
 <html lang="en-us">
 	<head>

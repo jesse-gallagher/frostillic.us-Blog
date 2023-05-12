@@ -1,6 +1,6 @@
 <%--
 
-    Copyright Â© 2012-2023 Jesse Gallagher
+    Copyright © 2012-2023 Jesse Gallagher
 
     Licensed under the Apache License, Version 2.0 (the "License");
     you may not use this file except in compliance with the License.
@@ -15,7 +15,7 @@
     limitations under the License.
 
 --%>
-<%@tag description="Displays an individual model.Post object and its comments, if present" pageEncoding="UTF-8" trimDirectiveWhitespaces="true" %>
+<%@tag description="Displays an individual model.Post object and its comments, if present" trimDirectiveWhitespaces="true" %>
 <%@attribute name="value" required="true" type="model.Post" %>
 <%@attribute name="comments" required="false" type="java.util.List" %>
 <%@taglib prefix="c" uri="jakarta.tags.core" %>

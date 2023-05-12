@@ -1,6 +1,6 @@
 <%--
 
-    Copyright Â© 2012-2023 Jesse Gallagher
+    Copyright © 2012-2023 Jesse Gallagher
 
     Licensed under the Apache License, Version 2.0 (the "License");
     you may not use this file except in compliance with the License.
@@ -15,7 +15,7 @@
     limitations under the License.
 
 --%>
-<%@tag description="Displays a model.Post in an editable form" pageEncoding="UTF-8" trimDirectiveWhitespaces="true" %>
+<%@tag description="Displays a model.Post in an editable form" trimDirectiveWhitespaces="true" %>
 <%@attribute name="value" required="true" type="model.Post" %>
 <%@attribute name="edit" required="true" type="java.lang.Boolean" %>
 <%@taglib prefix="c" uri="jakarta.tags.core" %>

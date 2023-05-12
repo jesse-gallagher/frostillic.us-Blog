@@ -1,6 +1,6 @@
 <%--
 
-    Copyright Â© 2012-2023 Jesse Gallagher
+    Copyright © 2012-2023 Jesse Gallagher
 
     Licensed under the Apache License, Version 2.0 (the "License");
     you may not use this file except in compliance with the License.
@@ -15,7 +15,7 @@
     limitations under the License.
 
 --%>
-<%@tag description="Overall Page template" pageEncoding="UTF-8" trimDirectiveWhitespaces="true" %>
+<%@tag description="Overall Page template" trimDirectiveWhitespaces="true" %>
 <%@taglib prefix="c" uri="jakarta.tags.core" %>
 <%@taglib prefix="fn" uri="jakarta.tags.functions" %>
 <!DOCTYPE html>

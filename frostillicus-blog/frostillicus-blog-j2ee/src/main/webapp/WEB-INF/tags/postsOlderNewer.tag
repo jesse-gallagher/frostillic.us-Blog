@@ -1,6 +1,6 @@
 <%--
 
-    Copyright Â© 2012-2023 Jesse Gallagher
+    Copyright © 2012-2023 Jesse Gallagher
 
     Licensed under the Apache License, Version 2.0 (the "License");
     you may not use this file except in compliance with the License.
@@ -15,7 +15,7 @@
     limitations under the License.
 
 --%>
-<%@tag description="Displays post-history navigation links" pageEncoding="UTF-8" trimDirectiveWhitespaces="true" %>
+<%@tag description="Displays post-history navigation links" trimDirectiveWhitespaces="true" %>
 <%@attribute name="start" required="true" type="java.lang.Integer"%>
 <%@attribute name="pageSize" required="true" type="java.lang.Integer"%>
 <%@attribute name="endOfLine" required="true" type="java.lang.Boolean"%>

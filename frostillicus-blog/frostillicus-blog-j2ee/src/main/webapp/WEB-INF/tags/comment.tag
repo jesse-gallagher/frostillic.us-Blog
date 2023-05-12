@@ -1,6 +1,6 @@
 <%--
 
-    Copyright Â© 2012-2023 Jesse Gallagher
+    Copyright © 2012-2023 Jesse Gallagher
 
     Licensed under the Apache License, Version 2.0 (the "License");
     you may not use this file except in compliance with the License.
@@ -15,7 +15,7 @@
     limitations under the License.
 
 --%>
-<%@tag description="Displays an individual model.Comment object in a list" pageEncoding="UTF-8" trimDirectiveWhitespaces="true" %>
+<%@tag description="Displays an individual model.Comment object in a list" trimDirectiveWhitespaces="true" %>
 <%@attribute name="value" required="true" type="model.Comment" %>
 <%@taglib prefix="c" uri="jakarta.tags.core" %>
 <%@taglib prefix="fmt" uri="jakarta.tags.fmt" %>
