@@ -34,10 +34,10 @@
 		<link rel="stylesheet" href="${pageContext.request.contextPath}/css/tabs.css" />
 		<link rel="stylesheet" href="${pageContext.request.contextPath}/css/tooltips.css" />
 		
-		<link rel="alternate" href="${uriInfoBean.requestUri.resolve('feed.json')}" type="application/json" title="${fn:escapeXml(translation.feedJson)}">
-		<link rel="alternate" href="${uriInfoBean.requestUri.resolve('feed.xml')}" type="application/rss+xml" title="${fn:escapeXml(translation.feedRss)}">
-		<link rel="EditURI" type="application/rsd+xml" href="${uriInfoBean.requestUri.resolve('rsd.xml')}" />
-		<link rel="webmention" href="${uriInfoBean.requestUri.resolve('webmention')}" />
+		<link rel="alternate" href="${urlBean.requestUri.resolve('feed.json')}" type="application/json" title="${fn:escapeXml(translation.feedJson)}">
+		<link rel="alternate" href="${urlBean.requestUri.resolve('feed.xml')}" type="application/rss+xml" title="${fn:escapeXml(translation.feedRss)}">
+		<link rel="EditURI" type="application/rsd+xml" href="${urlBean.requestUri.resolve('rsd.xml')}" />
+		<link rel="webmention" href="${urlBean.requestUri.resolve('webmention')}" />
 		
 		<script type="module" src="${pageContext.request.contextPath}/webjars/hotwired__turbo/7.3.0/dist/turbo.es2017-esm.js"></script>
 		
