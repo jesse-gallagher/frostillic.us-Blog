@@ -15,7 +15,7 @@
  */
 package api.jsonfeed;
 
-import java.util.Date;
+import java.time.OffsetDateTime;
 import java.util.List;
 import java.util.ResourceBundle;
 import java.util.stream.Collectors;
@@ -62,9 +62,10 @@ public class JSONFeedResource {
 		@JsonbProperty("content_html") String contentHtml;
 		String url;
 		String summary;
-		@JsonbProperty("date_published") Date published;
-		@JsonbProperty("date_modified") Date modified;
+		@JsonbProperty("date_published") OffsetDateTime published;
+		@JsonbProperty("date_modified") OffsetDateTime modified;
 		List<String> tags;
+		String title;
 	}
 
 	@Inject
@@ -124,9 +125,10 @@ public class JSONFeedResource {
 		item.setId(post.getPostId());
 		item.setContentHtml(post.getBodyHtml());
 		item.setSummary(post.getSummary());
-		item.setPublished(post.getPostedDate());
-		item.setModified(Date.from(post.getModified().toInstant()));
+		item.setPublished(post.getPosted());
+		item.setModified(post.getModified());
 		item.setTags(post.getTags());
+		item.setTitle(post.getTitle());
 		return item;
 	}
 }
