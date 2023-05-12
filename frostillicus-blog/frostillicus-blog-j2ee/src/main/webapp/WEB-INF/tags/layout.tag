@@ -99,7 +99,7 @@
 				<jsp:doBody />
 			</main>
 			<footer id="pagefooter">
-				<p><c:out value="${translation.copyright}"/></p>
+				<p><c:out value="${translation.copyright}" escapeXml="false"/></p>
 			</footer>
 		</div>
 	</body>
