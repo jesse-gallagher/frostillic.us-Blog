@@ -17,9 +17,6 @@ package bean;
 
 import java.net.URI;
 import java.security.KeyStore;
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.Map;
 
 import org.eclipse.microprofile.config.inject.ConfigProperty;
 import org.eclipse.microprofile.rest.client.RestClientBuilder;
@@ -31,7 +28,6 @@ import darwino.AppDatabaseDef;
 import jakarta.enterprise.context.RequestScoped;
 import jakarta.inject.Inject;
 import jakarta.inject.Named;
-import jakarta.ws.rs.core.HttpHeaders;
 import lombok.Getter;
 import lombok.Setter;
 import util.HttpUtil;
@@ -39,12 +35,7 @@ import util.HttpUtil;
 @Named("akismet")
 @RequestScoped
 public class AkismetBean {
-	public static final String USER_AGENT = "frostillic.us/2.0 Akismet/2.0"; //$NON-NLS-1$
 	public static final String REQUEST_PROTOCOL = "https"; //$NON-NLS-1$
-	public static final String BASE_HOST = "rest.akismet.com"; //$NON-NLS-1$
-	public static final String BASE_PATH = "rest.akismet.com/1.1"; //$NON-NLS-1$
-	public static final String VERIFY_KEY_URL = "rest.akismet.com/1.1/verify-key"; //$NON-NLS-1$
-	public static final String COMMENT_CHECK_URL = "rest.akismet.com/1.1/comment-check"; //$NON-NLS-1$
 	public static final String TYPE_COMMENT = "comment"; //$NON-NLS-1$
 
 	@Inject
@@ -64,13 +55,10 @@ public class AkismetBean {
 		if(StringUtil.isEmpty(this.apiKey)) { throw new IllegalArgumentException("apiKey is empty"); } //$NON-NLS-1$
 		if(StringUtil.isEmpty(this.blog)) { throw new IllegalArgumentException("blog is key"); } //$NON-NLS-1$
 
-		Map<String, String> params = new HashMap<>();
-		params.put("key", this.apiKey); //$NON-NLS-1$
-		params.put("blog", this.blog); //$NON-NLS-1$
-
-		String response = HttpUtil.doPost(REQUEST_PROTOCOL + "://" + VERIFY_KEY_URL, "akismet", Collections.singletonMap(HttpHeaders.USER_AGENT, USER_AGENT), params); //$NON-NLS-1$ //$NON-NLS-2$
-
-		return response.equals("valid"); //$NON-NLS-1$
+		KeyStore keystore = HttpUtil.loadKeyStore("akismet"); //$NON-NLS-1$
+		try(Akismet11Client client = buildClient(keystore)) {
+			return "valid".equals(client.verifyKey(this.apiKey, this.blog)); //$NON-NLS-1$
+		}
 	}
 
 	public boolean checkComment(final String remoteAddress, final String userAgent, final String referrer, final String permalink, final String commentType, final String author, final String authorEmail, final String authorURL, final String content) throws Exception {
@@ -78,11 +66,15 @@ public class AkismetBean {
 		if(StringUtil.isEmpty(this.blog)) { throw new IllegalArgumentException("blog is key"); } //$NON-NLS-1$
 
 		KeyStore keystore = HttpUtil.loadKeyStore("akismet"); //$NON-NLS-1$
-		Akismet11Client client = RestClientBuilder.newBuilder()
-			.baseUri(new URI(REQUEST_PROTOCOL + "://" + this.apiKey + "." + Akismet11Client.BASE_HOST)) //$NON-NLS-1$ //$NON-NLS-2$
+		try(Akismet11Client client = buildClient(keystore)) {
+			return client.checkComment(this.blog, remoteAddress, userAgent, referrer, permalink, commentType, author, authorEmail, authorURL, content);
+		}
+	}
+	
+	private Akismet11Client buildClient(KeyStore keystore) {
+		return RestClientBuilder.newBuilder()
+			.baseUri(URI.create(REQUEST_PROTOCOL + "://" + this.apiKey + "." + Akismet11Client.BASE_HOST)) //$NON-NLS-1$ //$NON-NLS-2$
 			.trustStore(keystore)
 			.build(Akismet11Client.class);
-
-		return client.checkComment(this.blog, remoteAddress, userAgent, referrer, permalink, commentType, author, authorEmail, authorURL, content);
 	}
 }

@@ -29,7 +29,7 @@ import jakarta.ws.rs.core.MediaType;
  * @since 2.3.0
  */
 @Path("/1.1")
-public interface Akismet11Client {
+public interface Akismet11Client extends AutoCloseable {
 	public static final String BASE_HOST = "rest.akismet.com"; //$NON-NLS-1$
 
 	@Path("verify-key")
@@ -57,4 +57,7 @@ public interface Akismet11Client {
 		@FormParam("comment_author_url") String authorUrl,
 		@FormParam("comment_content") String content
 	);
+	
+	@Override
+	void close();
 }
