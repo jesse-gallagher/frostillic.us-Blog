@@ -16,7 +16,6 @@
 package bean;
 
 import java.net.URI;
-import java.net.URISyntaxException;
 import java.nio.charset.StandardCharsets;
 
 import jakarta.enterprise.context.RequestScoped;
@@ -30,8 +29,8 @@ public class UriInfoBean {
     @Inject
 	private HttpServletRequest request;
 
-	public URI getRequestUri() throws URISyntaxException {
-		return new URI(request.getRequestURL().toString()).resolve(request.getContextPath() + "/"); //$NON-NLS-1$
+	public URI getRequestUri() {
+		return URI.create(request.getRequestURL().toString()).resolve(request.getContextPath() + "/"); //$NON-NLS-1$
 	}
 
 	/**
