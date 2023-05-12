@@ -70,7 +70,8 @@
 			<fieldset>
 				<legend><c:out value="${translation.newComment}"/></legend>
 					
-				<form action="posts/${pageScope.value.postId}/comments" method="POST" class="new-comment crud" enctype="application/x-www-form-urlencoded">
+				<form action="posts/${pageScope.value.postId}/comments" method="POST" class="new-comment crud" enctype="application/x-www-form-urlencoded"
+					onsubmit="this.querySelector('input[name=\'shim\']').name = '${fn:escapeXml(mvc.csrf.name)}'">
 					<label for="postedBy"><c:out value="${translation.authorLabel}"/></label>
 					<input type="text" name="postedBy" id="postedBy" required="required"
 						value="${userInfo.anonymous ? '' : userInfo.cn}"/>
@@ -94,7 +95,7 @@
 							<span class="tooltip-text"><c:out value="${translation.commentLegal}" escapeXml="false"/></span>
 						</span>
 					</div>
-					<input type="hidden" name="${mvc.csrf.name}" value="${mvc.csrf.token}"/>
+					<input type="hidden" name="shim" value="${mvc.csrf.token}"/>
 				</form>
 			</fieldset>
 		</section>
