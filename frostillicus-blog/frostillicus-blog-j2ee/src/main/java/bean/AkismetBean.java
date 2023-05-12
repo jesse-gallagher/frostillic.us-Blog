@@ -25,7 +25,7 @@ import com.darwino.commons.util.StringUtil;
 
 import api.akismet.Akismet11Client;
 import darwino.AppDatabaseDef;
-import jakarta.enterprise.context.RequestScoped;
+import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
 import jakarta.inject.Named;
 import lombok.Getter;
@@ -33,7 +33,7 @@ import lombok.Setter;
 import util.HttpUtil;
 
 @Named("akismet")
-@RequestScoped
+@ApplicationScoped
 public class AkismetBean {
 	public static final String REQUEST_PROTOCOL = "https"; //$NON-NLS-1$
 	public static final String TYPE_COMMENT = "comment"; //$NON-NLS-1$
