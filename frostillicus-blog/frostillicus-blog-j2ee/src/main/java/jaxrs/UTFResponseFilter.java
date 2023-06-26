@@ -1,5 +1,5 @@
-/**
- * Copyright © 2012-2019 Jesse Gallagher
+/*
+ * Copyright (c) 2012-2023 Jesse Gallagher
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -15,10 +15,10 @@
  */
 package jaxrs;
 
-import javax.ws.rs.container.ContainerRequestContext;
-import javax.ws.rs.container.ContainerResponseContext;
-import javax.ws.rs.container.ContainerResponseFilter;
-import javax.ws.rs.ext.Provider;
+import jakarta.ws.rs.container.ContainerRequestContext;
+import jakarta.ws.rs.container.ContainerResponseContext;
+import jakarta.ws.rs.container.ContainerResponseFilter;
+import jakarta.ws.rs.ext.Provider;
 
 /**
  * Some web containers, such as WebSphere Liberty, serve JAX-RS HTML responses as ISO-8859-1
@@ -28,8 +28,8 @@ import javax.ws.rs.ext.Provider;
 @Provider
 public class UTFResponseFilter implements ContainerResponseFilter {
     @Override
-    public void filter(ContainerRequestContext requestContext, ContainerResponseContext responseContext) {
-        String contentType = responseContext.getHeaderString("Content-Type"); //$NON-NLS-1$
+    public void filter(final ContainerRequestContext requestContext, final ContainerResponseContext responseContext) {
+        var contentType = responseContext.getHeaderString("Content-Type"); //$NON-NLS-1$
         if(contentType != null && contentType.startsWith("text/html")) { //$NON-NLS-1$
             // Set it to UTF-8
             responseContext.getHeaders().putSingle("Content-Type", "text/html;charset=UTF-8"); //$NON-NLS-1$ //$NON-NLS-2$

@@ -1,5 +1,5 @@
-/**
- * Copyright © 2012-2019 Jesse Gallagher
+/*
+ * Copyright (c) 2012-2023 Jesse Gallagher
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -15,13 +15,11 @@
  */
 package model;
 
-import javax.validation.constraints.NotEmpty;
-
 import jakarta.nosql.mapping.Column;
 import jakarta.nosql.mapping.Convert;
 import jakarta.nosql.mapping.Entity;
 import jakarta.nosql.mapping.Id;
-
+import jakarta.validation.constraints.NotEmpty;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import model.util.BooleanYNConverter;
@@ -33,5 +31,6 @@ public class Link {
 	@Column("link_url") @NotEmpty private String url;
 	@Column("link_name") @NotEmpty private String name;
 	@Column("link_visible") @Convert(BooleanYNConverter.class) private boolean visible;
+	@Column private String rel;
 	@Column private boolean isConflict;
 }

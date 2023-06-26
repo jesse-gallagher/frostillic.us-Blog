@@ -1,5 +1,5 @@
-/**
- * Copyright © 2012-2019 Jesse Gallagher
+/*
+ * Copyright (c) 2012-2023 Jesse Gallagher
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -23,13 +23,13 @@ import jakarta.nosql.mapping.AttributeConverter;
 
 /**
  * This converter converts between {@link OffsetDateTime} values and {@link Date} objects.
- * 
+ *
  * @author Jesse Gallagher
  * @since 2.1.0
  */
 public class UtilDateOffsetConverter implements AttributeConverter<OffsetDateTime, Date> {
 	@Override
-	public Date convertToDatabaseColumn(OffsetDateTime attribute) {
+	public Date convertToDatabaseColumn(final OffsetDateTime attribute) {
 		if(attribute == null) {
 			return null;
 		} else {
@@ -41,7 +41,7 @@ public class UtilDateOffsetConverter implements AttributeConverter<OffsetDateTim
 	 * @throws IllegalArgumentException if the provided string cannot be parsed to a date
 	 */
 	@Override
-	public OffsetDateTime convertToEntityAttribute(Date dbData) {
+	public OffsetDateTime convertToEntityAttribute(final Date dbData) {
 		if(dbData == null) {
 			return null;
 		} else {

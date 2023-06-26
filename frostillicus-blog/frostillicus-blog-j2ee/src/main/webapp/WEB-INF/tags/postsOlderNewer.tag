@@ -1,6 +1,6 @@
 <%--
 
-    Copyright © 2012-2019 Jesse Gallagher
+    Copyright (c) 2012-2023 Jesse Gallagher
 
     Licensed under the Apache License, Version 2.0 (the "License");
     you may not use this file except in compliance with the License.
@@ -15,20 +15,20 @@
     limitations under the License.
 
 --%>
-<%@tag description="Displays post-history navigation links" pageEncoding="UTF-8" trimDirectiveWhitespaces="true" %>
+<%@tag description="Displays post-history navigation links" trimDirectiveWhitespaces="true" %>
 <%@attribute name="start" required="true" type="java.lang.Integer"%>
 <%@attribute name="pageSize" required="true" type="java.lang.Integer"%>
 <%@attribute name="endOfLine" required="true" type="java.lang.Boolean"%>
-<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@taglib prefix="c" uri="jakarta.tags.core" %>
 <nav class="posts-older-newer">
     <c:if test="${pageScope.start gt 0}">
         <a class="newer" href="posts/?start=${pageScope.start - pageScope.pageSize gt 0 ? pageScope.start - pageScope.pageSize : 0}">${translation.newerPosts}</a>
     </c:if>
 
     <c:if test="${not pageScope.endOfLine}">
-        <a class="older" href="posts/?start=${pageScope.start + pageScope.pageSize}">${translation.olderPosts}</a>
+        <a class="older" href="posts/?start=${pageScope.start + pageScope.pageSize}"><c:out value="${translation.olderPosts}"/></a>
     </c:if>
     <c:if test="${pageScope.endOfLine}">
-        <span class="older">${translation.olderPosts}</span>
+        <span class="older"><c:out value="${translation.olderPosts}"/></span>
     </c:if>
 </nav>

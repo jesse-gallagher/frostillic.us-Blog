@@ -1,5 +1,5 @@
-/**
- * Copyright © 2012-2019 Jesse Gallagher
+/*
+ * Copyright (c) 2012-2023 Jesse Gallagher
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -19,43 +19,43 @@ import com.darwino.commons.services.HttpServiceFactories;
 import com.darwino.commons.services.debug.DebugRestFactory;
 import com.darwino.j2ee.application.DarwinoJ2EEServiceDispatcherFilter;
 
-import javax.servlet.DispatcherType;
-import javax.servlet.annotation.WebFilter;
+import jakarta.servlet.DispatcherType;
+import jakarta.servlet.annotation.WebFilter;
 
 /**
  * Service dispatcher.
  */
 @WebFilter(filterName="DarwinoServices", urlPatterns="/*", dispatcherTypes={DispatcherType.REQUEST, DispatcherType.FORWARD})
 public class AppServiceDispatcher extends DarwinoJ2EEServiceDispatcherFilter {
-	
+
 	public AppServiceDispatcher() {
 	}
-	
+
 	/**
-	 * Add the application specific services. 
+	 * Add the application specific services.
 	 */
 	@Override
-	protected void addApplicationServiceFactories(HttpServiceFactories factories) {
+	protected void addApplicationServiceFactories(final HttpServiceFactories factories) {
 		// Add the debug services
-		final DebugRestFactory debug = new DebugRestFactory();  
+		final var debug = new DebugRestFactory();
 		factories.add(debug);
 	}
-	
+
 	@Override
-	protected void addJsonStoreServiceFactories(HttpServiceFactories factories) {
+	protected void addJsonStoreServiceFactories(final HttpServiceFactories factories) {
 		// disabled
 	}
 	@Override
-	protected void addGraphQLServiceFactories(HttpServiceFactories factories) {
+	protected void addGraphQLServiceFactories(final HttpServiceFactories factories) {
 		// disabled
 	}
 	@Override
-	protected void addApiServiceFactories(HttpServiceFactories factories) {
+	protected void addApiServiceFactories(final HttpServiceFactories factories) {
 		// disabled
 	}
 	@Override
-	protected void addLibrariesServiceFactories(HttpServiceFactories factories) {
+	protected void addLibrariesServiceFactories(final HttpServiceFactories factories) {
 		// disabled
 	}
-	
+
 }

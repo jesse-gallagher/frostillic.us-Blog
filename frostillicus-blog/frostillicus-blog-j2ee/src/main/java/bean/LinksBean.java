@@ -1,5 +1,5 @@
-/**
- * Copyright © 2012-2019 Jesse Gallagher
+/*
+ * Copyright (c) 2012-2023 Jesse Gallagher
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -15,16 +15,15 @@
  */
 package bean;
 
-import javax.enterprise.context.ApplicationScoped;
-import javax.inject.Inject;
-import javax.inject.Named;
-
+import java.util.Collection;
+import java.util.Comparator;
 import java.util.Map;
 import java.util.TreeMap;
 import java.util.TreeSet;
-import java.util.Collection;
-import java.util.Comparator;
 
+import jakarta.enterprise.context.ApplicationScoped;
+import jakarta.inject.Inject;
+import jakarta.inject.Named;
 import model.Link;
 import model.LinkRepository;
 
@@ -32,24 +31,24 @@ import model.LinkRepository;
 public class LinksBean {
 	@Inject
 	LinkRepository links;
-	
+
 	private static Comparator<Link> linkComparator = (o1, o2) -> String.valueOf(o1.getName()).compareTo(o2.getName());
-	
+
 	public Map<String, Collection<Link>> getByCategory() {
 		Map<String, Collection<Link>> result = new TreeMap<>(String.CASE_INSENSITIVE_ORDER);
-		
+
 		// TODO seems like this could be done with a map collector or a Darwino query
 		links.findAll()
 			.filter(l -> l.getName() != null && !l.getName().isEmpty())
 			.filter(Link::isVisible)
 			.forEach(link -> {
-				Collection<Link> l = result.computeIfAbsent(link.getCategory(), cat -> new TreeSet<Link>(linkComparator));
+				var l = result.computeIfAbsent(link.getCategory(), cat -> new TreeSet<>(linkComparator));
 				l.add(link);
 			});
-		
+
 		return result;
 	}
-	
+
 	public Collection<Link> getAll() {
 		return links.findAllByCategoryAndName();
 	}

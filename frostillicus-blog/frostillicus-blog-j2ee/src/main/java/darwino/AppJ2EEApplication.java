@@ -1,5 +1,5 @@
-/**
- * Copyright © 2012-2019 Jesse Gallagher
+/*
+ * Copyright (c) 2012-2023 Jesse Gallagher
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -15,21 +15,22 @@
  */
 package darwino;
 
-import javax.servlet.ServletContext;
-
 import com.darwino.commons.json.JsonException;
 import com.darwino.commons.platform.ManagedBeansService;
 import com.darwino.j2ee.application.DarwinoJ2EEApplication;
+import com.darwino.platform.DarwinoApplication;
 import com.darwino.platform.DarwinoManifest;
+
+import jakarta.servlet.ServletContext;
 
 /**
  * J2EE application.
  */
 public class AppJ2EEApplication extends DarwinoJ2EEApplication {
-	
-	public static DarwinoJ2EEApplication create(ServletContext context) throws JsonException {
-		if(!DarwinoJ2EEApplication.isInitialized()) {
-			AppJ2EEApplication app = new AppJ2EEApplication(
+
+	public static DarwinoJ2EEApplication create(final ServletContext context) throws JsonException {
+		if(!DarwinoApplication.isInitialized()) {
+			var app = new AppJ2EEApplication(
 					context,
 					new AppManifest(new AppJ2EEManifest())
 			);
@@ -37,14 +38,14 @@ public class AppJ2EEApplication extends DarwinoJ2EEApplication {
 		}
 		return DarwinoJ2EEApplication.get();
 	}
-	
-	protected AppJ2EEApplication(ServletContext context, DarwinoManifest manifest) {
+
+	protected AppJ2EEApplication(final ServletContext context, final DarwinoManifest manifest) {
 		super(context,manifest);
 	}
-	
+
 	@Override
 	public String[] getConfigurationBeanNames() {
 		return new String[] {"frostillicus_blog",ManagedBeansService.LOCAL_NAME,ManagedBeansService.DEFAULT_NAME}; //$NON-NLS-1$
 	}
-	
+
 }

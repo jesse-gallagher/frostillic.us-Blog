@@ -1,5 +1,5 @@
-/**
- * Copyright © 2012-2019 Jesse Gallagher
+/*
+ * Copyright (c) 2012-2023 Jesse Gallagher
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -21,7 +21,7 @@ import com.darwino.j2ee.application.DarwinoJ2EEManifest;
  * J2EE Application Manifest.
  */
 public class AppJ2EEManifest extends DarwinoJ2EEManifest {
-	
+
 	public AppJ2EEManifest() {
 	}
 }

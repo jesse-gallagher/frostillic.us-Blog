@@ -4,7 +4,7 @@
 
 	<groupId>frostillicus.blog</groupId>
 	<artifactId>frostillicus-blog</artifactId>
-	<version>2.2.0</version>
+	<version>3.0.0</version>
 	<packaging>pom</packaging>
 
 	<name>frostillic.us Blog App</name>
@@ -30,105 +30,86 @@
 	</modules>
 
 	<properties>
-		<DARWINO_VERSION>2.5.1-SNAPSHOT</DARWINO_VERSION>
+		<DARWINO_VERSION>2.6.0-SNAPSHOT</DARWINO_VERSION>
 
+		<maven.compiler.source>17</maven.compiler.source>
+		<maven.compiler.target>17</maven.compiler.target>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 
 		<maven-version>3.3.9</maven-version>
-		<java-version>1.8</java-version>
-		<jnosql-version>0.1.0-SNAPSHOT</jnosql-version>
+		<java-version>${maven.compiler.target}</java-version>
+		<jnosql-version>1.0.0.20220620160743</jnosql-version>
 	</properties>
 	
 	<prerequisites>
 		<maven>${maven-version}</maven>
 	</prerequisites>
-	
-	<repositories>
-		<!-- Used for Krazo snapshots -->
-		<repository>
-			<id>sonatype-snapshots</id>
-			<url>https://oss.sonatype.org/content/repositories/snapshots</url>
-		</repository>
-	</repositories>
 
 	<dependencyManagement>
 		<dependencies>
 			<dependency>
-				<groupId>javax</groupId>
-				<artifactId>javaee-api</artifactId>
-				<version>8.0.1</version>
-			</dependency>
-			<dependency>
-				<groupId>javax.validation</groupId>
-				<artifactId>validation-api</artifactId>
-				<version>2.0.1.Final</version>
-			</dependency>
-			<dependency>
-				<groupId>org.eclipse.microprofile</groupId>
-				<artifactId>microprofile</artifactId>
-				<version>3.0</version>
+				<groupId>jakarta.platform</groupId>
+				<artifactId>jakarta.jakartaee-bom</artifactId>
+				<version>10.0.0</version>
 				<scope>import</scope>
 				<type>pom</type>
 			</dependency>
 			<dependency>
-				<groupId>javax.el</groupId>
-				<artifactId>javax.el-api</artifactId>
-				<version>3.0.0</version>
-			</dependency>
-			<dependency>
-				<groupId>javax.servlet</groupId>
-				<artifactId>jstl</artifactId>
-				<version>1.2</version>
+				<groupId>org.eclipse.microprofile</groupId>
+				<artifactId>microprofile</artifactId>
+				<version>6.0</version>
+				<scope>import</scope>
+				<type>pom</type>
 			</dependency>
 			
 			<dependency>
-				<groupId>javax.mvc</groupId>
-				<artifactId>javax.mvc-api</artifactId>
-				<version>1.0-pfd</version>
+				<groupId>jakarta.mvc</groupId>
+				<artifactId>jakarta.mvc-api</artifactId>
+				<version>2.1.0</version>
 			</dependency>
 			<dependency>
 				<groupId>org.eclipse.krazo</groupId>
 				<artifactId>krazo-core</artifactId>
-				<version>1.0.0-SNAPSHOT</version>
+				<version>3.1.0-SNAPSHOT</version>
 			</dependency>
 			<dependency>
 				<groupId>org.eclipse.krazo</groupId>
 				<artifactId>krazo-resteasy</artifactId>
-				<version>1.0.0-SNAPSHOT</version>
+				<version>3.1.0-SNAPSHOT</version>
+			</dependency>
+			<dependency>
+				<groupId>org.glassfish.web</groupId>
+				<artifactId>jakarta.servlet.jsp.jstl</artifactId>
+				<version>3.0.1</version>
 			</dependency>
 			
 			<dependency>
 				<groupId>org.projectlombok</groupId>
 				<artifactId>lombok</artifactId>
-				<version>1.18.8</version>
+				<version>1.18.26</version>
 			</dependency>
 			<dependency>
-				<groupId>com.atlassian.commonmark</groupId>
+				<groupId>org.commonmark</groupId>
 				<artifactId>commonmark</artifactId>
-				<version>0.13.0</version>
-			</dependency>
-			<dependency>
-				<groupId>com.rometools</groupId>
-				<artifactId>rome</artifactId>
-				<version>1.12.1</version>
+				<version>0.21.0</version>
 			</dependency>
 			<dependency>
 				<groupId>org.jsoup</groupId>
 				<artifactId>jsoup</artifactId>
-				<version>1.12.1</version>
+				<version>1.16.1</version>
 			</dependency>
 			<dependency>
 				<groupId>org.webjars.npm</groupId>
-				<artifactId>turbolinks</artifactId>
-				<version>5.2.0</version>
+				<artifactId>hotwired__turbo</artifactId>
+				<version>7.3.0</version>
 			</dependency>
 			
 			<dependency>
 				<groupId>org.junit.jupiter</groupId>
 				<artifactId>junit-jupiter-engine</artifactId>
-				<version>5.5.1</version>
+				<version>5.9.3</version>
 			</dependency>
 		</dependencies>
 	</dependencyManagement>
@@ -158,6 +139,11 @@
 					</execution>
 				</executions>
 			</plugin>
+			<plugin>
+				<groupId>io.openliberty.tools</groupId>
+				<artifactId>liberty-maven-plugin</artifactId>
+				<version>3.7.1</version>
+			</plugin>
 		</plugins>
 
 		<pluginManagement>
@@ -166,10 +152,6 @@
 					<groupId>org.apache.maven.plugins</groupId>
 					<artifactId>maven-compiler-plugin</artifactId>
 					<version>3.8.0</version>
-					<configuration>
-						<source>${java-version}</source>
-						<target>${java-version}</target>
-					</configuration>
 				</plugin>
 				<plugin>
 					<groupId>org.apache.maven.plugins</groupId>
@@ -227,10 +209,11 @@
 						</excludes>
 						<properties>
 							<owner>Jesse Gallagher</owner>
-							<copyrightYear>2019</copyrightYear>
+							<copyrightYear>2023</copyrightYear>
 						</properties>
 						<mapping>
 							<tag>DYNASCRIPT_STYLE</tag>
+							<java>SLASHSTAR_STYLE</java>
 						</mapping>
 					</configuration>
 				</plugin>

@@ -1,5 +1,5 @@
-/**
- * Copyright © 2012-2019 Jesse Gallagher
+/*
+ * Copyright (c) 2012-2023 Jesse Gallagher
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -16,37 +16,29 @@
 package api.atompub;
 
 import com.darwino.commons.json.JsonException;
-import com.darwino.commons.xml.DomUtil;
 
+import api.atompub.model.AppCategories;
+import api.atompub.model.AtomCategory;
 import bean.UserInfoBean;
+import jakarta.annotation.security.RolesAllowed;
+import jakarta.ws.rs.GET;
+import jakarta.ws.rs.Path;
+import jakarta.ws.rs.Produces;
 import model.util.PostUtil;
-import org.w3c.dom.Document;
-import org.w3c.dom.Element;
 
-import javax.annotation.security.RolesAllowed;
-import javax.ws.rs.GET;
-import javax.ws.rs.Path;
-import javax.ws.rs.Produces;
-
-@Path(AtomPubAPI.BASE_PATH + "/{blogId}/categories")
+@Path(AtomPubResource.BASE_PATH + "/{blogId}/categories")
 @RolesAllowed(UserInfoBean.ROLE_ADMIN)
 public class CategoriesResource {
     @GET
     @Produces("application/atomserv+xml")
-    public String list() throws JsonException {
-        Document xml = DomUtil.createDocument();
-        Element service = DomUtil.createRootElement(xml, "app:categories"); //$NON-NLS-1$
-        service.setAttribute("xmlns:app", "http://www.w3.org/2007/app"); //$NON-NLS-1$ //$NON-NLS-2$
-        service.setAttribute("xmlns:atom", "http://www.w3.org/2005/Atom"); //$NON-NLS-1$ //$NON-NLS-2$
-        service.setAttribute("fixed", "no"); //$NON-NLS-1$ //$NON-NLS-2$
+    public AppCategories list() throws JsonException {
+    	AppCategories categories = new AppCategories();
+    	categories.setFixed(false);
 
         PostUtil.getCategories()
-            .forEach(tag -> {
-                Element category = DomUtil.createElement(service, "atom:category"); //$NON-NLS-1$
-                category.setAttribute("term", tag); //$NON-NLS-1$
-            }
-        );
+        	.map(AtomCategory::new)
+        	.forEach(categories.getCategories()::add);
 
-        return DomUtil.getXMLString(xml);
+        return categories;
     }
 }

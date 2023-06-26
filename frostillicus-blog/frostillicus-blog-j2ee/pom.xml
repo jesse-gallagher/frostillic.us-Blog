@@ -4,7 +4,7 @@
 	<parent>
 		<groupId>frostillicus.blog</groupId>
 		<artifactId>frostillicus-blog</artifactId>
-		<version>2.2.0</version>
+		<version>3.0.0</version>
 	</parent>
 	<artifactId>frostillicus-blog-j2ee</artifactId>
 	
@@ -27,8 +27,63 @@
 
 	<dependencies>
 		<dependency>
-			<groupId>javax</groupId>
-			<artifactId>javaee-api</artifactId>
+			<groupId>jakarta.servlet</groupId>
+			<artifactId>jakarta.servlet-api</artifactId>
+			<scope>provided</scope>
+		</dependency>
+		<dependency>
+			<groupId>jakarta.servlet.jsp</groupId>
+			<artifactId>jakarta.servlet.jsp-api</artifactId>
+			<scope>provided</scope>
+		</dependency>
+        <dependency>
+            <groupId>jakarta.enterprise</groupId>
+            <artifactId>jakarta.enterprise.cdi-api</artifactId>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+			<groupId>jakarta.ws.rs</groupId>
+			<artifactId>jakarta.ws.rs-api</artifactId>
+			<scope>provided</scope>
+        </dependency>
+        <dependency>
+			<groupId>jakarta.json.bind</groupId>
+			<artifactId>jakarta.json.bind-api</artifactId>
+			<scope>provided</scope>
+        </dependency>
+		<dependency>
+			<groupId>jakarta.security.enterprise</groupId>
+			<artifactId>jakarta.security.enterprise-api</artifactId>
+			<scope>provided</scope>
+		</dependency>
+		<dependency>
+			<groupId>jakarta.mail</groupId>
+			<artifactId>jakarta.mail-api</artifactId>
+			<scope>provided</scope>
+		</dependency>
+		<dependency>
+			<groupId>jakarta.validation</groupId>
+			<artifactId>jakarta.validation-api</artifactId>
+			<scope>provided</scope>
+		</dependency>
+		<dependency>
+			<groupId>jakarta.inject</groupId>
+			<artifactId>jakarta.inject-api</artifactId>
+			<scope>provided</scope>
+		</dependency>
+		<dependency>
+			<groupId>jakarta.annotation</groupId>
+			<artifactId>jakarta.annotation-api</artifactId>
+			<scope>provided</scope>
+		</dependency>
+		<dependency>
+			<groupId>jakarta.activation</groupId>
+			<artifactId>jakarta.activation-api</artifactId>
+			<scope>provided</scope>
+		</dependency>
+		<dependency>
+			<groupId>jakarta.xml.bind</groupId>
+			<artifactId>jakarta.xml.bind-api</artifactId>
 			<scope>provided</scope>
 		</dependency>
 		<dependency>
@@ -41,16 +96,53 @@
 			<artifactId>microprofile-rest-client-api</artifactId>
 			<scope>provided</scope>
 		</dependency>
+		<dependency>
+			<groupId>jakarta.servlet.jsp.jstl</groupId>
+			<artifactId>jakarta.servlet.jsp.jstl-api</artifactId>
+			<scope>provided</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.glassfish.web</groupId>
+			<artifactId>jakarta.servlet.jsp.jstl</artifactId>
+			<scope>provided</scope>
+		</dependency>
 		
 		<dependency>
-			<groupId>javax.mvc</groupId>
-			<artifactId>javax.mvc-api</artifactId>
+			<groupId>jakarta.mvc</groupId>
+			<artifactId>jakarta.mvc-api</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.eclipse.krazo</groupId>
+			<artifactId>krazo-core</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.eclipse.krazo</groupId>
+			<artifactId>krazo-resteasy</artifactId>
 		</dependency>
 
 		<dependency>
 			<groupId>com.darwino</groupId>
+			<artifactId>dwo-jre-j2ee-commons</artifactId>
+			<version>${DARWINO_VERSION}</version>
+			<classifier>jakarta</classifier>
+			<exclusions>
+				<exclusion>
+					<groupId>com.darwino</groupId>
+					<artifactId>dwo-jre-j2ee-commons</artifactId>
+				</exclusion>
+			</exclusions>
+		</dependency>
+		<dependency>
+			<groupId>com.darwino</groupId>
 			<artifactId>dwo-jre-j2ee-platform</artifactId>
 			<version>${DARWINO_VERSION}</version>
+			<classifier>jakarta</classifier>
+			<exclusions>
+				<exclusion>
+					<groupId>com.darwino</groupId>
+					<artifactId>dwo-jre-j2ee-commons</artifactId>
+				</exclusion>
+			</exclusions>
 		</dependency>
 		<dependency>
 			<groupId>com.darwino</groupId>
@@ -74,18 +166,21 @@
 		</dependency>
 		<dependency>
 			<groupId>com.darwino</groupId>
-			<artifactId>dwo-jre-j2ee-security</artifactId>
-			<version>${DARWINO_VERSION}</version>
-		</dependency>
-		<dependency>
-			<groupId>com.darwino</groupId>
 			<artifactId>dwo-jre-j2ee-mpconfig</artifactId>
 			<version>${DARWINO_VERSION}</version>
+			<classifier>jakarta</classifier>
+			<exclusions>
+				<exclusion>
+					<groupId>com.darwino</groupId>
+					<artifactId>dwo-jre-j2ee-commons</artifactId>
+				</exclusion>
+			</exclusions>
 		</dependency>
 		<dependency>
 			<groupId>com.darwino</groupId>
 			<artifactId>dwo-jre-cdi</artifactId>
 			<version>${DARWINO_VERSION}</version>
+			<classifier>jakarta</classifier>
 		</dependency>
 
 		<dependency>
@@ -100,12 +195,6 @@
 			<scope>provided</scope>
 		</dependency>
 		
-		<!-- RSS generation -->
-		<dependency>
-			<groupId>com.rometools</groupId>
-			<artifactId>rome</artifactId>
-		</dependency>
-		
 		<!-- HTML sanitization -->
 		<dependency>
 			<groupId>org.jsoup</groupId>
@@ -115,10 +204,9 @@
 		<!-- Web UI -->
 		<dependency>
 			<groupId>org.webjars.npm</groupId>
-			<artifactId>turbolinks</artifactId>
+			<artifactId>hotwired__turbo</artifactId>
 		</dependency>
-		
-		
+
 		<dependency>
 			<groupId>org.junit.jupiter</groupId>
 			<artifactId>junit-jupiter-engine</artifactId>
@@ -128,6 +216,14 @@
 
 	<build>
         <finalName>blog</finalName>
+
+		<plugins>
+			<plugin>
+				<groupId>io.openliberty.tools</groupId>
+				<artifactId>liberty-maven-plugin</artifactId>
+				<version>3.7.1</version>
+			</plugin>
+		</plugins>
 	</build>
 	
 	<profiles>
@@ -151,21 +247,14 @@
 				</dependency>
 			</dependencies>
 		</profile>
-		
 		<profile>
-			<id>jee-container</id>
-			<activation>
-				<activeByDefault>true</activeByDefault>
-			</activation>
-			
+			<id>postgresql-driver</id>
+
 			<dependencies>
 				<dependency>
-					<groupId>org.eclipse.krazo</groupId>
-					<artifactId>krazo-core</artifactId>
-				</dependency>
-				<dependency>
-					<groupId>javax.servlet</groupId>
-					<artifactId>jstl</artifactId>
+					<groupId>org.postgresql</groupId>
+					<artifactId>postgresql</artifactId>
+					<version>42.6.0</version>
 				</dependency>
 			</dependencies>
 		</profile>

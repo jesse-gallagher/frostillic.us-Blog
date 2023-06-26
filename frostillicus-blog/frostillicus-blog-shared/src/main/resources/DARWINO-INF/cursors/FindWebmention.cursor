@@ -1,0 +1,11 @@
+{
+    "query": {
+        "$and": [
+            { "form": "Webmention" },
+            { "source": "$$source" },
+            { "type":  "$$type" },
+            { "targetId":  "$$targetId" }
+        ]
+    },
+    "limit": 1
+}

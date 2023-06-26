@@ -1,5 +1,5 @@
-/**
- * Copyright © 2012-2019 Jesse Gallagher
+/*
+ * Copyright (c) 2012-2023 Jesse Gallagher
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -15,18 +15,14 @@
  */
 package controller;
 
-import com.darwino.commons.json.JsonException;
-
-import model.Post;
-import model.PostRepository;
-import model.util.PostUtil;
-
-import javax.inject.Inject;
-import javax.mvc.Models;
-
 import static model.util.PostUtil.PAGE_LENGTH;
 
-import java.util.List;
+import com.darwino.commons.json.JsonException;
+
+import jakarta.inject.Inject;
+import jakarta.mvc.Models;
+import model.PostRepository;
+import model.util.PostUtil;
 
 public abstract class AbstractPostListController {
     @Inject
@@ -35,15 +31,15 @@ public abstract class AbstractPostListController {
     @Inject
     PostRepository posts;
 
-    protected String maybeList(String startParam) throws JsonException {
-        int start = PostUtil.parseStartParam(startParam);
+    protected String maybeList(final String startParam) throws JsonException {
+        var start = PostUtil.parseStartParam(startParam);
         if(start > -1) {
-        		List<Post> homeList = posts.homeList(start, PAGE_LENGTH);
+        		var homeList = posts.homeList(start, PAGE_LENGTH);
             models.put("posts", homeList); //$NON-NLS-1$
             models.put("start", start); //$NON-NLS-1$
             models.put("pageSize", PAGE_LENGTH); //$NON-NLS-1$
 
-            int total = start + PAGE_LENGTH;
+            var total = start + PAGE_LENGTH;
             if(total >= PostUtil.getPostCount()) {
                 models.put("endOfLine", true); //$NON-NLS-1$
             } else {

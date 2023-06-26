@@ -1,5 +1,5 @@
-/**
- * Copyright © 2012-2019 Jesse Gallagher
+/*
+ * Copyright (c) 2012-2023 Jesse Gallagher
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -19,13 +19,13 @@ import java.text.DateFormatSymbols;
 import java.text.MessageFormat;
 import java.util.ResourceBundle;
 
-import javax.enterprise.context.RequestScoped;
-import javax.enterprise.inject.Produces;
-import javax.enterprise.inject.literal.NamedLiteral;
-import javax.enterprise.inject.spi.CDI;
-import javax.inject.Inject;
-import javax.inject.Named;
-import javax.servlet.http.HttpServletRequest;
+import jakarta.enterprise.context.RequestScoped;
+import jakarta.enterprise.inject.Produces;
+import jakarta.enterprise.inject.literal.NamedLiteral;
+import jakarta.enterprise.inject.spi.CDI;
+import jakarta.inject.Inject;
+import jakarta.inject.Named;
+import jakarta.servlet.http.HttpServletRequest;
 
 @RequestScoped
 public class TranslationBean {
@@ -42,14 +42,14 @@ public class TranslationBean {
 	public static class Messages {
 		@Inject
 		HttpServletRequest request;
-		
-		public String format(String key, Object... params) {
-			ResourceBundle translation = CDI.current().select(ResourceBundle.class, NamedLiteral.of("translation")).get(); //$NON-NLS-1$
-			String message = translation.getString(key);
+
+		public String format(final String key, final Object... params) {
+			var translation = CDI.current().select(ResourceBundle.class, NamedLiteral.of("translation")).get(); //$NON-NLS-1$
+			var message = translation.getString(key);
 			return MessageFormat.format(message, params);
 		}
 
-		public String getMonth(int index) {
+		public String getMonth(final int index) {
 			return DateFormatSymbols.getInstance(request.getLocale()).getMonths()[index];
 		}
 	}

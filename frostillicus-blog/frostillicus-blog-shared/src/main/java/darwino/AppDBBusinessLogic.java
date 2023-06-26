@@ -1,5 +1,5 @@
-/**
- * Copyright © 2012-2019 Jesse Gallagher
+/*
+ * Copyright (c) 2012-2023 Jesse Gallagher
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -30,15 +30,20 @@ import model.Post;
  * Database Business logic - event handlers.
  */
 public  class AppDBBusinessLogic extends DefaultExtensionRegistry {
-	
+
 	public AppDBBusinessLogic() {
 		setQueryFactory(new DarwinoInfCursorFactory(getClass()));
 		setDatabaseACLFactory(new DefaultDatabaseACLFactory());
-		
+
 		setDynamicSecurity((database, store) -> {
+			// No restrictions for System
+			if(database.getUserContext().hasUserId("_SystemUser_")) { //$NON-NLS-1$
+				return null;
+			}
+
 			// Hide all conflict documents outright
 			JsonObject result = JsonObject.of("isConflict", false); //$NON-NLS-1$
-			
+
 			// Require admin access for draft posts and spam comments
 			switch(StringUtil.toString(store)) {
 			case AppDatabaseDef.STORE_POSTS:

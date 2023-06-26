@@ -1,5 +1,5 @@
 /**
- * Copyright © 2012-2019 Jesse Gallagher
+ * Copyright (c) 2012-2023 Jesse Gallagher
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -84,9 +84,11 @@ a {
 	padding: 1em;
 }
 
-.post.post-Draft {
-	background: rgba(250, 251, 63, 0.2);
+.post.post-Draft, .comment.spam {
+	background: repeating-linear-gradient(135deg, rgba(246, 212, 73, 0.4), rgba(247, 238, 78, 0.4) 60px);
 	padding: 0.5em 1em;
+	box-shadow: inset 0 0 50px white;
+	border-radius: 1em;
 }
 
 .post header {
@@ -112,11 +114,12 @@ a {
 .post .comment > h3 {
 	font-size: 1.2em;
 }
+.post .body {
+	overflow-x: auto;
+}
 
 .post header > .admin {
-	position: absolute;
-	top: 0;
-	right: 0;
+	float: right;
 }
 .post .admin form {
 	display: inline;
@@ -128,6 +131,9 @@ a {
 	display: inline-block;
 	padding: 0 0.25em;
 	text-decoration: none;
+}
+.post .admin input[type='submit']:focus, .post .admin a:focus {
+	outline: 1px solid lightblue;
 }
 
 
@@ -194,10 +200,6 @@ a {
 .comment {
 	display: grid;
 }
-.comment.spam {
-	background: rgba(250, 251, 63, 0.2);
-	padding: 0.5em 1em;
-}
 .comment + .comment {
 	margin-top: 1em;
 }
@@ -215,6 +217,7 @@ a {
 }
 .comment > .comment-body {
 	grid-area: content;
+	overflow-x: auto;
 }
 .comment > .comment-body p:first-child {
 	margin-top: 0;
@@ -251,10 +254,14 @@ pre {
 	overflow-x: auto;
 	padding: 0.5em;
 }
+code {
+	white-space: nowrap;
+}
 pre code, .hilite-me pre {
 	border: 0;
 	padding: 0;
 	background-color: transparent;
+	white-space: pre;
 }
 .hilite-me {
 	font-size: 13px;
@@ -278,14 +285,6 @@ pre code, .hilite-me pre {
 }
 .posts-older-newer .older::after {
 	content: " >>";
-}
-
-/* Don't word break in most cases, but allow it for prime offenders */
-code, .comment .comment-body {
-	word-wrap: break-word;
-	hyphens: auto;
-	-webkit-hyphens: auto;
-	word-break: break-all;
 }
 
 @media (max-width: 699px) {
@@ -330,6 +329,10 @@ code, .comment .comment-body {
 	.post pre {
 		width: calc(100vw - 2em - 2px);
 	}
+	/* Cancel out for Hilite.me code blocks */
+	.post .hilite-me pre {
+		width: inherit;
+	}
 	
 	.comment {
 		grid-template-columns: 5fr 1fr;
@@ -365,6 +368,11 @@ code, .comment .comment-body {
 		display: block;
 		padding: 0.5em;
 		background-color: rgb(204, 221, 204);
+	}
+	#pagenav > .sidebar-content {
+		position: -webkit-sticky;
+		position: sticky;
+		top: 0.5em;
 	}
 	
 	.mobile-nav {

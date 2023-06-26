@@ -1,5 +1,5 @@
-/**
- * Copyright © 2012-2019 Jesse Gallagher
+/*
+ * Copyright (c) 2012-2023 Jesse Gallagher
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -15,43 +15,40 @@
  */
 package darwino;
 
-import javax.servlet.ServletContext;
-import javax.servlet.ServletContextEvent;
-
 import com.darwino.commons.json.JsonException;
 import com.darwino.j2ee.application.AbstractDarwinoContextListener;
 import com.darwino.j2ee.application.BackgroundServletSynchronizationExecutor;
 import com.darwino.j2ee.application.DarwinoJ2EEApplication;
 
-/**
- * Servlet listener for initializing the application.
- * 
- * @author Philippe Riand
- */
+import jakarta.servlet.ServletContext;
+import jakarta.servlet.ServletContextEvent;
+import jakarta.servlet.annotation.WebListener;
+
+@WebListener
 public class AppContextListener extends AbstractDarwinoContextListener {
-	
-	private BackgroundServletSynchronizationExecutor syncExecutor; 
-	
+
+	private BackgroundServletSynchronizationExecutor syncExecutor;
+
 	public AppContextListener() {
 	}
-	
+
 	@Override
-	protected DarwinoJ2EEApplication createDarwinoApplication(ServletContext context) throws JsonException {
+	protected DarwinoJ2EEApplication createDarwinoApplication(final ServletContext context) throws JsonException {
 		return AppJ2EEApplication.create(context);
 	}
 
 	@Override
-	public void contextInitialized(ServletContextEvent sce) {
+	public void contextInitialized(final ServletContextEvent sce) {
 		super.contextInitialized(sce);
-		
- 		// Define these to enable the background replication with another server 
+
+ 		// Define these to enable the background replication with another server
 		syncExecutor = new BackgroundServletSynchronizationExecutor(getApplication(), sce.getServletContext());
 		syncExecutor.putPropertyValue("dwo-sync-database",AppDatabaseDef.DATABASE_NAME); //$NON-NLS-1$
 		syncExecutor.start();
 	}
 
 	@Override
-	public void contextDestroyed(ServletContextEvent sce) {
+	public void contextDestroyed(final ServletContextEvent sce) {
 		if(syncExecutor!=null) {
 			syncExecutor.stop();
 			syncExecutor = null;

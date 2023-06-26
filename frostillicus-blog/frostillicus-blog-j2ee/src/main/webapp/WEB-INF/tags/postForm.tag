@@ -1,6 +1,6 @@
 <%--
 
-    Copyright © 2012-2019 Jesse Gallagher
+    Copyright (c) 2012-2023 Jesse Gallagher
 
     Licensed under the Apache License, Version 2.0 (the "License");
     you may not use this file except in compliance with the License.
@@ -15,33 +15,33 @@
     limitations under the License.
 
 --%>
-<%@tag description="Displays a model.Post in an editable form" pageEncoding="UTF-8" trimDirectiveWhitespaces="true" %>
+<%@tag description="Displays a model.Post in an editable form" trimDirectiveWhitespaces="true" %>
 <%@attribute name="value" required="true" type="model.Post" %>
 <%@attribute name="edit" required="true" type="java.lang.Boolean" %>
-<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
-<%@taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+<%@taglib prefix="c" uri="jakarta.tags.core" %>
+<%@taglib prefix="fmt" uri="jakarta.tags.fmt" %>
+<%@taglib prefix="fn" uri="jakarta.tags.functions" %>
 <%@taglib prefix="t" tagdir="/WEB-INF/tags" %>
-<form name="form" action="posts/${pageScope.edit ? post.id : ''}" method="post" class="crud">
-	<label for="title">${translation.titleLabel}</label>
+<form name="form" action="posts/${pageScope.edit ? post.id : ''}" method="post" class="crud" enctype="multipart/form-data">
+	<label for="title"><c:out value="${translation.titleLabel}"/></label>
 	<input type="text" name="title" id="title" required="required" autofocus="autofocus" value="${fn:escapeXml(pageScope.value.title)}" />
 	
-	<label for="tags">${translation.tagsLabel}</label>
+	<label for="tags"><c:out value="${translation.tagsLabel}"/></label>
 	<input type="text" name="tags" id="tags" value="${fn:escapeXml(fn:join(pageScope.value.tags.toArray(),', '))}"/>
 
-	<label for="thread">${translation.threadLabel}</label>
+	<label for="thread"><c:out value="${translation.threadLabel}"/></label>
 	<input type="text" name="thread" id="thread" value="${fn:escapeXml(pageScope.value.thread)}"/>
 	
-	<label for="status">${translation.statusLabel}</label>
+	<label for="status"><c:out value="${translation.statusLabel}"/></label>
 	<div class='radio-group'>
-		<input type="radio" name="status" ${pageScope.value.status == 'Draft' or empty pageScope.value.status ? 'checked="checked"' : ''} value="Draft" /> ${translation.draft}
-		<input type="radio" name="status" ${pageScope.value.status == 'Posted' ? 'checked="checked"' : ''} value="Posted" /> ${translation.posted}
+		<input type="radio" name="status" ${pageScope.value.status == 'Draft' or empty pageScope.value.status ? 'checked="checked"' : ''} value="Draft" /> <c:out value="${translation.draft}"/>
+		<input type="radio" name="status" ${pageScope.value.status == 'Posted' ? 'checked="checked"' : ''} value="Posted" /><c:out value="${translation.posted}"/>
 	</div>
 
-	<label for="bodyMarkdown">${translation.bodyLabel}</label>
-	<textarea name="bodyMarkdown" id="bodyMarkdown">${fn:escapeXml(empty pageScope.value.bodyMarkdown ? pageScope.value.bodyHtml : pageScope.value.bodyMarkdown)}</textarea>
+	<label for="bodyMarkdown"><c:out value="${translation.bodyLabel}"/></label>
+	<textarea name="bodyMarkdown" id="bodyMarkdown"><c:out value="${empty pageScope.value.bodyMarkdown ? pageScope.value.bodyHtml : pageScope.value.bodyMarkdown)}"/></textarea>
 		
-	<input type="submit" value="${translation.savePost}"/>
+	<input type="submit" value="${fn:escapeXml(translation.savePost)}"/>
 	<c:if test="${pageScope.edit}">
 		<input type="hidden" name="_method" value="PUT" />
 	</c:if>

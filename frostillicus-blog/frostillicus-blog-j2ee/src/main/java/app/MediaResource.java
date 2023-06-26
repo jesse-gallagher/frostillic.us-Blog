@@ -1,5 +1,5 @@
-/**
- * Copyright © 2012-2019 Jesse Gallagher
+/*
+ * Copyright (c) 2012-2023 Jesse Gallagher
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -15,45 +15,54 @@
  */
 package app;
 
-import model.Media;
-import model.MediaRepository;
-
 import java.io.IOException;
+import java.text.MessageFormat;
 
-import javax.inject.Inject;
-import javax.ws.rs.GET;
-import javax.ws.rs.NotFoundException;
-import javax.ws.rs.Path;
-import javax.ws.rs.PathParam;
-import javax.ws.rs.core.*;
+import com.darwino.commons.util.StringUtil;
 
-import org.jnosql.diana.driver.attachment.EntityAttachment;
+import jakarta.inject.Inject;
+import jakarta.ws.rs.GET;
+import jakarta.ws.rs.NotFoundException;
+import jakarta.ws.rs.Path;
+import jakarta.ws.rs.PathParam;
+import jakarta.ws.rs.core.CacheControl;
+import jakarta.ws.rs.core.Context;
+import jakarta.ws.rs.core.EntityTag;
+import jakarta.ws.rs.core.HttpHeaders;
+import jakarta.ws.rs.core.Request;
+import jakarta.ws.rs.core.Response;
+import model.MediaRepository;
 
 @Path(MediaResource.PATH)
 public class MediaResource {
-    public static final String PATH = "media"; //$NON-NLS-1$
+    public static final String PATH = "/media"; //$NON-NLS-1$
 
     @Context
     Request request;
-    
+
     @Inject
     MediaRepository mediaRepository;
 
     @GET
     @Path("{mediaId}/{mediaName}")
-    public Response get(@PathParam("mediaId") String mediaId) throws IOException {
-    	Media media = mediaRepository.findById(mediaId).orElseThrow(NotFoundException::new);
-        EntityAttachment att = media.getAttachments().get(0);
+    public Response get(@PathParam("mediaId") final String mediaId, @PathParam("mediaName") final String mediaName) throws IOException {
+    	var media = mediaRepository.findById(mediaId).orElseThrow(NotFoundException::new);
 
-        EntityTag etag = new EntityTag(att.getETag());
-        Response.ResponseBuilder builder = request.evaluatePreconditions(etag);
+    	String expectedName = mediaName.replace('+', ' ').toLowerCase();
+        var att = media.getAttachments()
+        	.stream()
+        	.filter(a -> StringUtil.toString(a.getName()).toLowerCase().endsWith(expectedName))
+        	.findFirst()
+        	.orElseThrow(() -> new NotFoundException(MessageFormat.format("Unable to find media {0} in document {1}", mediaName, mediaId)));
+
+        var etag = new EntityTag(att.getETag());
+        var builder = request.evaluatePreconditions(etag);
         if(builder == null) {
-            builder = Response.ok(att.getData())
-                    .header(HttpHeaders.CONTENT_TYPE, att.getContentType())
+            builder = Response.ok(att.getData(), att.getContentType())
                     .header(HttpHeaders.ETAG, etag);
         }
 
-        CacheControl cc = new CacheControl();
+        var cc = new CacheControl();
         cc.setMaxAge(5 * 24 * 60 * 60);
 
         return builder

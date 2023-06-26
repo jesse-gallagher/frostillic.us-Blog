@@ -1,5 +1,5 @@
-/**
- * Copyright © 2012-2019 Jesse Gallagher
+/*
+ * Copyright (c) 2012-2023 Jesse Gallagher
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -21,14 +21,14 @@ import java.util.Optional;
 import org.darwino.jnosql.artemis.extension.DarwinoRepository;
 import org.darwino.jnosql.artemis.extension.JSQL;
 import org.darwino.jnosql.artemis.extension.RepositoryProvider;
-import jakarta.nosql.mapping.Param;
 
 import darwino.AppDatabaseDef;
+import jakarta.nosql.mapping.Param;
 
 @RepositoryProvider(AppDatabaseDef.STORE_COMMENTS)
 public interface CommentRepository extends DarwinoRepository<Comment, String> {
 	Optional<Comment> findByCommentId(String commentId);
-	
+
 	@JSQL("select unid from comments where $.form='Comment' and $.postId=:postId order by $.posted asc")
 	List<Comment> findByPostId(@Param("postId") String postId);
 }

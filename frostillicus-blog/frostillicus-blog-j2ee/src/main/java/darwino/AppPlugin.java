@@ -1,5 +1,5 @@
-/**
- * Copyright © 2012-2019 Jesse Gallagher
+/*
+ * Copyright (c) 2012-2023 Jesse Gallagher
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -29,19 +29,19 @@ import com.darwino.social.gravatar.GravatarUserProvider;
  * J2EE Plugin for registering the services.
  */
 public class AppPlugin extends AppBasePlugin {
-	
+
 	public AppPlugin() {
 		super("frostillic.us Jakarta EE Application"); //$NON-NLS-1$
 	}
 
 	@Override
-	public void findExtensions(Class<?> serviceClass, List<Object> extensions) {
+	public void findExtensions(final Class<?> serviceClass, final List<Object> extensions) {
 		if(serviceClass==ManagedBeansExtension.class) {
 			extensions.add(new DefaultWebBeanExtension());
 		} else if(serviceClass==PropertiesExtension.class) {
 			extensions.add(new DefaultWebPropertiesExtension());
 		} else if(serviceClass==UserProvider.class) {
-			GravatarUserProvider g = new GravatarUserProvider();
+			var g = new GravatarUserProvider();
 			g.setImageSize(256);
 			extensions.add(g);
 		}

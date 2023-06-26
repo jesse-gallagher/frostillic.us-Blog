@@ -1,5 +1,5 @@
-/**
- * Copyright © 2012-2019 Jesse Gallagher
+/*
+ * Copyright (c) 2012-2023 Jesse Gallagher
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -19,13 +19,13 @@ import java.util.Date;
 import java.util.List;
 
 import org.darwino.jnosql.diana.driver.EntityConverter;
-import jakarta.nosql.mapping.Column;
-import jakarta.nosql.mapping.Entity;
-import jakarta.nosql.mapping.Id;
-import org.jnosql.diana.driver.attachment.EntityAttachment;
+import org.eclipse.jnosql.communication.driver.attachment.EntityAttachment;
 
 import com.darwino.jsonstore.Document;
 
+import jakarta.nosql.mapping.Column;
+import jakarta.nosql.mapping.Entity;
+import jakarta.nosql.mapping.Id;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 

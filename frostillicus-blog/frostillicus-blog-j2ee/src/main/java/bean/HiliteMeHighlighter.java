@@ -1,5 +1,5 @@
-/**
- * Copyright © 2012-2019 Jesse Gallagher
+/*
+ * Copyright (c) 2012-2023 Jesse Gallagher
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -17,18 +17,17 @@ package bean;
 
 import java.net.URI;
 
-import javax.enterprise.context.ApplicationScoped;
-import javax.ws.rs.FormParam;
-import javax.ws.rs.POST;
-
 import org.eclipse.microprofile.rest.client.RestClientBuilder;
 
 import bean.MarkdownBean.SyntaxHighlighter;
+import jakarta.enterprise.context.ApplicationScoped;
+import jakarta.ws.rs.FormParam;
+import jakarta.ws.rs.POST;
 import lombok.SneakyThrows;
 
 @ApplicationScoped
 public class HiliteMeHighlighter implements SyntaxHighlighter {
-	
+
 	public interface HiliteMeService {
 		@POST
 		String highlight(
@@ -41,10 +40,10 @@ public class HiliteMeHighlighter implements SyntaxHighlighter {
 
 	@Override
 	@SneakyThrows
-	public String highlight(String text, String language) {
+	public String highlight(final String text, final String language) {
 		// TODO use embedded Python interpreter?
-		URI apiUri = new URI("http://hilite.me/api"); //$NON-NLS-1$
-		HiliteMeService hiliteMe = RestClientBuilder.newBuilder()
+		var apiUri = new URI("http://hilite.me/api"); //$NON-NLS-1$
+		var hiliteMe = RestClientBuilder.newBuilder()
 			.baseUri(apiUri)
 			.build(HiliteMeService.class);
 		return hiliteMe.highlight(text, language, true, "colorful"); //$NON-NLS-1$

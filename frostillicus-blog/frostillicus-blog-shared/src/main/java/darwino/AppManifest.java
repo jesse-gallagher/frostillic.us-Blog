@@ -1,5 +1,5 @@
-/**
- * Copyright © 2012-2019 Jesse Gallagher
+/*
+ * Copyright (c) 2012-2023 Jesse Gallagher
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -28,10 +28,10 @@ import com.darwino.platform.DarwinoManifest;
  * Application Manifest.
  */
 public class AppManifest extends DarwinoManifest {
-	
+
 	// This is used by the mobile application to call the remote service
 	public static final String MOBILE_PATHINFO	= "/frostillicus-blog"; //$NON-NLS-1$
-	
+
 	public static Session getSession() throws JsonException {
 		return DarwinoContext.get().getSession();
 	}
@@ -39,44 +39,44 @@ public class AppManifest extends DarwinoManifest {
 	public static Database getDatabase() throws JsonException {
 		return getSession().getDatabase(AppDatabaseDef.DATABASE_NAME);
 	}
-	
 
-	public AppManifest(Section section) {
+
+	public AppManifest(final Section section) {
 		super(section);
 	}
-	
+
 	@Override
 	public String getLabel() {
 		return "frostillic.us Blog"; //$NON-NLS-1$
 	}
-	
+
 	@Override
 	public String getDescription() {
 		return StringUtil.EMPTY_STRING;
 	}
-	
+
 	@Override
 	public String getMainPageUrl() {
 		return "/"; //$NON-NLS-1$
 	}
-	
+
 	@Override
 	public String[] getDatabases() {
-		return new String[] { 
+		return new String[] {
 			AppDatabaseDef.DATABASE_NAME,
 		};
 	}
-	
+
 	@Override
 	public DatabaseFactory getDatabaseFactory() {
 		return new AppDatabaseDef();
 	}
-	
+
 	@Override
 	public ExtensionRegistry getExtensionRegistry() {
 		return new AppDBBusinessLogic();
 	}
-	
+
 	@Override
 	public String getConfigId() {
 		return AppDatabaseDef.DATABASE_NAME;

@@ -1,5 +1,5 @@
-/**
- * Copyright © 2012-2019 Jesse Gallagher
+/*
+ * Copyright (c) 2012-2023 Jesse Gallagher
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -21,13 +21,13 @@ import com.darwino.commons.platform.impl.PluginImpl;
 
 /**
  * Main plugin class.
- * 
+ *
  * This class is used to register the common plugin services and is meant to be overloaded
  * by an actual implementation (J2EE, Mobile...).
  */
 public abstract class AppBasePlugin extends PluginImpl {
-	
-	public AppBasePlugin(String name) {
+
+	public AppBasePlugin(final String name) {
 		super(name);
 	}
 }

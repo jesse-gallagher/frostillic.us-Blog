@@ -1,5 +1,5 @@
-/**
- * Copyright © 2012-2019 Jesse Gallagher
+/*
+ * Copyright (c) 2012-2023 Jesse Gallagher
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -26,6 +26,6 @@ import darwino.AppDatabaseDef;
 @RepositoryProvider(AppDatabaseDef.STORE_MEDIA)
 public interface MediaRepository extends DarwinoRepository<Media, String> {
 	Optional<Media> findByName(String name);
-	
+
 	Stream<Media> findAll();
 }

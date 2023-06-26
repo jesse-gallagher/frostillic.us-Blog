@@ -1,5 +1,5 @@
-/**
- * Copyright © 2012-2019 Jesse Gallagher
+/*
+ * Copyright (c) 2012-2023 Jesse Gallagher
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -15,37 +15,42 @@
  */
 package api.atompub;
 
-import com.darwino.commons.util.DateTimeISO8601;
-import com.darwino.commons.util.PathUtil;
-import com.darwino.commons.xml.DomUtil;
-
-import bean.UserInfoBean;
-import lombok.SneakyThrows;
-import model.Media;
-import model.MediaRepository;
-
-import org.jnosql.diana.driver.attachment.EntityAttachment;
-import org.w3c.dom.Element;
-
-import javax.annotation.security.RolesAllowed;
-import javax.inject.Inject;
-import javax.inject.Named;
-import javax.servlet.http.HttpServletRequest;
-import javax.ws.rs.*;
-import javax.ws.rs.core.Context;
-import javax.ws.rs.core.HttpHeaders;
-import javax.ws.rs.core.Response;
-import javax.ws.rs.core.UriInfo;
-
 import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
-import java.net.URLEncoder;
-import java.nio.charset.StandardCharsets;
 import java.util.Arrays;
+import java.util.Date;
 import java.util.ResourceBundle;
 
-@Path(AtomPubAPI.BASE_PATH + "/{blogId}/" + MediaResource.PATH)
+import org.eclipse.jnosql.communication.driver.attachment.EntityAttachment;
+
+import api.atompub.model.Author;
+import api.atompub.model.Content;
+import api.atompub.model.Entry;
+import api.atompub.model.Feed;
+import api.atompub.model.Link;
+import api.atompub.model.Summary;
+import bean.EncoderBean;
+import bean.UrlBean;
+import bean.UserInfoBean;
+import jakarta.annotation.security.RolesAllowed;
+import jakarta.inject.Inject;
+import jakarta.inject.Named;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.ws.rs.GET;
+import jakarta.ws.rs.NotFoundException;
+import jakarta.ws.rs.POST;
+import jakarta.ws.rs.Path;
+import jakarta.ws.rs.PathParam;
+import jakarta.ws.rs.Produces;
+import jakarta.ws.rs.core.Context;
+import jakarta.ws.rs.core.HttpHeaders;
+import jakarta.ws.rs.core.Response;
+import jakarta.ws.rs.core.UriInfo;
+import model.Media;
+import model.MediaRepository;
+
+@Path(AtomPubResource.BASE_PATH + "/{blogId}/" + MediaResource.PATH)
 @RolesAllowed(UserInfoBean.ROLE_ADMIN)
 public class MediaResource {
     public static final String PATH = "media"; //$NON-NLS-1$
@@ -56,32 +61,41 @@ public class MediaResource {
 
     @Context
     UriInfo uriInfo;
-    
+
     @Context
     HttpServletRequest request;
-    
+
     @Inject
     MediaRepository mediaRepository;
+    
+    @Inject
+    UserInfoBean userInfo;
+    
+	@Inject
+	UrlBean urlBean;
+	
+	@Inject
+	EncoderBean encoder;
 
     @GET
     @Produces("application/atom+xml")
-    public String list() {
-        org.w3c.dom.Document xml = DomUtil.createDocument();
-        Element feed = DomUtil.createRootElement(xml, "feed"); //$NON-NLS-1$
-        feed.setAttribute("xmlns", "http://www.w3.org/2005/Atom"); //$NON-NLS-1$ //$NON-NLS-2$
-        
-        mediaRepository.findAll().forEach(m -> {
-        	Element entry = DomUtil.createElement(feed, "entry"); //$NON-NLS-1$
-            entry.setAttribute("xmlns", "http://www.w3.org/2005/Atom"); //$NON-NLS-1$ //$NON-NLS-2$
-            populateAtomXml(entry, m);
-        });
+    public Feed list() {
+    	Feed feed = new Feed();
 
-        return DomUtil.getXMLString(xml);
+        mediaRepository.findAll()
+        	.map(m -> {
+        		Entry entry = new Entry();
+                populateAtomXml(entry, m);
+        		return entry;
+        	})
+        	.forEach(feed.getEntries()::add);
+
+        return feed;
     }
 
     @POST
     @Produces("application/atom+xml")
-    public Response uploadMedia(byte[] data) throws URISyntaxException {
+    public Response uploadMedia(final byte[] data) throws URISyntaxException {
         String contentType = request.getContentType();
         String name = request.getHeader("Slug"); //$NON-NLS-1$
 
@@ -90,70 +104,77 @@ public class MediaResource {
         Media media = mediaRepository.findByName(name).orElseGet(Media::new);
         media.setName(name);
         media.setAttachments(Arrays.asList(EntityAttachment.of(name, System.currentTimeMillis(), contentType, data)));
+        media.setCreationUser(userInfo.getDn());
+        media.setLastModificationDate(new Date());
         media = mediaRepository.save(media);
-        
+
         // Force update of metadata fields
         media = mediaRepository.findById(media.getId()).get();
 
-        return Response.created(new URI(resolveUrl(AtomPubAPI.BLOG_ID, PATH, media.getId()))).entity(toAtomXml(media)).build();
+        return Response.created(new URI(resolveUrl(AtomPubResource.BLOG_ID, PATH, media.getId())))
+        	.entity(toAtomXml(media))
+        	.build();
     }
 
     @GET
     @Path("{mediaId}")
     @Produces("application/atom+xml")
-    public Response getMediaInfo(@PathParam("mediaId") String mediaId) {
+    public Entry getMediaInfo(@PathParam("mediaId") final String mediaId) {
     	Media media = mediaRepository.findById(mediaId).orElseThrow(NotFoundException::new);
-        return Response.ok(toAtomXml(media)).build();
+        return toAtomXml(media);
     }
 
     @GET
     @Path("{mediaId}/{name}")
-    public Response getMedia(@PathParam("mediaId") String mediaId) throws IOException {
+    public Response getMedia(@PathParam("mediaId") final String mediaId) throws IOException {
     	Media media = mediaRepository.findById(mediaId).orElseThrow(NotFoundException::new);
     	EntityAttachment att = media.getAttachments().get(0);
 
         return Response.ok(att.getData()).header(HttpHeaders.CONTENT_TYPE, att.getContentType()).build();
     }
 
-    private String toAtomXml(Media media) {
-        org.w3c.dom.Document xml = DomUtil.createDocument();
-        Element entry = DomUtil.createRootElement(xml, "entry"); //$NON-NLS-1$
-        entry.setAttribute("xmlns", "http://www.w3.org/2005/Atom"); //$NON-NLS-1$ //$NON-NLS-2$
+    private Entry toAtomXml(final Media media) {
+    	Entry entry = new Entry();
         populateAtomXml(entry, media);
-        return DomUtil.getXMLString(xml);
+        return entry;
     }
 
-    @SneakyThrows
-    private void populateAtomXml(Element entry, Media media) {
-        DomUtil.createElement(entry, "title", media.getName()); //$NON-NLS-1$
-        DomUtil.createElement(entry, "id", media.getId()); //$NON-NLS-1$
-        DomUtil.createElement(entry, "updated", DateTimeISO8601.formatISO8601(media.getLastModificationDate().getTime())); //$NON-NLS-1$
-        Element author = DomUtil.createElement(entry, "author"); //$NON-NLS-1$
-        DomUtil.createElement(author, "name", media.getCreationUser()); //$NON-NLS-1$
-        Element summary = DomUtil.createElement(entry, "summary"); //$NON-NLS-1$
-        summary.setAttribute("type", "text"); //$NON-NLS-1$ //$NON-NLS-2$
+    private void populateAtomXml(final Entry entry, final Media media) {
+    	entry.setTitle(media.getName());
+    	entry.setId(media.getId());
+    	entry.setUpdated(media.getLastModificationDate().toInstant());
+    	entry.setAuthor(new Author(media.getCreationUser()));
+    	
+    	Summary summary = new Summary();
+    	summary.setType("text"); //$NON-NLS-1$
+    	summary.setBody(media.getName());
+    	entry.setSummary(summary);
 
         EntityAttachment att = media.getAttachments().get(0);
-        Element content = DomUtil.createElement(entry, "content"); //$NON-NLS-1$
-        content.setAttribute("type", att.getContentType()); //$NON-NLS-1$
+        Content content = new Content();
+        content.setType(att.getContentType());
+        entry.setContent(content);
 
-        String nameEnc = URLEncoder.encode(media.getName(), StandardCharsets.UTF_8.name());
-        String path = PathUtil.concat(MediaResource.PATH, media.getId(), nameEnc);
-        content.setAttribute("src", path); //$NON-NLS-1$
+        String nameEnc = encoder.urlEncode(media.getName());
+        String path = urlBean.concat(MediaResource.PATH, media.getId(), nameEnc);
+        content.setSrc(path);
+        entry.setContent(content);
 
-        Element editMediaLink = DomUtil.createElement(entry, "link"); //$NON-NLS-1$
-        editMediaLink.setAttribute("edit-media", resolveUrl(AtomPubAPI.BLOG_ID, PATH, media.getId(), nameEnc)); //$NON-NLS-1$
+        Link editMediaLink = new Link();
+        editMediaLink.setEditMedia(resolveUrl(AtomPubResource.BLOG_ID, PATH, media.getId(), nameEnc));
+        entry.getLinks().add(editMediaLink);
 
-        Element editLink = DomUtil.createElement(entry, "link"); //$NON-NLS-1$
-        editLink.setAttribute("rel", "edit"); //$NON-NLS-1$ //$NON-NLS-2$
-        editMediaLink.setAttribute("edit-media", resolveUrl(AtomPubAPI.BLOG_ID, PATH, media.getId())); //$NON-NLS-1$
+        Link editLink = new Link();
+        editLink.setRel("link"); //$NON-NLS-1$
+        editLink.setEditMedia(resolveUrl(AtomPubResource.BLOG_ID, PATH, media.getId()));
+        entry.getLinks().add(editLink);
     }
 
-    private String resolveUrl(String... parts) {
+    private String resolveUrl(final String... parts) {
         URI baseUri = uriInfo.getBaseUri();
-        String uri = PathUtil.concat(baseUri.toString(), AtomPubAPI.BASE_PATH);
+        String uri = urlBean.concat(baseUri.toString(), AtomPubResource.BASE_PATH);
         for(String part : parts) {
-            uri = PathUtil.concat(uri, part);
+            uri = urlBean.concat(uri, part);
         }
         return uri;
     }

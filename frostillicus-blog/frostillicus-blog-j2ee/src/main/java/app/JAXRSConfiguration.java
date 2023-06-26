@@ -1,5 +1,5 @@
-/**
- * Copyright © 2012-2019 Jesse Gallagher
+/*
+ * Copyright (c) 2012-2023 Jesse Gallagher
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -15,10 +15,20 @@
  */
 package app;
 
-import javax.ws.rs.ApplicationPath;
-import javax.ws.rs.core.Application;
+import java.util.Map;
+
+import jakarta.mvc.form.FormMethodOverwriter;
+import jakarta.mvc.security.Csrf;
+import jakarta.ws.rs.ApplicationPath;
+import jakarta.ws.rs.core.Application;
 
 @ApplicationPath("/")
 public class JAXRSConfiguration extends Application {
-	
+	@Override
+	public Map<String, Object> getProperties() {
+		return Map.of(
+			Csrf.CSRF_PROTECTION, Csrf.CsrfOptions.EXPLICIT,
+			FormMethodOverwriter.FORM_METHOD_OVERWRITE, FormMethodOverwriter.Options.ENABLED
+		);
+	}
 }

@@ -1,5 +1,5 @@
-/**
- * Copyright © 2012-2019 Jesse Gallagher
+/*
+ * Copyright (c) 2012-2023 Jesse Gallagher
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -20,12 +20,12 @@ import jakarta.nosql.mapping.AttributeConverter;
 public class BooleanYNConverter implements AttributeConverter<Boolean, String> {
 
 	@Override
-	public String convertToDatabaseColumn(Boolean attribute) {
+	public String convertToDatabaseColumn(final Boolean attribute) {
 		return attribute ? "Y" : "N"; //$NON-NLS-1$ //$NON-NLS-2$
 	}
 
 	@Override
-	public Boolean convertToEntityAttribute(String dbData) {
+	public Boolean convertToEntityAttribute(final String dbData) {
 		return "Y".equals(dbData); //$NON-NLS-1$
 	}
 

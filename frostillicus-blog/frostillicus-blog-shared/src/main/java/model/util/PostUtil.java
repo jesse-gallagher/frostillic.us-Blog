@@ -1,5 +1,5 @@
-/**
- * Copyright © 2012-2019 Jesse Gallagher
+/*
+ * Copyright (c) 2012-2023 Jesse Gallagher
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -15,23 +15,27 @@
  */
 package model.util;
 
+import java.time.OffsetDateTime;
+import java.util.Collection;
+import java.util.Random;
+import java.util.TreeSet;
+import java.util.UUID;
+import java.util.stream.Stream;
+
+import javax.naming.InvalidNameException;
+import javax.naming.ldap.LdapName;
+
 import com.darwino.commons.json.JsonArray;
 import com.darwino.commons.json.JsonException;
 import com.darwino.commons.json.JsonObject;
 import com.darwino.commons.util.StringUtil;
 import com.darwino.jsonstore.Database;
 import com.darwino.jsonstore.Store;
+
 import darwino.AppDatabaseDef;
+import jakarta.enterprise.inject.spi.CDI;
 import model.Post;
 import model.PostRepository;
-
-import javax.enterprise.inject.spi.CDI;
-import javax.naming.InvalidNameException;
-import javax.naming.ldap.LdapName;
-
-import java.time.OffsetDateTime;
-import java.util.*;
-import java.util.stream.Collectors;
 
 public enum PostUtil {
     ;
@@ -81,17 +85,16 @@ public enum PostUtil {
         return post;
     }
 
-    public static Collection<String> getCategories() throws JsonException {
+    public static Stream<String> getCategories() throws JsonException {
         Database database = CDI.current().select(Database.class).get();
         JsonArray tags = (JsonArray)database.getStore(AppDatabaseDef.STORE_POSTS).getTags(Integer.MAX_VALUE, true);
         return tags.stream()
                 .map(JsonObject.class::cast)
                 .map(tag -> tag.getAsString("name")) //$NON-NLS-1$
-                .map(StringUtil::toString)
-                .collect(Collectors.toList());
+                .map(StringUtil::toString);
     }
 
-    public static int parseStartParam(String startParam) {
+    public static int parseStartParam(final String startParam) {
         int start;
         if(StringUtil.isNotEmpty(startParam)) {
             try {
@@ -104,16 +107,16 @@ public enum PostUtil {
         }
         return start;
     }
-    
+
     /**
      * Extracts the common name from the provided distinguished name, or returns
      * the original value if the argument is not a valid DN.
-     * 
+     *
      * @param dn the LDAP-format distinguished name
      * @return the common name component
      * @since 2.2.0
      */
-    public static String toCn(String dn) {
+    public static String toCn(final String dn) {
 		if(StringUtil.isNotEmpty(dn)) {
 			try {
 				LdapName name = new LdapName(dn);

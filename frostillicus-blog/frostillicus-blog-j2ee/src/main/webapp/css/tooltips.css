@@ -1,5 +1,5 @@
 /**
- * Copyright © 2012-2019 Jesse Gallagher
+ * Copyright (c) 2012-2023 Jesse Gallagher
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -41,6 +41,9 @@
 	
 	opacity: 0;
 	transition: 0.3s;
+}
+.tooltip .tooltip-text a {
+	color: rgb(200, 200, 200);
 }
 
 .tooltip:hover .tooltip-text {

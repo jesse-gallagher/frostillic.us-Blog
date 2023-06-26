@@ -1,5 +1,5 @@
-/**
- * Copyright © 2012-2019 Jesse Gallagher
+/*
+ * Copyright (c) 2012-2023 Jesse Gallagher
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -20,14 +20,14 @@ import java.util.stream.Stream;
 
 import org.darwino.jnosql.artemis.extension.DarwinoRepository;
 import org.darwino.jnosql.artemis.extension.RepositoryProvider;
-import jakarta.nosql.mapping.Query;
 
 import darwino.AppDatabaseDef;
+import jakarta.nosql.mapping.Query;
 
 @RepositoryProvider(AppDatabaseDef.STORE_CONFIG)
 public interface LinkRepository extends DarwinoRepository<Link, String> {
 	Stream<Link> findAll();
-	
+
 	@Query("select * from Link order by category name")
 	List<Link> findAllByCategoryAndName();
 }
