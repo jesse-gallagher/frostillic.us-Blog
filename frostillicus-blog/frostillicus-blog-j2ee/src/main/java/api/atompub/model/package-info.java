@@ -15,7 +15,8 @@
  */
 @XmlSchema(
 	xmlns = {
-		@XmlNs(namespaceURI=AtomPubService.NS_ATOM, prefix="atom")
+		@XmlNs(namespaceURI=AtomPubService.NS_ATOM, prefix="atom"),
+		@XmlNs(namespaceURI=AtomPubService.NS_APP, prefix="app")
 	}
 )
 package api.atompub.model;
