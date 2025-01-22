@@ -17,6 +17,6 @@
 --%>
 <%@page contentType="text/html" trimDirectiveWhitespaces="true" session="false" %>
 <%@taglib prefix="t" tagdir="/WEB-INF/tags" %>
-<t:layout ogTitle="${post.title}">
+<t:layout ogTitle="${post.title}" ogDescription="${post.summary}">
 	<t:post value="${post}" comments="${comments}"/>
 </t:layout>
