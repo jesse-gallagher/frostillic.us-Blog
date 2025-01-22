@@ -16,13 +16,16 @@
 
 --%>
 <%@tag description="Overall Page template" trimDirectiveWhitespaces="true" %>
+<%@attribute name="pageTitle" required="false" type="java.lang.String" %>
 <%@attribute name="ogTitle" required="false" type="java.lang.String" %>
 <%@attribute name="ogDescription" required="false" type="java.lang.String" %>
 <%@attribute name="ogImage" required="false" type="java.lang.String" %>
+<%@attribute name="ogType" required="false" type="java.lang.String" %>
+<%@attribute name="url" required="false" type="java.lang.String" %>
 <%@taglib prefix="c" uri="jakarta.tags.core" %>
 <%@taglib prefix="fn" uri="jakarta.tags.functions" %>
 <!DOCTYPE html>
-<html lang="${translation._lang}">
+<html lang="${translation._htmlLang}">
 	<head>
 		<meta http-equiv="x-ua-compatible" content="ie=edge">
 		<meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no" />
@@ -41,6 +44,10 @@
 		<link rel="alternate" href="${urlBean.requestUri.resolve('feed.xml')}" type="application/rss+xml" title="${fn:escapeXml(translation.feedRss)}">
 		<link rel="EditURI" type="application/rsd+xml" href="${urlBean.requestUri.resolve('rsd.xml')}" />
 		<link rel="webmention" href="${urlBean.requestUri.resolve('webmention')}" />
+<c:if test="${not empty pageScope.url}">
+		<link rel="canonical" href="${urlBean.canonicalize(pageScope.url)}" />
+		<meta property="og:url" content="${urlBean.canonicalize(pageScope.url)}" />
+</c:if>
 		
 		<script type="module" src="${pageContext.request.contextPath}/webjars/hotwired__turbo/7.3.0/dist/turbo.es2017-esm.js"></script>
 		
@@ -56,8 +63,11 @@
 <c:if test="${not empty pageScope.ogImage}">
 		<meta property="og:image" content="${fn:escapeXml(pageScope.ogImage)}" />
 </c:if>
+		<meta property="og:site_name" content="${fn:escapeXml(translation.appTitle)}" />
+		<meta property="og:lang" content="${fn:escapeXml(translation._lang)}" />
+		<meta property="og:type" content="${fn:escapeXml(empty pageScope.ogType ? 'website' : pageScope.ogType)}" />
 		
-		<title><c:out value="${translation.appTitle}"/></title>
+		<title><c:out value="${empty pageScope.pageTitle ? translation.appTitle : messages.format('pageTitleFormat', pageScope.pageTitle)}"/></title>
 	</head>
 	<body>
 		<div id="entirety">

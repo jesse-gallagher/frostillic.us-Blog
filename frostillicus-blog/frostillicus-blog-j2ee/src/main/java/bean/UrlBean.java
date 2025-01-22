@@ -47,6 +47,18 @@ public class UrlBean {
 			return url;
 		}
 	}
+	
+	public String canonicalize(String url) {
+		// In practice, the distinction in these URLs is whether or not they start with "/"
+		if(url == null || url.isEmpty()) {
+			return url;
+		}
+		
+		
+		URI uri = URI.create(req.getRequestURL().toString());
+		uri = uri.resolve(concat(req.getContextPath(), url));
+		return uri.toString();
+	}
 
 	public String concat(final String... parts) {
 		if(parts == null || parts.length == 0) {
