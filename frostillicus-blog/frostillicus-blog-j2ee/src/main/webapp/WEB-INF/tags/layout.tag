@@ -16,6 +16,9 @@
 
 --%>
 <%@tag description="Overall Page template" trimDirectiveWhitespaces="true" %>
+<%@attribute name="ogTitle" required="false" type="java.lang.String" %>
+<%@attribute name="ogDescription" required="false" type="java.lang.String" %>
+<%@attribute name="ogImage" required="false" type="java.lang.String" %>
 <%@taglib prefix="c" uri="jakarta.tags.core" %>
 <%@taglib prefix="fn" uri="jakarta.tags.functions" %>
 <!DOCTYPE html>
@@ -40,6 +43,19 @@
 		<link rel="webmention" href="${urlBean.requestUri.resolve('webmention')}" />
 		
 		<script type="module" src="${pageContext.request.contextPath}/webjars/hotwired__turbo/7.3.0/dist/turbo.es2017-esm.js"></script>
+		
+		<c:forEach items="${metaTags.all}" var="metaTag">
+		<meta name="${fn:escapeXml(metaTag.name)}" content="${fn:escapeXml(metaTag.content)}"/>
+		</c:forEach>
+<c:if test="${not empty pageScope.ogTitle}">
+		<meta property="og:title" content="${fn:escapeXml(pageScope.ogTitle)}" />
+</c:if>
+<c:if test="${not empty pageScope.ogDescription}">
+		<meta property="og:description" content="${fn:escapeXml(pageScope.ogDescription)}" />
+</c:if>
+<c:if test="${not empty pageScope.ogImage}">
+		<meta property="og:image" content="${fn:escapeXml(pageScope.ogImage)}" />
+</c:if>
 		
 		<title><c:out value="${translation.appTitle}"/></title>
 	</head>
