@@ -89,7 +89,7 @@
 					<c:forEach items="${links.byCategory}" var="cat">
 						<ul title="${cat.key}">
 							<c:forEach items="${cat.value}" var="link">
-								<li><a href="${link.url}" rel="${link.rel}"><c:out value="${link.name}"/></a></li>
+								<li><a href="${link.url}" rel="${link.rel}" class="${link.classes}"><c:out value="${link.name}"/></a></li>
 							</c:forEach>
 						</ul>
 					</c:forEach>
