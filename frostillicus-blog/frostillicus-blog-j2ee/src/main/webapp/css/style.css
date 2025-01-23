@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2012-2023 Jesse Gallagher
+ * Copyright (c) 2012-2025 Jesse Gallagher
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -19,11 +19,17 @@
  
 body, html {
 	background-color: rgb(56, 83, 136);
+	background-image: url("../img/speckle.png");
+	background-repeat: repeat;
+	background-attachment: fixed;
 	padding: 0;
 	margin: 0;
 }
 a {
 	color: rgb(51, 85, 136);
+}
+a:visited {
+	color: rgb(142, 85, 136);
 }
 
 #entirety {
@@ -32,6 +38,7 @@ a {
 	grid-template-areas: "header" "nav" "content" "footer";
 	
 	border: 1px solid black;
+	box-shadow: 0 0.5rem 1rem 0.5rem rgba(0, 0, 0, 0.3); 
 	
 	font-family: -apple-system, "San Francisco", "Segoe UI", serif;
 	line-height: 1.3;
@@ -41,10 +48,11 @@ a {
 #pageheader {
 	grid-area: header;
 	font-size: 2em;
-}
-#pageheader a {
-	text-decoration: none;
-	color: black;
+	
+	a {
+		text-decoration: none;
+		color: black;
+	}
 }
 
 #pagenav {
@@ -56,27 +64,44 @@ a {
 	color: rgb(101, 101, 84);
 	font-size: 0.95em;
 	line-height: 1.7em;
+	
+	ul[title]:before {
+		content: attr(title);
+		display: block;
+		width: 100%;
+		border-bottom: 1px dotted rgb(101, 101, 84);
+	}
+	li {
+		display: inline;
+	}
+	a {
+		display: list-item;
+		list-style-type: square;
+		
+		&[class^="link-"] {
+			padding-left: 1rem;
+			background-repeat: no-repeat;
+			background-position: left center;
+			background-size: 0.8rem 0.8rem;
+		}
+		&.link-github {
+			background-image: url("../img/logo/github.svg");
+		}
+		&.link-fediverse {
+			background-image: url("../img/logo/fediverse.svg");
+		}
+		&.link-stackoverflow {
+			background-image: url("../img/logo/stackexchange.svg");
+		}
+	}
+	
+	.photo {
+		width: 128px;
+		max-width: 100%;
+		display: block;
+		margin: 0 auto;
+	}
 }
-#pagenav ul[title]:before {
-	content: attr(title);
-	display: block;
-	width: 100%;
-	border-bottom: 1px dotted rgb(101, 101, 84);
-}
-#pagenav li {
-	display: inline;
-}
-#pagenav a {
-	display: list-item;
-	list-style-type: square;
-}
-#pagenav .photo {
-	width: 128px;
-	max-width: 100%;
-	display: block;
-	margin: 0 auto;
-}
-
 #pagebody {
 	grid-area: content;
 	
@@ -91,136 +116,142 @@ a {
 	border-radius: 1em;
 }
 
-.post header {
-	position: relative;
-}
-.post header h2 {
-	font-size: 1.8em;
-	font-weight: normal;
-	color: rgb(57, 82, 107);
-	margin-bottom: 0.25em;
-	border-bottom: 1px solid rgb(200, 200, 200);
-}
-.post header h2 a {
-	color: rgb(57, 82, 107);
-	text-decoration: none;
-}
-.post header h3, .post .comment > h3 {
-	font-size: 0.9em;
-	color: dimgrey;
-	margin-top: 0;
-	margin-bottom: 0.5em;
-}
-.post .comment > h3 {
-	font-size: 1.2em;
-}
-.post .body {
-	overflow-x: auto;
-}
+.post {
+	header {
+		position: relative;
+		h2 {
+			font-size: 1.8em;
+			font-weight: normal;
+			color: rgb(57, 82, 107);
+			margin-bottom: 0.25em;
+			border-bottom: 1px solid rgb(200, 200, 200);
+			
+			a {
+				color: rgb(57, 82, 107);
+				text-decoration: none;
+			}
+		}
+		
+		& > .admin {
+			float: right;
+			
+			form {
+				display: inline;
+			}
+			input[type='submit'], a {
+				border: 0;
+				background: transparent;
+				font-size: 1em;
+				display: inline-block;
+				padding: 0 0.25em;
+				text-decoration: none;
+			}
+			input[type='submit']:focus, a:focus {
+				outline: 1px solid lightblue;
+			}
+		}
+	}
+	header h3, .post .comment > h3 {
+		font-size: 0.9em;
+		color: dimgrey;
+		margin-top: 0;
+		margin-bottom: 0.5em;
+	}
+	.comment > h3 {
+		font-size: 1.2em;
+	}
+	.body {
+		overflow-x: auto;
+	}
+	
+	& + .post {
+		margin-top: 2em;
+	}
+	
+	.thread {
+		border: 1px solid lightblue;
+		padding: 0;
+		padding-bottom: 0.5em;
+		
+		&:before {
+			display: block;
+			content: attr(title);
+			padding: 0.5em;
+			border-bottom: 1px solid lightblue;
+			background-color: rgba(0, 0, 128, 0.05);
+			margin-bottom: 0.5em;
+		}
+		
+		li {
+			margin-left: 3em;
+			line-height: 1.4;
+		}
+	}
+		
+	img {
+		max-width: 100%;
+		height: auto;
+		
+		&:not([width]) { width: auto; }
+		&:not([height]) { height: auto; }
+	}
 
-.post header > .admin {
-	float: right;
+	h2 {
+		font-weight: normal;
+		font-size: 2em;
+		margin-bottom: 0;
+	}
+	h3 {
+		font-weight: normal;
+		font-size: 1.6em;
+		margin-bottom: 0;
+	}
 }
-.post .admin form {
-	display: inline;
-}
-.post .admin input[type='submit'], .post .admin a {
-	border: 0;
-	background: transparent;
-	font-size: 1em;
-	display: inline-block;
-	padding: 0 0.25em;
-	text-decoration: none;
-}
-.post .admin input[type='submit']:focus, .post .admin a:focus {
-	outline: 1px solid lightblue;
-}
-
 
 .meta, .meta a {
 	font-size: 0.9em;
 	color: dimgrey;
 }
 
-.post + .post {
-	margin-top: 2em;
-}
-
-.post .thread {
-	border: 1px solid lightblue;
-	padding: 0;
-	padding-bottom: 0.5em;
-}
-.post .thread:before {
-	display: block;
-	content: attr(title);
-	padding: 0.5em;
-	border-bottom: 1px solid lightblue;
-	background-color: rgba(0, 0, 128, 0.05);
-	margin-bottom: 0.5em;
-}
-.post .thread li {
-	margin-left: 3em;
-	line-height: 1.4;
-}
-.post img {
-	max-width: 100%;
-	height: auto;
-}
-.post img:not([width]) {
-	width: auto;
-}
-.post img:not([height]) {
-	height: auto;
-}
-.post h2 {
-	font-weight: normal;
-	font-size: 2em;
-	margin-bottom: 0;
-}
-.post h3 {
-	font-weight: normal;
-	font-size: 1.6em;
-	margin-bottom: 0;
-}
-
 .comments {
 	margin-top: 2em;
-}
-.comments:before {
-	content: "Comments";
-	font-size: 1.2em;
-	font-weight: bold;
-	color: #888;
-	border-bottom: 1px solid #ddd;
-	margin-bottom: 1em;
-	display: block;
+	
+	&:before {
+		content: "Comments";
+		font-size: 1.2em;
+		font-weight: bold;
+		color: #888;
+		border-bottom: 1px solid #ddd;
+		margin-bottom: 1em;
+		display: block;
+	}
 }
 
 .comment {
 	display: grid;
-}
-.comment + .comment {
-	margin-top: 1em;
-}
+	
+	& + .comment {
+		margin-top: 1em;
+	}
+	& .photo {
+		grid-area: photo;
+		max-width: 48px;
+	}
+	& > h3 {
+		grid-area: title;
+	}
+	& > .admin {
+		grid-area: admin;
+		text-align: right;
+	}
 
-.comment .photo {
-	grid-area: photo;
-	max-width: 48px;
-}
-.comment > h3 {
-	grid-area: title;
-}
-.comment > .admin {
-	grid-area: admin;
-	text-align: right;
-}
-.comment > .comment-body {
-	grid-area: content;
-	overflow-x: auto;
-}
-.comment > .comment-body p:first-child {
-	margin-top: 0;
+	& > .comment-body {
+		grid-area: content;
+		overflow-x: auto;
+	}
+	& > .comment-body p:first-child {
+		margin-top: 0;
+	}
 }
 
 #pagefooter {
@@ -230,9 +261,10 @@ a {
 	text-align: center;
 
 	font-size: 0.9em;
-}
-#pagefooter a {
-	color: rgba(0, 0, 0, 0.9);
+	
+	a {
+		color: rgba(0, 0, 0, 0.9);
+	}
 }
 
 input:invalid {
@@ -271,20 +303,23 @@ pre code, .hilite-me pre {
 	display: grid;
 	grid-template-columns: 1fr 1fr;
 	grid-template-areas: "newer older";
-}
-.posts-older-newer .newer {
-	grid-area: newer;
-	text-align: left;
-}
-.posts-older-newer .newer:before {
-	content: "<< ";
-}
-.posts-older-newer .older {
-	grid-area: older;
-	text-align: right;
-}
-.posts-older-newer .older::after {
-	content: " >>";
+	
+	.newer {
+		grid-area: newer;
+		text-align: left;
+		
+		&::before {
+			content: "<< ";
+		}
+	}
+	.older {
+		grid-area: older;
+		text-align: right;
+		
+		&::after {
+			content: " >>";
+		}
+	}
 }
 
 @media (max-width: 699px) {
@@ -316,14 +351,14 @@ pre code, .hilite-me pre {
 		clip-path: polygon(50% 0%, 0% 100%, 100% 100%);
 		transform: rotate(90deg);
 		transition: ease 300ms;
-	}
-	.mobile-nav:checked {
-		transform: rotate(180deg);
-		transition: ease 300ms;
-	}
-	
-	.mobile-nav:not(:checked) ~ * {
-		display: none !important;
+		
+		&:checked {
+			transform: rotate(180deg);
+			transition: ease 300ms;
+		}
+		&:not(:checked) ~ * {
+			display: none !important;
+		}
 	}
 
 	.post pre {
@@ -339,10 +374,10 @@ pre code, .hilite-me pre {
 		grid-template-areas:
 			"title admin"
 			"content content";
-	}
-	
-	.comment .photo {
-		display: none;
+		
+		.photo {
+			display: none;
+		}
 	}
 }
 @media (min-width: 700px) {
@@ -362,12 +397,13 @@ pre code, .hilite-me pre {
 		grid-template-columns: minmax(210px, 1fr) 5fr;
 		grid-template-areas: "padding link";
 		background-color: rgb(187, 204, 187);
-	}
-	#pageheader a {
-		grid-area: link;
-		display: block;
-		padding: 0.5em;
-		background-color: rgb(204, 221, 204);
+		
+		a {
+			grid-area: link;
+			display: block;
+			padding: 0.5em;
+			background-color: rgb(204, 221, 204);
+		}
 	}
 	#pagenav > .sidebar-content {
 		position: -webkit-sticky;
@@ -396,11 +432,12 @@ pre code, .hilite-me pre {
 		grid-template-columns: minmax(210px, 1fr) 5fr;
 		grid-template-areas: "padding text";
 		background-color: rgb(105, 140, 182);
-	}
-	#pagefooter p {
-		grid-area: text;
-		padding: 0.5em;
-		background-color: rgb(111, 149, 208);
-		margin: 0;
+		
+		p {
+			grid-area: text;
+			padding: 0.5em;
+			background-color: rgb(111, 149, 208);
+			margin: 0;
+		}
 	}
 }

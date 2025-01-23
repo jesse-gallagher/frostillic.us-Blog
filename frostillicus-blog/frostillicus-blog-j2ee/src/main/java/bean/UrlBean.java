@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2012-2023 Jesse Gallagher
+ * Copyright (c) 2012-2025 Jesse Gallagher
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -46,6 +46,18 @@ public class UrlBean {
 		} else {
 			return url;
 		}
+	}
+	
+	public String canonicalize(String url) {
+		// In practice, the distinction in these URLs is whether or not they start with "/"
+		if(url == null || url.isEmpty()) {
+			return url;
+		}
+		
+		
+		URI uri = URI.create(req.getRequestURL().toString());
+		uri = uri.resolve(concat(req.getContextPath(), url));
+		return uri.toString();
 	}
 
 	public String concat(final String... parts) {

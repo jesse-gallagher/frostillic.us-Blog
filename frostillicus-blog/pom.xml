@@ -4,7 +4,7 @@
 
 	<groupId>frostillicus.blog</groupId>
 	<artifactId>frostillicus-blog</artifactId>
-	<version>3.1.0</version>
+	<version>3.2.0</version>
 	<packaging>pom</packaging>
 
 	<name>frostillic.us Blog App</name>
@@ -209,7 +209,7 @@
 						</excludes>
 						<properties>
 							<owner>Jesse Gallagher</owner>
-							<copyrightYear>2023</copyrightYear>
+							<copyrightYear>2025</copyrightYear>
 						</properties>
 						<mapping>
 							<tag>DYNASCRIPT_STYLE</tag>

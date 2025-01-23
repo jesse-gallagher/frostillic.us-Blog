@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2012-2023 Jesse Gallagher
+ * Copyright (c) 2012-2025 Jesse Gallagher
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -34,6 +34,7 @@ import api.atompub.model.Control;
 import api.atompub.model.Entry;
 import api.atompub.model.Feed;
 import api.atompub.model.Link;
+import api.atompub.model.Summary;
 import bean.UserInfoBean;
 import controller.PostController;
 import jakarta.annotation.security.RolesAllowed;
@@ -170,6 +171,14 @@ public class BlogResource {
 			content.setValue(post.getBodyHtml());
 			entry.setContent(content);
 		}
+		
+		String summary = post.getSummary();
+		if(StringUtil.isNotEmpty(summary)) {
+			Summary summaryElement = new Summary();
+			summaryElement.setType(MediaType.TEXT_PLAIN);
+			summaryElement.setBody(summary);
+			entry.setSummary(summaryElement);
+		}
 
 		post.getTags().stream()
 			.map(AtomCategory::new)
@@ -195,7 +204,10 @@ public class BlogResource {
 		}
 		post.setTitle(entry.getTitle());
 		post.setBodyMarkdown(entry.getContent().getValue());
-//		post.setSummary(entry.getSummary().getBody());
+		Summary summary = entry.getSummary();
+		if(summary != null) {
+			post.setSummary(summary.getBody());
+		}
 		List<AtomCategory> categories = entry.getCategories();
 		if(categories != null) {
 			post.setTags(categories.stream().map(AtomCategory::getTerm).collect(Collectors.toList()));

@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2012-2023 Jesse Gallagher
+ * Copyright (c) 2012-2025 Jesse Gallagher
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -33,4 +33,5 @@ public class Link {
 	@Column("link_visible") @Convert(BooleanYNConverter.class) private boolean visible;
 	@Column private String rel;
 	@Column private boolean isConflict;
+	@Column private String classes;
 }

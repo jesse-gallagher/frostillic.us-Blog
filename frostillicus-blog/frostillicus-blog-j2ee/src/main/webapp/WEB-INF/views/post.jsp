@@ -1,6 +1,6 @@
 <%--
 
-    Copyright (c) 2012-2023 Jesse Gallagher
+    Copyright (c) 2012-2025 Jesse Gallagher
 
     Licensed under the Apache License, Version 2.0 (the "License");
     you may not use this file except in compliance with the License.
@@ -17,6 +17,8 @@
 --%>
 <%@page contentType="text/html" trimDirectiveWhitespaces="true" session="false" %>
 <%@taglib prefix="t" tagdir="/WEB-INF/tags" %>
-<t:layout ogTitle="${post.title}">
+<t:layout ogTitle="${post.title}" ogDescription="${post.summary}" pageTitle="${post.title}"
+	url="/posts/${post.postedYear}/${post.postedMonth}/${post.postedDay}/${post.slug}">
+	
 	<t:post value="${post}" comments="${comments}"/>
 </t:layout>

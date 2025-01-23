@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2012-2023 Jesse Gallagher
+ * Copyright (c) 2012-2025 Jesse Gallagher
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -17,6 +17,9 @@ package bean;
 
 import java.text.DateFormatSymbols;
 import java.text.MessageFormat;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.time.temporal.TemporalAccessor;
 import java.util.ResourceBundle;
 
 import jakarta.enterprise.context.RequestScoped;
@@ -50,7 +53,13 @@ public class TranslationBean {
 		}
 
 		public String getMonth(final int index) {
-			return DateFormatSymbols.getInstance(request.getLocale()).getMonths()[index];
+			var translation = CDI.current().select(ResourceBundle.class, NamedLiteral.of("translation")).get(); //$NON-NLS-1$
+			return DateFormatSymbols.getInstance(translation.getLocale()).getMonths()[index];
+		}
+		
+		public String getFriendlyDate(TemporalAccessor temporal) {
+			var translation = CDI.current().select(ResourceBundle.class, NamedLiteral.of("translation")).get(); //$NON-NLS-1$
+			return DateTimeFormatter.ofPattern(translation.getString("mediumDateFormat"), translation.getLocale()).format(LocalDate.from(temporal)); //$NON-NLS-1$
 		}
 	}
 }

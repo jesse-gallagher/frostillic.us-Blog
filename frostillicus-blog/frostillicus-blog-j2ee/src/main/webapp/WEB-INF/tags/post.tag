@@ -1,6 +1,6 @@
 <%--
 
-    Copyright (c) 2012-2023 Jesse Gallagher
+    Copyright (c) 2012-2025 Jesse Gallagher
 
     Licensed under the Apache License, Version 2.0 (the "License");
     you may not use this file except in compliance with the License.
@@ -49,10 +49,14 @@
 		<ol class="thread" title="${fn:escapeXml(pageScope.value.thread)}">
 			<c:forEach items="${pageScope.value.threadInfo}" var="threadEntry">
 				<c:if test="${pageScope.value.id == threadEntry.id}">
-					<li><c:out value="${threadEntry.title}"/></li>
+					<li><c:out value="${messages.format('postDateAndTitle', messages.getFriendlyDate(threadEntry.posted), threadEntry.title)}"/></li>
 				</c:if>
 				<c:if test="${pageScope.value.id != threadEntry.id}">
-					<li><a href="posts/${threadEntry.postedYear}/${threadEntry.postedMonth}/${threadEntry.postedDay}/${threadEntry.slug}"><c:out value="${threadEntry.title}"/></a></li>
+					<li>
+						<a href="posts/${threadEntry.postedYear}/${threadEntry.postedMonth}/${threadEntry.postedDay}/${threadEntry.slug}">
+							<c:out value="${messages.format('postDateAndTitle', messages.getFriendlyDate(threadEntry.posted), threadEntry.title)}"/>
+						</a>
+					</li>
 				</c:if>
 			</c:forEach>
 		</ol>
