@@ -1,0 +1,156 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+    Copyright (c) 2012-2025 Jesse Gallagher
+
+    Licensed under the Apache License, Version 2.0 (the "License");
+    you may not use this file except in compliance with the License.
+    You may obtain a copy of the License at
+
+        http://www.apache.org/licenses/LICENSE-2.0
+
+    Unless required by applicable law or agreed to in writing, software
+    distributed under the License is distributed on an "AS IS" BASIS,
+    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+    See the License for the specific language governing permissions and
+    limitations under the License.
+
+-->
+<web-app xmlns="https://jakarta.ee/xml/ns/jakartaee"
+	  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	  xsi:schemaLocation="https://jakarta.ee/xml/ns/jakartaee https://jakarta.ee/xml/ns/jakartaee/web-app_6_0.xsd"
+	  version="6.0" metadata-complete="false">
+	
+	<display-name>frostillic.us Blog</display-name>
+	
+	<request-character-encoding>UTF-8</request-character-encoding>
+	<response-character-encoding>UTF-8</response-character-encoding>
+					
+	<!-- Make sure that the database is properly deployed when the app is launched -->
+	<context-param>
+    	<param-name>dwo-auto-deploy-jsonstore</param-name>
+    	<param-value>${frostillicus_blog.auto-deploy-jsonstore=true}</param-value>
+    </context-param>
+
+	<context-param>
+    	<param-name>dwo-sync-enabled</param-name>
+    	<param-value>${frostillicus_blog.sync-enabled=false}</param-value>
+  	</context-param>
+	<context-param>
+    	<param-name>dwo-sync-emptyjsondbonstart</param-name>
+    	<param-value>${frostillicus_blog.sync-emptyjsondbonstart=false}</param-value>
+  	</context-param>
+	<context-param>
+    	<param-name>dwo-sync-url</param-name>
+    	<param-value>${frostillicus_blog.sync-url=http://127.0.0.1/darwino.sync}</param-value>
+    </context-param>
+	<context-param>
+    	<param-name>dwo-sync-platform</param-name>
+    	<param-value>${frostillicus_blog.sync-platform=domino}</param-value>
+  	</context-param>
+		<context-param>
+    	<param-name>dwo-sync-commit-threshold</param-name>
+    	<param-value>${frostillicus_blog.sync-commit-threshold=100}</param-value>
+  	</context-param>
+	<context-param>
+    	<param-name>dwo-sync-instances</param-name>
+    	<param-value>${frostillicus_blog.sync-instances}</param-value>
+    </context-param>
+	<context-param>
+    	<param-name>dwo-sync-user</param-name>
+    	<param-value>${frostillicus_blog.sync-user}</param-value>
+  	</context-param>
+	<context-param>
+    	<param-name>dwo-sync-password</param-name>
+    	<param-value>${frostillicus_blog.sync-password}</param-value>
+  	</context-param>
+	<context-param>
+    	<param-name>dwo-sync-mode</param-name>
+    	<param-value>${frostillicus_blog.sync-mode=pull+push}</param-value>
+  	</context-param>
+	<context-param>
+    	<param-name>dwo-sync-trace</param-name>
+    	<param-value>${frostillicus_blog.sync-trace=false}</param-value>
+  	</context-param>
+		
+	<!--  Filter for Gzip -->
+	<!--  Note that a GZIP filter should not be applied twice in case of FORWARD -->
+	<!--  This filter should then be added first -->
+ 	<!--<filter>-->
+     	<!--<filter-name>GZipFilter</filter-name>-->
+     	<!--<filter-class>com.darwino.j2ee.servlet.gzip.GZipServletFilter</filter-class>-->
+ 	<!--</filter>-->
+ 	<!--<filter-mapping>-->
+     	<!--<filter-name>GZipFilter</filter-name>-->
+     	<!--<url-pattern>/*</url-pattern>-->
+     <!--</filter-mapping>-->
+	
+		
+	<!--  Filter for custom authentication -->
+	<!--  This should be the first one, before the J2EE filter as the user is required for the session  -->
+	<!--  Note that the server level authentication should be disabled then  -->
+	<filter>
+    	<filter-name>DarwinoAuthentication</filter-name>
+   		<filter-class>com.darwino.j2ee.servlet.authentication.AuthenticationFilter</filter-class>    
+        <init-param>
+        	<param-name>modes</param-name>
+            <param-value>FORM,security.AccessTokenAuthHandler,BASIC</param-value>
+        </init-param>
+        <init-param>
+        	<param-name>login-param</param-name>
+        	<param-value>login</param-value>
+        </init-param>
+        <init-param>
+        	<param-name>logout-param</param-name>
+        	<param-value>logout</param-value>
+        </init-param>
+        <!-- for WebSphere -->
+        <init-param>
+        	<param-name>seek-bare-params</param-name>
+        	<param-value>true</param-value>
+        </init-param>
+        <init-param>
+        	<param-name>auth-required</param-name>
+        	<param-value>false</param-value>
+        </init-param>
+        <init-param>
+        	<param-name>login-form</param-name>
+        	<param-value>/WEB-INF/login.html</param-value>
+        </init-param>
+        <init-param>
+        		<param-name>sessionToken</param-name>
+        		<param-value>false</param-value>
+        </init-param>
+    </filter>
+	<filter-mapping>
+    	<filter-name>DarwinoAuthentication</filter-name>
+    	<url-pattern>/*</url-pattern>
+		<dispatcher>REQUEST</dispatcher>
+    	<dispatcher>FORWARD</dispatcher>
+   	</filter-mapping>
+
+	<!--  Filter for creating the Darwino Application, Context and DB session -->
+	<filter>
+    	<filter-name>DarwinoApplication</filter-name>
+    	<filter-class>com.darwino.j2ee.application.DarwinoJ2EEFilter</filter-class>
+	</filter>
+	<filter-mapping>
+    	<filter-name>DarwinoApplication</filter-name>
+    	<url-pattern>/*</url-pattern>
+	</filter-mapping>
+
+	<!-- Filter for $darwino-xxx URLs rewritting -->
+	<!--  This filter must be before the services or resources filters, to make sure that the URL is processed before reaching them -->
+	<filter>
+    	<filter-name>DarwinoRewriting</filter-name>
+    	<filter-class>com.darwino.j2ee.servlet.resources.DarwinoGlobalPathRewriterFilter</filter-class>
+   	</filter>
+	<filter-mapping>
+    	<filter-name>DarwinoRewriting</filter-name>
+    	<url-pattern>/*</url-pattern>
+	</filter-mapping>
+	
+	<error-page>
+		<location>/errorHandler</location>
+	</error-page>
+</web-app>
