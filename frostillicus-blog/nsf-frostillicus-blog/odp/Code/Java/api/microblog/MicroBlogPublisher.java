@@ -21,11 +21,10 @@ import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import org.eclipse.microprofile.config.inject.ConfigProperty;
-
 import com.ibm.commons.util.StringUtil;
 
 import api.micropub.MicroPubClient.EntryType;
+import bean.ConfigBean;
 import jakarta.enterprise.concurrent.ManagedExecutorService;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.enterprise.event.Observes;
@@ -44,27 +43,23 @@ import util.HttpUtil;
  */
 @ApplicationScoped
 public class MicroBlogPublisher {
-	private static final Logger log = Logger.getLogger(MicroBlogPublisher.class.getPackage().getName());
-	static {
-		log.setLevel(Level.ALL);
-	}
-
+	
+	@Inject
+	private Logger log;
+	
 	@Inject @Named("java:comp/DefaultManagedExecutorService")
 	private ManagedExecutorService exec;
 
 	@Inject
-	@ConfigProperty(name="microblog-key", defaultValue="")
-	private String apiKey;
+	private ConfigBean configBean;
 	
 	public String getApiKey() {
-		return apiKey;
-	}
-	public void setApiKey(String apiKey) {
-		this.apiKey = apiKey;
+		return configBean.getConfig("microblog-key")
+			.orElse(null);
 	}
 
 	public void crossPost(@Observes final MicroPostEvent event) {
-		if(StringUtil.isNotEmpty(apiKey)) {
+		if(StringUtil.isNotEmpty(getApiKey())) {
 			if(log.isLoggable(Level.FINE)) {
 				log.fine("Logging MicroPost " + event.post()); //$NON-NLS-1$
 			}
@@ -76,7 +71,7 @@ public class MicroBlogPublisher {
 					var post = event.post();
 
 					// TODO switch to MicroProfile REST Client when it supports the keystore
-					Map<String, String> auth = Collections.singletonMap(HttpHeaders.AUTHORIZATION, "Bearer " + apiKey); //$NON-NLS-1$
+					Map<String, String> auth = Collections.singletonMap(HttpHeaders.AUTHORIZATION, "Bearer " + getApiKey()); //$NON-NLS-1$
 					Map<String, String> content = new HashMap<>();
 					content.put("h", EntryType.entry.name()); //$NON-NLS-1$
 					content.put("name", post.getName()); //$NON-NLS-1$

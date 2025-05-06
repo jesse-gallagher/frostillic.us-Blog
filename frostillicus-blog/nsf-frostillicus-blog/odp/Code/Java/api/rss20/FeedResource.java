@@ -17,8 +17,6 @@ package api.rss20;
 
 import java.util.ResourceBundle;
 
-import org.eclipse.microprofile.config.inject.ConfigProperty;
-
 import com.ibm.commons.util.PathUtil;
 import com.ibm.commons.util.StringUtil;
 
@@ -27,6 +25,7 @@ import api.rss20.model.Channel;
 import api.rss20.model.Image;
 import api.rss20.model.Rss;
 import api.rss20.model.RssItem;
+import bean.ConfigBean;
 import bean.UrlBean;
 import jakarta.data.page.PageRequest;
 import jakarta.inject.Inject;
@@ -54,14 +53,13 @@ public class FeedResource {
 	UrlBean urlBean;
 
 	@Inject
-	@ConfigProperty(name="rss-request-urls", defaultValue="false")
-	private boolean rssRequestUrls;
+	private ConfigBean configBean;
 
 	@GET
 	@Produces("application/rss+xml")
 	public Rss get() {
 		String baseUrl;
-		if(rssRequestUrls) {
+		if("true".equals(configBean.getConfig("rss-request-urls").orElse(null))) {
 			baseUrl = uriInfo.getBaseUri().toString();
 		} else {
 			baseUrl = PathUtil.concat(translation.getString("baseUrl"), servletContext.getContextPath(), '/'); //$NON-NLS-1$

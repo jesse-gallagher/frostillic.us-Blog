@@ -18,6 +18,8 @@ package app;
 import java.io.IOException;
 import java.text.MessageFormat;
 
+import org.openntf.xsp.jakarta.nosql.mapping.extension.ViewQuery;
+
 import com.ibm.commons.util.StringUtil;
 
 import jakarta.inject.Inject;
@@ -46,7 +48,7 @@ public class MediaResource {
     @GET
     @Path("{mediaId}/{mediaName}")
     public Response get(@PathParam("mediaId") final String mediaId, @PathParam("mediaName") final String mediaName) throws IOException {
-    	var media = mediaRepository.findById(mediaId).orElseThrow(NotFoundException::new);
+    	var media = mediaRepository.findByMediaId(ViewQuery.query().key(mediaId, true)).orElseThrow(NotFoundException::new);
 
     	String expectedName = mediaName.replace('+', ' ').toLowerCase();
         var att = media.getAttachments()

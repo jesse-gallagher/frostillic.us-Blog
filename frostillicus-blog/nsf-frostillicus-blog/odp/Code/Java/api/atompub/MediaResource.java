@@ -18,8 +18,8 @@ package api.atompub;
 import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.time.OffsetDateTime;
 import java.util.Arrays;
-import java.util.Date;
 import java.util.ResourceBundle;
 
 import org.eclipse.jnosql.communication.driver.attachment.EntityAttachment;
@@ -104,7 +104,7 @@ public class MediaResource {
         media.setName(name);
         media.setAttachments(Arrays.asList(EntityAttachment.of(name, System.currentTimeMillis(), contentType, data)));
         media.setCreationUser(userInfo.getDn());
-        media.setLastModificationDate(new Date());
+        media.setLastModificationDate(OffsetDateTime.now());
         media = mediaRepository.save(media);
 
         // Force update of metadata fields

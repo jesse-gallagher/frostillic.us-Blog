@@ -21,6 +21,7 @@ import java.util.List;
 import java.util.Optional;
 
 import org.openntf.xsp.jakarta.nosql.mapping.extension.DominoRepository;
+import org.openntf.xsp.jakarta.nosql.mapping.extension.ItemStorage;
 import org.openntf.xsp.jakarta.nosql.mapping.extension.ViewDocuments;
 import org.openntf.xsp.jakarta.nosql.mapping.extension.ViewQuery;
 
@@ -46,12 +47,12 @@ public class Comment {
 	@Column("commentId") @NotEmpty private String commentId;
 	@Column("postId") @NotEmpty private String postId;
 	@Column @NotNull private OffsetDateTime posted;
-	@Column("postedBy") @NotEmpty private String postedBy;
-	@Column("postedByEmail") @Email private String postedByEmail;
+	@Column("AuthorName") @NotEmpty private String postedBy;
+	@Column("AuthorEmail") @Email private String postedByEmail;
 	@Column("postedByUrl") private String postedByUrl;
 	@Column("bodyMarkdown") private String bodyMarkdown;
 
-	@Column("bodyHtml") @NotEmpty private String bodyHtml;
+	@Column("Body") @ItemStorage(type = ItemStorage.Type.MIME) @NotEmpty private String bodyHtml;
 	@Column("http_referer") private String httpReferer;
 	@Column("http_user_agent") private String httpUserAgent;
 	@Column("remote_addr") private String httpRemoteAddr;

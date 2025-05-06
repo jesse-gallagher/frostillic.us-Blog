@@ -72,7 +72,7 @@
 	<body>
 		<div id="entirety">
 			<header id="pageheader">
-				<a href="${pageContext.request.contextPath}"><c:out value="${translation.appTitle}"/></a>
+				<a href="${mvc.basePath}"><c:out value="${translation.appTitle}"/></a>
 			</header>
 			<nav id="pagenav">
 				<input type="checkbox" id="navbar-toggle" class="mobile-nav" aria-hidden="true"/>
@@ -81,7 +81,7 @@
 						<img src="${userInfo.getImageUrl(translation.authorEmail)}" class="photo" alt="${fn:escapeXml(translation.authorPhoto)}"/>
 					</header>
 					<ul class="sitenav">
-						<li><a href="${pageContext.request.contextPath}/"><c:out value="${translation.home}"/></a></li>
+						<li><a href="${mvc.basePath}/"><c:out value="${translation.home}"/></a></li>
 						<li><a href="posts"><c:out value="${translation.archive}"/></a></li>
 						<c:if test="${userInfo.anonymous}">
 							<li data-turbolinks="false"><a href="?login"><c:out value="${translation.logIn}"/></a></li>

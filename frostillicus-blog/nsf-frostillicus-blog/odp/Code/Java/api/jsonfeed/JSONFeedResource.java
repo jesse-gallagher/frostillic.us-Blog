@@ -20,10 +20,9 @@ import java.util.List;
 import java.util.ResourceBundle;
 import java.util.stream.Collectors;
 
-import org.eclipse.microprofile.config.inject.ConfigProperty;
-
 import com.ibm.commons.util.PathUtil;
 
+import bean.ConfigBean;
 import bean.UserInfoBean;
 import jakarta.data.page.PageRequest;
 import jakarta.inject.Inject;
@@ -194,8 +193,7 @@ public class JSONFeedResource {
 	ServletContext servletContext;
 
 	@Inject
-	@ConfigProperty(name="rss-request-urls", defaultValue="false")
-	private boolean rssRequestUrls;
+	private ConfigBean configBean;
 
 	@GET
 	@Produces(MediaType.APPLICATION_JSON)
@@ -203,7 +201,7 @@ public class JSONFeedResource {
 		return out -> {
 			try(var jsonb = JsonbBuilder.create()) {
 				String baseUrl;
-				if(rssRequestUrls) {
+				if("true".equals(configBean.getConfig("rss-request-urls").orElse(null))) {
 					baseUrl = uriInfo.getBaseUri().toString();
 				} else {
 					baseUrl = PathUtil.concat(translation.getString("baseUrl"), servletContext.getContextPath(), '/'); //$NON-NLS-1$

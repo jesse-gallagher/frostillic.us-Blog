@@ -16,7 +16,7 @@
 
 --%>
 <%@tag description="Displays an individual model.Post object and its comments, if present" trimDirectiveWhitespaces="true" %>
-<%@attribute name="value" required="true" type="model.Post" %>
+<%@attribute name="value" required="true" type="java.lang.Object" %>
 <%@attribute name="comments" required="false" type="java.util.List" %>
 <%@taglib prefix="c" uri="jakarta.tags.core" %>
 <%@taglib prefix="fmt" uri="jakarta.tags.fmt" %>

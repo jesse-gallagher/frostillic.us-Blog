@@ -15,12 +15,22 @@
  */
 package bean;
 
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.security.Principal;
+import java.util.List;
+
+import com.ibm.commons.util.StringUtil;
 
 import jakarta.enterprise.context.RequestScoped;
+import jakarta.enterprise.inject.literal.NamedLiteral;
+import jakarta.enterprise.inject.spi.CDI;
 import jakarta.inject.Inject;
 import jakarta.inject.Named;
 import jakarta.ws.rs.core.SecurityContext;
+import jakarta.xml.bind.DatatypeConverter;
+import lotus.domino.Directory;
+import lotus.domino.DirectoryNavigator;
 import lotus.domino.Name;
 import lotus.domino.NotesException;
 import lotus.domino.Session;
@@ -37,10 +47,20 @@ public class UserInfoBean {
 	private SecurityContext securityContext;
 
 	public String getImageUrl(final String userName) {
-//		String md5 = StringUtil.md5Hex(StringUtil.toString(userName).toLowerCase());
-//		return StringUtil.format(DarwinoHttpConstants.SOCIAL_USERS_PATH + "/users/{0}/content/photo", URLEncoder.encode(md5, "UTF-8")); //$NON-NLS-1$ //$NON-NLS-2$
-		// TODO add GravatarProvider from OpenNTF?
-		return null;
+		String email = getEmailAddress(userName);
+		if(StringUtil.isEmpty(email)) {
+			email = userName;
+		}
+		try {
+			// If found, send them to Gravatar
+			MessageDigest md = MessageDigest.getInstance("MD5");
+		    md.update(email.getBytes());
+		    byte[] digest = md.digest();
+		    String md5 = DatatypeConverter.printHexBinary(digest).toLowerCase();
+			return "http://www.gravatar.com/avatar/" + md5 + "?d=wavatar&s=256";
+		} catch(NoSuchAlgorithmException e) {
+			throw new RuntimeException(e);
+		}
 	}
 
 	public boolean isAdmin() {
@@ -89,7 +109,33 @@ public class UserInfoBean {
 	}
 
 	public String getEmailAddress() {
-		// TODO use email provider?
+		Principal principal = securityContext.getUserPrincipal();
+		if(principal == null || "anonymous".equalsIgnoreCase(principal.getName())) {
+			return "";
+		}
+		
+		return getEmailAddress(principal.getName());
+	}
+	
+	private String getEmailAddress(String userName) {
+		if(StringUtil.isEmpty(userName)) {
+			return "";
+		}
+		
+		try {
+			Session session = CDI.current().select(Session.class, NamedLiteral.of("dominoSession")).get();
+			Directory dir = session.getDirectory();
+			DirectoryNavigator nav = dir.lookupNames("($Users)", userName, "InternetAddress");
+			if(nav.findFirstMatch()) {
+				List<?> vals = nav.getFirstItemValue();
+				if(vals != null && !vals.isEmpty()) {
+					return StringUtil.toString(vals.get(0));
+				}
+			}
+		} catch(NotesException e) {
+			throw new RuntimeException(e);
+		}
+		
 		return "";
 	}
 }

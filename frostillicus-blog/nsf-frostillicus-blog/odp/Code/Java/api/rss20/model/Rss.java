@@ -33,9 +33,15 @@ public class Rss {
 	public Channel getChannel() {
 		return channel;
 	}
+	public void setChannel(Channel channel) {
+		this.channel = channel;
+	}
 	@XmlAttribute(name="version")
 	public String getVersion() {
 		return version;
+	}
+	public void setVersion(String version) {
+		this.version = version;
 	}
 	@XmlAttribute(name="xml:base")
 	public String getBase() {

@@ -95,11 +95,11 @@ public class Post {
 	@Id @Column private String id;
 	@Column private int postIdInt;
 	@Column private String postId;
-	@Column private String title;
+	@Column("$$TITLE") private String title;
 	@Column @NotNull private OffsetDateTime posted;
 	@Column private String postedBy;
 	@Column private String bodyMarkdown;
-	@Column private String bodyHtml;
+	@Column("Body") @ItemStorage(type = ItemStorage.Type.MIME) private String bodyHtml;
 	@Column("_tags") private List<String> tags;
 	@Column private String thread;
 	@Column private Status status;

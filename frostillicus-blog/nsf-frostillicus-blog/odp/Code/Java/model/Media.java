@@ -15,7 +15,7 @@
  */
 package model;
 
-import java.util.Date;
+import java.time.OffsetDateTime;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Stream;
@@ -23,6 +23,8 @@ import java.util.stream.Stream;
 import org.eclipse.jnosql.communication.driver.attachment.EntityAttachment;
 import org.openntf.xsp.jakarta.nosql.communication.driver.DominoConstants;
 import org.openntf.xsp.jakarta.nosql.mapping.extension.DominoRepository;
+import org.openntf.xsp.jakarta.nosql.mapping.extension.ViewDocuments;
+import org.openntf.xsp.jakarta.nosql.mapping.extension.ViewQuery;
 
 import jakarta.nosql.Column;
 import jakarta.nosql.Entity;
@@ -35,6 +37,9 @@ public class Media {
 		Optional<Media> findByName(String name);
 
 		Stream<Media> findAll();
+		
+		@ViewDocuments("MediaByID")
+		Optional<Media> findByMediaId(ViewQuery query);
 	}
 
 	@Id @Column
@@ -44,7 +49,7 @@ public class Media {
 	@Column(DominoConstants.FIELD_ATTACHMENTS)
 	private List<EntityAttachment> attachments;
 	@Column(DominoConstants.FIELD_MDATE)
-	private Date lastModificationDate;
+	private OffsetDateTime lastModificationDate;
 	// TODO migrate $UpdatedBy
 	@Column("CreatedBy")
 	private String creationUser;
@@ -67,10 +72,10 @@ public class Media {
 	public void setAttachments(List<EntityAttachment> attachments) {
 		this.attachments = attachments;
 	}
-	public Date getLastModificationDate() {
+	public OffsetDateTime getLastModificationDate() {
 		return lastModificationDate;
 	}
-	public void setLastModificationDate(Date lastModificationDate) {
+	public void setLastModificationDate(OffsetDateTime lastModificationDate) {
 		this.lastModificationDate = lastModificationDate;
 	}
 	public String getCreationUser() {

@@ -58,12 +58,21 @@ public class Channel {
 	public Image getImage() {
 		return image;
 	}
+	public void setImage(Image image) {
+		this.image = image;
+	}
 	@XmlElementRef
 	public List<RssItem> getItems() {
 		return items;
 	}
+	public void setItems(List<RssItem> items) {
+		this.items = items;
+	}
 	@XmlElementRef
 	public List<AtomLink> getLinks() {
 		return links;
+	}
+	public void setLinks(List<AtomLink> links) {
+		this.links = links;
 	}
 }

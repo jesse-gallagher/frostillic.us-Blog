@@ -16,7 +16,7 @@
 
 --%>
 <%@tag description="Displays a model.Post in an editable form" trimDirectiveWhitespaces="true" %>
-<%@attribute name="value" required="true" type="model.Post" %>
+<%@attribute name="value" required="true" type="java.lang.Object" %>
 <%@attribute name="edit" required="true" type="java.lang.Boolean" %>
 <%@taglib prefix="c" uri="jakarta.tags.core" %>
 <%@taglib prefix="fmt" uri="jakarta.tags.fmt" %>

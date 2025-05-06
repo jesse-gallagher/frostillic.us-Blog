@@ -1,15 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <note class="view" xmlns="http://www.lotus.com/dxl">
-  <item name="$FormatNote" summary="true">
+  <item name="$FormatNote" sign="true" summary="true">
     <rawitemdata type="4">
 AQCU7G6FoWlsP/FjaADvdyWF
 </rawitemdata>
   </item>
   <item name="$FormulaClass" sign="true">
     <text>1</text>
-  </item>
-  <item name="$TITLE" sign="true">
-    <text>Comments\By PostID</text>
   </item>
   <item name="$Index" sign="true">
     <text/>
@@ -67,5 +64,11 @@ AB8AAAAAAAAAAAADAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
 AAAAAAAAAAAAAAAAAAAAAAAAAAAAAPz/OgAAAAAAAQAAAAAAAQAAAAAAAAAAAAAAAAAAAAAAAAAA
 AAAAAAAAAAEAAAAAAAAAAAAAAAAAAAA=
 </rawitemdata>
+  </item>
+  <item name="$TITLE" sign="true">
+    <text>Comments\By PostID|CommentsByPostID</text>
+  </item>
+  <item name="$DesignerBuild" sign="true">
+    <text>Build V1450_04162025</text>
   </item>
 </note>

@@ -1,42 +1,43 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <note class="view" xmlns="http://www.lotus.com/dxl">
-  <item name="$FormatNote" summary="true">
+  <item name="$FormatNote" sign="true" summary="true">
     <rawitemdata type="4">
 AQCU7G6FoWlsP/FjaADvdyWF
 </rawitemdata>
+  </item>
+  <item name="$FormulaClass" sign="true">
+    <text>1</text>
   </item>
   <item name="$Index" sign="true">
     <text/>
   </item>
   <item name="$Formula" sign="true" summary="true">
     <formula compiled="true">
-SgAFACAAGwADAAQACQAEAEZvcm0kQ29uZmxpY3QkUkVGAAQABAAAABgAvwBYAQAAAAAAAADAY0AP
-AgQAAwAHAAwABQAJNVM2UwA=
+iAACAEAAAgAkMgEADAAkZGFyd2lub1VuaWRoAa8AIgAWAAUADAAkZGFyd2lub1VuaWSuAAwAkABW
+Aa4ABAC1AwMABQAeABkAAwACAAkABAAkMiRDb25mbGljdCRSRUYABAAEAAAAGgAFAAQARm9ybQEA
+BQBNZWRpYQAKAgMABwAKAAQACUwxUw==
 </formula>
-  </item>
-  <item name="$FormulaClass" sign="true">
-    <text>1</text>
   </item>
   <item name="$Collation" summary="true">
     <rawitemdata type="2">
-BgAAAABE
+DwABAABEgGYAAAACACQy
 </rawitemdata>
   </item>
   <item name="$ViewFormat" sign="true" summary="true">
     <rawitemdata type="5">
-AQACAAIAiEAAAFZDAAACAAEACgAKAFAAAQAACgAAAAAAAAAAAAICAAAAVkMAAAQABAAAAAAAUAAB
-AAAKAAAAAAAAAAAAAgIAAAAkMCMKAAAACACSAAMAAQUBAAQAf0Ew/0Zvcm1Gb3JtJgABAAAAAQEA
-CQEAAAoBAQ4KAAA/AK0rAQABAAEAAAAAAAAAAABXQwEBAAkAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
-AAD//wAAAAAAAAAAAAAAAAAAV0MBAQAJAAAAAAAAAAAAAAAAAAAAAAAABAAAAAAA//8AAAAAAAAA
-AAAAAAAAAEIAEQAAAAEA////AAEA7+/vAAEA////AAAAAAAAAAAAAQD///8AAQD///8AAAABAAAA
-AAABAAAAAAABAAAAAAAAAAgAAAAAAAEA
+AQABAAMAiEAAAFZDAQACAAIAVAAAAFAAAQAACgAAAAAAAAAAAAICAAAAJDJJRFQAAgBAAAIAJDIB
+AAwAJGRhcndpbm9VbmlkaAGvACIAFgAFAAwAJGRhcndpbm9VbmlkrgAMAJAAVgGuAAQAtQMDAAcA
+EgAMAAkyUlQ3UzlSVDEzUiYAAQAAAAEBAAkBAAAKAQEOCgAAPwCtKwEAAQABAAAAAAAAAAAAV0MB
+BQAJAAAAAAAAAAAAAAAAAAAAAAAABAAAAAAA//8AAAAAAAAAAAAAAAAAAEIAEQAAAAEA////AAEA
+7+/vAAEA////AAAAAAAAAAAAAQD///8AAQD///8AAAABAAAAAAABAAAAAAABAAAAAAAAAAgAAAAA
+AAEA
 </rawitemdata>
   </item>
   <item name="$Comment" sign="true">
     <text/>
   </item>
-  <item name="$ViewInheritedFrom">
-    <text>All</text>
+  <item name="$Flags">
+    <text>PY</text>
   </item>
   <item name="$V5ACTIONS" sign="true">
     <rawitemdata type="1">
@@ -46,10 +47,10 @@ AAAAAAAAAAAAAAAAAAAAAAAAAAAAAPz/OgAAAAAAAQAAAAAAAQAAAAAAAAAAAAAAAAAAAAAAAAAA
 AAAAAAAAAAEAAAAAAAAAAAAAAAAAAAA=
 </rawitemdata>
   </item>
-  <item name="$Flags">
-    <text>Yl</text>
-  </item>
   <item name="$TITLE" sign="true">
-    <text>Copy Of Trash</text>
+    <text>Media\By ID|MediaByID</text>
+  </item>
+  <item name="$DesignerBuild" sign="true">
+    <text>Build V1450_04162025</text>
   </item>
 </note>

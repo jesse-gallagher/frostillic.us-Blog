@@ -20,14 +20,13 @@ import java.net.URI;
 import java.util.List;
 import java.util.ResourceBundle;
 
-import org.eclipse.microprofile.config.inject.ConfigProperty;
-
 import com.ibm.commons.util.PathUtil;
 import com.ibm.commons.util.StringUtil;
 
 import api.micropub.MicroPubClient.EntryType;
 import api.rsd.RSD;
 import api.rsd.RSDService;
+import bean.ConfigBean;
 import bean.UserInfoBean;
 import controller.MicroPostController;
 import jakarta.annotation.security.RolesAllowed;
@@ -78,8 +77,7 @@ public class MicroPubResource implements RSD {
 	MicroPost.MicroPostRepository microPosts;
 
 	@Inject
-	@ConfigProperty(name="rss-request-urls", defaultValue="false")
-	private boolean rssRequestUrls;
+	private ConfigBean configBean;
 
 	@GET
 	@Produces(MediaType.APPLICATION_JSON)
@@ -133,7 +131,7 @@ public class MicroPubResource implements RSD {
 			microPost = microPosts.save(microPost);
 
 			String baseUrl;
-			if(rssRequestUrls) {
+			if("true".equals(configBean.getConfig("rss-request-urls").orElse(null))) {
 				baseUrl = uriInfo.getBaseUri().toString();
 			} else {
 				baseUrl = PathUtil.concat(translation.getString("baseUrl"), servletContext.getContextPath(), '/'); //$NON-NLS-1$

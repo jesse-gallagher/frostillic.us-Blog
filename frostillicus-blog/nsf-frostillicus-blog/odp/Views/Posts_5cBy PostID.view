@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<note class="view" xmlns="http://www.lotus.com/dxl">
+  <item name="$FormatNote" sign="true" summary="true">
+    <rawitemdata type="4">
+AQCU7G6FoWlsP/FjaADvdyWF
+</rawitemdata>
+  </item>
+  <item name="$FormulaClass" sign="true">
+    <text>1</text>
+  </item>
+  <item name="$TITLE" sign="true">
+    <text>Posts\By PostID|PostsByPostID</text>
+  </item>
+  <item name="$Index" sign="true">
+    <text/>
+  </item>
+  <item name="$Formula" sign="true" summary="true">
+    <formula compiled="true">
+CAECADoAAgAkMgUABABuYW1lAQAAAAoCrwAgABAABQAGAFBvc3RJRK4AEAAFAAQAbmFtZa4ABAC1
+AwMABQAeABkAAwACAAkABAAkMiRDb25mbGljdCRSRUYABAAEAAAAiAAFAAQARm9ybQEABABQb3N0
+CgIEAAUABABGb3JtAQAGAFNRTFJvdwoCBQAIAFNRTFRhYmxlAQAIAHdwX3Bvc3RzCgIcAgUACQBw
+b3N0X3R5cGUAAQAEAHBvc3QKAhwCBQALAHBvc3Rfc3RhdHVzAAEABwBwdWJsaXNoAAoCHAIEAB0C
+AwAHACIAHAAJTDFSVDZTN1JUMTFTMTJTMTVTMTZTMTlTMjBT
+</formula>
+  </item>
+  <item name="$Collation" summary="true">
+    <rawitemdata type="2">
+DwABAABEgGYAAAACACQy
+</rawitemdata>
+  </item>
+  <item name="$ViewFormat" sign="true" summary="true">
+    <rawitemdata type="5">
+AQABAAMAiEAAAFZDAQACAAYATgAAAFAAAQAACgAAAAAAAAAAAAICAAAAJDJQb3N0SUROAAIAOgAC
+ACQyBQAEAG5hbWUBAAAACgKvACAAEAAFAAYAUG9zdElErgAQAAUABABuYW1lrgAEALUDAwAHABIA
+CwAJMlJUNlM4UlQ5UgAmAAEAAAABAQAJAQAACgEBDgoAAD8ArSsBAAEAAQAAAAAAAAAAAFdDAQUA
+CQAAAAAAAAAAAAAAAAAAAAAAAAQAAAAAAP//AAAAAAAAAAAAAAAAAABCABEAAAABAP///wABAO/v
+7wABAP///wAAAAAAAAAAAAEA////AAEA////AAAAAQAAAAAAAQAAAAAAAQAAAAAAAAAIAAAAAAAB
+AA==
+</rawitemdata>
+  </item>
+  <item name="$Comment" sign="true">
+    <text/>
+  </item>
+  <item name="$Flags">
+    <text>Y</text>
+  </item>
+  <item name="$DesignerBuild">
+    <text>Build V1450_04162025</text>
+  </item>
+  <item name="$V5ACTIONS" sign="true">
+    <rawitemdata type="1">
+vRwjAAAAAQABAAAAAQAAAAAAAAAAAAAACAACAHn/bAABANTQyAABAAAAAAAJAAAAAAABANTQyAAA
+AB8AAAAAAAAAAAADAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAPz/OgAAAAAAAQAAAAAAAQAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAEAAAAAAAAAAAAAAAAAAAA=
+</rawitemdata>
+  </item>
+</note>
