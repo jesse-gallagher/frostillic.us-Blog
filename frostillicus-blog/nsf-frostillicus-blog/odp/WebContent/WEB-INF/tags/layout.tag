@@ -83,12 +83,6 @@
 					<ul class="sitenav">
 						<li><a href="${mvc.basePath}/"><c:out value="${translation.home}"/></a></li>
 						<li><a href="posts"><c:out value="${translation.archive}"/></a></li>
-						<c:if test="${userInfo.anonymous}">
-							<li data-turbolinks="false"><a href="?login"><c:out value="${translation.logIn}"/></a></li>
-						</c:if>
-						<c:if test="${not userInfo.anonymous}">
-							<li data-turbolinks="false"><a href="?logout"><c:out value="${translation.logOut}"/></a></li>
-						</c:if>
 					</ul>
 					
 					<form action="posts/search" method="GET" class="inline-search">
