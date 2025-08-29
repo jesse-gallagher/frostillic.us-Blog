@@ -27,7 +27,7 @@ import jakarta.ws.rs.POST;
 @ApplicationScoped
 public class HiliteMeHighlighter implements SyntaxHighlighter {
 
-	public interface HiliteMeService {
+	public interface HiliteMeService extends AutoCloseable {
 		@POST
 		String highlight(
 			@FormParam("code") String code,
@@ -35,16 +35,20 @@ public class HiliteMeHighlighter implements SyntaxHighlighter {
 			@FormParam("linenos") boolean lineNos,
 			@FormParam("style") String style
 		);
+		
+		@Override
+		void close();
 	}
 
 	@Override
 	public String highlight(final String text, final String language) {
 		// TODO use embedded Python interpreter?
-		var apiUri = URI.create("http://hilite.me/api"); //$NON-NLS-1$
-		var hiliteMe = RestClientBuilder.newBuilder()
+		var apiUri = URI.create("https://hilite.me/api"); //$NON-NLS-1$
+		try(var hiliteMe = RestClientBuilder.newBuilder()
 			.baseUri(apiUri)
-			.build(HiliteMeService.class);
-		return hiliteMe.highlight(text, language, true, "colorful"); //$NON-NLS-1$
+			.build(HiliteMeService.class)) {
+			return hiliteMe.highlight(text, language, true, "colorful"); //$NON-NLS-1$
+		}
 	}
 
 }
