@@ -1,15 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <note class="view" xmlns="http://www.lotus.com/dxl">
-  <item name="$FormatNote" summary="true">
+  <item name="$FormatNote" sign="true" summary="true">
     <rawitemdata type="4">
 AQCU7G6FoWlsP/FjaADvdyWF
 </rawitemdata>
   </item>
   <item name="$FormulaClass" sign="true">
     <text>1</text>
-  </item>
-  <item name="$TITLE" sign="true">
-    <text>Posts\By Thread</text>
   </item>
   <item name="$Index" sign="true">
     <text/>
@@ -59,5 +56,11 @@ AAAAAAAAAAEAAAAAAAAAAAAAAAAAAAA=
   </item>
   <item name="$Flags">
     <text>Y</text>
+  </item>
+  <item name="$TITLE" sign="true">
+    <text>Posts\By Thread|PostsByThread</text>
+  </item>
+  <item name="$DesignerBuild" sign="true">
+    <text>Build V1450_04162025</text>
   </item>
 </note>

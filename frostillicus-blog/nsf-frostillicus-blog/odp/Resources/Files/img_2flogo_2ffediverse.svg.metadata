@@ -9,13 +9,13 @@
   <item name="$FileModDT" sign="true">
     <datetime>20250122T202321,84-05</datetime>
   </item>
-  <item name="$FileNames" sign="true">
-    <text>fediverse.svg</text>
-  </item>
   <item name="$TITLE" sign="true">
     <text>img/logo/fediverse.svg</text>
   </item>
   <item name="$DesignerBuild" sign="true">
     <text>Build V1450_04162025</text>
+  </item>
+  <item name="$FileNames" sign="true">
+    <text>img_2flogo_2ffediverse.svg</text>
   </item>
 </note>

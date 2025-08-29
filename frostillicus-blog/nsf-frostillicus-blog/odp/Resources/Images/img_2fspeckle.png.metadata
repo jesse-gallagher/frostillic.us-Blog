@@ -15,9 +15,6 @@
   <item name="$ImagesColorize" sign="true">
     <number>0</number>
   </item>
-  <item name="$MimeType" sign="true">
-    <text>image/png</text>
-  </item>
   <item name="$FileModDT" sign="true">
     <datetime>20250122T202321,84-05</datetime>
   </item>
