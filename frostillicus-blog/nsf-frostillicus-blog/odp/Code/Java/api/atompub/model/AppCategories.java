@@ -39,4 +39,8 @@ public class AppCategories {
 	public List<AtomCategory> getCategories() {
 		return categories;
 	}
+	
+	public void setCategories(List<AtomCategory> categories) {
+		this.categories = categories;
+	}
 }

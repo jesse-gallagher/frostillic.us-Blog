@@ -199,7 +199,7 @@ public class PostController extends AbstractPostListController {
 	public String delete(@PathParam("postId") final String postId) {
 		var post = posts.findByPostId(ViewQuery.query().key(postId, true)).orElseThrow(() -> new NotFoundException("Unable to find post matching ID " + postId)); //$NON-NLS-1$
 		var id = post.getPostId();
-		posts.deleteById(post.getId());
+		posts.deleteById(id);
 		comments.deleteAll(comments.findByPostId(ViewQuery.query().category(id)));
 
 		var referer = request.getHeader("Referer"); //$NON-NLS-1$

@@ -26,6 +26,8 @@ import java.util.stream.Collectors;
 import com.ibm.commons.util.PathUtil;
 import com.ibm.commons.util.StringUtil;
 
+import org.openntf.xsp.jakarta.nosql.mapping.extension.ViewQuery;
+
 import api.atompub.model.AtomCategory;
 import api.atompub.model.Author;
 import api.atompub.model.Content;
@@ -85,7 +87,7 @@ public class BlogResource {
 		
 		// Figure out the starting point
 		int start = Math.max(PostUtil.parseStartParam(startParam), 0);
-		List<Post> result = posts.homeList(PageRequest.ofPage(start / PAGE_LENGTH, PAGE_LENGTH, false));
+		List<Post> result = posts.homeList(PageRequest.ofPage((start / PAGE_LENGTH) + 1, PAGE_LENGTH, false));
 
 		if (start + PAGE_LENGTH < PostUtil.getPostCount()) {
 			// Then add nav links
@@ -111,7 +113,7 @@ public class BlogResource {
 		updatePost(post, entry);
 
 		Entry result = toEntry(post);
-		return Response.created(new URI(resolveUrl(AtomPubResource.BLOG_ID, post.getId())))
+		return Response.created(new URI(resolveUrl(AtomPubResource.BLOG_ID, post.getPostId())))
 			.entity(result)
 			.build();
 	}
@@ -120,7 +122,7 @@ public class BlogResource {
 	@Path("{entryId}")
 	@Produces("application/atom+xml")
 	public Entry getEntry(@PathParam("entryId") final String postId) {
-		Post post = posts.findById(postId)
+		Post post = posts.findByPostId(ViewQuery.query().key(postId, true))
 				.orElseThrow(() -> new IllegalArgumentException("Unable to find post matching ID " + postId)); //$NON-NLS-1$
 		return toEntry(post);
 	}
@@ -128,7 +130,7 @@ public class BlogResource {
 	@PUT
 	@Path("{entryId}")
 	public Response updateEntry(@PathParam("entryId") final String postId, final Entry entry) {
-		Post post = posts.findById(postId)
+		Post post = posts.findByPostId(ViewQuery.query().key(postId, true))
 				.orElseThrow(() -> new IllegalArgumentException("Unable to find post matching ID " + postId)); //$NON-NLS-1$
 		updatePost(post, entry);
 		return Response.ok().build();
@@ -137,9 +139,7 @@ public class BlogResource {
 	@DELETE
 	@Path("{entryId}")
 	public Response deleteEntry(@PathParam("entryId") final String postId) {
-		// TODO figure out why this doesn't work with existing posts. I imagine it's to
-		// do with Darwino's treatment of editors
-		Post post = posts.findById(postId)
+		Post post = posts.findByPostId(ViewQuery.query().key(postId, true))
 				.orElseThrow(() -> new IllegalArgumentException("Unable to find post matching ID " + postId)); //$NON-NLS-1$
 		posts.deleteById(post.getId());
 		return Response.ok().build();
@@ -179,17 +179,20 @@ public class BlogResource {
 			entry.setSummary(summaryElement);
 		}
 
-		post.getTags().stream()
-			.map(AtomCategory::new)
-			.forEach(entry.getCategories()::add);
+		var tags = post.getTags();
+		if(tags != null) {
+			tags.stream()
+				.map(AtomCategory::new)
+				.forEach(entry.getCategories()::add);
+		}
 
 		// Add links
 		Link read = new Link();
 		String postsRoot = PostController.class.getAnnotation(Path.class).value();
-		read.setHref(resolveUrlRoot(postsRoot, post.getId()));
+		read.setHref(resolveUrlRoot(postsRoot, post.getPostId()));
 		entry.getLinks().add(read);
 		Link edit = new Link();
-		edit.setHref(resolveUrl(AtomPubResource.BLOG_ID, post.getId()));
+		edit.setHref(resolveUrl(AtomPubResource.BLOG_ID, post.getPostId()));
 		edit.setRel("edit"); //$NON-NLS-1$
 		entry.getLinks().add(edit);
 

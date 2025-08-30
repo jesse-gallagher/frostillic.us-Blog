@@ -48,9 +48,15 @@ public class AtomPubCollection {
 	public List<String> getAccept() {
 		return accept;
 	}
+	public void setAccept(List<String> accept) {
+		this.accept = accept;
+	}
 	@XmlElementRef
 	public CategoriesRef getCategories() {
 		return categories;
+	}
+	public void setCategories(CategoriesRef categories) {
+		this.categories = categories;
 	}
 	public void setCategoriesHref(String url) {
 		CategoriesRef categories = new CategoriesRef();

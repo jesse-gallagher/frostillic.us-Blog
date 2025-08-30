@@ -18,14 +18,12 @@ package model.util;
 import java.time.OffsetDateTime;
 import java.util.Collection;
 import java.util.List;
-import java.util.Random;
+import java.util.Objects;
 import java.util.UUID;
 import java.util.stream.Stream;
 
 import javax.naming.InvalidNameException;
 import javax.naming.ldap.LdapName;
-
-import org.openntf.xsp.jakarta.nosql.mapping.extension.ViewQuery;
 
 import com.ibm.commons.util.StringUtil;
 
@@ -55,23 +53,15 @@ public enum PostUtil {
         post.setPosted(OffsetDateTime.now());
         post.setPostId(UUID.randomUUID().toString());
 
-        // It's not pretty, but it's CLOSER to replication-safe
-        Random random = new Random();
-        Post.PostRepository posts = CDI.current().select(Post.PostRepository.class).get();
-        int postIdInt;
-        do {
-            postIdInt = random.nextInt();
-        } while(posts.findByPostIdInt(ViewQuery.query().key(postIdInt, true)).isPresent());
-        post.setPostIdInt(postIdInt);
-
         return post;
     }
 
     public static Stream<String> getCategories() {
     	return CDI.current().select(Post.PostRepository.class)
     		.get()
-    		.postMonths()
+    		.postTags()
     		.map(Post::getTags)
+    		.filter(Objects::nonNull)
     		.flatMap(List::stream);
     }
 

@@ -32,10 +32,8 @@ public class CategoriesResource {
     public AppCategories list() {
     	AppCategories categories = new AppCategories();
     	categories.setFixed(false);
-
-        PostUtil.getCategories()
-        	.map(AtomCategory::new)
-        	.forEach(categories.getCategories()::add);
+    	var cats = categories.getCategories();
+        PostUtil.getCategories().map(AtomCategory::new).forEach(cats::add);
 
         return categories;
     }

@@ -49,9 +49,6 @@ import model.event.PostEvent.Type;
 public class Post {
 	public interface PostRepository extends DominoRepository<Post, String> {
 		Optional<Post> findPostByKey(String key);
-
-		@ViewDocuments("PostsByPostIDInt")
-		Optional<Post> findByPostIdInt(ViewQuery query);
 		
 		@ViewDocuments("PostsByPostID")
 		Optional<Post> findByPostId(ViewQuery query);
@@ -75,8 +72,8 @@ public class Post {
 
 		Optional<Post> findByName(String name);
 		
-		@ViewEntries(value="PostsByCategory", maxLevel=0)
-		Stream<Post> postCategories();
+		@ViewEntries(value="PostsByTag", maxLevel=0)
+		Stream<Post> postTags();
 	}
 	
 	public enum Status {
@@ -100,7 +97,7 @@ public class Post {
 	@Column private String postedBy;
 	@Column private String bodyMarkdown;
 	@Column("Body") @ItemStorage(type = ItemStorage.Type.MIME) private String bodyHtml;
-	@Column("_tags") private List<String> tags;
+	@Column("Tags") private List<String> tags;
 	@Column private String thread;
 	@Column private Status status;
 	@Column private String name;

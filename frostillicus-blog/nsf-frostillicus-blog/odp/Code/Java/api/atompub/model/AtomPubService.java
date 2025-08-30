@@ -30,4 +30,8 @@ public class AtomPubService {
 	public Workspace getWorkspace() {
 		return workspace;
 	}
+	
+	public void setWorkspace(Workspace workspace) {
+		this.workspace = workspace;
+	}
 }
