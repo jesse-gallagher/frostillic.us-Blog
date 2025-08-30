@@ -27,6 +27,7 @@ import jakarta.enterprise.inject.literal.NamedLiteral;
 import jakarta.enterprise.inject.spi.CDI;
 import jakarta.inject.Inject;
 import jakarta.inject.Named;
+import jakarta.mvc.MvcContext;
 import jakarta.ws.rs.core.SecurityContext;
 import jakarta.xml.bind.DatatypeConverter;
 import lotus.domino.Directory;
@@ -45,19 +46,23 @@ public class UserInfoBean {
 	
 	@Inject
 	private SecurityContext securityContext;
+	
+	@Inject
+	private MvcContext mvc;
 
 	public String getImageUrl(final String userName) {
 		String email = getEmailAddress(userName);
 		if(StringUtil.isEmpty(email)) {
 			email = userName;
 		}
+		
 		try {
 			// If found, send them to Gravatar
 			MessageDigest md = MessageDigest.getInstance("MD5");
 		    md.update(email.getBytes());
 		    byte[] digest = md.digest();
 		    String md5 = DatatypeConverter.printHexBinary(digest).toLowerCase();
-			return "http://www.gravatar.com/avatar/" + md5 + "?d=wavatar&s=256";
+		    return mvc.getBasePath() + "/userPhoto/" + md5;
 		} catch(NoSuchAlgorithmException e) {
 			throw new RuntimeException(e);
 		}
