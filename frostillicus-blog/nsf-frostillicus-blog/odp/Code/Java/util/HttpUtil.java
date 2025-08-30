@@ -23,17 +23,11 @@ import java.net.HttpURLConnection;
 import java.net.URI;
 import java.net.URLEncoder;
 import java.security.KeyManagementException;
-import java.security.KeyStore;
 import java.security.KeyStoreException;
 import java.security.NoSuchAlgorithmException;
 import java.security.UnrecoverableKeyException;
 import java.security.cert.CertificateException;
 import java.util.Map;
-
-import javax.net.ssl.HttpsURLConnection;
-import javax.net.ssl.KeyManagerFactory;
-import javax.net.ssl.SSLContext;
-import javax.net.ssl.TrustManagerFactory;
 
 import com.ibm.commons.util.StringUtil;
 
@@ -68,12 +62,6 @@ public enum HttpUtil {
 		conn.setDoInput(true);
 		conn.setDoOutput(true);
 
-		if(conn instanceof HttpsURLConnection) {
-			var sslCtx = buildSslContext(keyStoreName);
-			var sf = sslCtx.getSocketFactory();
-			((HttpsURLConnection)conn).setSSLSocketFactory(sf);
-		}
-
 		// Generate the content from the parameter map
 		var requestContent = new StringBuilder();
 		for(String key : content.keySet()) {
@@ -105,23 +93,5 @@ public enum HttpUtil {
 		}
 
 		return response.toString();
-	}
-
-	public static SSLContext buildSslContext(final String keyStoreName) throws NoSuchAlgorithmException, KeyStoreException, CertificateException, IOException, UnrecoverableKeyException, KeyManagementException {
-		var tmf = TrustManagerFactory.getInstance(TrustManagerFactory.getDefaultAlgorithm());
-		tmf.init(loadKeyStore(keyStoreName));
-		var kmf = KeyManagerFactory.getInstance(KeyManagerFactory.getDefaultAlgorithm());
-		kmf.init(loadKeyStore(keyStoreName), "akismet".toCharArray()); //$NON-NLS-1$
-		var sslCtx = SSLContext.getInstance("TLS"); //$NON-NLS-1$
-		sslCtx.init(kmf.getKeyManagers(), tmf.getTrustManagers(), null);
-		return sslCtx;
-	}
-
-	public static KeyStore loadKeyStore(final String name) throws KeyStoreException, NoSuchAlgorithmException, CertificateException, IOException {
-		var keystore = KeyStore.getInstance("JKS"); //$NON-NLS-1$
-		try(var is = HttpUtil.class.getResourceAsStream("/" + name + ".jks")) { //$NON-NLS-1$ //$NON-NLS-2$
-			keystore.load(is, name.toCharArray());
-		}
-		return keystore;
 	}
 }

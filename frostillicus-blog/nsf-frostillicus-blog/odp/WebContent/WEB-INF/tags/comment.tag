@@ -20,7 +20,7 @@
 <%@taglib prefix="c" uri="jakarta.tags.core" %>
 <%@taglib prefix="fmt" uri="jakarta.tags.fmt" %>
 <%@taglib prefix="fn" uri="jakarta.tags.functions" %>
-<article class="comment ${pageScope.value.akismetSpam ? 'spam' : ''}">
+<article class="comment">
 	<img class="photo" src="${userInfo.getImageUrl(pageScope.value.postedByEmail)}" alt="${fn:escapeXml(translation.commenterPhoto)}"/>
 	<h3>
 		${fn:escapeXml(pageScope.value.postedBy)}

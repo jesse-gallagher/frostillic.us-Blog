@@ -70,41 +70,9 @@
 			<c:forEach items="${pageScope.comments}" var="comment">
 				<t:comment value="${comment}"/>
 			</c:forEach>
-			
-			<fieldset>
-				<legend><c:out value="${translation.newComment}"/></legend>
-					
-				<form action="posts/${pageScope.value.postId}/comments" method="POST" class="new-comment crud" enctype="application/x-www-form-urlencoded"
-					onsubmit="this.querySelector('input[name=\'shim\']').name = '${fn:escapeXml(mvc.csrf.name)}'">
-					<label for="postedBy"><c:out value="${translation.authorLabel}"/></label>
-					<input type="text" name="postedBy" id="postedBy" required="required"
-						value="${userInfo.anonymous ? '' : userInfo.cn}"/>
-					
-					<label for="postedByEmail">
-						<span class="tooltip">
-							<c:out value="${translation.emailLabel}"/>
-							<span class="tooltip-text"><c:out value="${translation.emailLegal}"/></span>
-						</span>
-					</label>
-					<input type="email" name="postedByEmail" id="postedByEmail" required="required"
-						value="${userInfo.anonymous ? '' : userInfo.emailAddress}"/>
-					
-					<label for="bodyMarkdown"><c:out value="${translation.bodyLabel}"/></label>
-					<textarea name="bodyMarkdown" id="bodyMarkdown" required="required"></textarea>
-					
-					<input type="submit" value="${fn:escapeXml(translation.postComment)}"/>
-					<div class="legal">
-						<span class="tooltip">
-							<c:out value="${translation.commentLegalLabel}"/>
-							<span class="tooltip-text"><c:out value="${translation.commentLegal}" escapeXml="false"/></span>
-						</span>
-					</div>
-					<input type="hidden" name="shim" value="${mvc.csrf.token}"/>
-				</form>
-			</fieldset>
 		</section>
 	</c:if>
-	<c:if test="${pageScope.comments == null}">
+	<c:if test="${pageScope.comments == null and pageScope.value.commentCount ne 0}">
 		<div class="meta">
 			<a href="posts/${pageScope.value.postedYear}/${pageScope.value.postedMonth}/${pageScope.value.postedDay}/${pageScope.value.slug}#comments">
 				<c:out value="${messages.format('commentCount', pageScope.value.commentCount)}"/>

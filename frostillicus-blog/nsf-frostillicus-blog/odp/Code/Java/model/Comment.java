@@ -37,7 +37,6 @@ public class Comment {
 	public interface CommentRepository extends DominoRepository<Comment, String> {
 		Optional<Comment> findByCommentId(String commentId);
 
-		// TODO implement view
 		@ViewDocuments("CommentsByPostID")
 		List<Comment> findByPostId(ViewQuery query);
 	}
@@ -48,7 +47,7 @@ public class Comment {
 	@Column("postId") @NotEmpty private String postId;
 	@Column @NotNull private OffsetDateTime posted;
 	@Column("AuthorName") @NotEmpty private String postedBy;
-	@Column("AuthorEmail") @Email private String postedByEmail;
+	@Column("AuthorEmailAddress") @Email private String postedByEmail;
 	@Column("postedByUrl") private String postedByUrl;
 	@Column("bodyMarkdown") private String bodyMarkdown;
 
@@ -56,7 +55,6 @@ public class Comment {
 	@Column("http_referer") private String httpReferer;
 	@Column("http_user_agent") private String httpUserAgent;
 	@Column("remote_addr") private String httpRemoteAddr;
-	@Column("akismetspam") private boolean akismetSpam;
 	
 	public String getId() {
 		return id;
@@ -152,14 +150,6 @@ public class Comment {
 
 	public void setHttpRemoteAddr(String httpRemoteAddr) {
 		this.httpRemoteAddr = httpRemoteAddr;
-	}
-
-	public boolean isAkismetSpam() {
-		return akismetSpam;
-	}
-
-	public void setAkismetSpam(boolean akismetSpam) {
-		this.akismetSpam = akismetSpam;
 	}
 
 	public Date getPostedDate() {

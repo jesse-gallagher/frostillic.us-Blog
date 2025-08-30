@@ -22,11 +22,9 @@ import org.jsoup.Jsoup;
 import org.jsoup.safety.Safelist;
 import org.openntf.xsp.jakarta.nosql.mapping.extension.ViewQuery;
 
-import bean.AkismetBean;
 import bean.MarkdownBean;
 import bean.UserInfoBean;
 import jakarta.annotation.security.RolesAllowed;
-import jakarta.enterprise.context.RequestScoped;
 import jakarta.inject.Inject;
 import jakarta.mvc.Controller;
 import jakarta.mvc.security.CsrfProtected;
@@ -42,20 +40,15 @@ import model.Post;
 
 @Path("/posts/{postId}/comments")
 @Controller
-@RequestScoped
 public class CommentController {
-	private static final String GENERIC_USER = "frostillic.us Blog Commenter"; //$NON-NLS-1$
-	private static final String GENERIC_EMAIL = "comment@frostillic.us"; //$NON-NLS-1$
-
 	@Inject
 	Post.PostRepository posts;
+	
 	@Inject
 	Comment.CommentRepository comments;
 
 	@Inject
 	MarkdownBean markdown;
-	@Inject
-	AkismetBean akismet;
 
 	@Inject
 	HttpServletRequest request;
@@ -84,11 +77,6 @@ public class CommentController {
 		comment.setHttpRemoteAddr(remoteAddr);
 		comment.setHttpUserAgent(userAgent);
 		comment.setHttpReferer(referrer);
-
-		if(akismet.isValid()) {
-			var spam = akismet.checkComment(remoteAddr, userAgent, referrer, "", AkismetBean.TYPE_COMMENT, GENERIC_USER, GENERIC_EMAIL, "", bodyMarkdown); //$NON-NLS-1$ //$NON-NLS-2$
-			comment.setAkismetSpam(spam);
-		}
 
 		var html = markdown.toHtml(bodyMarkdown);
 		html = Jsoup.clean(html, Safelist.basicWithImages());
