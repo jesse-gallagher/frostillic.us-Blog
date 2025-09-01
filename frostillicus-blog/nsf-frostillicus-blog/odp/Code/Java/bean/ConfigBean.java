@@ -2,18 +2,27 @@ package bean;
 
 import java.util.Optional;
 
+import org.eclipse.microprofile.config.inject.ConfigProperty;
+
 import jakarta.enterprise.context.RequestScoped;
 import jakarta.inject.Inject;
-import model.ConfigEntry;
 
 @RequestScoped
 public class ConfigBean {
 
 	@Inject
-	private ConfigEntry.Repository configRepository;
+	@ConfigProperty(name = "microblog-key")
+	private Optional<String> microBlogKey;
 	
-	public Optional<String> getConfig(String key) {
-		return configRepository.findByKey(key)
-			.map(ConfigEntry::value);
+	@Inject
+	@ConfigProperty(name = "rss-request-urls")
+	private boolean rssRequestUrls;
+	
+	public String getMicroBlogKey() {
+		return this.microBlogKey.orElse(null);
+	}
+	
+	public boolean isRssRequestUrls() {
+		return this.rssRequestUrls;
 	}
 }

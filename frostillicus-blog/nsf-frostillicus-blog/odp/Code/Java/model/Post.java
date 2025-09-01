@@ -25,6 +25,7 @@ import java.util.stream.Stream;
 import org.eclipse.jnosql.mapping.EntityPrePersist;
 import org.openntf.xsp.jakarta.nosql.communication.driver.DominoConstants;
 import org.openntf.xsp.jakarta.nosql.mapping.extension.DominoRepository;
+import org.openntf.xsp.jakarta.nosql.mapping.extension.ItemFlags;
 import org.openntf.xsp.jakarta.nosql.mapping.extension.ItemStorage;
 import org.openntf.xsp.jakarta.nosql.mapping.extension.ViewDocuments;
 import org.openntf.xsp.jakarta.nosql.mapping.extension.ViewEntries;
@@ -106,6 +107,7 @@ public class Post {
 	@Column private boolean hasGoneLive;
 	@Column private String summary;
 	@Column("$PostMonth") @ItemStorage(insertable = false) private String postMonth;
+	@Column @ItemFlags(readers = true) private List<String> readers;
 
 	@Inject private Event<PostEvent> postEvent;
 
@@ -324,5 +326,12 @@ public class Post {
 	}
 	public void setPostMonth(String postMonth) {
 		this.postMonth = postMonth;
+	}
+	
+	public List<String> getReaders() {
+		return readers;
+	}
+	public void setReaders(List<String> readers) {
+		this.readers = readers;
 	}
 }

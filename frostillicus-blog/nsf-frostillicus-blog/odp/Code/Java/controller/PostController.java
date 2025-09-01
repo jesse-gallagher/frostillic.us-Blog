@@ -20,6 +20,7 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.EnumSet;
+import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
 import java.util.TreeSet;
@@ -242,6 +243,11 @@ public class PostController extends AbstractPostListController {
 					.filter(StringUtil::isNotEmpty)
 					.collect(Collectors.toList())
 		);
+		if(status == Status.Draft) {
+			post.setReaders(List.of(UserInfoBean.ROLE_ADMIN));
+		} else {
+			post.setReaders(List.of());
+		}
 	}
 
 	private String showPost(final Post post) {

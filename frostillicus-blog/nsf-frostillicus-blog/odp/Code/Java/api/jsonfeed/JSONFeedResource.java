@@ -201,7 +201,7 @@ public class JSONFeedResource {
 		return out -> {
 			try(var jsonb = JsonbBuilder.create()) {
 				String baseUrl;
-				if("true".equals(configBean.getConfig("rss-request-urls").orElse(null))) {
+				if(configBean.isRssRequestUrls()) {
 					baseUrl = uriInfo.getBaseUri().toString();
 				} else {
 					baseUrl = PathUtil.concat(translation.getString("baseUrl"), servletContext.getContextPath(), '/'); //$NON-NLS-1$

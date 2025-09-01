@@ -131,7 +131,7 @@ public class MicroPubResource implements RSD {
 			microPost = microPosts.save(microPost);
 
 			String baseUrl;
-			if("true".equals(configBean.getConfig("rss-request-urls").orElse(null))) {
+			if(configBean.isRssRequestUrls()) {
 				baseUrl = uriInfo.getBaseUri().toString();
 			} else {
 				baseUrl = PathUtil.concat(translation.getString("baseUrl"), servletContext.getContextPath(), '/'); //$NON-NLS-1$

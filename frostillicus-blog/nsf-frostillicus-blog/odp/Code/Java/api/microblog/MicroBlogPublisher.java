@@ -54,8 +54,7 @@ public class MicroBlogPublisher {
 	private ConfigBean configBean;
 	
 	public String getApiKey() {
-		return configBean.getConfig("microblog-key")
-			.orElse(null);
+		return configBean.getMicroBlogKey();
 	}
 
 	public void crossPost(@Observes final MicroPostEvent event) {
