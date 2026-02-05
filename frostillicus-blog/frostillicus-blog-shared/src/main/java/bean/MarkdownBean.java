@@ -31,7 +31,6 @@ import org.commonmark.renderer.html.HtmlWriter;
 
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
-import lombok.SneakyThrows;
 
 @ApplicationScoped
 public class MarkdownBean {
@@ -75,7 +74,6 @@ public class MarkdownBean {
 		}
 
 		@Override
-		@SneakyThrows
 		public void visit(final FencedCodeBlock fencedCodeBlock) {
 			HtmlWriter html = context.getWriter();
 			html.line();

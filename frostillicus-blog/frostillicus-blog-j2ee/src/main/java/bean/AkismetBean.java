@@ -28,8 +28,6 @@ import darwino.AppDatabaseDef;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
 import jakarta.inject.Named;
-import lombok.Getter;
-import lombok.Setter;
 import util.HttpUtil;
 
 @Named("akismet")
@@ -40,12 +38,18 @@ public class AkismetBean {
 
 	@Inject
 	@ConfigProperty(name=AppDatabaseDef.DATABASE_NAME+".akismet-api-key", defaultValue="")
-	@Getter @Setter
 	private String apiKey;
 	@Inject
 	@ConfigProperty(name=AppDatabaseDef.DATABASE_NAME+".akismet-blog", defaultValue="")
-	@Getter @Setter
 	private String blog;
+	
+	public String getApiKey() {
+		return apiKey;
+	}
+	
+	public String getBlog() {
+		return blog;
+	}
 
 	public boolean isValid() {
 		return StringUtil.isNotEmpty(this.apiKey) && StringUtil.isNotEmpty(this.blog);

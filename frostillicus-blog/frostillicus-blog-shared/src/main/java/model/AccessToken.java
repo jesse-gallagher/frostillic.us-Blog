@@ -18,14 +18,56 @@ package model;
 import jakarta.nosql.mapping.Column;
 import jakarta.nosql.mapping.Entity;
 import jakarta.nosql.mapping.Id;
-import lombok.Data;
-import lombok.NoArgsConstructor;
 
-@Entity @Data @NoArgsConstructor
+@Entity
 public class AccessToken {
 	@Id @Column private String id;
 	@Column private String userName;
 	@Column private String name;
 	@Column private String token;
 	@Column private boolean isConflict;
+	
+	public AccessToken() {
+		
+	}
+
+	public String getId() {
+		return id;
+	}
+
+	public void setId(String id) {
+		this.id = id;
+	}
+
+	public String getUserName() {
+		return userName;
+	}
+
+	public void setUserName(String userName) {
+		this.userName = userName;
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public String getToken() {
+		return token;
+	}
+
+	public void setToken(String token) {
+		this.token = token;
+	}
+
+	public boolean isConflict() {
+		return isConflict;
+	}
+
+	public void setConflict(boolean isConflict) {
+		this.isConflict = isConflict;
+	}
 }

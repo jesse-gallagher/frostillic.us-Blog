@@ -37,13 +37,11 @@ import jakarta.nosql.mapping.Entity;
 import jakarta.nosql.mapping.EntityPrePersist;
 import jakarta.nosql.mapping.Id;
 import jakarta.validation.constraints.NotNull;
-import lombok.Data;
-import lombok.NoArgsConstructor;
 import model.event.PostEvent;
 import model.event.PostEvent.Type;
 import model.util.UtilDateOffsetConverter;
 
-@Entity @Data @NoArgsConstructor
+@Entity
 public class Post {
 	public enum Status {
 		Posted, Draft;
@@ -75,6 +73,150 @@ public class Post {
 	@Column private boolean hasGoneLive;
 	@Column private boolean isConflict;
 	@Column private String summary;
+
+	public String getId() {
+		return id;
+	}
+
+	public void setId(String id) {
+		this.id = id;
+	}
+
+	public int getPostIdInt() {
+		return postIdInt;
+	}
+
+	public void setPostIdInt(int postIdInt) {
+		this.postIdInt = postIdInt;
+	}
+
+	public String getPostId() {
+		return postId;
+	}
+
+	public void setPostId(String postId) {
+		this.postId = postId;
+	}
+
+	public String getTitle() {
+		return title;
+	}
+
+	public void setTitle(String title) {
+		this.title = title;
+	}
+
+	public OffsetDateTime getPosted() {
+		return posted;
+	}
+
+	public void setPosted(OffsetDateTime posted) {
+		this.posted = posted;
+	}
+
+	public String getPostedBy() {
+		return postedBy;
+	}
+
+	public void setPostedBy(String postedBy) {
+		this.postedBy = postedBy;
+	}
+
+	public String getBodyMarkdown() {
+		return bodyMarkdown;
+	}
+
+	public void setBodyMarkdown(String bodyMarkdown) {
+		this.bodyMarkdown = bodyMarkdown;
+	}
+
+	public String getBodyHtml() {
+		return bodyHtml;
+	}
+
+	public void setBodyHtml(String bodyHtml) {
+		this.bodyHtml = bodyHtml;
+	}
+
+	public List<String> getTags() {
+		return tags;
+	}
+
+	public void setTags(List<String> tags) {
+		this.tags = tags;
+	}
+
+	public String getThread() {
+		return thread;
+	}
+
+	public void setThread(String thread) {
+		this.thread = thread;
+	}
+
+	public Status getStatus() {
+		return status;
+	}
+
+	public void setStatus(Status status) {
+		this.status = status;
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public OffsetDateTime getModified() {
+		return modified;
+	}
+
+	public void setModified(OffsetDateTime modified) {
+		this.modified = modified;
+	}
+
+	public String getModifiedBy() {
+		return modifiedBy;
+	}
+
+	public void setModifiedBy(String modifiedBy) {
+		this.modifiedBy = modifiedBy;
+	}
+
+	public boolean isHasGoneLive() {
+		return hasGoneLive;
+	}
+
+	public void setHasGoneLive(boolean hasGoneLive) {
+		this.hasGoneLive = hasGoneLive;
+	}
+
+	public boolean isConflict() {
+		return isConflict;
+	}
+
+	public void setConflict(boolean isConflict) {
+		this.isConflict = isConflict;
+	}
+
+	public String getSummary() {
+		return summary;
+	}
+
+	public void setSummary(String summary) {
+		this.summary = summary;
+	}
+
+	public Event<PostEvent> getPostEvent() {
+		return postEvent;
+	}
+
+	public void setPostEvent(Event<PostEvent> postEvent) {
+		this.postEvent = postEvent;
+	}
 
 	@Inject private Event<PostEvent> postEvent;
 

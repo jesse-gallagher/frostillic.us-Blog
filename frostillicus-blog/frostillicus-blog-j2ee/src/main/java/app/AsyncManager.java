@@ -29,7 +29,6 @@ import com.darwino.platform.DarwinoContextFactory;
 
 import jakarta.servlet.ServletContextEvent;
 import jakarta.servlet.ServletContextListener;
-import lombok.SneakyThrows;
 
 /**
  * Manages thread executors for async operations.
@@ -46,16 +45,19 @@ public class AsyncManager implements ServletContextListener {
 		}
 
 		@Override
-		@SneakyThrows
 		public void run() {
-			User user = new UserImpl("_SystemUser_", "System User", null, null); //$NON-NLS-1$ //$NON-NLS-2$
-			var ctx = new DarwinoJ2EEContext(DarwinoJreApplication.get(), null, null, user, new UserContextFactory(), null, DarwinoJreApplication.get().getLocalJsonDBServer().createSystemSession(null));
-			var fac = (DarwinoJ2EEContextFactory)Platform.getService(DarwinoContextFactory.class);
-			fac.push(ctx);
 			try {
-				super.run();
-			} finally {
-				fac.pop();
+				User user = new UserImpl("_SystemUser_", "System User", null, null); //$NON-NLS-1$ //$NON-NLS-2$
+				var ctx = new DarwinoJ2EEContext(DarwinoJreApplication.get(), null, null, user, new UserContextFactory(), null, DarwinoJreApplication.get().getLocalJsonDBServer().createSystemSession(null));
+				var fac = (DarwinoJ2EEContextFactory)Platform.getService(DarwinoContextFactory.class);
+				fac.push(ctx);
+				try {
+					super.run();
+				} finally {
+					fac.pop();
+				}
+			} catch(Exception e) {
+				throw new RuntimeException(e);
 			}
 		}
 	}

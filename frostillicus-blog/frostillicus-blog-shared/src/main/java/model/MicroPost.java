@@ -34,11 +34,9 @@ import jakarta.nosql.mapping.EntityPrePersist;
 import jakarta.nosql.mapping.Id;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
-import lombok.Data;
-import lombok.NoArgsConstructor;
 import model.event.MicroPostEvent;
 
-@Entity @Data @NoArgsConstructor
+@Entity
 public class MicroPost {
 	@Id @Column private String id;
 	@Column @NotEmpty private String postId;
@@ -46,8 +44,64 @@ public class MicroPost {
 	@Column @NotEmpty private String content;
 	@Column @NotNull @Convert(ISOOffsetDateTimeConverter.class) private OffsetDateTime posted;
 	@Column private boolean isConflict;
-
+	
 	// TODO attachments
+
+	public String getId() {
+		return id;
+	}
+
+	public void setId(String id) {
+		this.id = id;
+	}
+
+	public String getPostId() {
+		return postId;
+	}
+
+	public void setPostId(String postId) {
+		this.postId = postId;
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public String getContent() {
+		return content;
+	}
+
+	public void setContent(String content) {
+		this.content = content;
+	}
+
+	public OffsetDateTime getPosted() {
+		return posted;
+	}
+
+	public void setPosted(OffsetDateTime posted) {
+		this.posted = posted;
+	}
+
+	public boolean isConflict() {
+		return isConflict;
+	}
+
+	public void setConflict(boolean isConflict) {
+		this.isConflict = isConflict;
+	}
+
+	public Event<MicroPostEvent> getMicroPostEvent() {
+		return microPostEvent;
+	}
+
+	public void setMicroPostEvent(Event<MicroPostEvent> microPostEvent) {
+		this.microPostEvent = microPostEvent;
+	}
 
 	@Inject
 	Event<MicroPostEvent> microPostEvent;

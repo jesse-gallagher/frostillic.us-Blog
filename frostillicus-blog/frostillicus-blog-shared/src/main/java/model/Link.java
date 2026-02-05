@@ -20,11 +20,9 @@ import jakarta.nosql.mapping.Convert;
 import jakarta.nosql.mapping.Entity;
 import jakarta.nosql.mapping.Id;
 import jakarta.validation.constraints.NotEmpty;
-import lombok.Data;
-import lombok.NoArgsConstructor;
 import model.util.BooleanYNConverter;
 
-@Entity @Data @NoArgsConstructor
+@Entity
 public class Link {
 	@Id @Column private String id;
 	@Column private String category;
@@ -34,4 +32,53 @@ public class Link {
 	@Column private String rel;
 	@Column private boolean isConflict;
 	@Column private String classes;
+	
+	public String getId() {
+		return id;
+	}
+	public void setId(String id) {
+		this.id = id;
+	}
+	public String getCategory() {
+		return category;
+	}
+	public void setCategory(String category) {
+		this.category = category;
+	}
+	public String getUrl() {
+		return url;
+	}
+	public void setUrl(String url) {
+		this.url = url;
+	}
+	public String getName() {
+		return name;
+	}
+	public void setName(String name) {
+		this.name = name;
+	}
+	public boolean isVisible() {
+		return visible;
+	}
+	public void setVisible(boolean visible) {
+		this.visible = visible;
+	}
+	public String getRel() {
+		return rel;
+	}
+	public void setRel(String rel) {
+		this.rel = rel;
+	}
+	public boolean isConflict() {
+		return isConflict;
+	}
+	public void setConflict(boolean isConflict) {
+		this.isConflict = isConflict;
+	}
+	public String getClasses() {
+		return classes;
+	}
+	public void setClasses(String classes) {
+		this.classes = classes;
+	}
 }

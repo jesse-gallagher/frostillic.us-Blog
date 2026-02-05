@@ -38,13 +38,11 @@ import jakarta.ws.rs.core.Context;
 import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.StreamingOutput;
 import jakarta.ws.rs.core.UriInfo;
-import lombok.Data;
 import model.Post;
 import model.PostRepository;
 
 @Path("/feed.json")
 public class JSONFeedResource {
-	@Data
 	public static class Feed {
 		String version = "https://jsonfeed.org/version/1"; //$NON-NLS-1$
 		String title;
@@ -55,8 +53,72 @@ public class JSONFeedResource {
 		String favicon;
 
 		List<FeedItem> items;
+
+		public String getVersion() {
+			return version;
+		}
+
+		public void setVersion(String version) {
+			this.version = version;
+		}
+
+		public String getTitle() {
+			return title;
+		}
+
+		public void setTitle(String title) {
+			this.title = title;
+		}
+
+		public String getHomePageUrl() {
+			return homePageUrl;
+		}
+
+		public void setHomePageUrl(String homePageUrl) {
+			this.homePageUrl = homePageUrl;
+		}
+
+		public String getFeedUrl() {
+			return feedUrl;
+		}
+
+		public void setFeedUrl(String feedUrl) {
+			this.feedUrl = feedUrl;
+		}
+
+		public String getDescription() {
+			return description;
+		}
+
+		public void setDescription(String description) {
+			this.description = description;
+		}
+
+		public String getIcon() {
+			return icon;
+		}
+
+		public void setIcon(String icon) {
+			this.icon = icon;
+		}
+
+		public String getFavicon() {
+			return favicon;
+		}
+
+		public void setFavicon(String favicon) {
+			this.favicon = favicon;
+		}
+
+		public List<FeedItem> getItems() {
+			return items;
+		}
+
+		public void setItems(List<FeedItem> items) {
+			this.items = items;
+		}
 	}
-	@Data
+
 	public static class FeedItem {
 		String id;
 		@JsonbProperty("content_html") String contentHtml;
@@ -66,6 +128,54 @@ public class JSONFeedResource {
 		@JsonbProperty("date_modified") OffsetDateTime modified;
 		List<String> tags;
 		String title;
+		public String getId() {
+			return id;
+		}
+		public void setId(String id) {
+			this.id = id;
+		}
+		public String getContentHtml() {
+			return contentHtml;
+		}
+		public void setContentHtml(String contentHtml) {
+			this.contentHtml = contentHtml;
+		}
+		public String getUrl() {
+			return url;
+		}
+		public void setUrl(String url) {
+			this.url = url;
+		}
+		public String getSummary() {
+			return summary;
+		}
+		public void setSummary(String summary) {
+			this.summary = summary;
+		}
+		public OffsetDateTime getPublished() {
+			return published;
+		}
+		public void setPublished(OffsetDateTime published) {
+			this.published = published;
+		}
+		public OffsetDateTime getModified() {
+			return modified;
+		}
+		public void setModified(OffsetDateTime modified) {
+			this.modified = modified;
+		}
+		public List<String> getTags() {
+			return tags;
+		}
+		public void setTags(List<String> tags) {
+			this.tags = tags;
+		}
+		public String getTitle() {
+			return title;
+		}
+		public void setTitle(String title) {
+			this.title = title;
+		}
 	}
 
 	@Inject

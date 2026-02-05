@@ -32,9 +32,6 @@ import jakarta.security.enterprise.credential.Credential;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.SneakyThrows;
 
 /**
  * Authentication handler for the app's ad-hoc not-really-OAuth "Bearer" tokens.
@@ -44,25 +41,35 @@ import lombok.SneakyThrows;
  */
 public class AccessTokenAuthHandler extends AbstractAuthHandler {
 
-	@AllArgsConstructor
 	public static class AccessTokenAuthenticator extends HttpClient.Authenticator implements Credential {
 		private static final long serialVersionUID = 1L;
 
-		private final @Getter String token;
+		private final String token;
+		
+		public AccessTokenAuthenticator(String token) {
+			this.token = token;
+		}
+		
+		public String getToken() {
+			return token;
+		}
 
-		@SneakyThrows
 		public String getDn() {
-			var session = DarwinoApplication.get().getLocalJsonDBServer().createSystemSession(null);
 			try {
-				var database = session.getDatabase(AppDatabaseDef.DATABASE_NAME);
-				var store = database.getStore(AppDatabaseDef.STORE_TOKENS);
-				var query = JsonObject.of("token", token); //$NON-NLS-1$
-				var tokenDoc = store.openCursor()
-					.query(query)
-					.findOneDocument();
-				return tokenDoc == null ? null : tokenDoc.getString("userName"); //$NON-NLS-1$
-			} finally {
-				session.close();
+				var session = DarwinoApplication.get().getLocalJsonDBServer().createSystemSession(null);
+				try {
+					var database = session.getDatabase(AppDatabaseDef.DATABASE_NAME);
+					var store = database.getStore(AppDatabaseDef.STORE_TOKENS);
+					var query = JsonObject.of("token", token); //$NON-NLS-1$
+					var tokenDoc = store.openCursor()
+						.query(query)
+						.findOneDocument();
+					return tokenDoc == null ? null : tokenDoc.getString("userName"); //$NON-NLS-1$
+				} finally {
+					session.close();
+				}
+			} catch(Exception e) {
+				throw new RuntimeException(e);
 			}
 		}
 

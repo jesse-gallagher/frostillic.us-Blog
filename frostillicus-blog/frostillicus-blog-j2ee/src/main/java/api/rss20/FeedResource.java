@@ -37,7 +37,6 @@ import jakarta.ws.rs.Path;
 import jakarta.ws.rs.Produces;
 import jakarta.ws.rs.core.Context;
 import jakarta.ws.rs.core.UriInfo;
-import lombok.SneakyThrows;
 import model.Post;
 import model.PostRepository;
 import model.util.PostUtil;
@@ -94,7 +93,6 @@ public class FeedResource {
 		return rss;
 	}
 
-	@SneakyThrows
 	private RssItem toEntry(final Post post, final String baseUrl) {
 		RssItem entry = new RssItem();
 

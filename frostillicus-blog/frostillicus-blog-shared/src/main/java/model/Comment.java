@@ -27,10 +27,8 @@ import jakarta.nosql.mapping.Id;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
-import lombok.Data;
-import lombok.NoArgsConstructor;
 
-@Entity @Data @NoArgsConstructor
+@Entity
 public class Comment {
 	@Id @Column private String id;
 	@Column("commentId") @NotEmpty private String commentId;
@@ -46,8 +44,124 @@ public class Comment {
 	@Column("remote_addr") private String httpRemoteAddr;
 	@Column("akismetspam") private boolean akismetSpam;
 	@Column private boolean isConflict;
+	
+	public Comment() {
+		
+	}
 
 	public Date getPostedDate() {
 		return Date.from(posted.toInstant());
+	}
+
+	public String getId() {
+		return id;
+	}
+
+	public void setId(String id) {
+		this.id = id;
+	}
+
+	public String getCommentId() {
+		return commentId;
+	}
+
+	public void setCommentId(String commentId) {
+		this.commentId = commentId;
+	}
+
+	public String getPostId() {
+		return postId;
+	}
+
+	public void setPostId(String postId) {
+		this.postId = postId;
+	}
+
+	public OffsetDateTime getPosted() {
+		return posted;
+	}
+
+	public void setPosted(OffsetDateTime posted) {
+		this.posted = posted;
+	}
+
+	public String getPostedBy() {
+		return postedBy;
+	}
+
+	public void setPostedBy(String postedBy) {
+		this.postedBy = postedBy;
+	}
+
+	public String getPostedByEmail() {
+		return postedByEmail;
+	}
+
+	public void setPostedByEmail(String postedByEmail) {
+		this.postedByEmail = postedByEmail;
+	}
+
+	public String getPostedByUrl() {
+		return postedByUrl;
+	}
+
+	public void setPostedByUrl(String postedByUrl) {
+		this.postedByUrl = postedByUrl;
+	}
+
+	public String getBodyMarkdown() {
+		return bodyMarkdown;
+	}
+
+	public void setBodyMarkdown(String bodyMarkdown) {
+		this.bodyMarkdown = bodyMarkdown;
+	}
+
+	public String getBodyHtml() {
+		return bodyHtml;
+	}
+
+	public void setBodyHtml(String bodyHtml) {
+		this.bodyHtml = bodyHtml;
+	}
+
+	public String getHttpReferer() {
+		return httpReferer;
+	}
+
+	public void setHttpReferer(String httpReferer) {
+		this.httpReferer = httpReferer;
+	}
+
+	public String getHttpUserAgent() {
+		return httpUserAgent;
+	}
+
+	public void setHttpUserAgent(String httpUserAgent) {
+		this.httpUserAgent = httpUserAgent;
+	}
+
+	public String getHttpRemoteAddr() {
+		return httpRemoteAddr;
+	}
+
+	public void setHttpRemoteAddr(String httpRemoteAddr) {
+		this.httpRemoteAddr = httpRemoteAddr;
+	}
+
+	public boolean isAkismetSpam() {
+		return akismetSpam;
+	}
+
+	public void setAkismetSpam(boolean akismetSpam) {
+		this.akismetSpam = akismetSpam;
+	}
+
+	public boolean isConflict() {
+		return isConflict;
+	}
+
+	public void setConflict(boolean isConflict) {
+		this.isConflict = isConflict;
 	}
 }

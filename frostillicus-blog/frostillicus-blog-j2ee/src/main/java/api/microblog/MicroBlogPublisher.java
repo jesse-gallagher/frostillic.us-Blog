@@ -33,8 +33,6 @@ import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.enterprise.event.Observes;
 import jakarta.inject.Inject;
 import jakarta.ws.rs.core.HttpHeaders;
-import lombok.Getter;
-import lombok.Setter;
 import model.MicroPost;
 import model.event.MicroPostEvent;
 import util.HttpUtil;
@@ -56,20 +54,23 @@ public class MicroBlogPublisher {
 
 	@Inject
 	@ConfigProperty(name=AppDatabaseDef.DATABASE_NAME+".microblog-key", defaultValue="")
-	@Getter @Setter
 	private String apiKey;
+	
+	public String getApiKey() {
+		return apiKey;
+	}
 
 	public void crossPost(@Observes final MicroPostEvent event) {
 		if(StringUtil.isNotEmpty(apiKey)) {
 			if(log.isLoggable(Level.FINE)) {
-				log.fine("Logging MicroPost " + event.getPost()); //$NON-NLS-1$
+				log.fine("Logging MicroPost " + event.post()); //$NON-NLS-1$
 			}
 
 			// Do this async since we don't want to fail or hold up the whole operation if there's a downstream issue.
 			// TODO keep track of success so we can re-post down the line
 			exec.submit(() -> {
 				try {
-					var post = event.getPost();
+					var post = event.post();
 
 					// TODO switch to MicroProfile REST Client when it supports the keystore
 					Map<String, String> auth = Collections.singletonMap(HttpHeaders.AUTHORIZATION, "Bearer " + apiKey); //$NON-NLS-1$

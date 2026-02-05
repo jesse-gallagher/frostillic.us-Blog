@@ -15,15 +15,10 @@
  */
 package model.event;
 
-import lombok.Value;
 import model.Post;
 
-@Value
-public class PostEvent {
+public record PostEvent(Post post, Type type) {
 	public enum Type {
 		PUBLISH, UPDATE, DELETE
 	}
-
-	Post post;
-	Type type;
 }

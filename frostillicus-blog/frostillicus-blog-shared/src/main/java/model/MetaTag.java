@@ -18,13 +18,36 @@ package model;
 import jakarta.nosql.mapping.Column;
 import jakarta.nosql.mapping.Entity;
 import jakarta.nosql.mapping.Id;
-import lombok.Data;
-import lombok.NoArgsConstructor;
 
-@Entity @Data @NoArgsConstructor
+@Entity
 public class MetaTag {
 	@Id @Column private String id;
 	@Column private String name;
 	@Column private String content;
 	@Column private boolean isConflict;
+	
+	public String getId() {
+		return id;
+	}
+	public void setId(String id) {
+		this.id = id;
+	}
+	public String getName() {
+		return name;
+	}
+	public void setName(String name) {
+		this.name = name;
+	}
+	public String getContent() {
+		return content;
+	}
+	public void setContent(String content) {
+		this.content = content;
+	}
+	public boolean isConflict() {
+		return isConflict;
+	}
+	public void setConflict(boolean isConflict) {
+		this.isConflict = isConflict;
+	}
 }

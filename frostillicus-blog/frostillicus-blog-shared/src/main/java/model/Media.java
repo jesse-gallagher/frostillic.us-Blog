@@ -26,10 +26,8 @@ import com.darwino.jsonstore.Document;
 import jakarta.nosql.mapping.Column;
 import jakarta.nosql.mapping.Entity;
 import jakarta.nosql.mapping.Id;
-import lombok.Data;
-import lombok.NoArgsConstructor;
 
-@Entity @Data @NoArgsConstructor
+@Entity
 public class Media {
 	@Id @Column private String id;
 	@Column private String name;
@@ -37,4 +35,41 @@ public class Media {
 	@Column(Document.SYSTEM_META_MDATE) private Date lastModificationDate;
 	@Column(Document.SYSTEM_META_CUSER) private String creationUser;
 	@Column private boolean isConflict;
+	
+	public String getId() {
+		return id;
+	}
+	public void setId(String id) {
+		this.id = id;
+	}
+	public String getName() {
+		return name;
+	}
+	public void setName(String name) {
+		this.name = name;
+	}
+	public List<EntityAttachment> getAttachments() {
+		return attachments;
+	}
+	public void setAttachments(List<EntityAttachment> attachments) {
+		this.attachments = attachments;
+	}
+	public Date getLastModificationDate() {
+		return lastModificationDate;
+	}
+	public void setLastModificationDate(Date lastModificationDate) {
+		this.lastModificationDate = lastModificationDate;
+	}
+	public String getCreationUser() {
+		return creationUser;
+	}
+	public void setCreationUser(String creationUser) {
+		this.creationUser = creationUser;
+	}
+	public boolean isConflict() {
+		return isConflict;
+	}
+	public void setConflict(boolean isConflict) {
+		this.isConflict = isConflict;
+	}
 }

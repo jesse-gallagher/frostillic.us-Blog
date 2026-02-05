@@ -16,6 +16,7 @@
 package bean;
 
 import java.net.URLEncoder;
+import java.nio.charset.StandardCharsets;
 
 import com.darwino.commons.security.acl.User;
 import com.darwino.commons.security.acl.UserException;
@@ -26,7 +27,6 @@ import com.darwino.platform.DarwinoHttpConstants;
 import jakarta.enterprise.context.RequestScoped;
 import jakarta.inject.Inject;
 import jakarta.inject.Named;
-import lombok.SneakyThrows;
 
 @RequestScoped
 @Named("userInfo")
@@ -36,10 +36,9 @@ public class UserInfoBean {
 	@Inject @Named("darwinoContext")
 	DarwinoContext context;
 
-	@SneakyThrows
 	public String getImageUrl(final String userName) {
 		String md5 = StringUtil.md5Hex(StringUtil.toString(userName).toLowerCase());
-		return StringUtil.format(DarwinoHttpConstants.SOCIAL_USERS_PATH + "/users/{0}/content/photo", URLEncoder.encode(md5, "UTF-8")); //$NON-NLS-1$ //$NON-NLS-2$
+		return StringUtil.format(DarwinoHttpConstants.SOCIAL_USERS_PATH + "/users/{0}/content/photo", URLEncoder.encode(md5, StandardCharsets.UTF_8)); //$NON-NLS-1$
 	}
 
 	public boolean isAdmin() {
