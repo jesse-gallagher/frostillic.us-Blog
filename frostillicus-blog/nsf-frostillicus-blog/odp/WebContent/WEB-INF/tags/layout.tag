@@ -78,7 +78,7 @@
 				<input type="checkbox" id="navbar-toggle" class="mobile-nav" aria-hidden="true"/>
 				<div class="sidebar-content">
 					<header class="authorinfo">
-						<img src="${userInfo.getImageUrl(translation.authorEmail)}" class="photo" alt="${fn:escapeXml(translation.authorPhoto)}"/>
+						<img src="${userInfo.getImageUrl(translation.authorEmail)}" class="photo" alt="${fn:escapeXml(translation.authorPhoto)}" width="128" height="128"/>
 					</header>
 					<ul class="sitenav">
 						<li><a href="${mvc.basePath}/"><c:out value="${translation.home}"/></a></li>
