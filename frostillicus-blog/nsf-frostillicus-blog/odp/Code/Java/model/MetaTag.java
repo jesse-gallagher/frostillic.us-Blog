@@ -15,8 +15,6 @@
  */
 package model;
 
-import java.util.stream.Stream;
-
 import org.openntf.xsp.jakarta.nosql.mapping.extension.DominoRepository;
 
 import jakarta.nosql.Column;
@@ -31,7 +29,5 @@ public record MetaTag(
 	@Column boolean isConflict
 ) {
 	public interface MetaTagRepository extends DominoRepository<MetaTag, String> {
-		@Override
-		Stream<MetaTag> findAll();
 	}
 }

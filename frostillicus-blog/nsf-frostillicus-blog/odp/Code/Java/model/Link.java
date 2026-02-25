@@ -16,7 +16,6 @@
 package model;
 
 import java.util.List;
-import java.util.stream.Stream;
 
 import org.openntf.xsp.jakarta.nosql.mapping.extension.DominoRepository;
 import org.openntf.xsp.jakarta.nosql.mapping.extension.ViewDocuments;
@@ -37,9 +36,6 @@ public record Link(
 	@Column String classes
 ) {
 	public interface LinkRepository extends DominoRepository<Link, String> {
-		@Override
-		Stream<Link> findAll();
-
 		// TODO implement view
 		@ViewDocuments("LinksByCategoryAndName")
 		List<Link> findAllByCategoryAndName();

@@ -18,7 +18,6 @@ package model;
 import java.time.OffsetDateTime;
 import java.util.List;
 import java.util.Optional;
-import java.util.stream.Stream;
 
 import org.eclipse.jnosql.communication.driver.attachment.EntityAttachment;
 import org.openntf.xsp.jakarta.nosql.communication.driver.DominoConstants;
@@ -35,9 +34,6 @@ import jakarta.nosql.Id;
 public class Media {
 	public interface MediaRepository extends DominoRepository<Media, String> {
 		Optional<Media> findByName(String name);
-
-		@Override
-		Stream<Media> findAll();
 
 		@ViewDocuments("MediaByID")
 		Optional<Media> findByMediaId(ViewQuery query);

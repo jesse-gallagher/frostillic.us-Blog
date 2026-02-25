@@ -16,7 +16,6 @@
 package model;
 
 import java.util.Optional;
-import java.util.stream.Stream;
 
 import org.openntf.xsp.jakarta.nosql.mapping.extension.DominoRepository;
 
@@ -32,9 +31,6 @@ public record AccessToken(
 	@Column String token
 ) {
 	public interface AccessTokenRepository extends DominoRepository<AccessToken, String> {
-		@Override
-		Stream<AccessToken> findAll();
-
 		Optional<AccessToken> findByToken(String token);
 	}
 }
