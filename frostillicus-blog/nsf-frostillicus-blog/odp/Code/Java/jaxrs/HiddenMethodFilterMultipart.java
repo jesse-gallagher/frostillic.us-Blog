@@ -22,7 +22,6 @@ import java.util.Arrays;
 import com.ibm.commons.util.StringUtil;
 import com.ibm.commons.util.io.StreamUtil;
 
-import jakarta.mail.BodyPart;
 import jakarta.mail.MessagingException;
 import jakarta.mail.internet.MimeMultipart;
 import jakarta.mail.util.ByteArrayDataSource;
@@ -48,7 +47,7 @@ public class HiddenMethodFilterMultipart implements ContainerRequestFilter {
 	@Override
 	public void filter(final ContainerRequestContext requestContext) throws IOException {
 		if(isReadable(requestContext)) {
-			String overrideMethod = getHttpMethod(requestContext);
+			var overrideMethod = getHttpMethod(requestContext);
 
 			if(StringUtil.isNotEmpty(overrideMethod)) {
 				requestContext.setMethod(overrideMethod);
@@ -72,14 +71,14 @@ public class HiddenMethodFilterMultipart implements ContainerRequestFilter {
 	private String getHttpMethod(final ContainerRequestContext requestContext) throws IOException {
 		// This copies the entire body ahead of time to deal with how various JAX-RS implementations
 		//   may or may not reset the stream
-		byte[] entity = requestContext.getEntityStream().readAllBytes();
+		var entity = requestContext.getEntityStream().readAllBytes();
 		requestContext.setEntityStream(new ByteArrayInputStream(entity));
 
 		// Read this here as it seems RestEasy doesn't provide a default reader
 		try {
-			MimeMultipart body = new MimeMultipart(new ByteArrayDataSource(entity, MediaType.MULTIPART_FORM_DATA));
-			for(int i = 0; i < body.getCount(); i++) {
-				BodyPart part = body.getBodyPart(i);
+			var body = new MimeMultipart(new ByteArrayDataSource(entity, MediaType.MULTIPART_FORM_DATA));
+			for(var i = 0; i < body.getCount(); i++) {
+				var part = body.getBodyPart(i);
 				if(Arrays.stream(part.getHeader(HttpHeaders.CONTENT_DISPOSITION)).anyMatch(h -> h.contains("; name=\"_method\"")) ) { //$NON-NLS-1$
 					return StreamUtil.readString(part.getInputStream());
 				}

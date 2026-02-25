@@ -44,7 +44,7 @@ public class MicroPost {
 		List<MicroPost> findAllByPosted();
 	}
 
-	
+
 	@Id @Column private String id;
 	@Column @NotEmpty private String postId;
 	@Column private String name;
@@ -99,7 +99,7 @@ public class MicroPost {
 		if(!(event.get() instanceof MicroPost)) {
 			return;
 		}
-		MicroPost post = (MicroPost)event.get();
+		var post = (MicroPost)event.get();
 
 		if(StringUtil.isEmpty(post.getPostId())) {
 			post.setPostId(UUID.randomUUID().toString());
@@ -113,7 +113,7 @@ public class MicroPost {
 		if(!(event.get() instanceof MicroPost)) {
 			return;
 		}
-		MicroPost post = (MicroPost)event.get();
+		var post = (MicroPost)event.get();
 		microPostEvent.fire(new MicroPostEvent(post));
 	}
 

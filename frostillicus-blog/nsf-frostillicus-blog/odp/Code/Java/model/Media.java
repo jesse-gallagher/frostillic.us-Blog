@@ -36,8 +36,9 @@ public class Media {
 	public interface MediaRepository extends DominoRepository<Media, String> {
 		Optional<Media> findByName(String name);
 
+		@Override
 		Stream<Media> findAll();
-		
+
 		@ViewDocuments("MediaByID")
 		Optional<Media> findByMediaId(ViewQuery query);
 	}
@@ -53,7 +54,7 @@ public class Media {
 	// TODO migrate $UpdatedBy
 	@Column("CreatedBy")
 	private String creationUser;
-	
+
 	public String getId() {
 		return id;
 	}

@@ -23,14 +23,14 @@ public class AtomPubService {
 	public static final String NS_ATOMPUB = "http://purl.org/atom/app#"; //$NON-NLS-1$
 	public static final String NS_ATOM = "http://www.w3.org/2005/Atom"; //$NON-NLS-1$
 	public static final String NS_APP = "http://www.w3.org/2007/app"; //$NON-NLS-1$
-	
+
 	private Workspace workspace = new Workspace();
-	
+
 	@XmlElementRef
 	public Workspace getWorkspace() {
 		return workspace;
 	}
-	
+
 	public void setWorkspace(Workspace workspace) {
 		this.workspace = workspace;
 	}

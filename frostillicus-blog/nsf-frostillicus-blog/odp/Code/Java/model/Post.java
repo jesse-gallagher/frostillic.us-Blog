@@ -44,7 +44,7 @@ import jakarta.validation.constraints.NotNull;
 public class Post {
 	public interface PostRepository extends DominoRepository<Post, String> {
 		Optional<Post> findPostByKey(String key);
-		
+
 		@ViewDocuments("PostsByPostID")
 		Optional<Post> findByPostId(ViewQuery query);
 
@@ -66,11 +66,11 @@ public class Post {
 		List<Post> findByThread(ViewQuery query);
 
 		Optional<Post> findByName(String name);
-		
+
 		@ViewEntries(value="PostsByTag", maxLevel=0)
 		Stream<Post> postTags();
 	}
-	
+
 	public enum Status {
 		Posted, Draft;
 
@@ -108,7 +108,7 @@ public class Post {
 	// *******************************************************************************
 
 	public int getCommentCount() {
-		Comment.CommentRepository comments = CDI.current().select(Comment.CommentRepository.class).get();
+		var comments = CDI.current().select(Comment.CommentRepository.class).get();
 		return comments.findByPostId(ViewQuery.query().category(this.postId)).size();
 	}
 
@@ -269,14 +269,14 @@ public class Post {
 	public void setSummary(String summary) {
 		this.summary = summary;
 	}
-	
+
 	public String getPostMonth() {
 		return postMonth;
 	}
 	public void setPostMonth(String postMonth) {
 		this.postMonth = postMonth;
 	}
-	
+
 	public List<String> getReaders() {
 		return readers;
 	}

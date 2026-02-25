@@ -30,7 +30,7 @@ public class CategoriesResource {
     @GET
     @Produces("application/atomserv+xml")
     public AppCategories list() {
-    	AppCategories categories = new AppCategories();
+    	var categories = new AppCategories();
     	categories.setFixed(false);
     	var cats = categories.getCategories();
         PostUtil.getCategories().map(AtomCategory::new).forEach(cats::add);

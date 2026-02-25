@@ -47,15 +47,15 @@ public class UrlBean {
 			return url;
 		}
 	}
-	
+
 	public String canonicalize(String url) {
 		// In practice, the distinction in these URLs is whether or not they start with "/"
 		if(url == null || url.isEmpty()) {
 			return url;
 		}
-		
-		
-		URI uri = URI.create(req.getRequestURL().toString());
+
+
+		var uri = URI.create(req.getRequestURL().toString());
 		uri = uri.resolve(concat(req.getContextPath(), url));
 		return uri.toString();
 	}
@@ -64,12 +64,12 @@ public class UrlBean {
 		if(parts == null || parts.length == 0) {
 			return ""; //$NON-NLS-1$
 		}
-		String result = parts[0];
-		for(int i = 1; i < parts.length; i++) {
+		var result = parts[0];
+		for(var i = 1; i < parts.length; i++) {
 			if(!result.endsWith("/")) { //$NON-NLS-1$
 				result += "/"; //$NON-NLS-1$
 			}
-			String part = parts[i];
+			var part = parts[i];
 			if(part.startsWith("/")) { //$NON-NLS-1$
 				part = part.substring(1);
 			}

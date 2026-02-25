@@ -43,16 +43,16 @@ import util.HttpUtil;
  */
 @ApplicationScoped
 public class MicroBlogPublisher {
-	
+
 	@Inject
 	private Logger log;
-	
+
 	@Inject @Named("java:comp/DefaultManagedExecutorService")
 	private ManagedExecutorService exec;
 
 	@Inject
 	private ConfigBean configBean;
-	
+
 	public String getApiKey() {
 		return configBean.getMicroBlogKey();
 	}

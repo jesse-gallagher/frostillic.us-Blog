@@ -41,7 +41,7 @@ public class Comment {
 		List<Comment> findByPostId(ViewQuery query);
 	}
 
-	
+
 	@Id @Column private String id;
 	@Column("commentId") @NotEmpty private String commentId;
 	@Column("postId") @NotEmpty private String postId;
@@ -55,7 +55,7 @@ public class Comment {
 	@Column("http_referer") private String httpReferer;
 	@Column("http_user_agent") private String httpUserAgent;
 	@Column("remote_addr") private String httpRemoteAddr;
-	
+
 	public String getId() {
 		return id;
 	}

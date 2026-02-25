@@ -102,7 +102,7 @@ public class WebmentionResource {
 			}
 
 			var mention = webmentions.findBySourceAndTypeAndTargetId(source, Type.Post.name(), post.get().getPostId()).orElseGet(() -> {
-				Webmention result = new Webmention();
+				var result = new Webmention();
 				result.setSource(source);
 				result.setType(Type.Post);
 				result.setTargetId(post.get().getPostId());
@@ -133,14 +133,14 @@ public class WebmentionResource {
 							mention.setVerified(false);
 						} else {
 							mention.setVerified(true);
-							mention.setSourceTitle(doc.title()); //$NON-NLS-1$
+							mention.setSourceTitle(doc.title());
 						}
 					} catch(IOException e) {
 						if(log.isLoggable(Level.SEVERE)) {
 							log.log(Level.SEVERE, "Encountered exception when looking up webmention", e); //$NON-NLS-1$
 						}
-						mention.setVerified(false); //$NON-NLS-1$
-						mention.setProblemCause(e.toString()); //$NON-NLS-1$
+						mention.setVerified(false);
+						mention.setProblemCause(e.toString());
 					}
 
 					webmentions.save(mention);

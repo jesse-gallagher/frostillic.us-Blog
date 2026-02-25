@@ -1,9 +1,7 @@
 package bean;
 
-import java.security.Principal;
 import java.time.OffsetDateTime;
 import java.util.List;
-import java.util.Optional;
 
 import org.eclipse.jnosql.mapping.EntityPrePersist;
 
@@ -25,27 +23,27 @@ import model.event.PostEvent.Type;
 public class PostProcessorBean {
 	@Inject
 	private Event<PostEvent> postEvent;
-	
+
 	@Inject
 	private Post.PostRepository posts;
-	
+
 	@Inject
 	private MarkdownBean markdown;
 
 	public void querySave(@Observes final EntityPrePersist entity) {
 		if(entity.get() instanceof Post post) {
 			var status = post.getStatus();
-			
+
 			// Auto-generate a slug if not already present
 			if(StringUtil.isEmpty(post.getName()) && status == Status.Posted) {
-				String baseName = StringUtil.toString(post.getTitle()).toLowerCase()
+				var baseName = StringUtil.toString(post.getTitle()).toLowerCase()
 						.replaceAll("[^\\w]", "-") //$NON-NLS-1$ //$NON-NLS-2$
 						.replaceAll("--+", "-"); //$NON-NLS-1$ //$NON-NLS-2$
-				int dedupe = 1;
-				String name = baseName;
+				var dedupe = 1;
+				var name = baseName;
 
-				Optional<Post> existing = posts.findByName(name);
-				String id = post.getId();
+				var existing = posts.findByName(name);
+				var id = post.getId();
 				while(existing.isPresent() && (StringUtil.isEmpty(id) || !StringUtil.equals(id, existing.get().getId()))) {
 					name = baseName + ++dedupe;
 					existing = posts.findByName(name);
@@ -56,7 +54,7 @@ public class PostProcessorBean {
 
 			// Update the calculated HTML body
 			post.setBodyHtml(markdown.toHtml(StringUtil.toString(post.getBodyMarkdown())));
-			
+
 			// Set reader fields based on the status
 			if(status == Status.Draft) {
 				post.setReaders(List.of("[Admin]", post.getPostedBy()));

@@ -29,7 +29,7 @@ public class Feed {
 	private String id;
 	private List<Entry> entries = new ArrayList<>();
 	private List<Link> links = new ArrayList<>();
-	
+
 	@XmlElement(namespace=AtomPubService.NS_ATOM)
 	public String getTitle() {
 		return title;

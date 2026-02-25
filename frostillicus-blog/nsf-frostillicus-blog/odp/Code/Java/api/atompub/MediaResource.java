@@ -66,24 +66,24 @@ public class MediaResource {
 
     @Inject
     Media.MediaRepository mediaRepository;
-    
+
     @Inject
     UserInfoBean userInfo;
-    
+
 	@Inject
 	UrlBean urlBean;
-	
+
 	@Inject
 	EncoderBean encoder;
 
     @GET
     @Produces("application/atom+xml")
     public Feed list() {
-    	Feed feed = new Feed();
+    	var feed = new Feed();
 
         mediaRepository.findAll()
         	.map(m -> {
-        		Entry entry = new Entry();
+        		var entry = new Entry();
                 populateAtomXml(entry, m);
         		return entry;
         	})
@@ -95,12 +95,12 @@ public class MediaResource {
     @POST
     @Produces("application/atom+xml")
     public Response uploadMedia(final byte[] data) throws URISyntaxException {
-        String contentType = request.getContentType();
-        String name = request.getHeader("Slug"); //$NON-NLS-1$
+        var contentType = request.getContentType();
+        var name = request.getHeader("Slug"); //$NON-NLS-1$
 
         // TODO make sure it's not already there
         // This could use the name as the UNID, but it's kind of nice having a "real" UNID behind the scenes
-        Media media = mediaRepository.findByName(name).orElseGet(Media::new);
+        var media = mediaRepository.findByName(name).orElseGet(Media::new);
         media.setName(name);
         media.setAttachments(Arrays.asList(EntityAttachment.of(name, System.currentTimeMillis(), contentType, data)));
         media.setCreationUser(userInfo.getDn());
@@ -119,21 +119,21 @@ public class MediaResource {
     @Path("{mediaId}")
     @Produces("application/atom+xml")
     public Entry getMediaInfo(@PathParam("mediaId") final String mediaId) {
-    	Media media = mediaRepository.findById(mediaId).orElseThrow(NotFoundException::new);
+    	var media = mediaRepository.findById(mediaId).orElseThrow(NotFoundException::new);
         return toAtomXml(media);
     }
 
     @GET
     @Path("{mediaId}/{name}")
     public Response getMedia(@PathParam("mediaId") final String mediaId) throws IOException {
-    	Media media = mediaRepository.findById(mediaId).orElseThrow(NotFoundException::new);
-    	EntityAttachment att = media.getAttachments().get(0);
+    	var media = mediaRepository.findById(mediaId).orElseThrow(NotFoundException::new);
+    	var att = media.getAttachments().get(0);
 
         return Response.ok(att.getData()).header(HttpHeaders.CONTENT_TYPE, att.getContentType()).build();
     }
 
     private Entry toAtomXml(final Media media) {
-    	Entry entry = new Entry();
+    	var entry = new Entry();
         populateAtomXml(entry, media);
         return entry;
     }
@@ -143,35 +143,35 @@ public class MediaResource {
     	entry.setId(media.getId());
     	entry.setUpdated(media.getLastModificationDate().toInstant());
     	entry.setAuthor(new Author(media.getCreationUser()));
-    	
-    	Summary summary = new Summary();
+
+    	var summary = new Summary();
     	summary.setType("text"); //$NON-NLS-1$
     	summary.setBody(media.getName());
     	entry.setSummary(summary);
 
-        EntityAttachment att = media.getAttachments().get(0);
-        Content content = new Content();
+        var att = media.getAttachments().get(0);
+        var content = new Content();
         content.setType(att.getContentType());
         entry.setContent(content);
 
-        String nameEnc = encoder.urlEncode(media.getName());
-        String path = urlBean.concat(MediaResource.PATH, media.getId(), nameEnc);
+        var nameEnc = encoder.urlEncode(media.getName());
+        var path = urlBean.concat(MediaResource.PATH, media.getId(), nameEnc);
         content.setSrc(path);
         entry.setContent(content);
 
-        Link editMediaLink = new Link();
+        var editMediaLink = new Link();
         editMediaLink.setEditMedia(resolveUrl(AtomPubResource.BLOG_ID, PATH, media.getId(), nameEnc));
         entry.getLinks().add(editMediaLink);
 
-        Link editLink = new Link();
+        var editLink = new Link();
         editLink.setRel("link"); //$NON-NLS-1$
         editLink.setEditMedia(resolveUrl(AtomPubResource.BLOG_ID, PATH, media.getId()));
         entry.getLinks().add(editLink);
     }
 
     private String resolveUrl(final String... parts) {
-        URI baseUri = uriInfo.getBaseUri();
-        String uri = urlBean.concat(baseUri.toString(), AtomPubResource.BASE_PATH);
+        var baseUri = uriInfo.getBaseUri();
+        var uri = urlBean.concat(baseUri.toString(), AtomPubResource.BASE_PATH);
         for(String part : parts) {
             uri = urlBean.concat(uri, part);
         }

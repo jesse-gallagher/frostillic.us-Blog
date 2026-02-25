@@ -21,8 +21,6 @@ import com.ibm.commons.util.PathUtil;
 import com.ibm.commons.util.StringUtil;
 
 import api.rss20.model.AtomLink;
-import api.rss20.model.Channel;
-import api.rss20.model.Image;
 import api.rss20.model.Rss;
 import api.rss20.model.RssItem;
 import bean.ConfigBean;
@@ -65,20 +63,20 @@ public class FeedResource {
 			baseUrl = PathUtil.concat(translation.getString("baseUrl"), servletContext.getContextPath(), '/'); //$NON-NLS-1$
 		}
 
-		Rss rss = new Rss();
+		var rss = new Rss();
 		rss.setBase(baseUrl);
-		Channel channel = rss.getChannel();
+		var channel = rss.getChannel();
 		channel.setTitle(translation.getString("appTitle")); //$NON-NLS-1$
 		channel.setDescription(translation.getString("appDescription")); //$NON-NLS-1$
 		channel.setLink(baseUrl);
 
-		AtomLink self = new AtomLink();
+		var self = new AtomLink();
 		self.setRel("self"); //$NON-NLS-1$
 		self.setType("application/rss+xml"); //$NON-NLS-1$
 		self.setHref(urlBean.concat(baseUrl, "blog.xml")); //$NON-NLS-1$
 		channel.getLinks().add(self);
 
-		Image image = channel.getImage();
+		var image = channel.getImage();
 		image.setUrl(urlBean.concat(baseUrl, "img/icon.png")); //$NON-NLS-1$
 		image.setTitle(translation.getString("appTitle")); //$NON-NLS-1$
 		image.setLink(baseUrl);
@@ -91,7 +89,7 @@ public class FeedResource {
 	}
 
 	private RssItem toEntry(final Post post, final String baseUrl) {
-		RssItem entry = new RssItem();
+		var entry = new RssItem();
 
 		var author = PostUtil.toCn(post.getPostedBy());
 		entry.setCreator(author);

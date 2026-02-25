@@ -49,7 +49,7 @@ public enum PostUtil {
     }
 
     public static Post createPost() {
-        Post post = new Post();
+        var post = new Post();
         post.setPosted(OffsetDateTime.now());
         post.setPostId(UUID.randomUUID().toString());
 
@@ -90,9 +90,9 @@ public enum PostUtil {
     public static String toCn(final String dn) {
 		if(StringUtil.isNotEmpty(dn)) {
 			try {
-				LdapName name = new LdapName(dn.replace('/', ','));
-				for(int i = name.size()-1; i >= 0; i--) {
-					String bit = name.get(i);
+				var name = new LdapName(dn.replace('/', ','));
+				for(var i = name.size()-1; i >= 0; i--) {
+					var bit = name.get(i);
 					if(bit.toLowerCase().startsWith("cn=")) { //$NON-NLS-1$
 						return bit.substring(3);
 					}

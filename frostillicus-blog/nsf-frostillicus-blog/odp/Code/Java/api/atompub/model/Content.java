@@ -39,7 +39,7 @@ public class Content {
 	public void setType(String type) {
 		this.type = type;
 	}
-	
+
 	@XmlValue
 	public String getValue() {
 		return value;

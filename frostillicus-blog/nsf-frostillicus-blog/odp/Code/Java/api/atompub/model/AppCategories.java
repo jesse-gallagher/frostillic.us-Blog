@@ -26,7 +26,7 @@ import jakarta.xml.bind.annotation.XmlRootElement;
 public class AppCategories {
 	private boolean fixed;
 	private List<AtomCategory> categories = new ArrayList<>();
-	
+
 	@XmlAttribute
 	public boolean isFixed() {
 		return fixed;
@@ -34,12 +34,12 @@ public class AppCategories {
 	public void setFixed(boolean fixed) {
 		this.fixed = fixed;
 	}
-	
+
 	@XmlElementRef
 	public List<AtomCategory> getCategories() {
 		return categories;
 	}
-	
+
 	public void setCategories(List<AtomCategory> categories) {
 		this.categories = categories;
 	}

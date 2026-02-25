@@ -23,7 +23,7 @@ import jakarta.xml.bind.annotation.XmlValue;
 public class Summary {
 	private String type;
 	private String body;
-	
+
 	@XmlAttribute
 	public String getType() {
 		return type;
@@ -31,7 +31,7 @@ public class Summary {
 	public void setType(String type) {
 		this.type = type;
 	}
-	
+
 	@XmlValue
 	public String getBody() {
 		return body;

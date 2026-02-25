@@ -44,7 +44,7 @@ public class AdminController {
 	Link.LinkRepository links;
 	@Inject
 	AccessToken.AccessTokenRepository tokens;
-	
+
 	@Inject
 	private SecurityContext securityContext;
 

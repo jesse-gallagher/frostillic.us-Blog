@@ -18,13 +18,13 @@ import jakarta.enterprise.context.ApplicationScoped;
 @ApplicationScoped
 public class UserPhotoBean {
 	private final Map<String, byte[]> cache = new ConcurrentHashMap<>();
-	
+
 	public byte[] getThumbnailData(String hash) {
 		// TODO expire cache
 		synchronized(cache) {
 			if(!cache.containsKey(hash)) {
 				try(var http = HttpClient.newHttpClient()) {
-					HttpRequest req = HttpRequest.newBuilder(URI.create("https://www.gravatar.com/avatar/" + hash + "?d=wavatar&s=256"))
+					var req = HttpRequest.newBuilder(URI.create("https://www.gravatar.com/avatar/" + hash + "?d=wavatar&s=256"))
 						.GET()
 						.build();
 					cache.put(hash, http.send(req, BodyHandlers.ofByteArray()).body());
@@ -36,7 +36,7 @@ public class UserPhotoBean {
 			}
 			return cache.get(hash);
 		}
-		
+
 	}
 }
 

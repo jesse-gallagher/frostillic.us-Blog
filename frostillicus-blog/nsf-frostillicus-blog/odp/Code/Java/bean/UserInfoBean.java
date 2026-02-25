@@ -17,7 +17,6 @@ package bean;
 
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
-import java.security.Principal;
 import java.util.List;
 
 import com.ibm.commons.util.StringUtil;
@@ -30,9 +29,6 @@ import jakarta.inject.Named;
 import jakarta.mvc.MvcContext;
 import jakarta.ws.rs.core.SecurityContext;
 import jakarta.xml.bind.DatatypeConverter;
-import lotus.domino.Directory;
-import lotus.domino.DirectoryNavigator;
-import lotus.domino.Name;
 import lotus.domino.NotesException;
 import lotus.domino.Session;
 
@@ -43,25 +39,25 @@ public class UserInfoBean {
 
 	@Inject @Named("dominoSession")
 	private Session session;
-	
+
 	@Inject
 	private SecurityContext securityContext;
-	
+
 	@Inject
 	private MvcContext mvc;
 
 	public String getImageUrl(final String userName) {
-		String email = getEmailAddress(userName);
+		var email = getEmailAddress(userName);
 		if(StringUtil.isEmpty(email)) {
 			email = userName;
 		}
-		
+
 		try {
 			// If found, send them to Gravatar
-			MessageDigest md = MessageDigest.getInstance("MD5");
+			var md = MessageDigest.getInstance("MD5");
 		    md.update(email.getBytes());
-		    byte[] digest = md.digest();
-		    String md5 = DatatypeConverter.printHexBinary(digest).toLowerCase();
+		    var digest = md.digest();
+		    var md5 = DatatypeConverter.printHexBinary(digest).toLowerCase();
 		    return mvc.getBasePath() + "/userPhoto/" + md5;
 		} catch(NoSuchAlgorithmException e) {
 			throw new RuntimeException(e);
@@ -73,15 +69,15 @@ public class UserInfoBean {
 	}
 
 	public boolean isAnonymous() {
-		Principal principal = securityContext.getUserPrincipal();
+		var principal = securityContext.getUserPrincipal();
 		return principal == null || "Anonymous".equalsIgnoreCase(principal.getName());
 	}
 
 	public String getCn() {
-		Principal principal = securityContext.getUserPrincipal();
+		var principal = securityContext.getUserPrincipal();
 		try {
 			if(principal != null) {
-				Name name = session.createName(principal.getName());
+				var name = session.createName(principal.getName());
 				try {
 					return name.getCommon();
 				} finally {
@@ -96,10 +92,10 @@ public class UserInfoBean {
 	}
 
 	public String getDn() {
-		Principal principal = securityContext.getUserPrincipal();
+		var principal = securityContext.getUserPrincipal();
 		try {
 			if(principal != null) {
-				Name name = session.createName(principal.getName());
+				var name = session.createName(principal.getName());
 				try {
 					return name.getCanonical();
 				} finally {
@@ -114,23 +110,23 @@ public class UserInfoBean {
 	}
 
 	public String getEmailAddress() {
-		Principal principal = securityContext.getUserPrincipal();
+		var principal = securityContext.getUserPrincipal();
 		if(principal == null || "anonymous".equalsIgnoreCase(principal.getName())) {
 			return "";
 		}
-		
+
 		return getEmailAddress(principal.getName());
 	}
-	
+
 	private String getEmailAddress(String userName) {
 		if(StringUtil.isEmpty(userName)) {
 			return "";
 		}
-		
+
 		try {
-			Session session = CDI.current().select(Session.class, NamedLiteral.of("dominoSession")).get();
-			Directory dir = session.getDirectory();
-			DirectoryNavigator nav = dir.lookupNames("($Users)", userName, "InternetAddress");
+			var session = CDI.current().select(Session.class, NamedLiteral.of("dominoSession")).get();
+			var dir = session.getDirectory();
+			var nav = dir.lookupNames("($Users)", userName, "InternetAddress");
 			if(nav.findFirstMatch()) {
 				List<?> vals = nav.getFirstItemValue();
 				if(vals != null && !vals.isEmpty()) {
@@ -140,7 +136,7 @@ public class UserInfoBean {
 		} catch(NotesException e) {
 			throw new RuntimeException(e);
 		}
-		
+
 		return "";
 	}
 }

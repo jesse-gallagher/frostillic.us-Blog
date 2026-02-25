@@ -27,7 +27,7 @@ import model.MetaTag;
 public class MetaTagsBean {
 	@Inject
 	private MetaTag.MetaTagRepository metaTags;
-	
+
 	public List<MetaTag> getAll() {
 		return metaTags.findAll().toList();
 	}

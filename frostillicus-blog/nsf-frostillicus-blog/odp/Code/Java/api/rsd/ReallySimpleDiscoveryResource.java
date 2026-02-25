@@ -45,9 +45,9 @@ public class ReallySimpleDiscoveryResource {
 
 	@Context
 	UriInfo uriInfo;
-	
+
 	private Set<Class<?>> serviceClasses;
-	
+
 	@PostConstruct
 	public void init() {
 		serviceClasses = CDI.current().getBeanManager().getBeans(RSD.class)

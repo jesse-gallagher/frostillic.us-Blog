@@ -15,13 +15,11 @@
  */
 package api.atompub;
 
-import java.net.URI;
 import java.util.ResourceBundle;
 import java.util.stream.Stream;
 
 import api.atompub.model.AtomPubCollection;
 import api.atompub.model.AtomPubService;
-import api.atompub.model.Workspace;
 import api.rsd.RSD;
 import api.rsd.RSDService;
 import bean.UrlBean;
@@ -63,14 +61,14 @@ public class AtomPubResource implements RSD {
 	@GET
 	@Produces("application/atomserv+xml")
 	public AtomPubService getWorkspace() {
-		AtomPubService service = new AtomPubService();
-		
-		Workspace workspace = service.getWorkspace();
+		var service = new AtomPubService();
+
+		var workspace = service.getWorkspace();
 		workspace.setTitle(BLOG_ID);
 
 		// Blog posts collection
 		{
-			AtomPubCollection collection = new AtomPubCollection();
+			var collection = new AtomPubCollection();
 			workspace.getCollections().add(collection);
 			collection.setHref(resolveUrl(BLOG_ID));
 			collection.setTitle("Entries"); //$NON-NLS-1$
@@ -79,7 +77,7 @@ public class AtomPubResource implements RSD {
 
 		// Media collection
 		{
-			AtomPubCollection collection = new AtomPubCollection();
+			var collection = new AtomPubCollection();
 			workspace.getCollections().add(collection);
 			collection.setHref(resolveUrl(BLOG_ID, MediaResource.PATH));
 			collection.setTitle("Pictures"); //$NON-NLS-1$
@@ -95,8 +93,8 @@ public class AtomPubResource implements RSD {
 	}
 
 	private String resolveUrl(final String... parts) {
-		URI baseUri = uriInfo.getBaseUri();
-		String uri = urlBean.concat(baseUri.toString(), BASE_PATH);
+		var baseUri = uriInfo.getBaseUri();
+		var uri = urlBean.concat(baseUri.toString(), BASE_PATH);
 		for(String part : parts) {
 			uri = urlBean.concat(uri, part);
 		}

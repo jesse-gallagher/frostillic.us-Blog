@@ -56,7 +56,7 @@ public class TranslationBean {
 			var translation = CDI.current().select(ResourceBundle.class, NamedLiteral.of("translation")).get(); //$NON-NLS-1$
 			return DateFormatSymbols.getInstance(translation.getLocale()).getMonths()[index];
 		}
-		
+
 		public String getFriendlyDate(TemporalAccessor temporal) {
 			var translation = CDI.current().select(ResourceBundle.class, NamedLiteral.of("translation")).get(); //$NON-NLS-1$
 			return DateTimeFormatter.ofPattern(translation.getString("mediumDateFormat"), translation.getLocale()).format(LocalDate.from(temporal)); //$NON-NLS-1$

@@ -35,7 +35,7 @@ public class Webmention {
 		Optional<Webmention> findBySourceAndTypeAndTargetId(String source, String type, String targetId);
 	}
 
-	
+
 	public enum Type {
 		Post
 	}
@@ -52,7 +52,7 @@ public class Webmention {
 	@Column("http_referer") private String httpReferer;
 	@Column("http_user_agent") private String httpUserAgent;
 	@Column("remote_addr") private String httpRemoteAddr;
-	
+
 	public String getId() {
 		return id;
 	}

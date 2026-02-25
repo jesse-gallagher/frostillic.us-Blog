@@ -50,7 +50,7 @@ public class MediaResource {
     public Response get(@PathParam("mediaId") final String mediaId, @PathParam("mediaName") final String mediaName) throws IOException {
     	var media = mediaRepository.findByMediaId(ViewQuery.query().key(mediaId, true)).orElseThrow(NotFoundException::new);
 
-    	String expectedName = mediaName.replace('+', ' ').toLowerCase();
+    	var expectedName = mediaName.replace('+', ' ').toLowerCase();
         var att = media.getAttachments()
         	.stream()
         	.filter(a -> StringUtil.toString(a.getName()).toLowerCase().endsWith(expectedName))

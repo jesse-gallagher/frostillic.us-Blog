@@ -17,9 +17,7 @@ package api.atompub;
 
 import java.net.URI;
 import java.net.URISyntaxException;
-import java.time.Instant;
 import java.time.OffsetDateTime;
-import java.util.List;
 import java.util.ResourceBundle;
 import java.util.stream.Collectors;
 
@@ -71,27 +69,27 @@ public class BlogResource {
 
 	@Inject
 	Post.PostRepository posts;
-	
+
 	@Inject
 	UserInfoBean userInfo;
 
 	@GET
 	@Produces("application/atom+xml")
 	public Feed get(@QueryParam("start") final String startParam) {
-		Feed feed = new Feed();
+		var feed = new Feed();
 		feed.setTitle(translation.getString("appTitle")); //$NON-NLS-1$
 		feed.setSubtitle(translation.getString("appDescription")); //$NON-NLS-1$
 		feed.setId(resolveUrl(AtomPubResource.BLOG_ID));
 		feed.getLinks().add(new Link("alternate", translation.getString("baseUrl"))); //$NON-NLS-1$ //$NON-NLS-2$
 		feed.getLinks().add(new Link("first", resolveUrl(AtomPubResource.BLOG_ID))); //$NON-NLS-1$
-		
+
 		// Figure out the starting point
-		int start = Math.max(PostUtil.parseStartParam(startParam), 0);
-		List<Post> result = posts.homeList(PageRequest.ofPage((start / PAGE_LENGTH) + 1, PAGE_LENGTH, false));
+		var start = Math.max(PostUtil.parseStartParam(startParam), 0);
+		var result = posts.homeList(PageRequest.ofPage((start / PAGE_LENGTH) + 1, PAGE_LENGTH, false));
 
 		if (start + PAGE_LENGTH < PostUtil.getPostCount()) {
 			// Then add nav links
-			Link next = new Link();
+			var next = new Link();
 			next.setRel("next"); //$NON-NLS-1$
 			next.setHref(resolveUrl(AtomPubResource.BLOG_ID) + "?start=" + (start + PAGE_LENGTH)); //$NON-NLS-1$
 			feed.getLinks().add(next);
@@ -108,11 +106,11 @@ public class BlogResource {
 	@Produces("application/atom+xml")
 	public Response post(final Entry entry) throws URISyntaxException {
 
-		Post post = PostUtil.createPost();
+		var post = PostUtil.createPost();
 		post.setPostedBy(userInfo.getDn());
 		updatePost(post, entry);
 
-		Entry result = toEntry(post);
+		var result = toEntry(post);
 		return Response.created(new URI(resolveUrl(AtomPubResource.BLOG_ID, post.getPostId())))
 			.entity(result)
 			.build();
@@ -122,7 +120,7 @@ public class BlogResource {
 	@Path("{entryId}")
 	@Produces("application/atom+xml")
 	public Entry getEntry(@PathParam("entryId") final String postId) {
-		Post post = posts.findByPostId(ViewQuery.query().key(postId, true))
+		var post = posts.findByPostId(ViewQuery.query().key(postId, true))
 				.orElseThrow(() -> new IllegalArgumentException("Unable to find post matching ID " + postId)); //$NON-NLS-1$
 		return toEntry(post);
 	}
@@ -130,7 +128,7 @@ public class BlogResource {
 	@PUT
 	@Path("{entryId}")
 	public Response updateEntry(@PathParam("entryId") final String postId, final Entry entry) {
-		Post post = posts.findByPostId(ViewQuery.query().key(postId, true))
+		var post = posts.findByPostId(ViewQuery.query().key(postId, true))
 				.orElseThrow(() -> new IllegalArgumentException("Unable to find post matching ID " + postId)); //$NON-NLS-1$
 		updatePost(post, entry);
 		return Response.ok().build();
@@ -139,41 +137,41 @@ public class BlogResource {
 	@DELETE
 	@Path("{entryId}")
 	public Response deleteEntry(@PathParam("entryId") final String postId) {
-		Post post = posts.findByPostId(ViewQuery.query().key(postId, true))
+		var post = posts.findByPostId(ViewQuery.query().key(postId, true))
 				.orElseThrow(() -> new IllegalArgumentException("Unable to find post matching ID " + postId)); //$NON-NLS-1$
 		posts.deleteById(post.getId());
 		return Response.ok().build();
 	}
 
 	private Entry toEntry(final Post post) {
-		Entry entry = new Entry();
+		var entry = new Entry();
 		entry.setAuthor(new Author(post.getPostedBy()));
 		entry.setTitle(post.getTitle());
 		entry.setPublished(post.getPosted().toInstant());
-		Instant mod = post.getModified().toInstant();
+		var mod = post.getModified().toInstant();
 		entry.setUpdated(mod == null ? entry.getPublished() : mod);
 		entry.setTitle(StringUtil.toString(post.getTitle()));
 		if (post.getStatus() == Post.Status.Draft) {
 			entry.setControl(new Control("yes")); //$NON-NLS-1$
 		}
 
-		String bodyMarkdown = post.getBodyMarkdown();
+		var bodyMarkdown = post.getBodyMarkdown();
 
 		if (StringUtil.isNotEmpty(bodyMarkdown)) {
-			Content markdown = new Content();
+			var markdown = new Content();
 			markdown.setType("text/markdown"); //$NON-NLS-1$
 			markdown.setValue(bodyMarkdown);
 			entry.setContent(markdown);
 		} else {
-			Content content = new Content();
+			var content = new Content();
 			content.setType(MediaType.TEXT_HTML);
 			content.setValue(post.getBodyHtml());
 			entry.setContent(content);
 		}
-		
-		String summary = post.getSummary();
+
+		var summary = post.getSummary();
 		if(StringUtil.isNotEmpty(summary)) {
-			Summary summaryElement = new Summary();
+			var summaryElement = new Summary();
 			summaryElement.setType(MediaType.TEXT_PLAIN);
 			summaryElement.setBody(summary);
 			entry.setSummary(summaryElement);
@@ -187,11 +185,11 @@ public class BlogResource {
 		}
 
 		// Add links
-		Link read = new Link();
-		String postsRoot = PostController.class.getAnnotation(Path.class).value();
+		var read = new Link();
+		var postsRoot = PostController.class.getAnnotation(Path.class).value();
 		read.setHref(resolveUrlRoot(postsRoot, post.getPostId()));
 		entry.getLinks().add(read);
-		Link edit = new Link();
+		var edit = new Link();
 		edit.setHref(resolveUrl(AtomPubResource.BLOG_ID, post.getPostId()));
 		edit.setRel("edit"); //$NON-NLS-1$
 		entry.getLinks().add(edit);
@@ -200,17 +198,17 @@ public class BlogResource {
 	}
 
 	private void updatePost(final Post post, final Entry entry) {
-		boolean posted = true;
+		var posted = true;
 		if(entry.getControl() != null) {
 			posted = !"yes".equals(entry.getControl().getDraft()); //$NON-NLS-1$
 		}
 		post.setTitle(entry.getTitle());
 		post.setBodyMarkdown(entry.getContent().getValue());
-		Summary summary = entry.getSummary();
+		var summary = entry.getSummary();
 		if(summary != null) {
 			post.setSummary(summary.getBody());
 		}
-		List<AtomCategory> categories = entry.getCategories();
+		var categories = entry.getCategories();
 		if(categories != null) {
 			post.setTags(categories.stream().map(AtomCategory::getTerm).collect(Collectors.toList()));
 		}
@@ -220,8 +218,8 @@ public class BlogResource {
 	}
 
 	private String resolveUrl(final String... parts) {
-		URI baseUri = uriInfo.getBaseUri();
-		String uri = PathUtil.concat(baseUri.toString(), AtomPubResource.BASE_PATH, '/');
+		var baseUri = uriInfo.getBaseUri();
+		var uri = PathUtil.concat(baseUri.toString(), AtomPubResource.BASE_PATH, '/');
 		for (String part : parts) {
 			uri = PathUtil.concat(uri, part, '/');
 		}
@@ -229,8 +227,8 @@ public class BlogResource {
 	}
 
 	private String resolveUrlRoot(final String... parts) {
-		URI baseUri = uriInfo.getBaseUri();
-		String uri = baseUri.toString();
+		var baseUri = uriInfo.getBaseUri();
+		var uri = baseUri.toString();
 		for (String part : parts) {
 			uri = PathUtil.concat(uri, part, '/');
 		}

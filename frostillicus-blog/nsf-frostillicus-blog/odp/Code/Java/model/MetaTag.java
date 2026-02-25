@@ -31,6 +31,7 @@ public record MetaTag(
 	@Column boolean isConflict
 ) {
 	public interface MetaTagRepository extends DominoRepository<MetaTag, String> {
+		@Override
 		Stream<MetaTag> findAll();
 	}
 }

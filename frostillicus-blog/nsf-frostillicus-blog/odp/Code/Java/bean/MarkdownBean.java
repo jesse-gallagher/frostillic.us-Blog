@@ -27,7 +27,6 @@ import org.commonmark.parser.Parser;
 import org.commonmark.renderer.NodeRenderer;
 import org.commonmark.renderer.html.HtmlNodeRendererContext;
 import org.commonmark.renderer.html.HtmlRenderer;
-import org.commonmark.renderer.html.HtmlWriter;
 
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
@@ -52,7 +51,7 @@ public class MarkdownBean {
 	private SyntaxHighlighter syntaxHighlighter;
 
 	public String toHtml(final String text) {
-		Node parsed = markdown.parse(text);
+		var parsed = markdown.parse(text);
 		return markdownHtml.render(parsed);
 	}
 
@@ -75,14 +74,14 @@ public class MarkdownBean {
 
 		@Override
 		public void visit(final FencedCodeBlock fencedCodeBlock) {
-			HtmlWriter html = context.getWriter();
+			var html = context.getWriter();
 			html.line();
 
-			String literal = fencedCodeBlock.getLiteral();
+			var literal = fencedCodeBlock.getLiteral();
 			Map<String, String> attributes = new LinkedHashMap<>();
-			String info = fencedCodeBlock.getInfo();
+			var info = fencedCodeBlock.getInfo();
 			if (info != null && !info.isEmpty()) {
-				int space = info.indexOf(" "); //$NON-NLS-1$
+				var space = info.indexOf(" "); //$NON-NLS-1$
 				String language;
 				if (space == -1) {
 					language = info;

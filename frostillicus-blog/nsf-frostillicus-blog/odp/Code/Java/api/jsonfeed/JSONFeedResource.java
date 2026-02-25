@@ -116,7 +116,7 @@ public class JSONFeedResource {
 			this.items = items;
 		}
 	}
-	
+
 	public static class FeedItem {
 		String id;
 		@JsonbProperty("content_html") String contentHtml;
@@ -126,7 +126,7 @@ public class JSONFeedResource {
 		@JsonbProperty("date_modified") OffsetDateTime modified;
 		List<String> tags;
 		String title;
-		
+
 		public String getId() {
 			return id;
 		}

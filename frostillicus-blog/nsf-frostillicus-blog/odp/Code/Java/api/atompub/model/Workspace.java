@@ -26,7 +26,7 @@ import jakarta.xml.bind.annotation.XmlRootElement;
 public class Workspace {
 	private String title;
 	private List<AtomPubCollection> collections = new ArrayList<>();
-	
+
 	@XmlElement(namespace=AtomPubService.NS_ATOM)
 	public String getTitle() {
 		return title;

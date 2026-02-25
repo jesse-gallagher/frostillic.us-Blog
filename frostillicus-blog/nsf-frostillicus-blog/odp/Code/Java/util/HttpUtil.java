@@ -83,7 +83,7 @@ public enum HttpUtil {
 			wr.flush();
 		}
 
-		StringBuilder response = new StringBuilder();
+		var response = new StringBuilder();
 		try (var is = conn.getInputStream()) {
 			try (var reader = new BufferedReader(new InputStreamReader(is))) {
 				while (reader.ready()) {

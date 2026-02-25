@@ -9,10 +9,10 @@ import jakarta.ws.rs.Produces;
 
 @Path("userPhoto")
 public class UserPhotoResource {
-	
+
 	@Inject
 	private UserPhotoBean photoBean;
-	
+
 	@Path("{hash}")
 	@GET
 	@Produces("image/png")

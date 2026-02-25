@@ -32,6 +32,7 @@ public record AccessToken(
 	@Column String token
 ) {
 	public interface AccessTokenRepository extends DominoRepository<AccessToken, String> {
+		@Override
 		Stream<AccessToken> findAll();
 
 		Optional<AccessToken> findByToken(String token);

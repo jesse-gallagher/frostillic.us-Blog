@@ -43,7 +43,7 @@ import model.Post;
 public class CommentController {
 	@Inject
 	Post.PostRepository posts;
-	
+
 	@Inject
 	Comment.CommentRepository comments;
 

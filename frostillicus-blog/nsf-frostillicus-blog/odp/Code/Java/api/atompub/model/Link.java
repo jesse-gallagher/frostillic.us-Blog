@@ -23,7 +23,7 @@ public class Link {
 	private String editMedia;
 	private String rel;
 	private String href;
-	
+
 	public Link() {
 	}
 	public Link(String rel, String href) {

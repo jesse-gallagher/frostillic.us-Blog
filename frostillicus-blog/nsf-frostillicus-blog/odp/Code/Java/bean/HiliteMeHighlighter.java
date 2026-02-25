@@ -35,7 +35,7 @@ public class HiliteMeHighlighter implements SyntaxHighlighter {
 			@FormParam("linenos") boolean lineNos,
 			@FormParam("style") String style
 		);
-		
+
 		@Override
 		void close();
 	}

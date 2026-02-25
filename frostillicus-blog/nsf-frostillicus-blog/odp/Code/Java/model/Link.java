@@ -37,6 +37,7 @@ public record Link(
 	@Column String classes
 ) {
 	public interface LinkRepository extends DominoRepository<Link, String> {
+		@Override
 		Stream<Link> findAll();
 
 		// TODO implement view

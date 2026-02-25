@@ -29,7 +29,7 @@ public class AtomPubCollection {
 	private String title;
 	private List<String> accept = new ArrayList<>();
 	private CategoriesRef categories;
-	
+
 	@XmlAttribute
 	public String getHref() {
 		return href;
@@ -59,7 +59,7 @@ public class AtomPubCollection {
 		this.categories = categories;
 	}
 	public void setCategoriesHref(String url) {
-		CategoriesRef categories = new CategoriesRef();
+		var categories = new CategoriesRef();
 		categories.setHref(url);
 		this.categories = categories;
 	}
