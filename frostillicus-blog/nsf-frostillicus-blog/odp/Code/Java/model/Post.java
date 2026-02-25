@@ -24,6 +24,7 @@ import java.util.stream.Stream;
 
 import org.eclipse.jnosql.mapping.EntityPrePersist;
 import org.openntf.xsp.jakarta.nosql.communication.driver.DominoConstants;
+import org.openntf.xsp.jakarta.nosql.mapping.extension.BooleanStorage;
 import org.openntf.xsp.jakarta.nosql.mapping.extension.DominoRepository;
 import org.openntf.xsp.jakarta.nosql.mapping.extension.ItemFlags;
 import org.openntf.xsp.jakarta.nosql.mapping.extension.ItemStorage;
@@ -104,7 +105,7 @@ public class Post {
 	@Column private String name;
 	@Column(DominoConstants.FIELD_MDATE) private OffsetDateTime modified;
 	@Column private String modifiedBy;
-	@Column private boolean hasGoneLive;
+	@Column @BooleanStorage(type=BooleanStorage.Type.DOUBLE) private boolean hasGoneLive;
 	@Column private String summary;
 	@Column("$PostMonth") @ItemStorage(insertable = false) private String postMonth;
 	@Column @ItemFlags(readers = true) private List<String> readers;
