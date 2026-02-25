@@ -22,7 +22,6 @@ import java.util.List;
 import java.util.Optional;
 import java.util.stream.Stream;
 
-import org.eclipse.jnosql.mapping.EntityPrePersist;
 import org.openntf.xsp.jakarta.nosql.communication.driver.DominoConstants;
 import org.openntf.xsp.jakarta.nosql.mapping.extension.BooleanStorage;
 import org.openntf.xsp.jakarta.nosql.mapping.extension.DominoRepository;
@@ -34,18 +33,12 @@ import org.openntf.xsp.jakarta.nosql.mapping.extension.ViewQuery;
 
 import com.ibm.commons.util.StringUtil;
 
-import bean.MarkdownBean;
 import jakarta.data.page.PageRequest;
-import jakarta.enterprise.event.Event;
-import jakarta.enterprise.event.Observes;
 import jakarta.enterprise.inject.spi.CDI;
-import jakarta.inject.Inject;
 import jakarta.nosql.Column;
 import jakarta.nosql.Entity;
 import jakarta.nosql.Id;
 import jakarta.validation.constraints.NotNull;
-import model.event.PostEvent;
-import model.event.PostEvent.Type;
 
 @Entity
 public class Post {
@@ -109,51 +102,6 @@ public class Post {
 	@Column private String summary;
 	@Column("$PostMonth") @ItemStorage(insertable = false) private String postMonth;
 	@Column @ItemFlags(readers = true) private List<String> readers;
-
-	@Inject private Event<PostEvent> postEvent;
-
-	void querySave(@Observes final EntityPrePersist entity) {
-		if(!(entity.get() instanceof Post)) {
-			return;
-		}
-		Post post = (Post)entity.get();
-
-		// Auto-generate a slug if not already present
-		if(StringUtil.isEmpty(post.getName()) && post.getStatus() == Status.Posted) {
-			PostRepository posts = CDI.current().select(PostRepository.class).get();
-
-			String baseName = StringUtil.toString(post.getTitle()).toLowerCase()
-					.replaceAll("[^\\w]", "-") //$NON-NLS-1$ //$NON-NLS-2$
-					.replaceAll("--+", "-"); //$NON-NLS-1$ //$NON-NLS-2$
-			int dedupe = 1;
-			String name = baseName;
-
-			Optional<Post> existing = posts.findByName(name);
-			String id = post.getId();
-			while(existing.isPresent() && (StringUtil.isEmpty(id) || !StringUtil.equals(id, existing.get().getId()))) {
-				name = baseName + ++dedupe;
-				existing = posts.findByName(name);
-			}
-
-			post.setName(name);
-		}
-
-		// Update the calculated HTML body
-		MarkdownBean markdown = CDI.current().select(MarkdownBean.class).get();
-		post.setBodyHtml(markdown.toHtml(StringUtil.toString(post.getBodyMarkdown())));
-
-		// Set the posted time if this is the first time it's posted or has gone live
-		if(post.posted == null || post.status == Status.Posted && !post.hasGoneLive) {
-			post.setPosted(OffsetDateTime.now());
-		}
-		if(post.status == Status.Posted && !post.hasGoneLive) {
-			post.setHasGoneLive(true);
-
-			postEvent.fire(new PostEvent(this, Type.PUBLISH));
-		} else if(post.status == Status.Posted) {
-			postEvent.fire(new PostEvent(this, Type.UPDATE));
-		}
-	}
 
 	// *******************************************************************************
 	// * Utility getters
