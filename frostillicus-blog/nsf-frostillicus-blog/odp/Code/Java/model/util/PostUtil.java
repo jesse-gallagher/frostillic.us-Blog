@@ -90,7 +90,7 @@ public enum PostUtil {
     public static String toCn(final String dn) {
 		if(StringUtil.isNotEmpty(dn)) {
 			try {
-				LdapName name = new LdapName(dn);
+				LdapName name = new LdapName(dn.replace('/', ','));
 				for(int i = name.size()-1; i >= 0; i--) {
 					String bit = name.get(i);
 					if(bit.toLowerCase().startsWith("cn=")) { //$NON-NLS-1$

@@ -95,7 +95,7 @@ public class Post {
 	@Column private String postId;
 	@Column("$$TITLE") private String title;
 	@Column @NotNull private OffsetDateTime posted;
-	@Column private String postedBy;
+	@Column("$$Creator") private String postedBy;
 	@Column private String bodyMarkdown;
 	@Column("Body") @ItemStorage(type = ItemStorage.Type.MIME) private String bodyHtml;
 	@Column("Tags") private List<String> tags;
