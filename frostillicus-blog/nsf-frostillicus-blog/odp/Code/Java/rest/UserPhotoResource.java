@@ -6,6 +6,8 @@ import jakarta.ws.rs.GET;
 import jakarta.ws.rs.Path;
 import jakarta.ws.rs.PathParam;
 import jakarta.ws.rs.Produces;
+import jakarta.ws.rs.core.CacheControl;
+import jakarta.ws.rs.core.Response;
 
 @Path("userPhoto")
 public class UserPhotoResource {
@@ -16,8 +18,13 @@ public class UserPhotoResource {
 	@Path("{hash}")
 	@GET
 	@Produces("image/png")
-	public byte[] get(@PathParam("hash") String hash) {
-		// TODO provide cache headers
-		return photoBean.getThumbnailData(hash);
+	public Response get(@PathParam("hash") String hash) {
+		var cache = new CacheControl();
+		cache.setNoTransform(true);
+		cache.setMaxAge(432000);
+		
+		return Response.ok(photoBean.getThumbnailData(hash))
+			.cacheControl(cache)
+			.build();
 	}
 }

@@ -35,6 +35,7 @@ import com.ibm.commons.util.StringUtil;
 
 import jakarta.data.page.PageRequest;
 import jakarta.enterprise.inject.spi.CDI;
+import jakarta.json.bind.annotation.JsonbTransient;
 import jakarta.nosql.Column;
 import jakarta.nosql.Entity;
 import jakarta.nosql.Id;
@@ -102,6 +103,7 @@ public class Post {
 	@Column private String summary;
 	@Column("$PostMonth") @ItemStorage(insertable = false) private String postMonth;
 	@Column @ItemFlags(readers = true) private List<String> readers;
+	@Column("$darwinoUnid") private String darwinoUnid;
 
 	// *******************************************************************************
 	// * Utility getters
@@ -282,5 +284,30 @@ public class Post {
 	}
 	public void setReaders(List<String> readers) {
 		this.readers = readers;
+	}
+	
+	public String getDarwinoUnid() {
+		return darwinoUnid;
+	}
+	public void setDarwinoUnid(String darwinoUnid) {
+		this.darwinoUnid = darwinoUnid;
+	}
+	
+	/**
+	 * Determines the appropriate unique ID for the post, such as
+	 * for RSS usage. This is based on several historical post IDs
+	 * from past iterations of the blog.
+	 * 
+	 * @return a useful unique identifier for the post
+	 */
+	@JsonbTransient
+	public String getPostGuid() {
+		if(StringUtil.isNotEmpty(darwinoUnid)) {
+			return darwinoUnid;
+		} else if(StringUtil.isNotEmpty(postId)) {
+			return postId;
+		} else {
+			return id;
+		}
 	}
 }
